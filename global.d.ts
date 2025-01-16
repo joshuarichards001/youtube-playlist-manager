@@ -19,6 +19,8 @@ type Video = {
   thumbnail: string;
   resourceId: string;
   duration: string;
+  viewCount: string;
+  releaseDate: string;
 };
 
 type YouTubeVideo = {
@@ -28,6 +30,14 @@ type YouTubeVideo = {
     videoOwnerChannelTitle: string;
     thumbnails: { default: { url: string } };
     resourceId: { videoId: string };
+    publishedAt: string;
   };
   contentDetails: { duration: string };
+  statistics: { viewCount: string };
+};
+
+type YouTubeVideoDetails = {
+  duration: string;
+  releaseDate: string;
+  viewCount: number;
 };

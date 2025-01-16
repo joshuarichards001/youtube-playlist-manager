@@ -67,9 +67,17 @@ export default function Videos() {
                   </div>
                   <div className="flex flex-col pl-2 gap-2">
                     <p>{video.title}</p>
-                    <p className="text-xs text-base-content/70">
-                      {video.channel}
-                    </p>
+                    <div className="flex flex-row gap-4">
+                      <p className="text-xs text-base-content/70">
+                        {video.channel}
+                      </p>
+                      <p className="text-xs text-base-content/70">
+                        {video.viewCount.toLocaleString()} views
+                      </p>
+                      <p className="text-xs text-base-content/70">
+                        {new Date(video.releaseDate).toLocaleDateString()}
+                      </p>
+                    </div>
                   </div>
                 </div>
                 <input type="checkbox" className="checkbox checkbox-lg mr-6" />

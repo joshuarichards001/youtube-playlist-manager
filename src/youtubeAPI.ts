@@ -42,7 +42,7 @@ export const fetchVideosAPI = async (
         params: {
           part: "snippet",
           playlistId: playlist.id,
-          maxResults: 20,
+          maxResults: 1000,
         },
       }
     );
@@ -58,7 +58,7 @@ export const fetchVideosAPI = async (
           Authorization: `Bearer ${accessToken}`,
         },
         params: {
-          part: "contentDetails",
+          part: "contentDetails,snippet,statistics",
           id: videoIds,
         },
       }
@@ -67,18 +67,34 @@ export const fetchVideosAPI = async (
     const videoDetailsMap = new Map(
       videoDetails.data.items.map((video: YouTubeVideo) => [
         video.id,
-        video.contentDetails.duration,
+        {
+          duration: video.contentDetails.duration,
+          releaseDate: video.snippet.publishedAt,
+          viewCount: Number(video.statistics.viewCount),
+        },
       ])
     );
 
-    return result.data.items.map((video: YouTubeVideo) => ({
-      id: video.id,
-      title: video.snippet.title,
-      channel: video.snippet.videoOwnerChannelTitle,
-      thumbnail: video.snippet.thumbnails.default?.url,
-      resourceId: video.snippet.resourceId.videoId,
-      duration: videoDetailsMap.get(video.snippet.resourceId.videoId),
-    }));
+    return result.data.items.map((video: YouTubeVideo) => {
+      const details = videoDetailsMap.get(
+        video.snippet.resourceId.videoId
+      ) as YouTubeVideoDetails;
+
+      if (!details) {
+        return null;
+      }
+
+      return {
+        id: video.id,
+        title: video.snippet.title,
+        channel: video.snippet.videoOwnerChannelTitle,
+        thumbnail: video.snippet.thumbnails.default?.url,
+        resourceId: video.snippet.resourceId.videoId,
+        duration: details.duration,
+        releaseDate: details.releaseDate,
+        viewCount: details.viewCount,
+      };
+    });
   } catch (error) {
     console.error("Error fetching videos:", error);
     return [];
