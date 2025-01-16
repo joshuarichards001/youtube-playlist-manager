@@ -1,4 +1,5 @@
 import { create } from 'zustand'
+import { devtools } from 'zustand/middleware'
 
 interface State {
   playlists: Playlist[];
@@ -14,7 +15,8 @@ interface State {
   setAccessToken: (accessToken: string | null) => void;
 }
 
-const useStore = create<State>((set) => ({
+// @ts-expect-error-next-line
+const useStore = create<State>(devtools((set) => ({
   playlists: [],
   setPlaylists: (playlists) => set({ playlists }),
 
@@ -26,6 +28,6 @@ const useStore = create<State>((set) => ({
   
   accessToken: null,
   setAccessToken: (accessToken) => set({ accessToken }),
-}))
+})))
 
 export default useStore;
