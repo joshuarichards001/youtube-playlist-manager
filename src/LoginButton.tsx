@@ -22,6 +22,9 @@ export default function LoginButton() {
     onError: () => {
       console.error("Login Failed");
     },
+    scope:
+      "https://www.googleapis.com/auth/youtube.readonly https://www.googleapis.com/auth/youtube.force-ssl",
+    prompt: "consent",
   });
 
   if (accessToken) {

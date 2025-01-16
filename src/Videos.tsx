@@ -6,6 +6,18 @@ type Props = {
 
 export default function Videos({ playlistName }: Props) {
   const videos = useStore((state) => state.videos);
+  const selectedPlaylist = useStore((state) => state.selectedPlaylist);
+
+  const handleDragStart = (e: React.DragEvent, video: Video) => {
+    e.dataTransfer.setData(
+      "video",
+      JSON.stringify({
+        videoId: video.snippet.resourceId.videoId,
+        sourcePlaylistId: selectedPlaylist?.id,
+        videoItemId: video.id,
+      })
+    );
+  };
 
   return (
     <>
@@ -18,6 +30,7 @@ export default function Videos({ playlistName }: Props) {
                 className="flex flex-row cursor-move hover:bg-base-200 p-2 rounded-lg justify-between items-center w-full"
                 key={video.id}
                 draggable
+                onDragStart={(e) => handleDragStart(e, video)}
               >
                 <div className="flex flex-row">
                   <img

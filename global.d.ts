@@ -14,6 +14,9 @@ type Video = {
       default: {
         url: string
       }
+    },
+    resourceId: {
+      videoId: string
     }
   }
 }
