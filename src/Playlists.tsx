@@ -53,41 +53,37 @@ export default function Playlists() {
     setVideos(updatedVideos);
 
     try {
-      // Add video to target playlist
-      await axios.post(
-        "https://www.googleapis.com/youtube/v3/playlistItems",
-        {
-          snippet: {
-            playlistId: targetPlaylistId,
-            resourceId: {
-              kind: "youtube#video",
-              videoId: videoId,
+      await Promise.all([
+        axios.post(
+          "https://www.googleapis.com/youtube/v3/playlistItems",
+          {
+            snippet: {
+              playlistId: targetPlaylistId,
+              resourceId: {
+                kind: "youtube#video",
+                videoId: videoId,
+              },
             },
           },
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-            "Content-Type": "application/json",
-          },
-          params: {
-            part: "snippet",
-          },
-        }
-      );
-
-      // Remove video from source playlist
-      await axios.delete(
-        "https://www.googleapis.com/youtube/v3/playlistItems",
-        {
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+              "Content-Type": "application/json",
+            },
+            params: {
+              part: "snippet",
+            },
+          }
+        ),
+        axios.delete("https://www.googleapis.com/youtube/v3/playlistItems", {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
           params: {
             id: videoItemId,
           },
-        }
-      );
+        }),
+      ]);
     } catch (error) {
       console.error("Error moving video:", error);
       setVideos(previousVideos);
