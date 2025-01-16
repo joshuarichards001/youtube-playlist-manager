@@ -17,6 +17,13 @@ export default function Videos({ playlistName }: Props) {
         videoItemId: video.id,
       })
     );
+
+    const dragImage = document.createElement("img");
+    dragImage.style.position = "absolute";
+    dragImage.style.top = "-9999px";
+    dragImage.style.left = "-9999px";
+    dragImage.src = video.snippet.thumbnails.default.url;
+    e.dataTransfer.setDragImage(dragImage, 20, 20);
   };
 
   return (
