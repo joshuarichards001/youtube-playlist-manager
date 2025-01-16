@@ -1,3 +1,5 @@
+declare module "*.css";
+
 type Playlist = {
   id: string;
   title: string;
