@@ -1,11 +1,13 @@
+import useStore from "./store";
 import Video from "./Video";
 
 type Props = {
   playlistName: string;
-  videos: Video[];
 };
 
-export default function Videos({ playlistName, videos }: Props) {
+export default function Videos({ playlistName }: Props) {
+  const videos = useStore((state) => state.videos);
+
   return (
     <>
       {videos.length > 0 && (

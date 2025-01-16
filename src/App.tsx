@@ -1,11 +1,11 @@
-import Playlists from "./Playlists";
+import Home from "./Home";
 import Nav from "./Nav";
 
 const App = () => {
   return (
     <main>
       <Nav />
-      <Playlists />
+      <Home />
     </main>
   );
 };
