@@ -1,5 +1,5 @@
 import useStore from "./store";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   addVideoToPlaylistAPI,
   deleteVideoFromPlaylistAPI,
@@ -16,32 +16,37 @@ export default function Playlists() {
   const setPlaylists = useStore((state) => state.setPlaylists);
   const [dragOverId, setDragOverId] = useState<string | null>(null);
 
+  const fetchVideos = useCallback(
+    async (playlist: Playlist) => {
+      if (!accessToken) {
+        console.error("No access token available.");
+        return;
+      }
+
+      try {
+        setSelectedPlaylist(playlist);
+        const videos = await fetchVideosAPI(accessToken, playlist);
+        setVideos(videos);
+      } catch (error) {
+        console.error("Error fetching videos:", error);
+      }
+    },
+    [accessToken, setSelectedPlaylist, setVideos]
+  );
+
   useEffect(() => {
     if (accessToken) {
       try {
-        fetchPlaylistsAPI(accessToken).then((playlists) =>
-          setPlaylists(playlists)
-        );
+        fetchPlaylistsAPI(accessToken).then((playlists) => {
+          setPlaylists(playlists);
+          setSelectedPlaylist(playlists[0]);
+          fetchVideos(playlists[0]);
+        });
       } catch (error) {
         console.error("Error fetching playlists:", error);
       }
     }
-  }, [accessToken, setPlaylists]);
-
-  const fetchVideos = async (playlist: Playlist) => {
-    if (!accessToken) {
-      console.error("No access token available.");
-      return;
-    }
-
-    try {
-      setSelectedPlaylist(playlist);
-      const videos = await fetchVideosAPI(accessToken, playlist);
-      setVideos(videos);
-    } catch (error) {
-      console.error("Error fetching videos:", error);
-    }
-  };
+  }, [accessToken, setPlaylists, setSelectedPlaylist, fetchVideos]);
 
   const handleDrop = async (e: React.DragEvent, targetPlaylistId: string) => {
     e.preventDefault();
@@ -90,6 +95,10 @@ export default function Playlists() {
     setDragOverId(null);
   };
 
+  const truncateTitle = (title: string, maxLength: number) => {
+    return title.length > maxLength ? title.substring(0, maxLength) + "..." : title;
+  };  
+
   return (
     <>
       {playlists.length > 0 && (
@@ -110,7 +119,7 @@ export default function Playlists() {
                 }`}
                 onClick={() => fetchVideos(playlist)}
               >
-                <p>{playlist.title}</p>
+                <p>{truncateTitle(playlist.title, 20)}</p>
                 <p className="text-xs text-base-content/70">
                   {playlist.videoCount} videos
                 </p>

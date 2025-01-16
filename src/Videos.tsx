@@ -1,10 +1,6 @@
 import useStore from "./store";
 
-type Props = {
-  playlistName: string;
-};
-
-export default function Videos({ playlistName }: Props) {
+export default function Videos() {
   const videos = useStore((state) => state.videos);
   const selectedPlaylist = useStore((state) => state.selectedPlaylist);
 
@@ -30,7 +26,7 @@ export default function Videos({ playlistName }: Props) {
     <>
       {videos.length > 0 && (
         <div>
-          <h2 className="font-bold text-xl mb-4">{playlistName}</h2>
+          <h2 className="font-bold text-xl mb-4">{selectedPlaylist?.title}</h2>
           <ul className="flex flex-col">
             {videos.map((video) => (
               <li
