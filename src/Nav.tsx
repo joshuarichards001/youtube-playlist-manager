@@ -2,7 +2,7 @@ export default function Nav() {
   return (
     <nav className="navbar bg-base-200">
       <div className="flex-1">
-        <a className="btn btn-ghost text-xl" href="/">YouTube Playlist Manager</a>
+        <a className="btn btn-ghost text-red-600 text-xl" href="/">YouTube Playlist Manager</a>
       </div>
       <div role="button" className="btn btn-ghost btn-circle avatar">
         <div className="w-10 rounded-full">

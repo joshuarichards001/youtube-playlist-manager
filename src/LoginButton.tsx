@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useGoogleLogin } from "@react-oauth/google";
+import Cookies from "js-cookie";
 import useStore from "./store";
 
 export default function LoginButton() {
@@ -7,7 +8,7 @@ export default function LoginButton() {
   const setAccessToken = useStore((state) => state.setAccessToken);
 
   useEffect(() => {
-    const token = localStorage.getItem("accessToken");
+    const token = Cookies.get("accessToken");
     if (token) {
       setAccessToken(token);
     }
@@ -16,8 +17,10 @@ export default function LoginButton() {
   const login = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
       const token = tokenResponse.access_token;
+      const expiresIn = tokenResponse.expires_in / 60 / 60 / 24;
+
       setAccessToken(token);
-      localStorage.setItem("accessToken", token);
+      Cookies.set("accessToken", token, { expires: expiresIn });
     },
     onError: () => {
       console.error("Login Failed");
