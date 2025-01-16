@@ -17,11 +17,13 @@ export const fetchPlaylistsAPI = async (
         },
       }
     );
-    return result.data.items.map((playlist: any) => ({
-      id: playlist.id,
-      title: playlist.snippet.title,
-      videoCount: playlist.contentDetails.itemCount,
-    }));
+    return result.data.items.map(
+      (playlist: YouTubePlaylist) => ({
+        id: playlist.id,
+        title: playlist.snippet.title,
+        videoCount: playlist.contentDetails.itemCount,
+      })
+    );
   } catch (error) {
     console.error("Error fetching playlists:", error);
     return [];
@@ -47,13 +49,15 @@ export const fetchVideosAPI = async (
       }
     );
 
-    return result.data.items.map((video: any) => ({
-      id: video.id,
-      title: video.snippet.title,
-      channel: video.snippet.videoOwnerChannelTitle,
-      thumbnail: video.snippet.thumbnails.default.url,
-      resourceId: video.snippet.resourceId.videoId,
-    }));
+    return result.data.items.map(
+      (video: YouTubeVideo) => ({
+        id: video.id,
+        title: video.snippet.title,
+        channel: video.snippet.videoOwnerChannelTitle,
+        thumbnail: video.snippet.thumbnails.default.url,
+        resourceId: video.snippet.resourceId.videoId,
+      })
+    );
   } catch (error) {
     console.error("Error fetching videos:", error);
   }
