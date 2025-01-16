@@ -23,6 +23,9 @@ export default function Videos() {
   };
 
   const formatDuration = (duration: string): string => {
+    if (!duration) {
+      return "0:00";
+    }
     const match = duration.match(/PT(\d+H)?(\d+M)?(\d+S)?/);
     if (!match) {
       return "0:00";
@@ -54,7 +57,7 @@ export default function Videos() {
                 <div className="flex flex-row">
                   <div className="relative">
                     <img
-                      className="rounded-md h-20"
+                      className="rounded-md h-[66px] w-[120px] object-cover"
                       src={video.thumbnail}
                       alt={video.title}
                     />
