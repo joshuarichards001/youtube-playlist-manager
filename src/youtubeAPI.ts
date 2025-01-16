@@ -13,7 +13,7 @@ export const fetchPlaylistsAPI = async (
         params: {
           part: "snippet,contentDetails",
           mine: true,
-          maxResults: 100,
+          maxResults: 1000,
         },
       }
     );
@@ -42,7 +42,7 @@ export const fetchVideosAPI = async (
         params: {
           part: "snippet",
           playlistId: playlist.id,
-          maxResults: 100,
+          maxResults: 20,
         },
       }
     );
