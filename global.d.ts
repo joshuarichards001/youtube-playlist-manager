@@ -6,16 +6,8 @@ type Playlist = {
 
 type Video = {
   id: string
-  snippet: {
-    title: string
-    videoOwnerChannelTitle: string
-    thumbnails: {
-      default: {
-        url: string
-      }
-    },
-    resourceId: {
-      videoId: string
-    }
-  }
+  title: string
+  channel: string
+  thumbnail: string
+  resourceId: string
 }

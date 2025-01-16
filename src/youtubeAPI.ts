@@ -47,7 +47,13 @@ export const fetchVideosAPI = async (
       }
     );
 
-    return result.data.items;
+    return result.data.items.map((video: any) => ({
+      id: video.id,
+      title: video.snippet.title,
+      channel: video.snippet.videoOwnerChannelTitle,
+      thumbnail: video.snippet.thumbnails.default.url,
+      resourceId: video.snippet.resourceId.videoId,
+    }));
   } catch (error) {
     console.error("Error fetching videos:", error);
   }

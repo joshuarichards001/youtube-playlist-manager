@@ -12,7 +12,7 @@ export default function Videos({ playlistName }: Props) {
     e.dataTransfer.setData(
       "video",
       JSON.stringify({
-        videoId: video.snippet.resourceId.videoId,
+        videoId: video.resourceId,
         sourcePlaylistId: selectedPlaylist?.id,
         videoItemId: video.id,
       })
@@ -22,7 +22,7 @@ export default function Videos({ playlistName }: Props) {
     dragImage.style.position = "absolute";
     dragImage.style.top = "-9999px";
     dragImage.style.left = "-9999px";
-    dragImage.src = video.snippet.thumbnails.default.url;
+    dragImage.src = video.thumbnail;
     e.dataTransfer.setDragImage(dragImage, 20, 20);
   };
 
@@ -42,13 +42,13 @@ export default function Videos({ playlistName }: Props) {
                 <div className="flex flex-row">
                   <img
                     className="rounded-md h-20"
-                    src={video.snippet.thumbnails.default.url}
-                    alt={video.snippet.title}
+                    src={video.thumbnail}
+                    alt={video.title}
                   />
                   <div className="flex flex-col pl-2 gap-2">
-                    <p>{video.snippet.title}</p>
+                    <p>{video.title}</p>
                     <p className="text-xs text-base-content/70">
-                      {video.snippet.videoOwnerChannelTitle}
+                      {video.channel}
                     </p>
                   </div>
                 </div>
