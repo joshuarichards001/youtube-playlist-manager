@@ -46,6 +46,12 @@ export default function Playlists() {
 
     if (sourcePlaylistId === targetPlaylistId) return;
 
+    const previousVideos = useStore.getState().videos;
+    const updatedVideos = previousVideos.filter(
+      (video) => video.id !== videoItemId
+    );
+    setVideos(updatedVideos);
+
     try {
       // Add video to target playlist
       await axios.post(
@@ -82,13 +88,9 @@ export default function Playlists() {
           },
         }
       );
-
-      // Refresh the current playlist's videos
-      if (selectedPlaylist) {
-        fetchVideos(selectedPlaylist);
-      }
     } catch (error) {
       console.error("Error moving video:", error);
+      setVideos(previousVideos);
     }
   };
 
@@ -112,7 +114,7 @@ export default function Playlists() {
               onDragOver={(e) => handleDragOver(e, playlist.id)}
               onDragLeave={handleDragLeave}
               className={
-                dragOverId === playlist.id ? "bg-primary/20 rounded-lg" : ""
+                dragOverId === playlist.id ? "bg-primary/50 rounded-lg" : ""
               }
             >
               <button
