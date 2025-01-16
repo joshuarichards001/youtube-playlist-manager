@@ -27,4 +27,5 @@ type YouTubeVideo = {
     thumbnails: { default: { url: string } };
     resourceId: { videoId: string };
   };
+  contentDetails: { duration: string };
 };

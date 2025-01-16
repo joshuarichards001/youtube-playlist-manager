@@ -65,7 +65,7 @@ export const fetchVideosAPI = async (
     );
 
     const videoDetailsMap = new Map(
-      videoDetails.data.items.map((video: any) => [
+      videoDetails.data.items.map((video: YouTubeVideo) => [
         video.id,
         video.contentDetails.duration,
       ])
