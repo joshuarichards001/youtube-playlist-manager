@@ -1,8 +1,31 @@
+import { useEffect } from "react";
+import SortDropdown from "./SortDropdown";
 import useStore from "./store";
 
 export default function Videos() {
   const videos = useStore((state) => state.videos);
+  const setVideos = useStore((state) => state.setVideos);
   const selectedPlaylist = useStore((state) => state.selectedPlaylist);
+  const sort = useStore((state) => state.sort);
+
+  useEffect(() => {
+    const sortedVideos = [...videos].sort((a, b) => {
+      switch (sort) {
+        case "title":
+          return a.title.localeCompare(b.title);
+        case "viewCount":
+          return b.viewCount - a.viewCount;
+        case "releaseDate":
+          return b.releaseDate.localeCompare(a.releaseDate);
+        case "duration":
+          return a.duration.localeCompare(b.duration);
+        default:
+          return 0;
+      }
+    });
+
+    setVideos(sortedVideos);
+  }, [sort]);
 
   const handleDragStart = (e: React.DragEvent, video: Video) => {
     e.dataTransfer.setData(
@@ -45,7 +68,12 @@ export default function Videos() {
     <>
       {videos.length > 0 && (
         <div>
-          <h2 className="font-bold text-xl mb-4">{selectedPlaylist?.title}</h2>
+          <div className="flex flex-row justify-between items-center mb-4">
+            <h2 className="font-bold text-xl mb-4">
+              {selectedPlaylist?.title}
+            </h2>
+            <SortDropdown />
+          </div>
           <ul className="flex flex-col">
             {videos.map((video) => (
               <li

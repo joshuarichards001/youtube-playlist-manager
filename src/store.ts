@@ -13,6 +13,9 @@ interface State {
 
   accessToken: string | null;
   setAccessToken: (accessToken: string | null) => void;
+
+  sort: SortValues;
+  setSort: (sort: SortValues) => void;
 }
 
 // @ts-expect-error-next-line
@@ -28,6 +31,9 @@ const useStore = create<State>(devtools((set) => ({
   
   accessToken: null,
   setAccessToken: (accessToken) => set({ accessToken }),
+
+  sort: "title",
+  setSort: (sort) => set({ sort }),
 })))
 
 export default useStore;

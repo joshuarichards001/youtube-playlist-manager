@@ -19,7 +19,7 @@ type Video = {
   thumbnail: string;
   resourceId: string;
   duration: string;
-  viewCount: string;
+  viewCount: number;
   releaseDate: string;
 };
 
@@ -41,3 +41,5 @@ type YouTubeVideoDetails = {
   releaseDate: string;
   viewCount: number;
 };
+
+type SortValues = "title" | "duration" | "viewCount" | "releaseDate";
