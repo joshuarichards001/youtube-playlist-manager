@@ -1,6 +1,10 @@
-import axios from "axios";
 import useStore from "./store";
 import { useState } from "react";
+import {
+  addVideoToPlaylistAPI,
+  deleteVideoFromPlaylistAPI,
+  fetchVideosAPI,
+} from "./youtubeAPI";
 
 export default function Playlists() {
   const playlists = useStore((state) => state.playlists);
@@ -17,21 +21,9 @@ export default function Playlists() {
     }
 
     try {
-      const result = await axios.get(
-        "https://www.googleapis.com/youtube/v3/playlistItems",
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-          params: {
-            part: "snippet",
-            playlistId: playlist.id,
-            maxResults: 100,
-          },
-        }
-      );
       setSelectedPlaylist(playlist);
-      setVideos(result.data.items);
+      const videos = await fetchVideosAPI(accessToken, playlist);
+      setVideos(videos);
     } catch (error) {
       console.error("Error fetching videos:", error);
     }
@@ -40,6 +32,8 @@ export default function Playlists() {
   const handleDrop = async (e: React.DragEvent, targetPlaylistId: string) => {
     e.preventDefault();
     setDragOverId(null);
+
+    if (!accessToken) return;
 
     const data = JSON.parse(e.dataTransfer.getData("video"));
     const { videoId, sourcePlaylistId, videoItemId } = data;
@@ -54,35 +48,8 @@ export default function Playlists() {
 
     try {
       await Promise.all([
-        axios.post(
-          "https://www.googleapis.com/youtube/v3/playlistItems",
-          {
-            snippet: {
-              playlistId: targetPlaylistId,
-              resourceId: {
-                kind: "youtube#video",
-                videoId: videoId,
-              },
-            },
-          },
-          {
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-              "Content-Type": "application/json",
-            },
-            params: {
-              part: "snippet",
-            },
-          }
-        ),
-        axios.delete("https://www.googleapis.com/youtube/v3/playlistItems", {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-          params: {
-            id: videoItemId,
-          },
-        }),
+        addVideoToPlaylistAPI(accessToken, videoId, targetPlaylistId),
+        deleteVideoFromPlaylistAPI(accessToken, videoItemId),
       ]);
     } catch (error) {
       console.error("Error moving video:", error);

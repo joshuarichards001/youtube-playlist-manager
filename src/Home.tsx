@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import Videos from "./Videos";
-import axios from "axios";
 import useStore from "./store";
 import LoginButton from "./LoginButton";
 import Playlists from "./Playlists";
+import { fetchPlaylistsAPI } from "./youtubeAPI";
 
 export default function Home() {
   const setPlaylists = useStore((state) => state.setPlaylists);
@@ -13,18 +13,9 @@ export default function Home() {
   useEffect(() => {
     if (accessToken) {
       try {
-        axios
-          .get("https://www.googleapis.com/youtube/v3/playlists", {
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-            },
-            params: {
-              part: "snippet",
-              mine: true,
-              maxResults: 100,
-            },
-          })
-          .then((result) => setPlaylists(result.data.items));
+        fetchPlaylistsAPI(accessToken).then((playlists) =>
+          setPlaylists(playlists)
+        );
       } catch (error) {
         console.error("Error fetching playlists:", error);
       }
