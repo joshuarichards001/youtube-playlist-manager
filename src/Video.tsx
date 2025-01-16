@@ -5,12 +5,12 @@ type Props = {
 export default function Video({ video }: Props) {
   return (
     <li
-      key={video.id}
-      className="flex flex-row cursor-move hover:bg-base-200 p-2 rounded-md justify-between items-center w-full"
+      className="flex flex-row cursor-move hover:bg-base-200 p-2 rounded-lg justify-between items-center w-full"
+      draggable
     >
       <div className="flex flex-row">
         <img
-          className="rounded-md"
+          className="rounded-md h-20"
           src={video.snippet.thumbnails.default.url}
           alt={video.snippet.title}
         />

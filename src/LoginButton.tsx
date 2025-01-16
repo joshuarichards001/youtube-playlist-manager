@@ -1,12 +1,12 @@
 import { useGoogleLogin } from "@react-oauth/google";
 import axios from "axios";
+import useStore from "./store";
 
-interface IProps {
-  setAccessToken: React.Dispatch<React.SetStateAction<string | null>>;
-  setPlaylists: React.Dispatch<React.SetStateAction<Playlist[]>>;
-}
+export default function LoginButton() {
+  const accessToken = useStore((state) => state.accessToken);
+  const setAccessToken = useStore((state) => state.setAccessToken);
+  const setPlaylists = useStore((state) => state.setPlaylists);
 
-export default function LoginButton({ setAccessToken, setPlaylists }: IProps) {
   const login = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
       try {
@@ -31,9 +31,13 @@ export default function LoginButton({ setAccessToken, setPlaylists }: IProps) {
       }
     },
     onError: () => {
-      console.log("Login Failed");
+      console.error("Login Failed");
     },
   });
+
+  if (accessToken) {
+    return null;
+  }
 
   return (
     <button className="btn" onClick={login}>

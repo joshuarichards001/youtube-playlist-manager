@@ -1,13 +1,12 @@
 import { useState } from "react";
 import Videos from "./Videos";
 import axios from "axios";
+import useStore from "./store";
 
-type Props = {
-  playlists: Playlist[];
-  accessToken: string | null;
-};
+export default function Playlists() {
+  const playlists = useStore((state) => state.playlists);
+  const accessToken = useStore((state) => state.accessToken);
 
-export default function Playlists({ playlists, accessToken }: Props) {
   const [videos, setVideos] = useState<Video[]>([]);
   const [selectedPlaylist, setSelectedPlaylist] = useState<Playlist | null>(
     null
@@ -35,7 +34,6 @@ export default function Playlists({ playlists, accessToken }: Props) {
       );
       setSelectedPlaylist(playlist);
       setVideos(result.data.items);
-      console.log("Fetched videos:", result.data.items);
     } catch (error) {
       console.error("Error fetching videos:", error);
     }
@@ -69,7 +67,10 @@ export default function Playlists({ playlists, accessToken }: Props) {
             <ul className="menu gap-1 bg-base-200 text-base-content min-h-full w-80 p-4">
               {playlists.map((playlist) => (
                 <li key={playlist.id}>
-                  <button className="text-base" onClick={() => fetchVideos(playlist)}>
+                  <button
+                    className={`text-base ${selectedPlaylist?.id === playlist.id ? "bg-neutral" : ""}`}
+                    onClick={() => fetchVideos(playlist)}
+                  >
                     {playlist.snippet.title}
                   </button>
                 </li>
