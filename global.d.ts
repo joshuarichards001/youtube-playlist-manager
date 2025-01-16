@@ -18,7 +18,7 @@ type Video = {
   channel: string;
   thumbnail: string;
   resourceId: string;
-  duration: string;
+  durationSeconds: number;
   viewCount: number;
   releaseDate: string;
 };
@@ -37,7 +37,7 @@ type YouTubeVideo = {
 };
 
 type YouTubeVideoDetails = {
-  duration: string;
+  duration: number;
   releaseDate: string;
   viewCount: number;
 };

@@ -1,4 +1,5 @@
 import axios from "axios";
+import { convertDurationToSeconds } from "./functions";
 
 export const fetchPlaylistsAPI = async (
   accessToken: string
@@ -68,7 +69,7 @@ export const fetchVideosAPI = async (
       videoDetails.data.items.map((video: YouTubeVideo) => [
         video.id,
         {
-          duration: video.contentDetails.duration,
+          duration: convertDurationToSeconds(video.contentDetails.duration),
           releaseDate: video.snippet.publishedAt,
           viewCount: Number(video.statistics.viewCount),
         },
@@ -90,7 +91,7 @@ export const fetchVideosAPI = async (
         channel: video.snippet.videoOwnerChannelTitle,
         thumbnail: video.snippet.thumbnails.default?.url,
         resourceId: video.snippet.resourceId.videoId,
-        duration: details.duration,
+        durationSeconds: details.duration,
         releaseDate: details.releaseDate,
         viewCount: details.viewCount,
       };
