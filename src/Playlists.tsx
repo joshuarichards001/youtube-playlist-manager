@@ -65,6 +65,16 @@ export default function Playlists() {
         addVideoToPlaylistAPI(accessToken, videoId, targetPlaylistId),
         deleteVideoFromPlaylistAPI(accessToken, videoItemId),
       ]);
+
+      const updatedPlaylists = playlists.map((playlist) => {
+        if (playlist.id === sourcePlaylistId) {
+          return { ...playlist, videoCount: playlist.videoCount - 1 };
+        } else if (playlist.id === targetPlaylistId) {
+          return { ...playlist, videoCount: playlist.videoCount + 1 };
+        }
+        return playlist;
+      });
+      setPlaylists(updatedPlaylists);
     } catch (error) {
       console.error("Error moving video:", error);
       setVideos(previousVideos);
