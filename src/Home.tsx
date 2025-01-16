@@ -1,26 +1,10 @@
-import { useEffect } from "react";
 import Videos from "./Videos";
 import useStore from "./store";
 import LoginButton from "./LoginButton";
 import Playlists from "./Playlists";
-import { fetchPlaylistsAPI } from "./youtubeAPI";
 
 export default function Home() {
-  const setPlaylists = useStore((state) => state.setPlaylists);
-  const accessToken = useStore((state) => state.accessToken);
   const selectedPlaylist = useStore((state) => state.selectedPlaylist);
-
-  useEffect(() => {
-    if (accessToken) {
-      try {
-        fetchPlaylistsAPI(accessToken).then((playlists) =>
-          setPlaylists(playlists)
-        );
-      } catch (error) {
-        console.error("Error fetching playlists:", error);
-      }
-    }
-  }, [accessToken, setPlaylists]);
 
   return (
     <>

@@ -1,8 +1,9 @@
 import useStore from "./store";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   addVideoToPlaylistAPI,
   deleteVideoFromPlaylistAPI,
+  fetchPlaylistsAPI,
   fetchVideosAPI,
 } from "./youtubeAPI";
 
@@ -12,7 +13,20 @@ export default function Playlists() {
   const setVideos = useStore((state) => state.setVideos);
   const selectedPlaylist = useStore((state) => state.selectedPlaylist);
   const setSelectedPlaylist = useStore((state) => state.setSelectedPlaylist);
+  const setPlaylists = useStore((state) => state.setPlaylists);
   const [dragOverId, setDragOverId] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (accessToken) {
+      try {
+        fetchPlaylistsAPI(accessToken).then((playlists) =>
+          setPlaylists(playlists)
+        );
+      } catch (error) {
+        console.error("Error fetching playlists:", error);
+      }
+    }
+  }, [accessToken, setPlaylists]);
 
   const fetchVideos = async (playlist: Playlist) => {
     if (!accessToken) {
