@@ -1,7 +1,10 @@
 import { useEffect } from "react";
 import SortDropdown from "./SortDropdown";
 import useStore from "./store";
-import { convertDurationToTimeString } from "./functions";
+import {
+  convertDurationToTimeString,
+  convertReleaseDateToTimeSinceRelease,
+} from "./functions";
 
 export default function Videos() {
   const videos = useStore((state) => state.videos);
@@ -85,7 +88,9 @@ export default function Videos() {
                         {video.viewCount.toLocaleString()} views
                       </p>
                       <p className="text-xs text-base-content/70">
-                        {new Date(video.releaseDate).toLocaleDateString()}
+                        {convertReleaseDateToTimeSinceRelease(
+                          video.releaseDate
+                        )}
                       </p>
                     </div>
                   </div>
