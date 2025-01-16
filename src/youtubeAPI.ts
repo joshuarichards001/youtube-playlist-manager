@@ -1,6 +1,8 @@
 import axios from "axios";
 
-export const fetchPlaylistsAPI = async (accessToken: string) => {
+export const fetchPlaylistsAPI = async (
+  accessToken: string
+): Promise<Playlist[]> => {
   try {
     const result = await axios.get(
       "https://www.googleapis.com/youtube/v3/playlists",
@@ -9,15 +11,20 @@ export const fetchPlaylistsAPI = async (accessToken: string) => {
           Authorization: `Bearer ${accessToken}`,
         },
         params: {
-          part: "snippet",
+          part: "snippet,contentDetails",
           mine: true,
           maxResults: 100,
         },
       }
     );
-    return result.data.items;
+    return result.data.items.map((playlist: any) => ({
+      id: playlist.id,
+      title: playlist.snippet.title,
+      videoCount: playlist.contentDetails.itemCount,
+    }));
   } catch (error) {
     console.error("Error fetching playlists:", error);
+    return [];
   }
 };
 

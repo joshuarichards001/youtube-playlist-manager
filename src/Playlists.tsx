@@ -95,12 +95,15 @@ export default function Playlists() {
               }
             >
               <button
-                className={`text-base ${
+                className={`text-base flex flex-row justify-between items-baseline ${
                   selectedPlaylist?.id === playlist.id ? "bg-neutral" : ""
                 }`}
                 onClick={() => fetchVideos(playlist)}
               >
-                {playlist.snippet.title}
+                <p>{playlist.title}</p>
+                <p className="text-xs text-base-content/70">
+                  {playlist.videoCount} videos
+                </p>
               </button>
             </li>
           ))}

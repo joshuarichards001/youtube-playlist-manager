@@ -1,8 +1,7 @@
 type Playlist = {
   id: string
-  snippet: {
-    title: string
-  }
+  title: string
+  videoCount: number
 }
 
 type Video = {

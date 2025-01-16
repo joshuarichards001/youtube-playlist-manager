@@ -13,7 +13,7 @@ export default function Home() {
         <div className="drawer-content flex flex-col p-10">
           <LoginButton />
           {selectedPlaylist && (
-            <Videos playlistName={selectedPlaylist.snippet.title} />
+            <Videos playlistName={selectedPlaylist.title} />
           )}
           <label
             htmlFor="my-drawer-2"
