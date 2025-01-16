@@ -17,13 +17,11 @@ export const fetchPlaylistsAPI = async (
         },
       }
     );
-    return result.data.items.map(
-      (playlist: YouTubePlaylist) => ({
-        id: playlist.id,
-        title: playlist.snippet.title,
-        videoCount: playlist.contentDetails.itemCount,
-      })
-    );
+    return result.data.items.map((playlist: YouTubePlaylist) => ({
+      id: playlist.id,
+      title: playlist.snippet.title,
+      videoCount: playlist.contentDetails.itemCount,
+    }));
   } catch (error) {
     console.error("Error fetching playlists:", error);
     return [];
@@ -33,7 +31,7 @@ export const fetchPlaylistsAPI = async (
 export const fetchVideosAPI = async (
   accessToken: string,
   playlist: Playlist
-) => {
+): Promise<Video[]> => {
   try {
     const result = await axios.get(
       "https://www.googleapis.com/youtube/v3/playlistItems",
@@ -49,17 +47,41 @@ export const fetchVideosAPI = async (
       }
     );
 
-    return result.data.items.map(
-      (video: YouTubeVideo) => ({
-        id: video.id,
-        title: video.snippet.title,
-        channel: video.snippet.videoOwnerChannelTitle,
-        thumbnail: video.snippet.thumbnails.default.url,
-        resourceId: video.snippet.resourceId.videoId,
-      })
+    const videoIds = result.data.items
+      .map((video: YouTubeVideo) => video.snippet.resourceId.videoId)
+      .join(",");
+
+    const videoDetails = await axios.get(
+      "https://www.googleapis.com/youtube/v3/videos",
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+        params: {
+          part: "contentDetails",
+          id: videoIds,
+        },
+      }
     );
+
+    const videoDetailsMap = new Map(
+      videoDetails.data.items.map((video: any) => [
+        video.id,
+        video.contentDetails.duration,
+      ])
+    );
+
+    return result.data.items.map((video: YouTubeVideo) => ({
+      id: video.id,
+      title: video.snippet.title,
+      channel: video.snippet.videoOwnerChannelTitle,
+      thumbnail: video.snippet.thumbnails.default.url,
+      resourceId: video.snippet.resourceId.videoId,
+      duration: videoDetailsMap.get(video.snippet.resourceId.videoId),
+    }));
   } catch (error) {
     console.error("Error fetching videos:", error);
+    return [];
   }
 };
 

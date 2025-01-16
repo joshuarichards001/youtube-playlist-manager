@@ -16,6 +16,7 @@ type Video = {
   channel: string;
   thumbnail: string;
   resourceId: string;
+  duration: string;
 };
 
 type YouTubeVideo = {

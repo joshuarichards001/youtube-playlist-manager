@@ -22,6 +22,22 @@ export default function Videos() {
     e.dataTransfer.setDragImage(dragImage, 20, 20);
   };
 
+  const formatDuration = (duration: string): string => {
+    const match = duration.match(/PT(\d+H)?(\d+M)?(\d+S)?/);
+    if (!match) {
+      return "0:00";
+    }
+
+    const hours = (match[1] || "0H").slice(0, -1);
+    const minutes = (match[2] || "0M").slice(0, -1);
+    const seconds = (match[3] || "0S").slice(0, -1);
+
+    return `${hours !== "0" ? hours + ":" : ""}${minutes.padStart(
+      2,
+      "0"
+    )}:${seconds.padStart(2, "0")}`;
+  };
+
   return (
     <>
       {videos.length > 0 && (
@@ -36,11 +52,16 @@ export default function Videos() {
                 onDragStart={(e) => handleDragStart(e, video)}
               >
                 <div className="flex flex-row">
-                  <img
-                    className="rounded-md h-20"
-                    src={video.thumbnail}
-                    alt={video.title}
-                  />
+                  <div className="relative">
+                    <img
+                      className="rounded-md h-20"
+                      src={video.thumbnail}
+                      alt={video.title}
+                    />
+                    <div className="absolute bottom-0 right-0 bg-black text-white text-xs px-1 rounded">
+                      {formatDuration(video.duration)}
+                    </div>
+                  </div>
                   <div className="flex flex-col pl-2 gap-2">
                     <p>{video.title}</p>
                     <p className="text-xs text-base-content/70">
