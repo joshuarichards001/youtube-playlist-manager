@@ -11,9 +11,6 @@ interface State {
   videos: Video[];
   setVideos: (videos: Video[]) => void;
 
-  selectedVideos: Video[];
-  setSelectedVideos: (selectedVideos: Video[]) => void;
-
   accessToken: string | null;
   setAccessToken: (accessToken: string | null) => void;
 
@@ -35,9 +32,6 @@ const useStore = create<State>(
 
     videos: [],
     setVideos: (videos) => set({ videos }),
-
-    selectedVideos: [],
-    setSelectedVideos: (selectedVideos) => set({ selectedVideos }),
 
     accessToken: null,
     setAccessToken: (accessToken) => set({ accessToken }),

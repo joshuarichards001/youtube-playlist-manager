@@ -116,6 +116,7 @@ export const fetchVideosAPI = async (
         durationSeconds: details.duration,
         releaseDate: details.releaseDate,
         viewCount: details.viewCount,
+        selected: false,
       };
     });
   } catch (error) {

@@ -26,6 +26,7 @@ type Video = {
   durationSeconds: number;
   viewCount: number;
   releaseDate: string;
+  selected: boolean;
 };
 
 type YouTubeVideo = {

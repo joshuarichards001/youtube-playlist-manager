@@ -62,7 +62,7 @@ export default function Videos() {
           <ul className="flex flex-col">
             {videos.map((video) => (
               <li
-                className="flex flex-row cursor-move hover:bg-base-200 p-2 rounded-lg justify-between items-center w-full"
+                className={`flex flex-row cursor-move hover:bg-base-200 p-2 rounded-lg justify-between items-center w-full ${video.selected ? "bg-primary/10 hover:bg-primary/20" : ""}`}
                 key={video.id}
                 draggable
                 onDragStart={(e) => handleDragStart(e, video)}
@@ -95,7 +95,19 @@ export default function Videos() {
                     </div>
                   </div>
                 </div>
-                <input type="checkbox" className="checkbox checkbox-lg mr-6" />
+                <input
+                  type="checkbox"
+                  className="checkbox checkbox-lg mr-6"
+                  onChange={(e) => {
+                    setVideos(
+                      videos.map((mapVideo) =>
+                        mapVideo.id === video.id
+                          ? { ...mapVideo, selected: e.target.checked }
+                          : mapVideo
+                      )
+                    );
+                  }}
+                />
               </li>
             ))}
           </ul>
