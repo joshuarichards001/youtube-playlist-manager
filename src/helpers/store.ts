@@ -1,5 +1,5 @@
-import { create } from 'zustand'
-import { devtools } from 'zustand/middleware'
+import { create } from "zustand";
+import { devtools } from "zustand/middleware";
 
 interface State {
   playlists: Playlist[];
@@ -11,6 +11,9 @@ interface State {
   videos: Video[];
   setVideos: (videos: Video[]) => void;
 
+  selectedVideos: Video[];
+  setSelectedVideos: (selectedVideos: Video[]) => void;
+
   accessToken: string | null;
   setAccessToken: (accessToken: string | null) => void;
 
@@ -21,25 +24,30 @@ interface State {
   setUser: (user: User) => void;
 }
 
-// @ts-expect-error-next-line
-const useStore = create<State>(devtools((set) => ({
-  playlists: [],
-  setPlaylists: (playlists) => set({ playlists }),
+const useStore = create<State>(
+  // @ts-expect-error-next-line
+  devtools((set) => ({
+    playlists: [],
+    setPlaylists: (playlists) => set({ playlists }),
 
-  selectedPlaylist: null,
-  setSelectedPlaylist: (selectedPlaylist) => set({ selectedPlaylist }),
+    selectedPlaylist: null,
+    setSelectedPlaylist: (selectedPlaylist) => set({ selectedPlaylist }),
 
-  videos: [],
-  setVideos: (videos) => set({ videos }),
-  
-  accessToken: null,
-  setAccessToken: (accessToken) => set({ accessToken }),
+    videos: [],
+    setVideos: (videos) => set({ videos }),
 
-  sort: "title",
-  setSort: (sort) => set({ sort }),
+    selectedVideos: [],
+    setSelectedVideos: (selectedVideos) => set({ selectedVideos }),
 
-  user: null,
-  setUser: (user) => set({ user }),
-})))
+    accessToken: null,
+    setAccessToken: (accessToken) => set({ accessToken }),
+
+    sort: "title",
+    setSort: (sort) => set({ sort }),
+
+    user: null,
+    setUser: (user) => set({ user }),
+  }))
+);
 
 export default useStore;
