@@ -35,7 +35,7 @@ export default function LoginButton() {
   }
 
   return (
-    <button className="btn" onClick={() => login()}>
+    <button className="btn btn-primary" onClick={() => login()}>
       Login with Google
     </button>
   );

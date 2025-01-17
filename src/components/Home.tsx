@@ -1,5 +1,4 @@
 import Videos from "./Videos";
-import LoginButton from "./LoginButton";
 import Playlists from "./Playlists";
 
 export default function Home() {
@@ -7,7 +6,6 @@ export default function Home() {
     <div className="drawer lg:drawer-open">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content flex flex-col p-10">
-        <LoginButton />
         <Videos />
         <label
           htmlFor="my-drawer-2"
