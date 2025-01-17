@@ -131,8 +131,8 @@ export const addVideosToPlaylistAPI = async (
   playlistId: string
 ) => {
   try {
-    for (const videoId of videoIds) {
-      await axios.post(
+    const requests = videoIds.map((videoId) =>
+      axios.post(
         "https://www.googleapis.com/youtube/v3/playlistItems",
         {
           snippet: {
@@ -152,8 +152,9 @@ export const addVideosToPlaylistAPI = async (
             part: "snippet",
           },
         }
-      );
-    }
+      )
+    );
+    await Promise.all(requests);
   } catch (error) {
     console.error("Error adding videos to playlist:", error);
   }
@@ -164,19 +165,17 @@ export const deleteVideosFromPlaylistAPI = async (
   videoItemIds: string[]
 ) => {
   try {
-    for (const videoItemId of videoItemIds) {
-      await axios.delete(
-        "https://www.googleapis.com/youtube/v3/playlistItems",
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-          params: {
-            id: videoItemId,
-          },
-        }
-      );
-    }
+    const requests = videoItemIds.map((videoItemId) =>
+      axios.delete("https://www.googleapis.com/youtube/v3/playlistItems", {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+        params: {
+          id: videoItemId,
+        },
+      })
+    );
+    await Promise.all(requests);
   } catch (error) {
     console.error("Error deleting videos from playlist:", error);
   }
