@@ -6,7 +6,7 @@ export default function SortDropdown() {
 
   const SortButton = ({
     label,
-    sortType
+    sortType,
   }: {
     label: string;
     sortType: SortValues;
@@ -27,7 +27,7 @@ export default function SortDropdown() {
 
   return (
     <div className="dropdown dropdown-end">
-      <div tabIndex={0} role="button" className="btn m-1">
+      <div tabIndex={0} role="button" className="btn btn-neutral">
         Sort Videos
       </div>
       <ul

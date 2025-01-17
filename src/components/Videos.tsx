@@ -1,10 +1,10 @@
 import { useEffect } from "react";
-import SortDropdown from "./SortDropdown";
 import useStore from "../helpers/store";
 import {
   convertDurationToTimeString,
   convertReleaseDateToTimeSinceRelease,
 } from "../helpers/functions";
+import VideoActions from "./VideoActions";
 
 export default function Videos() {
   const videos = useStore((state) => state.videos);
@@ -57,12 +57,14 @@ export default function Videos() {
             <h2 className="font-bold text-xl mb-4">
               {selectedPlaylist?.title}
             </h2>
-            <SortDropdown />
+            <VideoActions />
           </div>
           <ul className="flex flex-col">
             {videos.map((video) => (
               <li
-                className={`flex flex-row cursor-move hover:bg-base-200 p-2 rounded-lg justify-between items-center w-full ${video.selected ? "bg-primary/10 hover:bg-primary/20" : ""}`}
+                className={`flex flex-row cursor-move hover:bg-base-200 p-2 rounded-lg justify-between items-center w-full ${
+                  video.selected ? "bg-primary/10 hover:bg-primary/20" : ""
+                }`}
                 key={video.id}
                 draggable
                 onDragStart={(e) => handleDragStart(e, video)}
@@ -98,6 +100,7 @@ export default function Videos() {
                 <input
                   type="checkbox"
                   className="checkbox checkbox-lg mr-6"
+                  checked={video.selected}
                   onChange={(e) => {
                     setVideos(
                       videos.map((mapVideo) =>
