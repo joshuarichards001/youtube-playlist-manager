@@ -90,7 +90,14 @@ export default function Videos() {
                     </div>
                   </div>
                   <div className="flex flex-col pl-2 gap-2">
-                    <p>{video.title}</p>
+                    <a
+                      className="link hover:text-primary"
+                      href={`https://www.youtube.com/watch?v=${video.resourceId}`}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      {video.title}
+                    </a>
                     <div className="flex flex-row gap-4">
                       <p className="text-xs text-base-content/70">
                         {video.channel}
