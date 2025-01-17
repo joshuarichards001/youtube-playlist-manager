@@ -1,4 +1,5 @@
 import useStore from "../helpers/store";
+import DeleteConfirmationModal from "./DeleteConfirmationModal";
 import SortDropdown from "./SortDropdown";
 
 export default function VideoActions() {
@@ -24,6 +25,16 @@ export default function VideoActions() {
     setVideos(updatedVideos);
   };
 
+  const handleDelete = () => {
+    const modal = document.getElementById(
+      "delete-confirmation-modal"
+    ) as HTMLDialogElement;
+
+    if (modal) {
+      modal.showModal();
+    }
+  };
+
   return (
     <div className="flex flex-row gap-4">
       {videos.length !== selectedVideos.length && (
@@ -37,11 +48,12 @@ export default function VideoActions() {
         </button>
       )}
       {selectedVideos.length > 0 && (
-        <button className="btn btn-error">
+        <button className="btn btn-error" onClick={handleDelete}>
           Delete ({selectedVideos.length} selected)
         </button>
       )}
       {selectedVideos.length === 0 && <SortDropdown />}
+      <DeleteConfirmationModal />
     </div>
   );
 }

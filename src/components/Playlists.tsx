@@ -2,7 +2,7 @@ import useStore from "../helpers/store";
 import { useCallback, useEffect, useState } from "react";
 import {
   addVideoToPlaylistAPI,
-  deleteVideoFromPlaylistAPI,
+  deleteVideosFromPlaylistAPI,
   fetchPlaylistsAPI,
   fetchVideosAPI,
 } from "../helpers/youtubeAPI";
@@ -68,7 +68,7 @@ export default function Playlists() {
     try {
       await Promise.all([
         addVideoToPlaylistAPI(accessToken, videoId, targetPlaylistId),
-        deleteVideoFromPlaylistAPI(accessToken, videoItemId),
+        deleteVideosFromPlaylistAPI(accessToken, [videoItemId]),
       ]);
 
       const updatedPlaylists = playlists.map((playlist) => {
@@ -96,8 +96,10 @@ export default function Playlists() {
   };
 
   const truncateTitle = (title: string, maxLength: number) => {
-    return title.length > maxLength ? title.substring(0, maxLength) + "..." : title;
-  };  
+    return title.length > maxLength
+      ? title.substring(0, maxLength) + "..."
+      : title;
+  };
 
   return (
     <>
