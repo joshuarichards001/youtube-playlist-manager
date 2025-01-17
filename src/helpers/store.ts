@@ -16,6 +16,9 @@ interface State {
 
   sort: SortValues;
   setSort: (sort: SortValues) => void;
+
+  user: User;
+  setUser: (user: User) => void;
 }
 
 // @ts-expect-error-next-line
@@ -34,6 +37,9 @@ const useStore = create<State>(devtools((set) => ({
 
   sort: "title",
   setSort: (sort) => set({ sort }),
+
+  user: null,
+  setUser: (user) => set({ user }),
 })))
 
 export default useStore;

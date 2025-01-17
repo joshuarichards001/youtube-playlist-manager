@@ -1,5 +1,10 @@
 declare module "*.css";
 
+type User = {
+  name: string;
+  picture: string;
+};
+
 type Playlist = {
   id: string;
   title: string;

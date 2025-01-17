@@ -1,7 +1,23 @@
 import Videos from "./Videos";
 import Playlists from "./Playlists";
+import useStore from "../helpers/store";
+import { useEffect } from "react";
+import { fetchUserAPI } from "../helpers/youtubeAPI";
 
 export default function Home() {
+  const accessToken = useStore((state) => state.accessToken);
+  const setUser = useStore((state) => state.setUser);
+
+  useEffect(() => {
+    if (!accessToken) return;
+
+    fetchUserAPI(accessToken).then((user) => {
+      if (!user) return;
+
+      setUser(user);
+    });
+  }, [accessToken, setUser]);
+
   return (
     <div className="drawer lg:drawer-open">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
