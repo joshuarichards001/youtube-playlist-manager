@@ -1,10 +1,10 @@
 import { useEffect } from "react";
 import SortDropdown from "./SortDropdown";
-import useStore from "./store";
+import useStore from "../helpers/store";
 import {
   convertDurationToTimeString,
   convertReleaseDateToTimeSinceRelease,
-} from "./functions";
+} from "../helpers/functions";
 
 export default function Videos() {
   const videos = useStore((state) => state.videos);

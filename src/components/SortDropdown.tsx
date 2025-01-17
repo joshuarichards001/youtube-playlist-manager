@@ -1,4 +1,4 @@
-import useStore from "./store";
+import useStore from "../helpers/store";
 
 export default function SortDropdown() {
   const sort = useStore((state) => state.sort);

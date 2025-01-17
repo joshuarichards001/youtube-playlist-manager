@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useGoogleLogin } from "@react-oauth/google";
 import Cookies from "js-cookie";
-import useStore from "./store";
+import useStore from "../helpers/store";
 
 export default function LoginButton() {
   const accessToken = useStore((state) => state.accessToken);
