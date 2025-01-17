@@ -1,5 +1,6 @@
 import useStore from "../helpers/store";
 import DeleteConfirmationModal from "./DeleteConfirmationModal";
+import MoveDropdown from "./MoveDropdown";
 import SortDropdown from "./SortDropdown";
 
 export default function VideoActions() {
@@ -37,6 +38,7 @@ export default function VideoActions() {
 
   return (
     <div className="flex flex-row gap-4">
+      {selectedVideos.length > 0 && <MoveDropdown />}
       {videos.length !== selectedVideos.length && (
         <button className="btn btn-neutral" onClick={handleSelectAll}>
           Select All

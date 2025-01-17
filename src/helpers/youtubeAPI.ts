@@ -125,35 +125,37 @@ export const fetchVideosAPI = async (
   }
 };
 
-export const addVideoToPlaylistAPI = async (
+export const addVideosToPlaylistAPI = async (
   accessToken: string,
-  videoId: string,
+  videoIds: string[],
   playlistId: string
 ) => {
   try {
-    axios.post(
-      "https://www.googleapis.com/youtube/v3/playlistItems",
-      {
-        snippet: {
-          playlistId,
-          resourceId: {
-            kind: "youtube#video",
-            videoId: videoId,
+    for (const videoId of videoIds) {
+      await axios.post(
+        "https://www.googleapis.com/youtube/v3/playlistItems",
+        {
+          snippet: {
+            playlistId,
+            resourceId: {
+              kind: "youtube#video",
+              videoId: videoId,
+            },
           },
         },
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-          "Content-Type": "application/json",
-        },
-        params: {
-          part: "snippet",
-        },
-      }
-    );
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            "Content-Type": "application/json",
+          },
+          params: {
+            part: "snippet",
+          },
+        }
+      );
+    }
   } catch (error) {
-    console.error("Error adding video to playlist:", error);
+    console.error("Error adding videos to playlist:", error);
   }
 };
 

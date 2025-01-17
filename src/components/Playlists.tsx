@@ -1,7 +1,7 @@
 import useStore from "../helpers/store";
 import { useCallback, useEffect, useState } from "react";
 import {
-  addVideoToPlaylistAPI,
+  addVideosToPlaylistAPI,
   deleteVideosFromPlaylistAPI,
   fetchPlaylistsAPI,
   fetchVideosAPI,
@@ -67,7 +67,7 @@ export default function Playlists() {
 
     try {
       await Promise.all([
-        addVideoToPlaylistAPI(accessToken, videoId, targetPlaylistId),
+        addVideosToPlaylistAPI(accessToken, [videoId], targetPlaylistId),
         deleteVideosFromPlaylistAPI(accessToken, [videoItemId]),
       ]);
 
