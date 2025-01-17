@@ -68,6 +68,15 @@ export default function Videos() {
                 key={video.id}
                 draggable
                 onDragStart={(e) => handleDragStart(e, video)}
+                onClick={() => {
+                  setVideos(
+                    videos.map((mapVideo) =>
+                      mapVideo.id === video.id
+                        ? { ...mapVideo, selected: !mapVideo.selected }
+                        : mapVideo
+                    )
+                  );
+                }}
               >
                 <div className="flex flex-row">
                   <div className="relative">
