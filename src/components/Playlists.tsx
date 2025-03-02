@@ -2,7 +2,6 @@ import useStore from "../helpers/store";
 import { useCallback, useEffect, useState } from "react";
 import {
   addVideosToPlaylistAPI,
-  deletePlaylistAPI,
   deleteVideosFromPlaylistAPI,
   fetchPlaylistsAPI,
   fetchVideosAPI,
@@ -113,26 +112,6 @@ export default function Playlists() {
       : title;
   };
 
-  const deletePlaylist = async (id: string) => {
-    if (!accessToken) {
-      console.error("No access token available.");
-      return;
-    }
-
-    const confirmDelete = window.confirm(
-      "Are you sure you want to delete this playlist?"
-    );
-
-    if (confirmDelete) {
-      try {
-        await deletePlaylistAPI(accessToken, id);
-        window.location.reload();
-      } catch (error) {
-        console.error("Error deleting playlist:", error);
-      }
-    }
-  };
-
   const createPlaylist = async () => {
     if (!accessToken || !newPlaylistName.trim()) {
       console.error("No access token or playlist name provided.");
@@ -172,14 +151,6 @@ export default function Playlists() {
                   <p className="text-xs text-base-content/70">
                     {playlist.videoCount} videos
                   </p>
-                  {selectedPlaylist?.id === playlist.id && (
-                    <button
-                      className="btn btn-error btn-xs"
-                      onClick={() => deletePlaylist(playlist.id)}
-                    >
-                      x
-                    </button>
-                  )}
                 </div>
               </button>
             </li>

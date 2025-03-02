@@ -5,8 +5,10 @@ import {
   convertReleaseDateToTimeSinceRelease,
 } from "../helpers/functions";
 import VideoActions from "./VideoActions";
+import { deletePlaylistAPI } from "../helpers/youtubeAPI";
 
 export default function Videos() {
+  const accessToken = useStore((state) => state.accessToken);
   const videos = useStore((state) => state.videos);
   const setVideos = useStore((state) => state.setVideos);
   const selectedPlaylist = useStore((state) => state.selectedPlaylist);
@@ -49,14 +51,46 @@ export default function Videos() {
     e.dataTransfer.setDragImage(dragImage, 20, 20);
   };
 
+  const deletePlaylist = async (id: string | undefined) => {
+    if (!id) {
+      return;
+    }
+
+    if (!accessToken) {
+      console.error("No access token available.");
+      return;
+    }
+
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this playlist?"
+    );
+
+    if (confirmDelete) {
+      try {
+        await deletePlaylistAPI(accessToken, id);
+        window.location.reload();
+      } catch (error) {
+        console.error("Error deleting playlist:", error);
+      }
+    }
+  };
+
   return (
     <>
       {videos.length > 0 && (
         <div>
           <div className="flex flex-row justify-between items-center mb-4">
-            <h2 className="font-bold text-xl mb-4">
-              {selectedPlaylist?.title}
-            </h2>
+            <div className="flex gap-4">
+              <h2 className="font-bold text-xl mb-4">
+                {selectedPlaylist?.title}
+              </h2>
+              <button
+                className="btn btn-error btn-xs"
+                onClick={() => deletePlaylist(selectedPlaylist?.id)}
+              >
+                delete
+              </button>
+            </div>
             <VideoActions />
           </div>
           <ul className="flex flex-col">
