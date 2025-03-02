@@ -131,8 +131,8 @@ export const addVideosToPlaylistAPI = async (
   playlistId: string
 ) => {
   try {
-    const requests = videoIds.map((videoId) =>
-      axios.post(
+    for (const videoId of videoIds) {
+      await axios.post(
         "https://www.googleapis.com/youtube/v3/playlistItems",
         {
           snippet: {
@@ -152,9 +152,8 @@ export const addVideosToPlaylistAPI = async (
             part: "snippet",
           },
         }
-      )
-    );
-    await Promise.all(requests);
+      );
+    }
   } catch (error) {
     console.error("Error adding videos to playlist:", error);
   }
