@@ -6,6 +6,7 @@ import {
   deleteVideosFromPlaylistAPI,
   fetchPlaylistsAPI,
   fetchVideosAPI,
+  createPlaylistAPI,
 } from "../helpers/youtubeAPI";
 
 export default function Playlists() {
@@ -16,6 +17,7 @@ export default function Playlists() {
   const setSelectedPlaylist = useStore((state) => state.setSelectedPlaylist);
   const setPlaylists = useStore((state) => state.setPlaylists);
   const [dragOverId, setDragOverId] = useState<string | null>(null);
+  const [newPlaylistName, setNewPlaylistName] = useState<string>("");
 
   const fetchVideos = useCallback(
     async (playlist: Playlist) => {
@@ -131,6 +133,20 @@ export default function Playlists() {
     }
   };
 
+  const createPlaylist = async () => {
+    if (!accessToken || !newPlaylistName.trim()) {
+      console.error("No access token or playlist name provided.");
+      return;
+    }
+
+    try {
+      await createPlaylistAPI(accessToken, newPlaylistName);
+      window.location.reload();
+    } catch (error) {
+      console.error("Error creating playlist:", error);
+    }
+  };
+
   return (
     <>
       {playlists.length > 0 && (
@@ -168,6 +184,18 @@ export default function Playlists() {
               </button>
             </li>
           ))}
+          <li className="flex flex-row items-center gap-2 pl-4">
+            <input
+              type="text"
+              className="input input-bordered input-sm"
+              placeholder="New Playlist Name"
+              value={newPlaylistName}
+              onChange={(e) => setNewPlaylistName(e.target.value)}
+            />
+            <button className="btn btn-primary btn-sm" onClick={createPlaylist}>
+              Create
+            </button>
+          </li>
         </ul>
       )}
     </>

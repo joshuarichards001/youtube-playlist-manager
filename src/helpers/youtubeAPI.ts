@@ -165,17 +165,19 @@ export const deleteVideosFromPlaylistAPI = async (
   videoItemIds: string[]
 ) => {
   try {
-    const requests = videoItemIds.map((videoItemId) =>
-      axios.delete("https://www.googleapis.com/youtube/v3/playlistItems", {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-        params: {
-          id: videoItemId,
-        },
-      })
-    );
-    await Promise.all(requests);
+    for (const videoItemId of videoItemIds) {
+      await axios.delete(
+        "https://www.googleapis.com/youtube/v3/playlistItems",
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+          params: {
+            id: videoItemId,
+          },
+        }
+      );
+    }
   } catch (error) {
     console.error("Error deleting videos from playlist:", error);
   }
@@ -197,5 +199,36 @@ export const deletePlaylistAPI = async (
     console.log(`Playlist with ID ${playlistId} deleted successfully.`);
   } catch (error) {
     console.error("Error deleting playlist:", error);
+  }
+};
+
+export const createPlaylistAPI = async (
+  accessToken: string,
+  playlistName: string
+) => {
+  try {
+    const result = await axios.post(
+      "https://www.googleapis.com/youtube/v3/playlists",
+      {
+        snippet: {
+          title: playlistName,
+          description: "A new playlist created via API",
+        },
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "application/json",
+        },
+        params: {
+          part: "snippet",
+        },
+      }
+    );
+    console.log(`Playlist with name ${playlistName} created successfully.`);
+    return result.data;
+  } catch (error) {
+    console.error("Error creating playlist:", error);
+    return null;
   }
 };
