@@ -28,6 +28,9 @@ export default function Playlists() {
         setSelectedPlaylist(playlist);
         const videos = await fetchVideosAPI(accessToken, playlist);
         setVideos(videos);
+        const url = new URL(window.location.href);
+        url.pathname = `/${playlist.id}`;
+        window.history.pushState({}, "", url.toString());
       } catch (error) {
         console.error("Error fetching videos:", error);
       }
@@ -40,8 +43,14 @@ export default function Playlists() {
       try {
         fetchPlaylistsAPI(accessToken).then((playlists) => {
           setPlaylists(playlists);
-          setSelectedPlaylist(playlists[0]);
-          fetchVideos(playlists[0]);
+
+          const pathParts = window.location.pathname.split("/");
+          const playlistId = pathParts[1];
+          const selected =
+            playlists.find((p) => p.id === playlistId) || playlists[0];
+
+          setSelectedPlaylist(selected);
+          fetchVideos(selected);
         });
       } catch (error) {
         console.error("Error fetching playlists:", error);
@@ -101,17 +110,17 @@ export default function Playlists() {
       ? title.substring(0, maxLength) + "..."
       : title;
   };
-  
+
   const deletePlaylist = async (id: string) => {
     if (!accessToken) {
       console.error("No access token available.");
       return;
     }
-  
+
     const confirmDelete = window.confirm(
       "Are you sure you want to delete this playlist?"
     );
-  
+
     if (confirmDelete) {
       try {
         await deletePlaylistAPI(accessToken, id);
@@ -148,7 +157,12 @@ export default function Playlists() {
                     {playlist.videoCount} videos
                   </p>
                   {selectedPlaylist?.id === playlist.id && (
-                    <button className="btn btn-error btn-xs" onClick={() => deletePlaylist(playlist.id)}>x</button>
+                    <button
+                      className="btn btn-error btn-xs"
+                      onClick={() => deletePlaylist(playlist.id)}
+                    >
+                      x
+                    </button>
                   )}
                 </div>
               </button>
