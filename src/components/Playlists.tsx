@@ -2,6 +2,7 @@ import useStore from "../helpers/store";
 import { useCallback, useEffect, useState } from "react";
 import {
   addVideosToPlaylistAPI,
+  deletePlaylistAPI,
   deleteVideosFromPlaylistAPI,
   fetchPlaylistsAPI,
   fetchVideosAPI,
@@ -100,6 +101,26 @@ export default function Playlists() {
       ? title.substring(0, maxLength) + "..."
       : title;
   };
+  
+  const deletePlaylist = async (id: string) => {
+    if (!accessToken) {
+      console.error("No access token available.");
+      return;
+    }
+  
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this playlist?"
+    );
+  
+    if (confirmDelete) {
+      try {
+        await deletePlaylistAPI(accessToken, id);
+        window.location.reload();
+      } catch (error) {
+        console.error("Error deleting playlist:", error);
+      }
+    }
+  };
 
   return (
     <>
@@ -117,14 +138,19 @@ export default function Playlists() {
             >
               <button
                 className={`text-base flex flex-row justify-between items-baseline ${
-                  selectedPlaylist?.id === playlist.id ? "bg-neutral" : ""
+                  selectedPlaylist?.id === playlist.id ? "bg-neutral/10" : ""
                 }`}
                 onClick={() => fetchVideos(playlist)}
               >
                 <p>{truncateTitle(playlist.title, 20)}</p>
-                <p className="text-xs text-base-content/70">
-                  {playlist.videoCount} videos
-                </p>
+                <div className="flex items-center gap-2">
+                  <p className="text-xs text-base-content/70">
+                    {playlist.videoCount} videos
+                  </p>
+                  {selectedPlaylist?.id === playlist.id && (
+                    <button className="btn btn-error btn-xs" onClick={() => deletePlaylist(playlist.id)}>x</button>
+                  )}
+                </div>
               </button>
             </li>
           ))}

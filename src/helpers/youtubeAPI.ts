@@ -180,3 +180,22 @@ export const deleteVideosFromPlaylistAPI = async (
     console.error("Error deleting videos from playlist:", error);
   }
 };
+
+export const deletePlaylistAPI = async (
+  accessToken: string,
+  playlistId: string
+) => {
+  try {
+    await axios.delete("https://www.googleapis.com/youtube/v3/playlists", {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+      params: {
+        id: playlistId,
+      },
+    });
+    console.log(`Playlist with ID ${playlistId} deleted successfully.`);
+  } catch (error) {
+    console.error("Error deleting playlist:", error);
+  }
+};
