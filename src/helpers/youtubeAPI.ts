@@ -53,8 +53,9 @@ export const fetchPlaylistsAPI = async (
 
 export const fetchVideosAPI = async (
   accessToken: string,
-  playlist: Playlist
-): Promise<Video[]> => {
+  playlist: Playlist,
+  pageToken: string
+): Promise<{ videos: Video[]; nextPageToken: string }> => {
   try {
     const result = await axios.get(
       "https://www.googleapis.com/youtube/v3/playlistItems",
@@ -65,7 +66,8 @@ export const fetchVideosAPI = async (
         params: {
           part: "snippet",
           playlistId: playlist.id,
-          maxResults: 1000,
+          maxResults: 50,
+          pageToken,
         },
       }
     );
@@ -99,7 +101,7 @@ export const fetchVideosAPI = async (
       ])
     );
 
-    return result.data.items
+    const videos = result.data.items
       .filter((video: YouTubeVideo) => video.snippet.title !== "Private video")
       .filter((video: YouTubeVideo) => video.snippet.title !== "Deleted video")
       .map((video: YouTubeVideo) => {
@@ -120,9 +122,11 @@ export const fetchVideosAPI = async (
         };
       })
       .filter((video: Video | null): video is Video => video !== null);
+
+    return { videos, nextPageToken: result.data.nextPageToken };
   } catch (error) {
     console.error("Error fetching videos:", error);
-    return [];
+    return { videos: [], nextPageToken: "" };
   }
 };
 

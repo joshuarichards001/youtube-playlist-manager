@@ -11,12 +11,14 @@ import {
 export default function Playlists() {
   const playlists = useStore((state) => state.playlists);
   const accessToken = useStore((state) => state.accessToken);
+  const videos = useStore((state) => state.videos);
   const setVideos = useStore((state) => state.setVideos);
   const selectedPlaylist = useStore((state) => state.selectedPlaylist);
   const setSelectedPlaylist = useStore((state) => state.setSelectedPlaylist);
   const setPlaylists = useStore((state) => state.setPlaylists);
   const [dragOverId, setDragOverId] = useState<string | null>(null);
   const [newPlaylistName, setNewPlaylistName] = useState<string>("");
+  const [nextPageToken, setNextPageToken] = useState("");
 
   const fetchVideos = useCallback(
     async (playlist: Playlist) => {
@@ -27,8 +29,13 @@ export default function Playlists() {
 
       try {
         setSelectedPlaylist(playlist);
-        const videos = await fetchVideosAPI(accessToken, playlist);
-        setVideos(videos);
+        const videoResponse = await fetchVideosAPI(
+          accessToken,
+          playlist,
+          nextPageToken
+        );
+        setVideos([...videos, ...videoResponse.videos]);
+        setNextPageToken(videoResponse.nextPageToken);
         const url = new URL(window.location.href);
         url.pathname = `/${playlist.id}`;
         window.history.pushState({}, "", url.toString());

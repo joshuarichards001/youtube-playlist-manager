@@ -75,6 +75,10 @@ export default function Videos() {
     }
   };
 
+  const loadMoreVideos = () => {
+    // do something
+  }
+
   return (
     <>
       {selectedPlaylist && (
@@ -167,6 +171,7 @@ export default function Videos() {
               </li>
             ))}
           </ul>
+          <button className="btn btn-primary my-10" onClick={loadMoreVideos}>Load More Videos...</button>
         </div>
       )}
     </>
