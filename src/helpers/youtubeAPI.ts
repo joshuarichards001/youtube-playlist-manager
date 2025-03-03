@@ -71,6 +71,7 @@ export const fetchVideosAPI = async (
     );
 
     const videoIds = result.data.items
+      .filter((video: YouTubeVideo) => video.snippet.title !== "Private video")
       .map((video: YouTubeVideo) => video.snippet.resourceId.videoId)
       .join(",");
 
@@ -98,27 +99,27 @@ export const fetchVideosAPI = async (
       ])
     );
 
-    return result.data.items.map((video: YouTubeVideo) => {
-      const details = videoDetailsMap.get(
-        video.snippet.resourceId.videoId
-      ) as YouTubeVideoDetails;
+    return result.data.items
+      .filter((video: YouTubeVideo) => video.snippet.title !== "Private video")
+      .filter((video: YouTubeVideo) => video.snippet.title !== "Deleted video")
+      .map((video: YouTubeVideo) => {
+        const details = videoDetailsMap.get(
+          video.snippet.resourceId.videoId
+        ) as YouTubeVideoDetails;
 
-      if (!details) {
-        return null;
-      }
-
-      return {
-        id: video.id,
-        title: video.snippet.title,
-        channel: video.snippet.videoOwnerChannelTitle,
-        thumbnail: video.snippet.thumbnails.default?.url,
-        resourceId: video.snippet.resourceId.videoId,
-        durationSeconds: details.duration,
-        releaseDate: details.releaseDate,
-        viewCount: details.viewCount,
-        selected: false,
-      };
-    });
+        return {
+          id: video.id,
+          title: video.snippet.title,
+          channel: video.snippet.videoOwnerChannelTitle,
+          thumbnail: video.snippet.thumbnails.default?.url,
+          resourceId: video.snippet.resourceId.videoId,
+          durationSeconds: details.duration,
+          releaseDate: details.releaseDate,
+          viewCount: details.viewCount,
+          selected: false,
+        };
+      })
+      .filter((video: Video | null): video is Video => video !== null);
   } catch (error) {
     console.error("Error fetching videos:", error);
     return [];
