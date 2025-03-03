@@ -14,6 +14,9 @@ interface State {
   accessToken: string | null;
   setAccessToken: (accessToken: string | null) => void;
 
+  nextPageToken: string;
+  setNextPageToken: (nextPageToken: string) => void;
+
   sort: SortValues;
   setSort: (sort: SortValues) => void;
 
@@ -35,6 +38,9 @@ const useStore = create<State>(
 
     accessToken: null,
     setAccessToken: (accessToken) => set({ accessToken }),
+
+    nextPageToken: null,
+    setNextPageToken: (nextPageToken) => set({ nextPageToken }),
 
     sort: "title",
     setSort: (sort) => set({ sort }),

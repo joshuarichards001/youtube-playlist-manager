@@ -1,50 +1,21 @@
 import useStore from "../helpers/store";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   addVideosToPlaylistAPI,
   deleteVideosFromPlaylistAPI,
   fetchPlaylistsAPI,
-  fetchVideosAPI,
   createPlaylistAPI,
 } from "../helpers/youtubeAPI";
 
 export default function Playlists() {
   const playlists = useStore((state) => state.playlists);
   const accessToken = useStore((state) => state.accessToken);
-  const videos = useStore((state) => state.videos);
   const setVideos = useStore((state) => state.setVideos);
   const selectedPlaylist = useStore((state) => state.selectedPlaylist);
   const setSelectedPlaylist = useStore((state) => state.setSelectedPlaylist);
   const setPlaylists = useStore((state) => state.setPlaylists);
   const [dragOverId, setDragOverId] = useState<string | null>(null);
   const [newPlaylistName, setNewPlaylistName] = useState<string>("");
-  const [nextPageToken, setNextPageToken] = useState("");
-
-  const fetchVideos = useCallback(
-    async (playlist: Playlist) => {
-      if (!accessToken) {
-        console.error("No access token available.");
-        return;
-      }
-
-      try {
-        setSelectedPlaylist(playlist);
-        const videoResponse = await fetchVideosAPI(
-          accessToken,
-          playlist,
-          nextPageToken
-        );
-        setVideos([...videos, ...videoResponse.videos]);
-        setNextPageToken(videoResponse.nextPageToken);
-        const url = new URL(window.location.href);
-        url.pathname = `/${playlist.id}`;
-        window.history.pushState({}, "", url.toString());
-      } catch (error) {
-        console.error("Error fetching videos:", error);
-      }
-    },
-    [accessToken, setSelectedPlaylist, setVideos]
-  );
 
   useEffect(() => {
     if (accessToken) {
@@ -58,13 +29,12 @@ export default function Playlists() {
             playlists.find((p) => p.id === playlistId) || playlists[0];
 
           setSelectedPlaylist(selected);
-          fetchVideos(selected);
         });
       } catch (error) {
         console.error("Error fetching playlists:", error);
       }
     }
-  }, [accessToken, setPlaylists, setSelectedPlaylist, fetchVideos]);
+  }, [accessToken, setPlaylists, setSelectedPlaylist]);
 
   const handleDrop = async (e: React.DragEvent, targetPlaylistId: string) => {
     e.preventDefault();
@@ -151,7 +121,10 @@ export default function Playlists() {
                 className={`text-base flex flex-row justify-between items-baseline ${
                   selectedPlaylist?.id === playlist.id ? "bg-neutral/10" : ""
                 }`}
-                onClick={() => fetchVideos(playlist)}
+                onClick={() => {
+                  setVideos([]);
+                  setSelectedPlaylist(playlist);
+                }}
               >
                 <p>{truncateTitle(playlist.title, 20)}</p>
                 <div className="flex items-center gap-2">

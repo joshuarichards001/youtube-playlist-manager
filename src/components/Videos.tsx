@@ -1,11 +1,11 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import useStore from "../helpers/store";
 import {
   convertDurationToTimeString,
   convertReleaseDateToTimeSinceRelease,
 } from "../helpers/functions";
 import VideoActions from "./VideoActions";
-import { deletePlaylistAPI } from "../helpers/youtubeAPI";
+import { deletePlaylistAPI, fetchVideosAPI } from "../helpers/youtubeAPI";
 
 export default function Videos() {
   const accessToken = useStore((state) => state.accessToken);
@@ -13,6 +13,9 @@ export default function Videos() {
   const setVideos = useStore((state) => state.setVideos);
   const selectedPlaylist = useStore((state) => state.selectedPlaylist);
   const sort = useStore((state) => state.sort);
+  const nextPageToken = useStore((state) => state.nextPageToken);
+  const setNextPageToken = useStore((state) => state.setNextPageToken);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const sortedVideos = [...videos].sort((a, b) => {
@@ -32,6 +35,39 @@ export default function Videos() {
 
     setVideos(sortedVideos);
   }, [sort]);
+
+  const fetchNextVideos = async () => {
+    try {
+      if (!accessToken) {
+        console.error("No access token available.");
+        return;
+      }
+
+      if (!selectedPlaylist) {
+        return;
+      }
+
+      setLoading(true);
+      const videoResponse = await fetchVideosAPI(
+        accessToken,
+        selectedPlaylist,
+        nextPageToken
+      );
+
+      setVideos([...videos, ...videoResponse.videos]);
+      setNextPageToken(videoResponse.nextPageToken);
+      setLoading(false);
+      const url = new URL(window.location.href);
+      url.pathname = `/${selectedPlaylist.id}`;
+      window.history.pushState({}, "", url.toString());
+    } catch (error) {
+      console.error("Error fetching videos:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchNextVideos();
+  }, [selectedPlaylist]);
 
   const handleDragStart = (e: React.DragEvent, video: Video) => {
     e.dataTransfer.setData(
@@ -74,10 +110,6 @@ export default function Videos() {
       }
     }
   };
-
-  const loadMoreVideos = () => {
-    // do something
-  }
 
   return (
     <>
@@ -171,7 +203,12 @@ export default function Videos() {
               </li>
             ))}
           </ul>
-          <button className="btn btn-primary my-10" onClick={loadMoreVideos}>Load More Videos...</button>
+          {nextPageToken && (
+            <button className="btn btn-primary my-10" onClick={fetchNextVideos}>
+              {loading && <span className="loading loading-spinner"></span>}
+              Load More Videos...
+            </button>
+          )}
         </div>
       )}
     </>
