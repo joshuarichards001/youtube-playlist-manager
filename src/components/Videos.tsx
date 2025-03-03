@@ -77,7 +77,7 @@ export default function Videos() {
 
   return (
     <>
-      {videos.length > 0 && (
+      {selectedPlaylist && (
         <div>
           <div className="flex flex-row justify-between items-center mb-4">
             <div className="flex gap-4">
@@ -94,7 +94,7 @@ export default function Videos() {
             <VideoActions />
           </div>
           <ul className="flex flex-col">
-            {videos.map((video) => (
+            {videos.map((video, i) => (
               <li
                 className={`flex flex-row cursor-move hover:bg-base-200 p-2 rounded-lg justify-between items-center w-full ${
                   video.selected ? "bg-primary/10 hover:bg-primary/20" : ""
@@ -112,38 +112,41 @@ export default function Videos() {
                   );
                 }}
               >
-                <div className="flex flex-row">
-                  <div className="relative">
-                    <img
-                      className="rounded-md h-[66px] w-[120px] object-cover"
-                      src={video.thumbnail}
-                      alt={video.title}
-                    />
-                    <div className="absolute bottom-0 right-0 bg-black text-white text-xs px-1 rounded">
-                      {convertDurationToTimeString(video.durationSeconds)}
+                <div className="flex flex-row items-center">
+                  <p className="mr-4 text-base-content/70">{i + 1}</p>
+                  <div className="flex flex-row">
+                    <div className="relative">
+                      <img
+                        className="rounded-md h-[66px] w-[120px] object-cover"
+                        src={video.thumbnail}
+                        alt={video.title}
+                      />
+                      <div className="absolute bottom-0 right-0 bg-black text-white text-xs px-1 rounded">
+                        {convertDurationToTimeString(video.durationSeconds)}
+                      </div>
                     </div>
-                  </div>
-                  <div className="flex flex-col pl-2 gap-2">
-                    <a
-                      className="link hover:text-primary"
-                      href={`https://www.youtube.com/watch?v=${video.resourceId}`}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      {video.title}
-                    </a>
-                    <div className="flex flex-row gap-4">
-                      <p className="text-xs text-base-content/70">
-                        {video.channel}
-                      </p>
-                      <p className="text-xs text-base-content/70">
-                        {video.viewCount.toLocaleString()} views
-                      </p>
-                      <p className="text-xs text-base-content/70">
-                        {convertReleaseDateToTimeSinceRelease(
-                          video.releaseDate
-                        )}
-                      </p>
+                    <div className="flex flex-col pl-2 gap-2">
+                      <a
+                        className="link hover:text-primary"
+                        href={`https://www.youtube.com/watch?v=${video.resourceId}`}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        {video.title}
+                      </a>
+                      <div className="flex flex-row gap-4">
+                        <p className="text-xs text-base-content/70">
+                          {video.channel}
+                        </p>
+                        <p className="text-xs text-base-content/70">
+                          {video.viewCount.toLocaleString()} views
+                        </p>
+                        <p className="text-xs text-base-content/70">
+                          {convertReleaseDateToTimeSinceRelease(
+                            video.releaseDate
+                          )}
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </div>
