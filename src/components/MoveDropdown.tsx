@@ -57,23 +57,29 @@ export default function MoveDropdown() {
   };
 
   return (
-    <div className="dropdown dropdown-end">
-      <div tabIndex={0} role="button" className="btn btn-neutral">
-        Move To
+    <div className="relative">
+      {loading && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="loading loading-spinner text-white"></div>
+        </div>
+      )}
+      <div className="dropdown dropdown-end">
+        <div tabIndex={0} role="button" className="btn btn-neutral">
+          Move To
+        </div>
+        <ul
+          tabIndex={0}
+          className="dropdown-content menu bg-base-200 rounded-box z-[1] w-52 p-2 shadow"
+        >
+          {filteredPlaylists.map((playlist) => (
+            <li key={playlist.id}>
+              <button onClick={() => handleMove(playlist.id)}>
+                {playlist.title}
+              </button>
+            </li>
+          ))}
+        </ul>
       </div>
-      <ul
-        tabIndex={0}
-        className="dropdown-content menu bg-base-200 rounded-box z-[1] w-52 p-2 shadow"
-      >
-        {filteredPlaylists.map((playlist) => (
-          <li key={playlist.id}>
-            <button onClick={() => handleMove(playlist.id)} disabled={loading}>
-              {loading && <span className="loading loading-spinner"></span>}
-              {playlist.title}
-            </button>
-          </li>
-        ))}
-      </ul>
     </div>
   );
 }

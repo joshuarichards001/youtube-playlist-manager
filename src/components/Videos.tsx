@@ -88,7 +88,7 @@ export default function Videos() {
                 className="btn btn-error btn-xs"
                 onClick={() => deletePlaylist(selectedPlaylist?.id)}
               >
-                delete
+                Delete
               </button>
             </div>
             <VideoActions />
