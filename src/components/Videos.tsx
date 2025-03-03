@@ -114,7 +114,7 @@ export default function Videos() {
   return (
     <>
       {selectedPlaylist && (
-        <div>
+        <div className="p-10 w-full">
           <div className="flex flex-row justify-between items-center mb-4">
             <div className="flex gap-4">
               <h2 className="font-bold text-xl mb-4">

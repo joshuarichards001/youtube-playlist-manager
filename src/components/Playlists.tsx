@@ -106,7 +106,7 @@ export default function Playlists() {
   return (
     <>
       {playlists.length > 0 && (
-        <ul className="menu gap-1 bg-base-200 text-base-content min-h-full w-80 p-4">
+        <ul className="menu min-w-80 gap-1 bg-base-200 text-base-content min-h-full p-4">
           {playlists.map((playlist) => (
             <li
               key={playlist.id}
