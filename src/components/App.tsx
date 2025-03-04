@@ -21,10 +21,10 @@ const App = () => {
   }, [accessToken, setUser]);
 
   return (
-    <main>
+    <main className="h-screen flex flex-col">
       <Nav />
       {accessToken ? (
-        <div className="flex">
+        <div className="flex flex-1 overflow-hidden">
           <Playlists />
           <Videos />
         </div>

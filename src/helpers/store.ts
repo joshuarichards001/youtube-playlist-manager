@@ -14,8 +14,8 @@ interface State {
   accessToken: string | null;
   setAccessToken: (accessToken: string | null) => void;
 
-  nextPageToken: string;
-  setNextPageToken: (nextPageToken: string) => void;
+  nextPageToken: string | null;
+  setNextPageToken: (nextPageToken: string | null) => void;
 
   sort: SortValues;
   setSort: (sort: SortValues) => void;

@@ -54,7 +54,7 @@ export const fetchPlaylistsAPI = async (
 export const fetchVideosAPI = async (
   accessToken: string,
   playlist: Playlist,
-  pageToken: string
+  pageToken: string | null
 ): Promise<{ videos: Video[]; nextPageToken: string }> => {
   try {
     const result = await axios.get(

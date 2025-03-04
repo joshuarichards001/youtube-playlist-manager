@@ -11,6 +11,7 @@ export default function Playlists() {
   const playlists = useStore((state) => state.playlists);
   const accessToken = useStore((state) => state.accessToken);
   const setVideos = useStore((state) => state.setVideos);
+  const setNextPageToken = useStore((state) => state.setNextPageToken);
   const selectedPlaylist = useStore((state) => state.selectedPlaylist);
   const setSelectedPlaylist = useStore((state) => state.setSelectedPlaylist);
   const setPlaylists = useStore((state) => state.setPlaylists);
@@ -106,7 +107,7 @@ export default function Playlists() {
   return (
     <>
       {playlists.length > 0 && (
-        <ul className="min-w-80 bg-base-200 gap-1 p-4">
+        <ul className="min-w-80 bg-base-200 gap-1 p-4 overflow-y-auto">
           {playlists.map((playlist) => (
             <li
               key={playlist.id}
@@ -123,6 +124,7 @@ export default function Playlists() {
                 }`}
                 onClick={() => {
                   setVideos([]);
+                  setNextPageToken(null);
                   setSelectedPlaylist(playlist);
                 }}
               >
