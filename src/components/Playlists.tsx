@@ -106,7 +106,7 @@ export default function Playlists() {
   return (
     <>
       {playlists.length > 0 && (
-        <ul className="menu min-w-80 gap-1 bg-base-200 text-base-content min-h-full p-4">
+        <ul className="min-w-80 bg-base-200 gap-1 p-4">
           {playlists.map((playlist) => (
             <li
               key={playlist.id}
@@ -118,7 +118,7 @@ export default function Playlists() {
               }
             >
               <button
-                className={`text-base flex flex-row justify-between items-baseline ${
+                className={`w-full p-2 rounded-md hover:bg-neutral/10 text-base flex flex-row justify-between items-baseline ${
                   selectedPlaylist?.id === playlist.id ? "bg-neutral/10" : ""
                 }`}
                 onClick={() => {
