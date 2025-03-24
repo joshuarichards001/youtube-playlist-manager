@@ -6,7 +6,7 @@ export default function Nav() {
 
   const handleSignOut = () => {
     Cookies.remove("accessToken");
-    window.location.reload();
+    window.location.href = "/";
   };
 
   return (
