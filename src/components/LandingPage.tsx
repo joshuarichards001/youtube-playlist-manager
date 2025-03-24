@@ -12,7 +12,7 @@ export default function LandingPage() {
       <h2 className="text-2xl font-bold mb-10 text-primary">
         Effortlessly organize your YouTube Playlists
       </h2>
-      <img src="../../screenshot.png" className="w-full max-w-[1000px] mb-14" />
+      <img src="screenshot.png" className="w-full max-w-[1000px] mb-14" />
       <LoginButton />
       <p className="max-w-[500px] text-center my-10">
         A YouTube Playlist Manager to help you sort, categorize, move, and bulk
