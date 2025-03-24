@@ -24,7 +24,7 @@ const App = () => {
     <main className="flex flex-col">
       <Nav />
       {accessToken ? (
-        <div className="flex flex-1 overflow-hidden">
+        <div className="h-screen flex flex-1 overflow-hidden">
           <Playlists />
           <Videos />
         </div>
