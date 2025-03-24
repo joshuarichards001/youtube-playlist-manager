@@ -16,7 +16,7 @@ export default function Nav() {
           Playlist Manager
         </a>
       </div>
-      <div className="flex flex-row gap-4">
+      {user && <div className="flex flex-row gap-4">
         <p>Welcome {user.name}!</p>
         <div className="dropdown dropdown-end">
           <div
@@ -37,7 +37,7 @@ export default function Nav() {
             </li>
           </ul>
         </div>
-      </div>
+      </div>}
     </nav>
   );
 }
