@@ -21,7 +21,7 @@ const App = () => {
   }, [accessToken, setUser]);
 
   return (
-    <main className="h-screen flex flex-col">
+    <main className="flex flex-col">
       <Nav />
       {accessToken ? (
         <div className="flex flex-1 overflow-hidden">
