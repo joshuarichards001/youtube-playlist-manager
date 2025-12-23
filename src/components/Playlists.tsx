@@ -1,10 +1,10 @@
-import useStore from "../helpers/store";
 import { useEffect, useState } from "react";
+import useStore from "../helpers/store";
 import {
   addVideosToPlaylistAPI,
+  createPlaylistAPI,
   deleteVideosFromPlaylistAPI,
   fetchPlaylistsAPI,
-  createPlaylistAPI,
 } from "../helpers/youtubeAPI";
 
 export default function Playlists() {
@@ -105,9 +105,10 @@ export default function Playlists() {
   };
 
   return (
-    <>
+    <div className="flex flex-col overflow-y-auto flex-1 p-4">
+      <h2 className="text-lg font-semibold mb-2">Playlists</h2>
       {playlists.length > 0 && (
-        <ul className="min-w-80 bg-base-200 gap-1 p-4 overflow-y-auto">
+        <ul className="gap-1 flex-1">
           {playlists.map((playlist) => (
             <li
               key={playlist.id}
@@ -119,9 +120,8 @@ export default function Playlists() {
               }
             >
               <button
-                className={`w-full p-2 rounded-md hover:bg-neutral/10 text-base flex flex-row justify-between items-baseline ${
-                  selectedPlaylist?.id === playlist.id ? "bg-neutral/10" : ""
-                }`}
+                className={`w-full p-2 rounded-md hover:bg-neutral/10 text-base flex flex-row justify-between items-baseline ${selectedPlaylist?.id === playlist.id ? "bg-neutral/10" : ""
+                  }`}
                 onClick={() => {
                   setVideos([]);
                   setNextPageToken(null);
@@ -152,6 +152,6 @@ export default function Playlists() {
           </li>
         </ul>
       )}
-    </>
+    </div>
   );
 }

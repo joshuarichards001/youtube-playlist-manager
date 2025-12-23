@@ -1,5 +1,5 @@
 import Nav from "./Nav";
-import Playlists from "./Playlists";
+import Sidebar from "./Sidebar";
 import Videos from "./Videos";
 
 export default function HomePage() {
@@ -7,7 +7,7 @@ export default function HomePage() {
     <main className="h-screen flex flex-col">
       <Nav />
       <div className="flex flex-1 overflow-hidden">
-        <Playlists />
+        <Sidebar />
         <Videos />
       </div>
     </main>
