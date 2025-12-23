@@ -1,6 +1,38 @@
 import axios from "axios";
 import { convertDurationToSeconds } from "./functions";
 
+const fetchVideoDetailsAPI = async (
+  accessToken: string,
+  videoIds: string[]
+): Promise<Video[]> => {
+  if (videoIds.length === 0) return [];
+
+  const videoDetails = await axios.get(
+    "https://www.googleapis.com/youtube/v3/videos",
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+      params: {
+        part: "contentDetails,snippet,statistics",
+        id: videoIds.join(","),
+      },
+    }
+  );
+
+  return videoDetails.data.items.map((video: YouTubeVideo) => ({
+    id: video.id,
+    title: video.snippet.title,
+    channel: video.snippet.videoOwnerChannelTitle,
+    thumbnail: video.snippet.thumbnails.default?.url,
+    resourceId: video.id,
+    durationSeconds: convertDurationToSeconds(video.contentDetails.duration),
+    releaseDate: video.snippet.publishedAt,
+    viewCount: Number(video.statistics.viewCount),
+    selected: false,
+  }));
+};
+
 export const fetchUserAPI = async (
   accessToken: string
 ): Promise<User | null> => {
@@ -74,54 +106,10 @@ export const fetchVideosAPI = async (
 
     const videoIds = result.data.items
       .filter((video: YouTubeVideo) => video.snippet.title !== "Private video")
-      .map((video: YouTubeVideo) => video.snippet.resourceId.videoId)
-      .join(",");
-
-    const videoDetails = await axios.get(
-      "https://www.googleapis.com/youtube/v3/videos",
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-        params: {
-          part: "contentDetails,snippet,statistics",
-          id: videoIds,
-        },
-      }
-    );
-
-    const videoDetailsMap = new Map(
-      videoDetails.data.items.map((video: YouTubeVideo) => [
-        video.id,
-        {
-          duration: convertDurationToSeconds(video.contentDetails.duration),
-          releaseDate: video.snippet.publishedAt,
-          viewCount: Number(video.statistics.viewCount),
-        },
-      ])
-    );
-
-    const videos = result.data.items
-      .filter((video: YouTubeVideo) => video.snippet.title !== "Private video")
       .filter((video: YouTubeVideo) => video.snippet.title !== "Deleted video")
-      .map((video: YouTubeVideo) => {
-        const details = videoDetailsMap.get(
-          video.snippet.resourceId.videoId
-        ) as YouTubeVideoDetails;
+      .map((video: YouTubeVideo) => video.snippet.resourceId.videoId);
 
-        return {
-          id: video.id,
-          title: video.snippet.title,
-          channel: video.snippet.videoOwnerChannelTitle,
-          thumbnail: video.snippet.thumbnails.default?.url,
-          resourceId: video.snippet.resourceId.videoId,
-          durationSeconds: details.duration,
-          releaseDate: details.releaseDate,
-          viewCount: details.viewCount,
-          selected: false,
-        };
-      })
-      .filter((video: Video | null): video is Video => video !== null);
+    const videos = await fetchVideoDetailsAPI(accessToken, videoIds);
 
     return { videos, nextPageToken: result.data.nextPageToken };
   } catch (error) {
@@ -230,37 +218,13 @@ export const fetchChannelVideosAPI = async (
     );
 
     const videoIds = searchResult.data.items
-      .map((item: { id: { videoId: string } }) => item.id.videoId)
-      .join(",");
+      .map((item: { id: { videoId: string } }) => item.id.videoId);
 
-    if (!videoIds) {
+    if (videoIds.length === 0) {
       return { videos: [], nextPageToken: "" };
     }
 
-    const videoDetails = await axios.get(
-      "https://www.googleapis.com/youtube/v3/videos",
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-        params: {
-          part: "contentDetails,snippet,statistics",
-          id: videoIds,
-        },
-      }
-    );
-
-    const videos = videoDetails.data.items.map((video: YouTubeVideo) => ({
-      id: video.id,
-      title: video.snippet.title,
-      channel: video.snippet.videoOwnerChannelTitle,
-      thumbnail: video.snippet.thumbnails.default?.url,
-      resourceId: video.id,
-      durationSeconds: convertDurationToSeconds(video.contentDetails.duration),
-      releaseDate: video.snippet.publishedAt,
-      viewCount: Number(video.statistics.viewCount),
-      selected: false,
-    }));
+    const videos = await fetchVideoDetailsAPI(accessToken, videoIds);
 
     return { videos, nextPageToken: searchResult.data.nextPageToken || "" };
   } catch (error) {
@@ -338,5 +302,68 @@ export const createPlaylistAPI = async (
   } catch (error) {
     console.error("Error creating playlist:", error);
     return null;
+  }
+};
+
+type RSSFeedItem = {
+  title: string;
+  link: string;
+  author: string;
+  pubDate: string;
+  enclosure?: { link: string };
+};
+
+type RSSFeedResponse = {
+  status: string;
+  items: RSSFeedItem[];
+};
+
+const extractVideoIdFromLink = (link: string): string => {
+  const match = link.match(/[?&]v=([^&]+)/);
+  return match ? match[1] : "";
+};
+
+export const fetchSubscriptionsFeedAPI = async (
+  accessToken: string,
+  subscriptions: Subscription[]
+): Promise<Video[]> => {
+  try {
+    const feedPromises = subscriptions.map(async (subscription) => {
+      const rssUrl = `https://www.youtube.com/feeds/videos.xml?channel_id=${subscription.channelId}`;
+      const proxyUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}`;
+
+      try {
+        const response = await axios.get<RSSFeedResponse>(proxyUrl);
+
+        if (response.data.status !== "ok") {
+          console.warn(`Failed to fetch feed for ${subscription.title}`);
+          return [];
+        }
+
+        return response.data.items.map((item) => ({
+          videoId: extractVideoIdFromLink(item.link),
+          pubDate: item.pubDate,
+        }));
+      } catch (error) {
+        console.warn(`Error fetching feed for ${subscription.title}:`, error);
+        return [];
+      }
+    });
+
+    const allFeeds = await Promise.all(feedPromises);
+    const allVideoRefs = allFeeds.flat();
+
+    // Sort by published date (newest first) and take top 50
+    const sortedVideoRefs = allVideoRefs
+      .sort((a, b) => new Date(b.pubDate).getTime() - new Date(a.pubDate).getTime())
+      .slice(0, 50);
+
+    const videoIds = sortedVideoRefs.map((ref) => ref.videoId);
+    const videos = await fetchVideoDetailsAPI(accessToken, videoIds);
+
+    return videos;
+  } catch (error) {
+    console.error("Error fetching subscriptions feed:", error);
+    return [];
   }
 };

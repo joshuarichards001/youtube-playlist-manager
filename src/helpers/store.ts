@@ -31,6 +31,9 @@ interface State {
 
   viewingVideo: Video | null;
   setViewingVideo: (viewingVideo: Video | null) => void;
+
+  showSubscriptionFeed: boolean;
+  setShowSubscriptionFeed: (showSubscriptionFeed: boolean) => void;
 }
 
 const useStore = create<State>(
@@ -65,6 +68,9 @@ const useStore = create<State>(
 
     viewingVideo: null,
     setViewingVideo: (viewingVideo) => set({ viewingVideo }),
+
+    showSubscriptionFeed: false,
+    setShowSubscriptionFeed: (showSubscriptionFeed) => set({ showSubscriptionFeed }),
   }))
 );
 

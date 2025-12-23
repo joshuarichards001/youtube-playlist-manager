@@ -4,7 +4,7 @@ import {
   convertReleaseDateToTimeSinceRelease,
 } from "../helpers/functions";
 import useStore from "../helpers/store";
-import { deletePlaylistAPI, fetchChannelVideosAPI, fetchVideosAPI } from "../helpers/youtubeAPI";
+import { deletePlaylistAPI, fetchChannelVideosAPI, fetchSubscriptionsFeedAPI, fetchVideosAPI } from "../helpers/youtubeAPI";
 import VideoActions from "./VideoActions";
 import VideoViewer from "./VideoViewer";
 
@@ -14,12 +14,17 @@ export default function Videos() {
   const setVideos = useStore((state) => state.setVideos);
   const selectedPlaylist = useStore((state) => state.selectedPlaylist);
   const selectedSubscription = useStore((state) => state.selectedSubscription);
+  const subscriptions = useStore((state) => state.subscriptions);
+  const showSubscriptionFeed = useStore((state) => state.showSubscriptionFeed);
+  const [subscriptionFeedLoading, setSubscriptionFeedLoading] = useState(false);
   const sort = useStore((state) => state.sort);
   const nextPageToken = useStore((state) => state.nextPageToken);
   const setNextPageToken = useStore((state) => state.setNextPageToken);
   const [loading, setLoading] = useState(false);
   const viewingVideo = useStore((state) => state.viewingVideo);
   const setViewingVideo = useStore((state) => state.setViewingVideo);
+
+  const isFeedMode = showSubscriptionFeed && !selectedPlaylist && !selectedSubscription;
 
   useEffect(() => {
     const sortedVideos = [...videos].sort((a, b) => {
@@ -103,6 +108,16 @@ export default function Videos() {
     fetchNextChannelVideos();
   }, [selectedSubscription]);
 
+  useEffect(() => {
+    if (isFeedMode && accessToken && subscriptions.length > 0 && videos.length === 0 && !subscriptionFeedLoading) {
+      setSubscriptionFeedLoading(true);
+      fetchSubscriptionsFeedAPI(accessToken, subscriptions).then((feedVideos) => {
+        setVideos(feedVideos);
+        setSubscriptionFeedLoading(false);
+      });
+    }
+  }, [isFeedMode, accessToken, subscriptions, videos.length, subscriptionFeedLoading, setVideos, setSubscriptionFeedLoading]);
+
   const handleDragStart = (e: React.DragEvent, video: Video) => {
     e.dataTransfer.setData(
       "video",
@@ -145,12 +160,13 @@ export default function Videos() {
     }
   };
 
-  const currentTitle = selectedPlaylist?.title || selectedSubscription?.title;
+  const currentTitle = selectedPlaylist?.title || selectedSubscription?.title || (isFeedMode ? "Recent Videos" : "");
   const isPlaylistView = !!selectedPlaylist;
+  const isLoading = loading || (isFeedMode && subscriptionFeedLoading);
 
   return (
     <>
-      {(selectedPlaylist || selectedSubscription) && (
+      {(selectedPlaylist || selectedSubscription || isFeedMode) && (
         <div className={`pt-10 px-10 overflow-y-auto flex flex-col ${viewingVideo ? 'w-1/2' : 'w-full'}`}>
           <div className="flex flex-row justify-between items-center mb-4">
             <div className="flex gap-4">
@@ -243,7 +259,13 @@ export default function Videos() {
                 </li>
               ))}
             </ul>
-            {nextPageToken && (
+            {isLoading && videos.length === 0 && (
+              <div className="flex items-center justify-center py-10">
+                <span className="loading loading-spinner loading-lg"></span>
+                <span className="ml-4">Loading videos...</span>
+              </div>
+            )}
+            {nextPageToken && !isFeedMode && (
               <button
                 className="btn btn-primary my-10"
                 onClick={selectedPlaylist ? fetchNextPlaylistVideos : fetchNextChannelVideos}
