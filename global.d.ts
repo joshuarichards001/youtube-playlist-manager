@@ -49,3 +49,19 @@ type YouTubeVideoDetails = {
 };
 
 type SortValues = "title" | "duration" | "viewCount" | "releaseDate";
+
+type Subscription = {
+  id: string;
+  title: string;
+  thumbnail: string;
+  channelId: string;
+};
+
+type YouTubeSubscription = {
+  id: string;
+  snippet: {
+    title: string;
+    thumbnails: { default: { url: string } };
+    resourceId: { channelId: string };
+  };
+};

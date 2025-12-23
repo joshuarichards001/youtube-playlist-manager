@@ -1,17 +1,18 @@
 import { useEffect, useState } from "react";
-import useStore from "../helpers/store";
 import {
   convertDurationToTimeString,
   convertReleaseDateToTimeSinceRelease,
 } from "../helpers/functions";
+import useStore from "../helpers/store";
+import { deletePlaylistAPI, fetchChannelVideosAPI, fetchVideosAPI } from "../helpers/youtubeAPI";
 import VideoActions from "./VideoActions";
-import { deletePlaylistAPI, fetchVideosAPI } from "../helpers/youtubeAPI";
 
 export default function Videos() {
   const accessToken = useStore((state) => state.accessToken);
   const videos = useStore((state) => state.videos);
   const setVideos = useStore((state) => state.setVideos);
   const selectedPlaylist = useStore((state) => state.selectedPlaylist);
+  const selectedSubscription = useStore((state) => state.selectedSubscription);
   const sort = useStore((state) => state.sort);
   const nextPageToken = useStore((state) => state.nextPageToken);
   const setNextPageToken = useStore((state) => state.setNextPageToken);
@@ -36,7 +37,7 @@ export default function Videos() {
     setVideos(sortedVideos);
   }, [sort]);
 
-  const fetchNextVideos = async () => {
+  const fetchNextPlaylistVideos = async () => {
     try {
       if (!accessToken) {
         console.error("No access token available.");
@@ -65,9 +66,39 @@ export default function Videos() {
     }
   };
 
+  const fetchNextChannelVideos = async () => {
+    try {
+      if (!accessToken) {
+        console.error("No access token available.");
+        return;
+      }
+
+      if (!selectedSubscription) {
+        return;
+      }
+
+      setLoading(true);
+      const videoResponse = await fetchChannelVideosAPI(
+        accessToken,
+        selectedSubscription.channelId,
+        nextPageToken
+      );
+
+      setVideos([...videos, ...videoResponse.videos]);
+      setNextPageToken(videoResponse.nextPageToken);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching channel videos:", error);
+    }
+  };
+
   useEffect(() => {
-    fetchNextVideos();
+    fetchNextPlaylistVideos();
   }, [selectedPlaylist]);
+
+  useEffect(() => {
+    fetchNextChannelVideos();
+  }, [selectedSubscription]);
 
   const handleDragStart = (e: React.DragEvent, video: Video) => {
     e.dataTransfer.setData(
@@ -111,31 +142,35 @@ export default function Videos() {
     }
   };
 
+  const currentTitle = selectedPlaylist?.title || selectedSubscription?.title;
+  const isPlaylistView = !!selectedPlaylist;
+
   return (
     <>
-      {selectedPlaylist && (
+      {(selectedPlaylist || selectedSubscription) && (
         <div className="pt-10 px-10 w-full overflow-y-auto flex flex-col">
           <div className="flex flex-row justify-between items-center mb-4">
             <div className="flex gap-4">
               <h2 className="font-bold text-xl mb-4">
-                {selectedPlaylist?.title}
+                {currentTitle}
               </h2>
-              <button
-                className="btn btn-error btn-xs"
-                onClick={() => deletePlaylist(selectedPlaylist?.id)}
-              >
-                Delete
-              </button>
+              {isPlaylistView && (
+                <button
+                  className="btn btn-error btn-xs"
+                  onClick={() => deletePlaylist(selectedPlaylist?.id)}
+                >
+                  Delete
+                </button>
+              )}
             </div>
-            <VideoActions />
+            {isPlaylistView && <VideoActions />}
           </div>
           <div className="overflow-y-auto">
             <ul className="flex flex-col">
               {videos.map((video, i) => (
                 <li
-                  className={`flex flex-row cursor-move hover:bg-base-200 p-2 rounded-lg justify-between items-center w-full ${
-                    video.selected ? "bg-primary/10 hover:bg-primary/20" : ""
-                  }`}
+                  className={`flex flex-row cursor-move hover:bg-base-200 p-2 rounded-lg justify-between items-center w-full ${video.selected ? "bg-primary/10 hover:bg-primary/20" : ""
+                    }`}
                   key={video.id}
                   draggable
                   onDragStart={(e) => handleDragStart(e, video)}
@@ -207,7 +242,7 @@ export default function Videos() {
             {nextPageToken && (
               <button
                 className="btn btn-primary my-10"
-                onClick={fetchNextVideos}
+                onClick={selectedPlaylist ? fetchNextPlaylistVideos : fetchNextChannelVideos}
               >
                 {loading && <span className="loading loading-spinner"></span>}
                 Load More Videos...

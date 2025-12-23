@@ -8,6 +8,12 @@ interface State {
   selectedPlaylist: Playlist | null;
   setSelectedPlaylist: (selectedPlaylist: Playlist | null) => void;
 
+  subscriptions: Subscription[];
+  setSubscriptions: (subscriptions: Subscription[]) => void;
+
+  selectedSubscription: Subscription | null;
+  setSelectedSubscription: (selectedSubscription: Subscription | null) => void;
+
   videos: Video[];
   setVideos: (videos: Video[]) => void;
 
@@ -32,6 +38,12 @@ const useStore = create<State>(
 
     selectedPlaylist: null,
     setSelectedPlaylist: (selectedPlaylist) => set({ selectedPlaylist }),
+
+    subscriptions: [],
+    setSubscriptions: (subscriptions) => set({ subscriptions }),
+
+    selectedSubscription: null,
+    setSelectedSubscription: (selectedSubscription) => set({ selectedSubscription }),
 
     videos: [],
     setVideos: (videos) => set({ videos }),

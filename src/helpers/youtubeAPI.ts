@@ -206,6 +206,110 @@ export const deletePlaylistAPI = async (
   }
 };
 
+export const fetchChannelVideosAPI = async (
+  accessToken: string,
+  channelId: string,
+  pageToken: string | null
+): Promise<{ videos: Video[]; nextPageToken: string }> => {
+  try {
+    const searchResult = await axios.get(
+      "https://www.googleapis.com/youtube/v3/search",
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+        params: {
+          part: "snippet",
+          channelId,
+          order: "date",
+          type: "video",
+          maxResults: 50,
+          pageToken,
+        },
+      }
+    );
+
+    const videoIds = searchResult.data.items
+      .map((item: { id: { videoId: string } }) => item.id.videoId)
+      .join(",");
+
+    if (!videoIds) {
+      return { videos: [], nextPageToken: "" };
+    }
+
+    const videoDetails = await axios.get(
+      "https://www.googleapis.com/youtube/v3/videos",
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+        params: {
+          part: "contentDetails,snippet,statistics",
+          id: videoIds,
+        },
+      }
+    );
+
+    const videos = videoDetails.data.items.map((video: YouTubeVideo) => ({
+      id: video.id,
+      title: video.snippet.title,
+      channel: video.snippet.videoOwnerChannelTitle,
+      thumbnail: video.snippet.thumbnails.default?.url,
+      resourceId: video.id,
+      durationSeconds: convertDurationToSeconds(video.contentDetails.duration),
+      releaseDate: video.snippet.publishedAt,
+      viewCount: Number(video.statistics.viewCount),
+      selected: false,
+    }));
+
+    return { videos, nextPageToken: searchResult.data.nextPageToken || "" };
+  } catch (error) {
+    console.error("Error fetching channel videos:", error);
+    return { videos: [], nextPageToken: "" };
+  }
+};
+
+export const fetchSubscriptionsAPI = async (
+  accessToken: string
+): Promise<Subscription[]> => {
+  try {
+    const subscriptions: Subscription[] = [];
+    let pageToken: string | undefined = undefined;
+
+    do {
+      const result: { data: { items: YouTubeSubscription[]; nextPageToken?: string } } = await axios.get(
+        "https://www.googleapis.com/youtube/v3/subscriptions",
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+          params: {
+            part: "snippet",
+            mine: true,
+            maxResults: 50,
+            pageToken,
+          },
+        }
+      );
+
+      const items = result.data.items.map((sub: YouTubeSubscription) => ({
+        id: sub.id,
+        title: sub.snippet.title,
+        thumbnail: sub.snippet.thumbnails.default?.url,
+        channelId: sub.snippet.resourceId.channelId,
+      }));
+
+      subscriptions.push(...items);
+      pageToken = result.data.nextPageToken;
+    } while (pageToken);
+
+    return subscriptions;
+  } catch (error) {
+    console.error("Error fetching subscriptions:", error);
+    return [];
+  }
+};
+
 export const createPlaylistAPI = async (
   accessToken: string,
   playlistName: string

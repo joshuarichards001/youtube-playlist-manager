@@ -15,6 +15,7 @@ export default function Playlists() {
   const selectedPlaylist = useStore((state) => state.selectedPlaylist);
   const setSelectedPlaylist = useStore((state) => state.setSelectedPlaylist);
   const setPlaylists = useStore((state) => state.setPlaylists);
+  const setSelectedSubscription = useStore((state) => state.setSelectedSubscription);
   const [dragOverId, setDragOverId] = useState<string | null>(null);
   const [newPlaylistName, setNewPlaylistName] = useState<string>("");
 
@@ -125,6 +126,7 @@ export default function Playlists() {
                 onClick={() => {
                   setVideos([]);
                   setNextPageToken(null);
+                  setSelectedSubscription(null);
                   setSelectedPlaylist(playlist);
                 }}
               >
