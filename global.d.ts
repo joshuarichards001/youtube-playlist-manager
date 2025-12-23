@@ -50,6 +50,12 @@ type YouTubeVideoDetails = {
 
 type SortValues = "title" | "duration" | "viewCount" | "releaseDate";
 
+type CurrentView =
+  | { type: 'playlist'; playlist: Playlist }
+  | { type: 'channel'; subscription: Subscription }
+  | { type: 'subscriptionFeed' }
+  | { type: 'none' };
+
 type Subscription = {
   id: string;
   title: string;

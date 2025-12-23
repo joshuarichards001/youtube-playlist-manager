@@ -6,12 +6,10 @@ export default function Subscriptions() {
   const subscriptions = useStore((state) => state.subscriptions);
   const accessToken = useStore((state) => state.accessToken);
   const setSubscriptions = useStore((state) => state.setSubscriptions);
-  const selectedSubscription = useStore((state) => state.selectedSubscription);
-  const setSelectedSubscription = useStore((state) => state.setSelectedSubscription);
-  const setSelectedPlaylist = useStore((state) => state.setSelectedPlaylist);
-  const setVideos = useStore((state) => state.setVideos);
-  const setNextPageToken = useStore((state) => state.setNextPageToken);
-  const setShowSubscriptionFeed = useStore((state) => state.setShowSubscriptionFeed);
+  const currentView = useStore((state) => state.currentView);
+  const setCurrentView = useStore((state) => state.setCurrentView);
+
+  const selectedSubscription = currentView.type === 'channel' ? currentView.subscription : null;
 
   useEffect(() => {
     if (accessToken) {
@@ -32,11 +30,7 @@ export default function Subscriptions() {
   };
 
   const handleHeaderClick = () => {
-    setVideos([]);
-    setNextPageToken(null);
-    setSelectedPlaylist(null);
-    setSelectedSubscription(null);
-    setShowSubscriptionFeed(true);
+    setCurrentView({ type: 'subscriptionFeed' });
   };
 
   const handleUnsubscribe = async (e: React.MouseEvent, subscription: Subscription) => {
@@ -52,9 +46,7 @@ export default function Subscriptions() {
       if (success) {
         setSubscriptions(subscriptions.filter((sub) => sub.id !== subscription.id));
         if (selectedSubscription?.id === subscription.id) {
-          setSelectedSubscription(null);
-          setVideos([]);
-          setNextPageToken(null);
+          setCurrentView({ type: 'none' });
         }
       }
     }
@@ -88,11 +80,7 @@ export default function Subscriptions() {
                 className={`group w-full p-2 rounded-md hover:bg-neutral/10 text-base flex flex-row items-center gap-2 ${selectedSubscription?.id === subscription.id ? "bg-neutral/10" : ""
                   }`}
                 onClick={() => {
-                  setVideos([]);
-                  setNextPageToken(null);
-                  setSelectedPlaylist(null);
-                  setSelectedSubscription(subscription);
-                  setShowSubscriptionFeed(false);
+                  setCurrentView({ type: 'channel', subscription });
                 }}
               >
                 <img

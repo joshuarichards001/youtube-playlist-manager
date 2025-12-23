@@ -11,11 +11,11 @@ export default function Playlists() {
   const playlists = useStore((state) => state.playlists);
   const accessToken = useStore((state) => state.accessToken);
   const setVideos = useStore((state) => state.setVideos);
-  const setNextPageToken = useStore((state) => state.setNextPageToken);
-  const selectedPlaylist = useStore((state) => state.selectedPlaylist);
-  const setSelectedPlaylist = useStore((state) => state.setSelectedPlaylist);
   const setPlaylists = useStore((state) => state.setPlaylists);
-  const setSelectedSubscription = useStore((state) => state.setSelectedSubscription);
+  const currentView = useStore((state) => state.currentView);
+  const setCurrentView = useStore((state) => state.setCurrentView);
+
+  const selectedPlaylist = currentView.type === 'playlist' ? currentView.playlist : null;
   const [dragOverId, setDragOverId] = useState<string | null>(null);
   const [newPlaylistName, setNewPlaylistName] = useState<string>("");
 
@@ -30,13 +30,13 @@ export default function Playlists() {
           const selected =
             playlists.find((p) => p.id === playlistId) || playlists[0];
 
-          setSelectedPlaylist(selected);
+          setCurrentView({ type: 'playlist', playlist: selected });
         });
       } catch (error) {
         console.error("Error fetching playlists:", error);
       }
     }
-  }, [accessToken, setPlaylists, setSelectedPlaylist]);
+  }, [accessToken, setPlaylists, setCurrentView]);
 
   const handleDrop = async (e: React.DragEvent, targetPlaylistId: string) => {
     e.preventDefault();
@@ -132,10 +132,7 @@ export default function Playlists() {
                 className={`w-full p-2 rounded-md hover:bg-neutral/10 text-base flex flex-row justify-between items-baseline ${selectedPlaylist?.id === playlist.id ? "bg-neutral/10" : ""
                   }`}
                 onClick={() => {
-                  setVideos([]);
-                  setNextPageToken(null);
-                  setSelectedSubscription(null);
-                  setSelectedPlaylist(playlist);
+                  setCurrentView({ type: 'playlist', playlist });
                 }}
               >
                 <p>{truncateTitle(playlist.title, 20)}</p>

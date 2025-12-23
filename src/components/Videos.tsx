@@ -12,12 +12,10 @@ export default function Videos() {
   const accessToken = useStore((state) => state.accessToken);
   const videos = useStore((state) => state.videos);
   const setVideos = useStore((state) => state.setVideos);
-  const selectedPlaylist = useStore((state) => state.selectedPlaylist);
-  const selectedSubscription = useStore((state) => state.selectedSubscription);
-  const setSelectedSubscription = useStore((state) => state.setSelectedSubscription);
+  const currentView = useStore((state) => state.currentView);
+  const setCurrentView = useStore((state) => state.setCurrentView);
   const subscriptions = useStore((state) => state.subscriptions);
   const setSubscriptions = useStore((state) => state.setSubscriptions);
-  const showSubscriptionFeed = useStore((state) => state.showSubscriptionFeed);
   const [subscriptionFeedLoading, setSubscriptionFeedLoading] = useState(false);
   const sort = useStore((state) => state.sort);
   const nextPageToken = useStore((state) => state.nextPageToken);
@@ -26,7 +24,9 @@ export default function Videos() {
   const viewingVideo = useStore((state) => state.viewingVideo);
   const setViewingVideo = useStore((state) => state.setViewingVideo);
 
-  const isFeedMode = showSubscriptionFeed && !selectedPlaylist && !selectedSubscription;
+  const selectedPlaylist = currentView.type === 'playlist' ? currentView.playlist : null;
+  const selectedSubscription = currentView.type === 'channel' ? currentView.subscription : null;
+  const isFeedMode = currentView.type === 'subscriptionFeed';
 
   useEffect(() => {
     const sortedVideos = [...videos].sort((a, b) => {
@@ -173,16 +173,14 @@ export default function Videos() {
       const success = await unsubscribeAPI(accessToken, selectedSubscription.id);
       if (success) {
         setSubscriptions(subscriptions.filter((sub) => sub.id !== selectedSubscription.id));
-        setSelectedSubscription(null);
-        setVideos([]);
-        setNextPageToken(null);
+        setCurrentView({ type: 'none' });
       }
     }
   };
 
   const currentTitle = selectedPlaylist?.title || selectedSubscription?.title || (isFeedMode ? "Recent Videos" : "");
-  const isPlaylistView = !!selectedPlaylist;
-  const isChannelView = !!selectedSubscription && !selectedPlaylist;
+  const isPlaylistView = currentView.type === 'playlist';
+  const isChannelView = currentView.type === 'channel';
   const isLoading = loading || (isFeedMode && subscriptionFeedLoading);
 
   return (

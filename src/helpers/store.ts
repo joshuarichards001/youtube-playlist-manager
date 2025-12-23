@@ -5,14 +5,11 @@ interface State {
   playlists: Playlist[];
   setPlaylists: (playlists: Playlist[]) => void;
 
-  selectedPlaylist: Playlist | null;
-  setSelectedPlaylist: (selectedPlaylist: Playlist | null) => void;
-
   subscriptions: Subscription[];
   setSubscriptions: (subscriptions: Subscription[]) => void;
 
-  selectedSubscription: Subscription | null;
-  setSelectedSubscription: (selectedSubscription: Subscription | null) => void;
+  currentView: CurrentView;
+  setCurrentView: (view: CurrentView) => void;
 
   videos: Video[];
   setVideos: (videos: Video[]) => void;
@@ -31,9 +28,6 @@ interface State {
 
   viewingVideo: Video | null;
   setViewingVideo: (viewingVideo: Video | null) => void;
-
-  showSubscriptionFeed: boolean;
-  setShowSubscriptionFeed: (showSubscriptionFeed: boolean) => void;
 }
 
 const useStore = create<State>(
@@ -42,14 +36,11 @@ const useStore = create<State>(
     playlists: [],
     setPlaylists: (playlists) => set({ playlists }),
 
-    selectedPlaylist: null,
-    setSelectedPlaylist: (selectedPlaylist) => set({ selectedPlaylist }),
-
     subscriptions: [],
     setSubscriptions: (subscriptions) => set({ subscriptions }),
 
-    selectedSubscription: null,
-    setSelectedSubscription: (selectedSubscription) => set({ selectedSubscription }),
+    currentView: { type: 'none' },
+    setCurrentView: (currentView) => set({ currentView, videos: [], nextPageToken: null }),
 
     videos: [],
     setVideos: (videos) => set({ videos }),
@@ -68,9 +59,6 @@ const useStore = create<State>(
 
     viewingVideo: null,
     setViewingVideo: (viewingVideo) => set({ viewingVideo }),
-
-    showSubscriptionFeed: false,
-    setShowSubscriptionFeed: (showSubscriptionFeed) => set({ showSubscriptionFeed }),
   }))
 );
 

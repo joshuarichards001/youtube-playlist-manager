@@ -9,7 +9,9 @@ export default function MoveDropdown() {
   const [loading, setLoading] = useState(false);
   const playlists = useStore((state) => state.playlists);
   const setPlaylists = useStore((state) => state.setPlaylists);
-  const selectedPlaylist = useStore((state) => state.selectedPlaylist);
+  const currentView = useStore((state) => state.currentView);
+
+  const selectedPlaylist = currentView.type === 'playlist' ? currentView.playlist : null;
   const filteredPlaylists = playlists.filter(
     (playlist) => playlist.id !== selectedPlaylist?.id
   );

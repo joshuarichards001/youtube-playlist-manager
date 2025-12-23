@@ -7,7 +7,9 @@ export default function DeleteConfirmationModal() {
   const videos = useStore((state) => state.videos);
   const setVideos = useStore((state) => state.setVideos);
   const selectedVideos = videos.filter((video) => video.selected);
-  const selectedPlaylist = useStore((state) => state.selectedPlaylist);
+  const currentView = useStore((state) => state.currentView);
+
+  const selectedPlaylist = currentView.type === 'playlist' ? currentView.playlist : null;
   const playlists = useStore((state) => state.playlists);
   const setPlaylists = useStore((state) => state.setPlaylists);
   const accessToken = useStore((state) => state.accessToken);
