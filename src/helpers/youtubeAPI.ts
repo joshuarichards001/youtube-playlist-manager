@@ -343,35 +343,103 @@ export const unsubscribeAPI = async (
   }
 };
 
+const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+const FEED_CACHE_KEY = 'subscriptionFeedCache';
+const FEED_CACHE_EXPIRY_KEY = 'subscriptionFeedCacheExpiry';
+const CACHE_DURATION_MS = 24 * 60 * 60 * 1000; // 24 hours
+
+type CachedFeedData = {
+  videoRefs: { videoId: string; pubDate: string }[];
+};
+
+const getCachedFeed = (): CachedFeedData | null => {
+  try {
+    const expiry = localStorage.getItem(FEED_CACHE_EXPIRY_KEY);
+    if (!expiry || Date.now() > parseInt(expiry, 10)) {
+      return null;
+    }
+    const cached = localStorage.getItem(FEED_CACHE_KEY);
+    return cached ? JSON.parse(cached) : null;
+  } catch {
+    return null;
+  }
+};
+
+const setCachedFeed = (data: CachedFeedData): void => {
+  try {
+    localStorage.setItem(FEED_CACHE_KEY, JSON.stringify(data));
+    localStorage.setItem(FEED_CACHE_EXPIRY_KEY, String(Date.now() + CACHE_DURATION_MS));
+  } catch (error) {
+    console.warn('Failed to cache feed data:', error);
+  }
+};
+
+export class RateLimitError extends Error {
+  constructor(message: string = 'Rate limit exceeded') {
+    super(message);
+    this.name = 'RateLimitError';
+  }
+}
+
+const fetchSingleFeed = async (
+  subscription: Subscription
+): Promise<{ videoId: string; pubDate: string }[]> => {
+  const rssUrl = `https://www.youtube.com/feeds/videos.xml?channel_id=${subscription.channelId}`;
+  const apiKey = import.meta.env.RSS_2_JSON_API_KEY;
+  const proxyUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}${apiKey ? `&api_key=${apiKey}` : ''}`;
+
+  const response = await axios.get<RSSFeedResponse>(proxyUrl);
+
+  if (response.data.status !== "ok") {
+    console.warn(`Failed to fetch feed for ${subscription.title}`);
+    return [];
+  }
+
+  return response.data.items.map((item) => ({
+    videoId: extractVideoIdFromLink(item.link),
+    pubDate: item.pubDate,
+  }));
+};
+
 export const fetchSubscriptionsFeedAPI = async (
   accessToken: string,
   subscriptions: Subscription[]
 ): Promise<Video[]> => {
   try {
-    const feedPromises = subscriptions.map(async (subscription) => {
-      const rssUrl = `https://www.youtube.com/feeds/videos.xml?channel_id=${subscription.channelId}`;
-      const proxyUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}`;
+    // Check for cached feed data first
+    const cachedData = getCachedFeed();
+    let allVideoRefs: { videoId: string; pubDate: string }[];
 
-      try {
-        const response = await axios.get<RSSFeedResponse>(proxyUrl);
+    if (cachedData) {
+      allVideoRefs = cachedData.videoRefs;
+    } else {
+      allVideoRefs = [];
+      const batchSize = 3;
+      const delayBetweenBatches = 1000; // 1 second between batches
 
-        if (response.data.status !== "ok") {
-          console.warn(`Failed to fetch feed for ${subscription.title}`);
-          return [];
+      // Process subscriptions in batches to avoid rate limiting
+      for (let i = 0; i < subscriptions.length; i += batchSize) {
+        const batch = subscriptions.slice(i, i + batchSize);
+        try {
+          const batchResults = await Promise.all(batch.map(fetchSingleFeed));
+          allVideoRefs.push(...batchResults.flat());
+        } catch (error) {
+          if (axios.isAxiosError(error) && error.response?.status === 429) {
+            throw new RateLimitError('RSS feed rate limit exceeded. Please try again later.');
+          }
+          throw error;
         }
 
-        return response.data.items.map((item) => ({
-          videoId: extractVideoIdFromLink(item.link),
-          pubDate: item.pubDate,
-        }));
-      } catch (error) {
-        console.warn(`Error fetching feed for ${subscription.title}:`, error);
-        return [];
+        // Add delay between batches (but not after the last batch)
+        if (i + batchSize < subscriptions.length) {
+          await delay(delayBetweenBatches);
+        }
       }
-    });
 
-    const allFeeds = await Promise.all(feedPromises);
-    const allVideoRefs = allFeeds.flat();
+      // Cache the fetched data
+      setCachedFeed({ videoRefs: allVideoRefs });
+    }
 
     // Sort by published date (newest first) and take top 50
     const sortedVideoRefs = allVideoRefs
@@ -383,6 +451,9 @@ export const fetchSubscriptionsFeedAPI = async (
 
     return videos;
   } catch (error) {
+    if (error instanceof RateLimitError) {
+      throw error;
+    }
     console.error("Error fetching subscriptions feed:", error);
     return [];
   }

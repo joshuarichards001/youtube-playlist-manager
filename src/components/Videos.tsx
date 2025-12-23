@@ -4,7 +4,7 @@ import {
   convertReleaseDateToTimeSinceRelease,
 } from "../helpers/functions";
 import useStore from "../helpers/store";
-import { deletePlaylistAPI, fetchChannelVideosAPI, fetchSubscriptionsFeedAPI, fetchVideosAPI, unsubscribeAPI } from "../helpers/youtubeAPI";
+import { deletePlaylistAPI, fetchChannelVideosAPI, fetchSubscriptionsFeedAPI, fetchVideosAPI, RateLimitError, unsubscribeAPI } from "../helpers/youtubeAPI";
 import VideoActions from "./VideoActions";
 import VideoViewer from "./VideoViewer";
 
@@ -17,6 +17,7 @@ export default function Videos() {
   const subscriptions = useStore((state) => state.subscriptions);
   const setSubscriptions = useStore((state) => state.setSubscriptions);
   const [subscriptionFeedLoading, setSubscriptionFeedLoading] = useState(false);
+  const [feedError, setFeedError] = useState<string | null>(null);
   const sort = useStore((state) => state.sort);
   const nextPageToken = useStore((state) => state.nextPageToken);
   const setNextPageToken = useStore((state) => state.setNextPageToken);
@@ -114,14 +115,24 @@ export default function Videos() {
   }, [selectedSubscription]);
 
   useEffect(() => {
-    if (isFeedMode && accessToken && subscriptions.length > 0 && videos.length === 0 && !subscriptionFeedLoading) {
+    if (isFeedMode && accessToken && subscriptions.length > 0 && videos.length === 0 && !subscriptionFeedLoading && !feedError) {
       setSubscriptionFeedLoading(true);
-      fetchSubscriptionsFeedAPI(accessToken, subscriptions).then((feedVideos) => {
-        setVideos(feedVideos);
-        setSubscriptionFeedLoading(false);
-      });
+      setFeedError(null);
+      fetchSubscriptionsFeedAPI(accessToken, subscriptions)
+        .then((feedVideos) => {
+          setVideos(feedVideos);
+          setSubscriptionFeedLoading(false);
+        })
+        .catch((error) => {
+          setSubscriptionFeedLoading(false);
+          if (error instanceof RateLimitError) {
+            setFeedError(error.message);
+          } else {
+            setFeedError('Failed to load subscription feed. Please try again later.');
+          }
+        });
     }
-  }, [isFeedMode, accessToken, subscriptions, videos.length, subscriptionFeedLoading, setVideos, setSubscriptionFeedLoading]);
+  }, [isFeedMode, accessToken, subscriptions, videos.length, subscriptionFeedLoading, feedError, setVideos]);
 
   const handleDragStart = (e: React.DragEvent, video: Video) => {
     e.dataTransfer.setData(
@@ -192,9 +203,14 @@ export default function Videos() {
         <div className={`pt-10 px-10 overflow-y-auto flex flex-col ${viewingVideo ? 'w-1/2' : 'w-full'}`}>
           <div className="flex flex-row justify-between items-center mb-4">
             <div className="flex gap-4">
-              <h2 className="font-bold text-xl mb-4">
-                {currentTitle}
-              </h2>
+              <div className="flex flex-col">
+                <h2 className="font-bold text-xl">
+                  {currentTitle}
+                </h2>
+                {isFeedMode && (
+                  <p className="text-xs text-gray-500">Feed is updated daily</p>
+                )}
+              </div>
               {isPlaylistView && (
                 <button
                   className="btn btn-error btn-xs"
@@ -289,10 +305,29 @@ export default function Videos() {
                 </li>
               ))}
             </ul>
-            {isLoading && videos.length === 0 && (
+            {isLoading && videos.length === 0 && !feedError && (
               <div className="flex items-center justify-center py-10">
                 <span className="loading loading-spinner loading-lg"></span>
                 <span className="ml-4">Loading videos...</span>
+              </div>
+            )}
+            {feedError && (
+              <div className="flex flex-col items-center justify-center py-10">
+                <div className="alert alert-error max-w-md">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span>{feedError}</span>
+                </div>
+                <button
+                  className="btn btn-primary mt-4"
+                  onClick={() => {
+                    setFeedError(null);
+                    setVideos([]);
+                  }}
+                >
+                  Try Again
+                </button>
               </div>
             )}
             {nextPageToken && !isFeedMode && (
