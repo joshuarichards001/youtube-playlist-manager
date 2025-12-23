@@ -106,10 +106,10 @@ export default function Playlists() {
   };
 
   return (
-    <div className="flex flex-col overflow-y-auto flex-1 p-4">
+    <div className="flex flex-col flex-1 p-4 overflow-hidden">
       <h2 className="text-lg font-semibold mb-2">Playlists</h2>
       {playlists.length > 0 && (
-        <ul className="gap-1 flex-1">
+        <ul className="gap-1 flex-1 overflow-y-auto">
           {[...playlists].sort((a, b) => a.title.localeCompare(b.title)).map((playlist) => (
             <li
               key={playlist.id}
