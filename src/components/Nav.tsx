@@ -6,7 +6,7 @@ export default function Nav() {
 
   const handleSignOut = () => {
     Cookies.remove("accessToken");
-    window.location.reload();
+    window.location.href = "/";
   };
 
   return (
@@ -16,30 +16,28 @@ export default function Nav() {
           YT Lite
         </a>
       </div>
-      {user && (
-        <div className="flex flex-row gap-4">
-          <p>Welcome {user.name}!</p>
-          <div className="dropdown dropdown-end">
-            <div
-              tabIndex={0}
-              role="button"
-              className="btn btn-ghost btn-circle avatar"
-            >
-              <div className="w-10 rounded-full">
-                <img alt="User Profile Picture" src={user.picture} />
-              </div>
+      {user && <div className="flex flex-row gap-4">
+        <p>Welcome {user.name}!</p>
+        <div className="dropdown dropdown-end">
+          <div
+            tabIndex={0}
+            role="button"
+            className="btn btn-ghost btn-circle avatar"
+          >
+            <div className="w-10 rounded-full">
+              <img alt="User Profile Picture" src={user.picture} />
             </div>
-            <ul
-              tabIndex={0}
-              className="menu menu-sm dropdown-content bg-base-200 rounded-box z-[1] mt-3 w-52 p-2 shadow"
-            >
-              <li>
-                <button onClick={handleSignOut}>Sign Out</button>
-              </li>
-            </ul>
           </div>
+          <ul
+            tabIndex={0}
+            className="menu menu-sm dropdown-content bg-base-200 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+          >
+            <li>
+              <button onClick={handleSignOut}>Sign Out</button>
+            </li>
+          </ul>
         </div>
-      )}
+      </div>}
     </nav>
   );
 }

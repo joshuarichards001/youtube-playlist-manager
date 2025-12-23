@@ -17,5 +17,5 @@ This is a way for YouTube power users to manage there playlists quickly. You can
 
 
 ## Here's how it looks
-![YT Lite screenshot](<screenshot.png>)
+![YouTube Playlist Manager screenshot](<public/screenshot.png>)
 
