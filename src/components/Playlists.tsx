@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { createPlaylistAPI, fetchPlaylistsAPI } from "../helpers/playlistAPI";
 import useStore from "../helpers/store";
-import { addVideosToPlaylistAPI, deleteVideosFromPlaylistAPI } from "../helpers/videoAPI";
+import { addVideosToPlaylistAPI, deleteVideosFromPlaylistAPI } from "../helpers/youtubeAPI/videoAPI";
+import { createPlaylistAPI, fetchPlaylistsAPI } from "../helpers/youtubeAPI/playlistAPI";
 
 export default function Playlists() {
   const playlists = useStore((state) => state.playlists);

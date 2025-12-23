@@ -3,10 +3,10 @@ import {
   convertDurationToTimeString,
   convertReleaseDateToTimeSinceRelease,
 } from "../helpers/functions";
-import { deletePlaylistAPI } from "../helpers/playlistAPI";
 import useStore from "../helpers/store";
-import { fetchSubscriptionsFeedAPI, RateLimitError, unsubscribeAPI } from "../helpers/subscriptionAPI";
-import { fetchChannelVideosAPI, fetchVideosAPI } from "../helpers/videoAPI";
+import { fetchSubscriptionsFeedAPI, RateLimitError, unsubscribeAPI } from "../helpers/youtubeAPI/subscriptionAPI";
+import { fetchChannelVideosAPI, fetchVideosAPI } from "../helpers/youtubeAPI/videoAPI";
+import { deletePlaylistAPI } from "../helpers/youtubeAPI/playlistAPI";
 import VideoActions from "./VideoActions";
 import VideoViewer from "./VideoViewer";
 

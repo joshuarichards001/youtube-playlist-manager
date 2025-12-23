@@ -3,7 +3,7 @@ import useStore from "../helpers/store";
 import {
   addVideosToPlaylistAPI,
   deleteVideosFromPlaylistAPI,
-} from "../helpers/videoAPI";
+} from "../helpers/youtubeAPI/videoAPI";
 
 export default function MoveDropdown() {
   const [loading, setLoading] = useState(false);

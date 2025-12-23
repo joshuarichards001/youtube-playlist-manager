@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import useStore from "../helpers/store";
-import { fetchUserAPI } from "../helpers/userAPI";
+import { fetchUserAPI } from "../helpers/youtubeAPI/userAPI";
 import HomePage from "./HomePage";
 import LandingPage from "./LandingPage";
 
