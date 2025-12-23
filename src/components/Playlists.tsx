@@ -25,12 +25,18 @@ export default function Playlists() {
         fetchPlaylistsAPI(accessToken).then((playlists) => {
           setPlaylists(playlists);
 
-          const pathParts = window.location.pathname.split("/");
-          const playlistId = pathParts[1];
-          const selected =
-            playlists.find((p) => p.id === playlistId) || playlists[0];
+          const pathParts = window.location.pathname.split("/").filter(Boolean);
+          const routeType = pathParts[0];
+          const routeId = pathParts[1];
 
-          setCurrentView({ type: 'playlist', playlist: selected });
+          // Only set playlist view if URL explicitly requests a playlist
+          if (routeType === 'playlist' && routeId) {
+            const selected = playlists.find((p) => p.id === routeId);
+            if (selected) {
+              setCurrentView({ type: 'playlist', playlist: selected });
+            }
+          }
+          // If no route or root path, default to feed (handled in Subscriptions.tsx)
         });
       } catch (error) {
         console.error("Error fetching playlists:", error);
@@ -133,6 +139,9 @@ export default function Playlists() {
                   }`}
                 onClick={() => {
                   setCurrentView({ type: 'playlist', playlist });
+                  const url = new URL(window.location.href);
+                  url.pathname = `/playlist/${playlist.id}`;
+                  window.history.pushState({}, "", url.toString());
                 }}
               >
                 <p>{truncateTitle(playlist.title, 20)}</p>

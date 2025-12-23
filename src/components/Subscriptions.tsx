@@ -16,12 +16,34 @@ export default function Subscriptions() {
       try {
         fetchSubscriptionsAPI(accessToken).then((subscriptions) => {
           setSubscriptions(subscriptions);
+
+          const pathParts = window.location.pathname.split("/").filter(Boolean);
+          const routeType = pathParts[0];
+          const routeId = pathParts[1];
+
+          if (routeType === 'channel' && routeId) {
+            const selected = subscriptions.find((s) => s.channelId === routeId);
+            if (selected) {
+              setCurrentView({ type: 'channel', subscription: selected });
+            }
+          } else if (routeType === 'feed') {
+            setCurrentView({ type: 'subscriptionFeed' });
+            const url = new URL(window.location.href);
+            url.pathname = '/feed';
+            window.history.replaceState({}, "", url.toString());
+          } else if (!routeType || routeType === '') {
+            // Default to feed when logged in with no specific route
+            setCurrentView({ type: 'subscriptionFeed' });
+            const url = new URL(window.location.href);
+            url.pathname = '/feed';
+            window.history.replaceState({}, "", url.toString());
+          }
         });
       } catch (error) {
         console.error("Error fetching subscriptions:", error);
       }
     }
-  }, [accessToken, setSubscriptions]);
+  }, [accessToken, setSubscriptions, setCurrentView]);
 
   const truncateTitle = (title: string, maxLength: number) => {
     return title.length > maxLength
@@ -31,6 +53,9 @@ export default function Subscriptions() {
 
   const handleHeaderClick = () => {
     setCurrentView({ type: 'subscriptionFeed' });
+    const url = new URL(window.location.href);
+    url.pathname = '/feed';
+    window.history.pushState({}, "", url.toString());
   };
 
   const handleUnsubscribe = async (e: React.MouseEvent, subscription: Subscription) => {
@@ -81,6 +106,9 @@ export default function Subscriptions() {
                   }`}
                 onClick={() => {
                   setCurrentView({ type: 'channel', subscription });
+                  const url = new URL(window.location.href);
+                  url.pathname = `/channel/${subscription.channelId}`;
+                  window.history.pushState({}, "", url.toString());
                 }}
               >
                 <img
