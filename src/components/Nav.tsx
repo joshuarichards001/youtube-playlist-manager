@@ -13,7 +13,7 @@ export default function Nav() {
     <nav className="navbar bg-base-200">
       <div className="flex-1">
         <a className="btn btn-ghost text-red-600 text-xl" href="/">
-          Playlist Manager
+          YT Lite
         </a>
       </div>
       {user && (

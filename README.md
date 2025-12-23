@@ -1,4 +1,4 @@
-# YouTube Playlist Manager
+# YT Lite
 
 How to run locally:
 
@@ -17,5 +17,5 @@ This is a way for YouTube power users to manage there playlists quickly. You can
 
 
 ## Here's how it looks
-![YouTube Playlist Manager screenshot](<screenshot.png>)
+![YT Lite screenshot](<screenshot.png>)
 
