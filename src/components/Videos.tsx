@@ -313,7 +313,7 @@ export default function Videos() {
                 <span className="ml-4">Loading videos...</span>
               </div>
             )}
-            {feedError && (
+            {feedError && currentView?.type === "subscriptionFeed" && (
               <div className="flex flex-col items-center justify-center py-10">
                 <div className="alert alert-error max-w-md">
                   <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">

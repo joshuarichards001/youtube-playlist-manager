@@ -58,6 +58,15 @@ type YouTubeVideoDetails = {
 
 type SortValues = "title" | "duration" | "viewCount" | "releaseDate";
 
+type VideoComment = {
+  id: string;
+  authorName: string;
+  authorProfileImage: string;
+  text: string;
+  likeCount: number;
+  publishedAt: string;
+};
+
 type CurrentView =
   | { type: 'playlist'; playlist: Playlist }
   | { type: 'channel'; subscription: Subscription }

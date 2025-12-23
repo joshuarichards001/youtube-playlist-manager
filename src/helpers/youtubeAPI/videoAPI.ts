@@ -1,6 +1,57 @@
 import axios from "axios";
 import { convertDurationToSeconds } from "../functions";
 
+
+export const fetchVideoCommentsAPI = async (
+  accessToken: string,
+  videoId: string
+): Promise<VideoComment[]> => {
+  try {
+    const result = await axios.get(
+      "https://www.googleapis.com/youtube/v3/commentThreads",
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+        params: {
+          part: "snippet",
+          videoId,
+          maxResults: 5,
+          order: "relevance",
+        },
+      }
+    );
+
+    return result.data.items.map(
+      (item: {
+        id: string;
+        snippet: {
+          topLevelComment: {
+            snippet: {
+              authorDisplayName: string;
+              authorProfileImageUrl: string;
+              textDisplay: string;
+              likeCount: number;
+              publishedAt: string;
+            };
+          };
+        };
+      }) => ({
+        id: item.id,
+        authorName: item.snippet.topLevelComment.snippet.authorDisplayName,
+        authorProfileImage:
+          item.snippet.topLevelComment.snippet.authorProfileImageUrl,
+        text: item.snippet.topLevelComment.snippet.textDisplay,
+        likeCount: item.snippet.topLevelComment.snippet.likeCount,
+        publishedAt: item.snippet.topLevelComment.snippet.publishedAt,
+      })
+    );
+  } catch (error) {
+    console.error("Error fetching comments:", error);
+    return [];
+  }
+};
+
 export const fetchVideoDetailsAPI = async (
   accessToken: string,
   videoIds: string[]
