@@ -1,5 +1,5 @@
 import axios from "axios";
-import { convertDurationToSeconds } from "./functions";
+import { convertDurationToSeconds } from "../functions";
 
 export const fetchVideoDetailsAPI = async (
   accessToken: string,

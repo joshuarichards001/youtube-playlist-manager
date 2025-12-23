@@ -1,5 +1,5 @@
 import axios from "axios";
-import { fetchVideoDetailsAPI } from "./videoAPI";
+import { fetchVideoDetailsAPI } from "../youtubeAPI/videoAPI";
 
 export const fetchSubscriptionsAPI = async (
   accessToken: string
