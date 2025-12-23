@@ -50,19 +50,27 @@ export default function Playlists() {
     if (sourcePlaylistId === targetPlaylistId) return;
 
     const previousVideos = useStore.getState().videos;
-    const updatedVideos = previousVideos.filter(
-      (video) => video.id !== videoItemId
-    );
-    setVideos(updatedVideos);
+    const isFromPlaylist = !!sourcePlaylistId;
+
+    if (isFromPlaylist) {
+      const updatedVideos = previousVideos.filter(
+        (video) => video.id !== videoItemId
+      );
+      setVideos(updatedVideos);
+    }
 
     try {
-      await Promise.all([
-        addVideosToPlaylistAPI(accessToken, [videoId], targetPlaylistId),
-        deleteVideosFromPlaylistAPI(accessToken, [videoItemId]),
-      ]);
+      if (isFromPlaylist) {
+        await Promise.all([
+          addVideosToPlaylistAPI(accessToken, [videoId], targetPlaylistId),
+          deleteVideosFromPlaylistAPI(accessToken, [videoItemId]),
+        ]);
+      } else {
+        await addVideosToPlaylistAPI(accessToken, [videoId], targetPlaylistId);
+      }
 
       const updatedPlaylists = playlists.map((playlist) => {
-        if (playlist.id === sourcePlaylistId) {
+        if (isFromPlaylist && playlist.id === sourcePlaylistId) {
           return { ...playlist, videoCount: playlist.videoCount - 1 };
         } else if (playlist.id === targetPlaylistId) {
           return { ...playlist, videoCount: playlist.videoCount + 1 };
