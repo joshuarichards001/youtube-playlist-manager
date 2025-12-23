@@ -35,7 +35,7 @@ export default function Subscriptions() {
       <h2 className="text-lg font-semibold mb-2">Subscriptions</h2>
       {subscriptions.length > 0 && (
         <ul className="gap-1 flex-1">
-          {subscriptions.map((subscription) => (
+          {[...subscriptions].sort((a, b) => a.title.localeCompare(b.title)).map((subscription) => (
             <li key={subscription.id}>
               <button
                 className={`w-full p-2 rounded-md hover:bg-neutral/10 text-base flex flex-row items-center gap-2 ${selectedSubscription?.id === subscription.id ? "bg-neutral/10" : ""
