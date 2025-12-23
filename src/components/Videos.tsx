@@ -4,7 +4,7 @@ import {
   convertReleaseDateToTimeSinceRelease,
 } from "../helpers/functions";
 import useStore from "../helpers/store";
-import { deletePlaylistAPI, fetchChannelVideosAPI, fetchSubscriptionsFeedAPI, fetchVideosAPI } from "../helpers/youtubeAPI";
+import { deletePlaylistAPI, fetchChannelVideosAPI, fetchSubscriptionsFeedAPI, fetchVideosAPI, unsubscribeAPI } from "../helpers/youtubeAPI";
 import VideoActions from "./VideoActions";
 import VideoViewer from "./VideoViewer";
 
@@ -14,7 +14,9 @@ export default function Videos() {
   const setVideos = useStore((state) => state.setVideos);
   const selectedPlaylist = useStore((state) => state.selectedPlaylist);
   const selectedSubscription = useStore((state) => state.selectedSubscription);
+  const setSelectedSubscription = useStore((state) => state.setSelectedSubscription);
   const subscriptions = useStore((state) => state.subscriptions);
+  const setSubscriptions = useStore((state) => state.setSubscriptions);
   const showSubscriptionFeed = useStore((state) => state.showSubscriptionFeed);
   const [subscriptionFeedLoading, setSubscriptionFeedLoading] = useState(false);
   const sort = useStore((state) => state.sort);
@@ -160,8 +162,27 @@ export default function Videos() {
     }
   };
 
+  const handleUnsubscribe = async () => {
+    if (!selectedSubscription || !accessToken) return;
+
+    const confirmUnsubscribe = window.confirm(
+      `Are you sure you want to unsubscribe from ${selectedSubscription.title}?`
+    );
+
+    if (confirmUnsubscribe) {
+      const success = await unsubscribeAPI(accessToken, selectedSubscription.id);
+      if (success) {
+        setSubscriptions(subscriptions.filter((sub) => sub.id !== selectedSubscription.id));
+        setSelectedSubscription(null);
+        setVideos([]);
+        setNextPageToken(null);
+      }
+    }
+  };
+
   const currentTitle = selectedPlaylist?.title || selectedSubscription?.title || (isFeedMode ? "Recent Videos" : "");
   const isPlaylistView = !!selectedPlaylist;
+  const isChannelView = !!selectedSubscription && !selectedPlaylist;
   const isLoading = loading || (isFeedMode && subscriptionFeedLoading);
 
   return (
@@ -181,8 +202,16 @@ export default function Videos() {
                   Delete
                 </button>
               )}
+              {isChannelView && (
+                <button
+                  className="btn btn-error btn-xs"
+                  onClick={handleUnsubscribe}
+                >
+                  Unsubscribe
+                </button>
+              )}
             </div>
-            {isPlaylistView && <VideoActions />}
+            <VideoActions />
           </div>
           <div className="overflow-y-auto">
             <ul className="flex flex-col">

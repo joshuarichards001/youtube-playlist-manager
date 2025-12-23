@@ -323,6 +323,26 @@ const extractVideoIdFromLink = (link: string): string => {
   return match ? match[1] : "";
 };
 
+export const unsubscribeAPI = async (
+  accessToken: string,
+  subscriptionId: string
+): Promise<boolean> => {
+  try {
+    await axios.delete("https://www.googleapis.com/youtube/v3/subscriptions", {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+      params: {
+        id: subscriptionId,
+      },
+    });
+    return true;
+  } catch (error) {
+    console.error("Error unsubscribing:", error);
+    return false;
+  }
+};
+
 export const fetchSubscriptionsFeedAPI = async (
   accessToken: string,
   subscriptions: Subscription[]

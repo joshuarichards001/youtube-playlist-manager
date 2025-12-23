@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import useStore from "../helpers/store";
-import { fetchSubscriptionsAPI } from "../helpers/youtubeAPI";
+import { fetchSubscriptionsAPI, unsubscribeAPI } from "../helpers/youtubeAPI";
 
 export default function Subscriptions() {
   const subscriptions = useStore((state) => state.subscriptions);
@@ -39,6 +39,27 @@ export default function Subscriptions() {
     setShowSubscriptionFeed(true);
   };
 
+  const handleUnsubscribe = async (e: React.MouseEvent, subscription: Subscription) => {
+    e.stopPropagation();
+    if (!accessToken) return;
+
+    const confirmUnsubscribe = window.confirm(
+      `Are you sure you want to unsubscribe from ${subscription.title}?`
+    );
+
+    if (confirmUnsubscribe) {
+      const success = await unsubscribeAPI(accessToken, subscription.id);
+      if (success) {
+        setSubscriptions(subscriptions.filter((sub) => sub.id !== subscription.id));
+        if (selectedSubscription?.id === subscription.id) {
+          setSelectedSubscription(null);
+          setVideos([]);
+          setNextPageToken(null);
+        }
+      }
+    }
+  };
+
   return (
     <div className="flex flex-col flex-1 p-4 overflow-hidden">
       <button
@@ -64,7 +85,7 @@ export default function Subscriptions() {
           {[...subscriptions].sort((a, b) => a.title.localeCompare(b.title)).map((subscription) => (
             <li key={subscription.id}>
               <button
-                className={`w-full p-2 rounded-md hover:bg-neutral/10 text-base flex flex-row items-center gap-2 ${selectedSubscription?.id === subscription.id ? "bg-neutral/10" : ""
+                className={`group w-full p-2 rounded-md hover:bg-neutral/10 text-base flex flex-row items-center gap-2 ${selectedSubscription?.id === subscription.id ? "bg-neutral/10" : ""
                   }`}
                 onClick={() => {
                   setVideos([]);
@@ -79,7 +100,25 @@ export default function Subscriptions() {
                   alt={subscription.title}
                   className="w-6 h-6 rounded-full"
                 />
-                <p>{truncateTitle(subscription.title, 18)}</p>
+                <p className="flex-1 text-left">{truncateTitle(subscription.title, 18)}</p>
+                <span
+                  className="opacity-0 group-hover:opacity-100 p-1 rounded hover:bg-red-500/20 hover:text-red-500 transition-opacity"
+                  onClick={(e) => handleUnsubscribe(e, subscription)}
+                  title="Unsubscribe"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-4 w-4"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </span>
               </button>
             </li>
           ))}
