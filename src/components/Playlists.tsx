@@ -153,21 +153,20 @@ export default function Playlists() {
               </button>
             </li>
           ))}
-          <div className="my-6"></div>
-          <li className="flex flex-row items-center gap-2 mt-2">
-            <input
-              type="text"
-              className="input input-bordered input-sm flex-1"
-              placeholder="Create New Playlist..."
-              value={newPlaylistName}
-              onChange={(e) => setNewPlaylistName(e.target.value)}
-            />
-            <button className="btn btn-primary btn-sm" onClick={createPlaylist}>
-              Create
-            </button>
-          </li>
         </ul>
       )}
+      <li className="flex flex-row items-center gap-2 mt-2">
+        <input
+          type="text"
+          className="input input-bordered input-sm flex-1"
+          placeholder="Create New Playlist..."
+          value={newPlaylistName}
+          onChange={(e) => setNewPlaylistName(e.target.value)}
+        />
+        <button className="btn btn-primary btn-sm" onClick={createPlaylist}>
+          Create
+        </button>
+      </li>
     </div>
   );
 }
