@@ -147,7 +147,7 @@ export default function Playlists() {
               </button>
             </li>
           ))}
-          <div className="divider my-3"></div>
+          <div className="my-6"></div>
           <li className="flex flex-row items-center gap-2 mt-2">
             <input
               type="text"
