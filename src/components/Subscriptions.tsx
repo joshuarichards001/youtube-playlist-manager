@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import useStore from "../helpers/store";
-import { fetchSubscriptionsAPI, unsubscribeAPI } from "../helpers/youtubeAPI";
+import { fetchSubscriptionsAPI, unsubscribeAPI } from "../helpers/subscriptionAPI";
 
 export default function Subscriptions() {
   const subscriptions = useStore((state) => state.subscriptions);

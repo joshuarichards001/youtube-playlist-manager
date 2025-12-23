@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import useStore from "../helpers/store";
-import LandingPage from "./LandingPage";
-import { fetchUserAPI } from "../helpers/youtubeAPI";
+import { fetchUserAPI } from "../helpers/userAPI";
 import HomePage from "./HomePage";
+import LandingPage from "./LandingPage";
 
 const App = () => {
   const accessToken = useStore((state) => state.accessToken);

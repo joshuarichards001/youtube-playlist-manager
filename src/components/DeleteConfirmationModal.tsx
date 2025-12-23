@@ -1,6 +1,6 @@
 import { useState } from "react";
 import useStore from "../helpers/store";
-import { deleteVideosFromPlaylistAPI } from "../helpers/youtubeAPI";
+import { deleteVideosFromPlaylistAPI } from "../helpers/videoAPI";
 
 export default function DeleteConfirmationModal() {
   const [loading, setLoading] = useState(false);
