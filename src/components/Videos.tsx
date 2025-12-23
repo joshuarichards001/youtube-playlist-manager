@@ -6,6 +6,7 @@ import {
 import useStore from "../helpers/store";
 import { deletePlaylistAPI, fetchChannelVideosAPI, fetchVideosAPI } from "../helpers/youtubeAPI";
 import VideoActions from "./VideoActions";
+import VideoViewer from "./VideoViewer";
 
 export default function Videos() {
   const accessToken = useStore((state) => state.accessToken);
@@ -17,6 +18,8 @@ export default function Videos() {
   const nextPageToken = useStore((state) => state.nextPageToken);
   const setNextPageToken = useStore((state) => state.setNextPageToken);
   const [loading, setLoading] = useState(false);
+  const viewingVideo = useStore((state) => state.viewingVideo);
+  const setViewingVideo = useStore((state) => state.setViewingVideo);
 
   useEffect(() => {
     const sortedVideos = [...videos].sort((a, b) => {
@@ -148,7 +151,7 @@ export default function Videos() {
   return (
     <>
       {(selectedPlaylist || selectedSubscription) && (
-        <div className="pt-10 px-10 w-full overflow-y-auto flex flex-col">
+        <div className={`pt-10 px-10 overflow-y-auto flex flex-col ${viewingVideo ? 'w-1/2' : 'w-full'}`}>
           <div className="flex flex-row justify-between items-center mb-4">
             <div className="flex gap-4">
               <h2 className="font-bold text-xl mb-4">
@@ -198,14 +201,15 @@ export default function Videos() {
                         </div>
                       </div>
                       <div className="flex flex-col pl-2 gap-2">
-                        <a
-                          className="link hover:text-primary"
-                          href={`https://www.youtube.com/watch?v=${video.resourceId}`}
-                          target="_blank"
-                          rel="noreferrer"
+                        <button
+                          className="link hover:text-primary text-left"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setViewingVideo(video);
+                          }}
                         >
                           {video.title}
-                        </a>
+                        </button>
                         <div className="flex flex-row gap-4">
                           <p className="text-xs text-base-content/70">
                             {video.channel}
@@ -250,6 +254,9 @@ export default function Videos() {
             )}
           </div>
         </div>
+      )}
+      {viewingVideo && (
+        <VideoViewer video={viewingVideo} onClose={() => setViewingVideo(null)} />
       )}
     </>
   );

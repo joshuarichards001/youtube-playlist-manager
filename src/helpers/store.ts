@@ -28,6 +28,9 @@ interface State {
 
   user: User;
   setUser: (user: User) => void;
+
+  viewingVideo: Video | null;
+  setViewingVideo: (viewingVideo: Video | null) => void;
 }
 
 const useStore = create<State>(
@@ -59,6 +62,9 @@ const useStore = create<State>(
 
     user: null,
     setUser: (user) => set({ user }),
+
+    viewingVideo: null,
+    setViewingVideo: (viewingVideo) => set({ viewingVideo }),
   }))
 );
 
