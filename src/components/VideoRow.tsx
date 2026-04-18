@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   convertDurationToTimeString,
   convertReleaseDateToTimeSinceRelease,
@@ -48,7 +49,13 @@ export default function VideoRow({
     >
       {gridView ? (
         <>
-          <div className="relative w-full">
+          <div
+            className="peer relative w-full cursor-pointer"
+            onClick={(e) => {
+              e.stopPropagation();
+              onOpenViewer();
+            }}
+          >
             <img
               className="rounded-md w-full aspect-video object-cover"
               src={video.thumbnail}
@@ -67,9 +74,9 @@ export default function VideoRow({
               onChange={onToggleSelect}
             />
           </div>
-          <div className="flex flex-col pt-2 gap-1">
+          <div className="flex flex-col pt-2 gap-1 peer-hover:[&>button]:text-primary">
             <button
-              className="link hover:text-primary text-left line-clamp-2"
+              className="link hover:text-primary text-left line-clamp-2 w-fit"
               onClick={(e) => {
                 e.stopPropagation();
                 onOpenViewer();
@@ -96,7 +103,13 @@ export default function VideoRow({
               {index + 1}
             </p>
             <div className="flex flex-row min-w-0 flex-1 gap-2 md:gap-0">
-              <div className="relative flex-shrink-0">
+              <div
+                className="peer relative flex-shrink-0 cursor-pointer"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onOpenViewer();
+                }}
+              >
                 <img
                   className="rounded-md h-[56px] w-[100px] md:h-[66px] md:w-[120px] object-cover"
                   src={video.thumbnail}
@@ -108,9 +121,9 @@ export default function VideoRow({
                   </div>
                 )}
               </div>
-              <div className="flex flex-col pl-2 gap-1 md:gap-2 min-w-0 flex-1">
+              <div className="flex flex-col pl-2 gap-1 md:gap-2 min-w-0 flex-1 peer-hover:[&>button]:text-primary">
                 <button
-                  className="link hover:text-primary text-left text-sm md:text-base line-clamp-2"
+                  className="link hover:text-primary text-left text-sm md:text-base line-clamp-2 w-fit"
                   onClick={(e) => {
                     e.stopPropagation();
                     onOpenViewer();
