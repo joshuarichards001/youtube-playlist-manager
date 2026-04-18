@@ -34,7 +34,11 @@ type YouTubeVideo = {
   snippet: {
     title: string;
     videoOwnerChannelTitle: string;
-    thumbnails: { default: { url: string } };
+    thumbnails: {
+      default: { url: string };
+      medium?: { url: string };
+      high?: { url: string };
+    };
     resourceId: { videoId: string };
     publishedAt: string;
   };
@@ -62,7 +66,28 @@ type VideoComment = {
 type CurrentView =
   | { type: 'playlist'; playlist: Playlist }
   | { type: 'channel'; subscription: Subscription }
+  | { type: 'feed' }
   | { type: 'none' };
+
+type FeedVideo = {
+  id: string;
+  title: string;
+  channel: string;
+  channelId: string;
+  thumbnail: string;
+  releaseDate: string;
+  viewCount: number;
+};
+
+type SubscriptionFeed = {
+  generatedAt: string;
+  videos: FeedVideo[];
+};
+
+type ChannelEntry = {
+  id: string;
+  title: string;
+};
 
 type Subscription = {
   id: string;

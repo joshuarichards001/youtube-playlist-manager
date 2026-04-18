@@ -1,0 +1,37 @@
+name: Refresh subscription feed
+
+on:
+  schedule:
+    - cron: "0 6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - run: npm ci
+
+      - name: Fetch subscription feed
+        run: node scripts/fetch-feed.mjs
+
+      - name: Commit updated feed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if [[ -n "$(git status --porcelain public/subscription-feed.json)" ]]; then
+            git add public/subscription-feed.json
+            git commit -m "chore: refresh subscription feed"
+            git push
+          else
+            echo "No changes to commit."
+          fi

@@ -60,9 +60,35 @@ export default function Subscriptions() {
     }
   };
 
+  const exportChannels = () => {
+    const payload: ChannelEntry[] = [...subscriptions]
+      .sort((a, b) => a.title.localeCompare(b.title))
+      .map((s) => ({ id: s.channelId, title: s.title }));
+    const blob = new Blob([JSON.stringify(payload, null, 2) + "\n"], {
+      type: "application/json",
+    });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "channels.json";
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
   return (
     <div className="flex flex-col flex-1 p-4 overflow-hidden">
-      <h2 className="text-lg font-semibold mb-2">Subscriptions</h2>
+      <div className="flex items-center justify-between mb-2">
+        <h2 className="text-lg font-semibold">Subscriptions</h2>
+        {subscriptions.length > 0 && (
+          <button
+            className="btn btn-ghost btn-xs"
+            onClick={exportChannels}
+            title="Download channels.json to commit to the repo"
+          >
+            Export
+          </button>
+        )}
+      </div>
       {subscriptions.length > 0 && (
         <ul className="gap-1 flex-1 overflow-y-auto">
           {[...subscriptions].sort((a, b) => a.title.localeCompare(b.title)).map((subscription) => (

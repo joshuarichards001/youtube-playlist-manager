@@ -45,7 +45,7 @@ const useStore = create<State>(
     subscriptions: [],
     setSubscriptions: (subscriptions) => set({ subscriptions }),
 
-    currentView: { type: 'none' },
+    currentView: { type: 'feed' },
     setCurrentView: (currentView) => set({ currentView, videos: [], nextPageToken: null }),
 
     videos: [],
@@ -69,7 +69,7 @@ const useStore = create<State>(
     gridView: false,
     setGridView: (gridView) => set({ gridView }),
 
-    sidebarOpen: window.location.pathname === "/",
+    sidebarOpen: false,
     setSidebarOpen: (sidebarOpen) => set({ sidebarOpen }),
   }))
 );
