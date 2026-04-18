@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import useStore from "../helpers/store";
+import useAuth from "../hooks/useAuth";
 import { fetchUserAPI } from "../helpers/youtubeAPI/userAPI";
 import HomePage from "./HomePage";
 import LandingPage from "./LandingPage";
@@ -7,6 +8,7 @@ import LandingPage from "./LandingPage";
 const App = () => {
   const accessToken = useStore((state) => state.accessToken);
   const setUser = useStore((state) => state.setUser);
+  const login = useAuth();
 
   useEffect(() => {
     if (!accessToken) return;
@@ -21,7 +23,7 @@ const App = () => {
   return accessToken ? (
     <HomePage />
   ) : (
-    <LandingPage />
+    <LandingPage onLogin={login} />
   );
 };
 

@@ -1,7 +1,11 @@
 import LoginButton from "./LoginButton";
 import PrivacyPolicy from "./PrivacyPolicy";
 
-export default function LandingPage() {
+interface Props {
+  onLogin: () => void;
+}
+
+export default function LandingPage({ onLogin }: Props) {
   if (window.location.pathname === "/privacy-policy") {
     return <PrivacyPolicy />;
   }
@@ -13,7 +17,7 @@ export default function LandingPage() {
         Effortlessly organize your YouTube Playlists
       </h2>
       <img src="screenshot.png" className="w-full max-w-[1000px] mb-14" />
-      <LoginButton />
+      <LoginButton onLogin={onLogin} />
       <p className="max-w-[500px] text-center my-10">
         A YouTube Playlist Manager to help you sort, categorize, move, and bulk
         edit the videos in your YouTube playlists to help you stay organized!
