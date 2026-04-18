@@ -5,57 +5,60 @@ import {
   deleteVideosFromPlaylistAPI,
 } from "../helpers/youtubeAPI/videoAPI";
 
-export default function MoveDropdown() {
+type Props = {
+  selectedVideoResourceIds: string[];
+  selectedVideoItemIds?: string[];
+  sourcePlaylistId?: string;
+  onComplete: () => void;
+};
+
+export default function MoveDropdown({
+  selectedVideoResourceIds,
+  selectedVideoItemIds,
+  sourcePlaylistId,
+  onComplete,
+}: Props) {
   const [loading, setLoading] = useState(false);
   const playlists = useStore((state) => state.playlists);
   const setPlaylists = useStore((state) => state.setPlaylists);
-  const currentView = useStore((state) => state.currentView);
-
-  const selectedPlaylist = currentView.type === 'playlist' ? currentView.playlist : null;
-  const filteredPlaylists = playlists.filter(
-    (playlist) => playlist.id !== selectedPlaylist?.id
-  );
   const accessToken = useStore((state) => state.accessToken);
-  const videos = useStore((state) => state.videos);
-  const setVideos = useStore((state) => state.setVideos);
-  const selectedVideos = videos.filter((video) => video.selected);
+
+  const filteredPlaylists = playlists.filter(
+    (playlist) => playlist.id !== sourcePlaylistId
+  );
 
   const handleMove = async (playlistId: string) => {
     if (!accessToken) return;
 
     setLoading(true);
-
-    const videoItemIds = selectedVideos.map((video) => video.id);
-    const videoResourceIds = selectedVideos.map((video) => video.resourceId);
+    const toRemove = selectedVideoItemIds ?? [];
 
     await Promise.all([
-      await addVideosToPlaylistAPI(accessToken, videoResourceIds, playlistId),
-      await deleteVideosFromPlaylistAPI(accessToken, videoItemIds),
+      addVideosToPlaylistAPI(accessToken, selectedVideoResourceIds, playlistId),
+      toRemove.length > 0
+        ? deleteVideosFromPlaylistAPI(accessToken, toRemove)
+        : Promise.resolve(),
     ]);
-
-    const updatedVideos = videos.filter(
-      (video) => !videoItemIds.includes(video.id)
-    );
-    setVideos(updatedVideos);
 
     const updatedPlaylists = playlists.map((playlist) => {
       if (playlist.id === playlistId) {
         return {
           ...playlist,
-          videoCount: playlist.videoCount + selectedVideos.length,
-        };
-      } else if (playlist.id === selectedPlaylist?.id) {
-        return {
-          ...playlist,
-          videoCount: playlist.videoCount - selectedVideos.length,
+          videoCount: playlist.videoCount + selectedVideoResourceIds.length,
         };
       }
-
+      if (sourcePlaylistId && playlist.id === sourcePlaylistId) {
+        return {
+          ...playlist,
+          videoCount: playlist.videoCount - toRemove.length,
+        };
+      }
       return playlist;
     });
     setPlaylists(updatedPlaylists);
 
     setLoading(false);
+    onComplete();
   };
 
   return (

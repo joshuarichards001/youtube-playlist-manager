@@ -1,6 +1,8 @@
-import { useEffect, useState } from "react";
-import { convertReleaseDateToTimeSinceRelease } from "../helpers/functions";
+import { useEffect, useMemo, useState } from "react";
 import useStore from "../helpers/store";
+import MoveDropdown from "./MoveDropdown";
+import VideoActions from "./VideoActions";
+import VideoRow from "./VideoRow";
 import VideoViewer from "./VideoViewer";
 
 const toViewerVideo = (v: FeedVideo): Video => ({
@@ -19,9 +21,54 @@ export default function SubscriptionFeed() {
   const gridView = useStore((state) => state.gridView);
   const viewingVideo = useStore((state) => state.viewingVideo);
   const setViewingVideo = useStore((state) => state.setViewingVideo);
+  const sort = useStore((state) => state.sort);
 
   const [feed, setFeed] = useState<SubscriptionFeed | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
+
+  const toggleSelected = (id: string) => {
+    setSelectedIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  };
+
+  const sortedVideos = useMemo(() => {
+    if (!feed) return [];
+    return [...feed.videos].sort((a, b) => {
+      switch (sort) {
+        case "title":
+          return a.title.localeCompare(b.title);
+        case "viewCount":
+          return b.viewCount - a.viewCount;
+        case "releaseDate":
+          return b.releaseDate.localeCompare(a.releaseDate);
+        default:
+          return 0;
+      }
+    });
+  }, [feed, sort]);
+
+  const handleDragStart = (e: React.DragEvent, video: FeedVideo) => {
+    e.dataTransfer.setData(
+      "video",
+      JSON.stringify({
+        videoId: video.id,
+        sourcePlaylistId: undefined,
+        videoItemId: undefined,
+      })
+    );
+
+    const dragImage = document.createElement("img");
+    dragImage.style.position = "absolute";
+    dragImage.style.top = "-9999px";
+    dragImage.style.left = "-9999px";
+    dragImage.src = video.thumbnail;
+    e.dataTransfer.setDragImage(dragImage, 20, 20);
+  };
 
   useEffect(() => {
     let cancelled = false;
@@ -61,6 +108,22 @@ export default function SubscriptionFeed() {
               </p>
             )}
           </div>
+          {feed && feed.videos.length > 0 && (
+            <VideoActions
+              selectedCount={selectedIds.size}
+              totalCount={feed.videos.length}
+              onSelectAll={() =>
+                setSelectedIds(new Set(feed.videos.map((v) => v.id)))
+              }
+              onDeselectAll={() => setSelectedIds(new Set())}
+              moveDropdown={
+                <MoveDropdown
+                  selectedVideoResourceIds={Array.from(selectedIds)}
+                  onComplete={() => setSelectedIds(new Set())}
+                />
+              }
+            />
+          )}
         </div>
         <div className="overflow-y-auto">
           {error && (
@@ -85,89 +148,17 @@ export default function SubscriptionFeed() {
                   : "flex flex-col"
               }
             >
-              {feed.videos.map((video, i) => (
-                <li
-                  className={
-                    gridView
-                      ? "flex flex-col hover:bg-base-200 p-2 rounded-lg"
-                      : "flex flex-row hover:bg-base-200 p-2 rounded-lg justify-between items-center w-full"
-                  }
+              {sortedVideos.map((video, i) => (
+                <VideoRow
                   key={video.id}
-                >
-                  {gridView ? (
-                    <>
-                      <div className="relative w-full">
-                        <img
-                          className="rounded-md w-full aspect-video object-cover"
-                          src={video.thumbnail}
-                          alt={video.title}
-                        />
-                      </div>
-                      <div className="flex flex-col pt-2 gap-1">
-                        <button
-                          className="link hover:text-primary text-left line-clamp-2"
-                          onClick={() => setViewingVideo(toViewerVideo(video))}
-                        >
-                          {video.title}
-                        </button>
-                        <p className="text-xs text-base-content/70">
-                          {video.channel}
-                        </p>
-                        <div className="flex flex-row gap-2 text-xs text-base-content/70">
-                          {video.viewCount > 0 && (
-                            <>
-                              <p>{video.viewCount.toLocaleString()} views</p>
-                              <p>·</p>
-                            </>
-                          )}
-                          <p>
-                            {convertReleaseDateToTimeSinceRelease(
-                              video.releaseDate
-                            )}
-                          </p>
-                        </div>
-                      </div>
-                    </>
-                  ) : (
-                    <div className="flex flex-row items-center min-w-0 flex-1 gap-2 md:gap-0">
-                      <p className="md:mr-4 text-base-content/70 text-sm w-5 flex-shrink-0 text-center">
-                        {i + 1}
-                      </p>
-                      <div className="flex flex-row min-w-0 flex-1 gap-2 md:gap-0">
-                        <div className="relative flex-shrink-0">
-                          <img
-                            className="rounded-md h-[56px] w-[100px] md:h-[66px] md:w-[120px] object-cover"
-                            src={video.thumbnail}
-                            alt={video.title}
-                          />
-                        </div>
-                        <div className="flex flex-col pl-2 gap-1 md:gap-2 min-w-0 flex-1">
-                          <button
-                            className="link hover:text-primary text-left text-sm md:text-base line-clamp-2"
-                            onClick={() => setViewingVideo(toViewerVideo(video))}
-                          >
-                            {video.title}
-                          </button>
-                          <div className="flex flex-row flex-wrap gap-x-2 gap-y-0 md:gap-4">
-                            <p className="text-xs text-base-content/70 truncate">
-                              {video.channel}
-                            </p>
-                            {video.viewCount > 0 && (
-                              <p className="text-xs text-base-content/70">
-                                {video.viewCount.toLocaleString()} views
-                              </p>
-                            )}
-                            <p className="text-xs text-base-content/70">
-                              {convertReleaseDateToTimeSinceRelease(
-                                video.releaseDate
-                              )}
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-                </li>
+                  video={video}
+                  index={i}
+                  gridView={gridView}
+                  selected={selectedIds.has(video.id)}
+                  onToggleSelect={() => toggleSelected(video.id)}
+                  onOpenViewer={() => setViewingVideo(toViewerVideo(video))}
+                  onDragStart={(e) => handleDragStart(e, video)}
+                />
               ))}
             </ul>
           )}

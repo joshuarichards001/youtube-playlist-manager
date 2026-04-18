@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
-import {
-  convertDurationToTimeString,
-  convertReleaseDateToTimeSinceRelease,
-} from "../helpers/functions";
 import useStore from "../helpers/store";
 import { unsubscribeAPI } from "../helpers/youtubeAPI/subscriptionAPI";
 import { fetchChannelVideosAPI, fetchVideosAPI } from "../helpers/youtubeAPI/videoAPI";
 import { deletePlaylistAPI } from "../helpers/youtubeAPI/playlistAPI";
+import DeleteConfirmationModal from "./DeleteConfirmationModal";
+import MoveDropdown from "./MoveDropdown";
 import VideoActions from "./VideoActions";
+import VideoRow from "./VideoRow";
 import VideoViewer from "./VideoViewer";
 
 export default function Videos() {
@@ -176,6 +175,20 @@ export default function Videos() {
   const isPlaylistView = currentView.type === 'playlist';
   const isChannelView = currentView.type === 'channel';
 
+  const selectedVideos = videos.filter((video) => video.selected);
+  const selectedVideoResourceIds = selectedVideos.map((v) => v.resourceId);
+  const selectedVideoItemIds = selectedVideos.map((v) => v.id);
+
+  const setAllSelected = (value: boolean) =>
+    setVideos(videos.map((v) => ({ ...v, selected: value })));
+
+  const openDeleteModal = () => {
+    const modal = document.getElementById(
+      "delete-confirmation-modal"
+    ) as HTMLDialogElement | null;
+    modal?.showModal();
+  };
+
   return (
     <>
       {(selectedPlaylist || selectedSubscription) && (
@@ -202,7 +215,25 @@ export default function Videos() {
                 </button>
               )}
             </div>
-            <VideoActions />
+            <VideoActions
+              selectedCount={selectedVideos.length}
+              totalCount={videos.length}
+              onSelectAll={() => setAllSelected(true)}
+              onDeselectAll={() => setAllSelected(false)}
+              onDelete={isPlaylistView ? openDeleteModal : undefined}
+              moveDropdown={
+                <MoveDropdown
+                  selectedVideoResourceIds={selectedVideoResourceIds}
+                  selectedVideoItemIds={
+                    isPlaylistView ? selectedVideoItemIds : undefined
+                  }
+                  sourcePlaylistId={selectedPlaylist?.id}
+                  onComplete={() =>
+                    setVideos(videos.filter((v) => !v.selected))
+                  }
+                />
+              }
+            />
           </div>
           <div className="overflow-y-auto">
             <ul
@@ -213,134 +244,24 @@ export default function Videos() {
               }
             >
               {videos.map((video, i) => (
-                <li
-                  className={
-                    gridView
-                      ? `flex flex-col cursor-move hover:bg-base-200 p-2 rounded-lg ${video.selected ? "bg-primary/10 hover:bg-primary/20" : ""}`
-                      : `flex flex-row cursor-move hover:bg-base-200 p-2 rounded-lg justify-between items-center w-full ${video.selected ? "bg-primary/10 hover:bg-primary/20" : ""}`
-                  }
+                <VideoRow
                   key={video.id}
-                  draggable
-                  onDragStart={(e) => handleDragStart(e, video)}
-                  onClick={() => {
+                  video={video}
+                  index={i}
+                  gridView={gridView}
+                  selected={video.selected}
+                  onToggleSelect={() =>
                     setVideos(
                       videos.map((mapVideo) =>
                         mapVideo.id === video.id
                           ? { ...mapVideo, selected: !mapVideo.selected }
                           : mapVideo
                       )
-                    );
-                  }}
-                >
-                  {gridView ? (
-                    <>
-                      <div className="relative w-full">
-                        <img
-                          className="rounded-md w-full aspect-video object-cover"
-                          src={video.thumbnail}
-                          alt={video.title}
-                        />
-                        <div className="absolute bottom-1 right-1 bg-black text-white text-xs px-1 rounded">
-                          {convertDurationToTimeString(video.durationSeconds)}
-                        </div>
-                        <input
-                          type="checkbox"
-                          className="checkbox checkbox-sm absolute top-1 right-1"
-                          checked={video.selected}
-                          onClick={(e) => e.stopPropagation()}
-                          onChange={(e) => {
-                            setVideos(
-                              videos.map((mapVideo) =>
-                                mapVideo.id === video.id
-                                  ? { ...mapVideo, selected: e.target.checked }
-                                  : mapVideo
-                              )
-                            );
-                          }}
-                        />
-                      </div>
-                      <div className="flex flex-col pt-2 gap-1">
-                        <button
-                          className="link hover:text-primary text-left line-clamp-2"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            setViewingVideo(video);
-                          }}
-                        >
-                          {video.title}
-                        </button>
-                        <p className="text-xs text-base-content/70">
-                          {video.channel}
-                        </p>
-                        <div className="flex flex-row gap-2 text-xs text-base-content/70">
-                          <p>{video.viewCount.toLocaleString()} views</p>
-                          <p>·</p>
-                          <p>
-                            {convertReleaseDateToTimeSinceRelease(
-                              video.releaseDate
-                            )}
-                          </p>
-                        </div>
-                      </div>
-                    </>
-                  ) : (
-                    <>
-                      <div className="flex flex-row items-center min-w-0 flex-1 gap-2 md:gap-0">
-                        <p className="md:mr-4 text-base-content/70 text-sm w-5 flex-shrink-0 text-center">{i + 1}</p>
-                        <div className="flex flex-row min-w-0 flex-1 gap-2 md:gap-0">
-                          <div className="relative flex-shrink-0">
-                            <img
-                              className="rounded-md h-[56px] w-[100px] md:h-[66px] md:w-[120px] object-cover"
-                              src={video.thumbnail}
-                              alt={video.title}
-                            />
-                            <div className="absolute bottom-0 right-0 bg-black text-white text-xs px-1 rounded">
-                              {convertDurationToTimeString(video.durationSeconds)}
-                            </div>
-                          </div>
-                          <div className="flex flex-col pl-2 gap-1 md:gap-2 min-w-0 flex-1">
-                            <button
-                              className="link hover:text-primary text-left text-sm md:text-base line-clamp-2"
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                setViewingVideo(video);
-                              }}
-                            >
-                              {video.title}
-                            </button>
-                            <div className="flex flex-row flex-wrap gap-x-2 gap-y-0 md:gap-4">
-                              <p className="text-xs text-base-content/70 truncate">
-                                {video.channel}
-                              </p>
-                              <p className="text-xs text-base-content/70">
-                                {video.viewCount.toLocaleString()} views
-                              </p>
-                              <p className="text-xs text-base-content/70">
-                                {convertReleaseDateToTimeSinceRelease(
-                                  video.releaseDate
-                                )}
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <input
-                        type="checkbox"
-                        className="checkbox checkbox-sm md:checkbox-lg ml-2 md:mr-6 flex-shrink-0"
-                        checked={video.selected}
-                        onChange={(e) => {
-                          setVideos(
-                            videos.map((mapVideo) =>
-                              mapVideo.id === video.id
-                                ? { ...mapVideo, selected: e.target.checked }
-                                : mapVideo
-                            )
-                          );
-                        }}
-                      />
-                    </>
-                  )}
-                </li>
+                    )
+                  }
+                  onOpenViewer={() => setViewingVideo(video)}
+                  onDragStart={(e) => handleDragStart(e, video)}
+                />
               ))}
             </ul>
             {loading && videos.length === 0 && (
@@ -364,6 +285,7 @@ export default function Videos() {
       {viewingVideo && (
         <VideoViewer video={viewingVideo} onClose={() => setViewingVideo(null)} />
       )}
+      <DeleteConfirmationModal />
     </>
   );
 }

@@ -1,63 +1,47 @@
+import { ReactNode } from "react";
 import useStore from "../helpers/store";
-import DeleteConfirmationModal from "./DeleteConfirmationModal";
-import MoveDropdown from "./MoveDropdown";
 import SortDropdown from "./SortDropdown";
 
-export default function VideoActions() {
-  const videos = useStore((state) => state.videos);
-  const setVideos = useStore((state) => state.setVideos);
+type Props = {
+  selectedCount: number;
+  totalCount: number;
+  onSelectAll: () => void;
+  onDeselectAll: () => void;
+  onDelete?: () => void;
+  moveDropdown?: ReactNode;
+};
+
+export default function VideoActions({
+  selectedCount,
+  totalCount,
+  onSelectAll,
+  onDeselectAll,
+  onDelete,
+  moveDropdown,
+}: Props) {
   const gridView = useStore((state) => state.gridView);
   const setGridView = useStore((state) => state.setGridView);
-  const selectedVideos = videos.filter((video) => video.selected);
-
-  const handleSelectAll = () => {
-    const updatedVideos = videos.map((video) => ({
-      ...video,
-      selected: true,
-    }));
-
-    setVideos(updatedVideos);
-  };
-
-  const handleDeselectAll = () => {
-    const updatedVideos = videos.map((video) => ({
-      ...video,
-      selected: false,
-    }));
-
-    setVideos(updatedVideos);
-  };
-
-  const handleDelete = () => {
-    const modal = document.getElementById(
-      "delete-confirmation-modal"
-    ) as HTMLDialogElement;
-
-    if (modal) {
-      modal.showModal();
-    }
-  };
 
   return (
     <div className="flex flex-row flex-wrap gap-2 md:gap-4">
-      {selectedVideos.length > 0 && <MoveDropdown />}
-      {videos.length !== selectedVideos.length && (
-        <button className="btn btn-sm md:btn-md btn-neutral" onClick={handleSelectAll}>
+      {selectedCount > 0 && moveDropdown}
+      {totalCount !== selectedCount && (
+        <button className="btn btn-sm md:btn-md btn-neutral" onClick={onSelectAll}>
           Select All
         </button>
       )}
-      {selectedVideos.length > 0 && (
-        <button className="btn btn-sm md:btn-md btn-neutral" onClick={handleDeselectAll}>
+      {selectedCount > 0 && (
+        <button className="btn btn-sm md:btn-md btn-neutral" onClick={onDeselectAll}>
           Deselect All
         </button>
       )}
-      {selectedVideos.length > 0 && (
-        <button className="btn btn-sm md:btn-md btn-error" onClick={handleDelete}>
-          Delete ({selectedVideos.length})
+      {selectedCount > 0 && onDelete && (
+        <button className="btn btn-sm md:btn-md btn-error" onClick={onDelete}>
+          Delete ({selectedCount})
         </button>
       )}
-      {selectedVideos.length === 0 && <SortDropdown />}
-      {selectedVideos.length === 0 && (
+      {selectedCount === 0 && <SortDropdown />}
+      {selectedCount === 0 && (
         <button
           className={`btn btn-sm md:btn-md btn-square ${gridView ? "btn-primary" : "btn-neutral"}`}
           onClick={() => setGridView(!gridView)}
@@ -73,7 +57,6 @@ export default function VideoActions() {
           </svg>
         </button>
       )}
-      <DeleteConfirmationModal />
     </div>
   );
 }
