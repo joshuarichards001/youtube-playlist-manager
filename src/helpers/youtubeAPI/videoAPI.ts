@@ -75,7 +75,7 @@ export const fetchVideoDetailsAPI = async (
     id: video.id,
     title: video.snippet.title,
     channel: video.snippet.videoOwnerChannelTitle,
-    thumbnail: video.snippet.thumbnails.default?.url,
+    thumbnail: video.snippet.thumbnails.high?.url,
     resourceId: video.id,
     durationSeconds: convertDurationToSeconds(video.contentDetails.duration),
     releaseDate: video.snippet.publishedAt,
