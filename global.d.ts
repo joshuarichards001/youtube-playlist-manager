@@ -1,13 +1,5 @@
 declare module "*.css";
 
-interface ImportMetaEnv {
-  readonly RSS_2_JSON_API_KEY: string;
-}
-
-interface ImportMeta {
-  readonly env: ImportMetaEnv;
-}
-
 type User = {
   name: string;
   picture: string;
@@ -70,7 +62,6 @@ type VideoComment = {
 type CurrentView =
   | { type: 'playlist'; playlist: Playlist }
   | { type: 'channel'; subscription: Subscription }
-  | { type: 'subscriptionFeed' }
   | { type: 'none' };
 
 type Subscription = {

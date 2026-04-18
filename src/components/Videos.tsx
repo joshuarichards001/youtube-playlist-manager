@@ -4,7 +4,7 @@ import {
   convertReleaseDateToTimeSinceRelease,
 } from "../helpers/functions";
 import useStore from "../helpers/store";
-import { fetchSubscriptionsFeedAPI, RateLimitError, unsubscribeAPI } from "../helpers/youtubeAPI/subscriptionAPI";
+import { unsubscribeAPI } from "../helpers/youtubeAPI/subscriptionAPI";
 import { fetchChannelVideosAPI, fetchVideosAPI } from "../helpers/youtubeAPI/videoAPI";
 import { deletePlaylistAPI } from "../helpers/youtubeAPI/playlistAPI";
 import VideoActions from "./VideoActions";
@@ -18,8 +18,6 @@ export default function Videos() {
   const setCurrentView = useStore((state) => state.setCurrentView);
   const subscriptions = useStore((state) => state.subscriptions);
   const setSubscriptions = useStore((state) => state.setSubscriptions);
-  const [subscriptionFeedLoading, setSubscriptionFeedLoading] = useState(false);
-  const [feedError, setFeedError] = useState<string | null>(null);
   const sort = useStore((state) => state.sort);
   const nextPageToken = useStore((state) => state.nextPageToken);
   const setNextPageToken = useStore((state) => state.setNextPageToken);
@@ -29,7 +27,6 @@ export default function Videos() {
 
   const selectedPlaylist = currentView.type === 'playlist' ? currentView.playlist : null;
   const selectedSubscription = currentView.type === 'channel' ? currentView.subscription : null;
-  const isFeedMode = currentView.type === 'subscriptionFeed';
 
   useEffect(() => {
     const sortedVideos = [...videos].sort((a, b) => {
@@ -116,26 +113,6 @@ export default function Videos() {
     fetchNextChannelVideos();
   }, [selectedSubscription]);
 
-  useEffect(() => {
-    if (isFeedMode && accessToken && subscriptions.length > 0 && videos.length === 0 && !subscriptionFeedLoading && !feedError) {
-      setSubscriptionFeedLoading(true);
-      setFeedError(null);
-      fetchSubscriptionsFeedAPI(accessToken, subscriptions)
-        .then((feedVideos) => {
-          setVideos(feedVideos);
-          setSubscriptionFeedLoading(false);
-        })
-        .catch((error) => {
-          setSubscriptionFeedLoading(false);
-          if (error instanceof RateLimitError) {
-            setFeedError(error.message);
-          } else {
-            setFeedError('Failed to load subscription feed. Please try again later.');
-          }
-        });
-    }
-  }, [isFeedMode, accessToken, subscriptions, videos.length, subscriptionFeedLoading, feedError, setVideos]);
-
   const handleDragStart = (e: React.DragEvent, video: Video) => {
     e.dataTransfer.setData(
       "video",
@@ -194,14 +171,13 @@ export default function Videos() {
     }
   };
 
-  const currentTitle = selectedPlaylist?.title || selectedSubscription?.title || (isFeedMode ? "Recent Videos" : "");
+  const currentTitle = selectedPlaylist?.title || selectedSubscription?.title || "";
   const isPlaylistView = currentView.type === 'playlist';
   const isChannelView = currentView.type === 'channel';
-  const isLoading = loading || (isFeedMode && subscriptionFeedLoading);
 
   return (
     <>
-      {(selectedPlaylist || selectedSubscription || isFeedMode) && (
+      {(selectedPlaylist || selectedSubscription) && (
         <div className={`pt-10 px-10 overflow-y-auto flex flex-col ${viewingVideo ? 'w-1/2' : 'w-full'}`}>
           <div className="flex flex-row justify-between items-center mb-4">
             <div className="flex gap-4">
@@ -209,9 +185,6 @@ export default function Videos() {
                 <h2 className="font-bold text-xl">
                   {currentTitle}
                 </h2>
-                {isFeedMode && (
-                  <p className="text-xs text-gray-500">Feed is updated daily</p>
-                )}
               </div>
               {isPlaylistView && (
                 <button
@@ -307,32 +280,13 @@ export default function Videos() {
                 </li>
               ))}
             </ul>
-            {isLoading && videos.length === 0 && !feedError && (
+            {loading && videos.length === 0 && (
               <div className="flex items-center justify-center py-10">
                 <span className="loading loading-spinner loading-lg"></span>
                 <span className="ml-4">Loading videos...</span>
               </div>
             )}
-            {feedError && currentView?.type === "subscriptionFeed" && (
-              <div className="flex flex-col items-center justify-center py-10">
-                <div className="alert alert-error max-w-md">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                  <span>{feedError}</span>
-                </div>
-                <button
-                  className="btn btn-primary mt-4"
-                  onClick={() => {
-                    setFeedError(null);
-                    setVideos([]);
-                  }}
-                >
-                  Try Again
-                </button>
-              </div>
-            )}
-            {nextPageToken && !isFeedMode && (
+            {nextPageToken && (
               <button
                 className="btn btn-primary my-10"
                 onClick={selectedPlaylist ? fetchNextPlaylistVideos : fetchNextChannelVideos}

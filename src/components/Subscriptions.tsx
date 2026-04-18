@@ -26,17 +26,6 @@ export default function Subscriptions() {
             if (selected) {
               setCurrentView({ type: 'channel', subscription: selected });
             }
-          } else if (routeType === 'feed') {
-            setCurrentView({ type: 'subscriptionFeed' });
-            const url = new URL(window.location.href);
-            url.pathname = '/feed';
-            window.history.replaceState({}, "", url.toString());
-          } else if (!routeType || routeType === '') {
-            // Default to feed when logged in with no specific route
-            setCurrentView({ type: 'subscriptionFeed' });
-            const url = new URL(window.location.href);
-            url.pathname = '/feed';
-            window.history.replaceState({}, "", url.toString());
           }
         });
       } catch (error) {
@@ -49,13 +38,6 @@ export default function Subscriptions() {
     return title.length > maxLength
       ? title.substring(0, maxLength) + "..."
       : title;
-  };
-
-  const handleHeaderClick = () => {
-    setCurrentView({ type: 'subscriptionFeed' });
-    const url = new URL(window.location.href);
-    url.pathname = '/feed';
-    window.history.pushState({}, "", url.toString());
   };
 
   const handleUnsubscribe = async (e: React.MouseEvent, subscription: Subscription) => {
@@ -79,24 +61,7 @@ export default function Subscriptions() {
 
   return (
     <div className="flex flex-col flex-1 p-4 overflow-hidden">
-      <button
-        className="flex items-center justify-between w-full text-left hover:bg-neutral/10 rounded-md p-2 -ml-2 mb-2"
-        onClick={handleHeaderClick}
-      >
-        <h2 className="text-lg font-semibold">Subscriptions</h2>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-5 w-5"
-          viewBox="0 0 20 20"
-          fill="currentColor"
-        >
-          <path
-            fillRule="evenodd"
-            d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-            clipRule="evenodd"
-          />
-        </svg>
-      </button>
+      <h2 className="text-lg font-semibold mb-2">Subscriptions</h2>
       {subscriptions.length > 0 && (
         <ul className="gap-1 flex-1 overflow-y-auto">
           {[...subscriptions].sort((a, b) => a.title.localeCompare(b.title)).map((subscription) => (

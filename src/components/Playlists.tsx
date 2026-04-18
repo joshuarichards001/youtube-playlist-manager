@@ -25,14 +25,12 @@ export default function Playlists() {
           const routeType = pathParts[0];
           const routeId = pathParts[1];
 
-          // Only set playlist view if URL explicitly requests a playlist
           if (routeType === 'playlist' && routeId) {
             const selected = playlists.find((p) => p.id === routeId);
             if (selected) {
               setCurrentView({ type: 'playlist', playlist: selected });
             }
           }
-          // If no route or root path, default to feed (handled in Subscriptions.tsx)
         });
       } catch (error) {
         console.error("Error fetching playlists:", error);
