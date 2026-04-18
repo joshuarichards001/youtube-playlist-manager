@@ -39,8 +39,8 @@ export default function VideoRow({
     <li
       className={
         gridView
-          ? `flex flex-col cursor-move hover:bg-base-200 p-2 rounded-lg ${selected ? "bg-primary/10 hover:bg-primary/20" : ""}`
-          : `flex flex-row cursor-move hover:bg-base-200 p-2 rounded-lg justify-between items-center w-full ${selected ? "bg-primary/10 hover:bg-primary/20" : ""}`
+          ? `flex flex-col cursor-move hover:bg-base-200 py-2 rounded-lg ${selected ? "bg-primary/10 hover:bg-primary/20" : ""}`
+          : `flex flex-row cursor-move hover:bg-base-200 py-2 rounded-lg justify-between items-center w-full ${selected ? "bg-primary/10 hover:bg-primary/20" : ""}`
       }
       draggable
       onDragStart={onDragStart}

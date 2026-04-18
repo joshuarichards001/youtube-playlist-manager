@@ -66,7 +66,7 @@ const useStore = create<State>(
     viewingVideo: null,
     setViewingVideo: (viewingVideo) => set({ viewingVideo }),
 
-    gridView: false,
+    gridView: true,
     setGridView: (gridView) => set({ gridView }),
 
     sidebarOpen: false,
