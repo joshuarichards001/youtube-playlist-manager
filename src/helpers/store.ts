@@ -69,7 +69,7 @@ const useStore = create<State>(
     gridView: false,
     setGridView: (gridView) => set({ gridView }),
 
-    sidebarOpen: false,
+    sidebarOpen: window.location.pathname === "/",
     setSidebarOpen: (sidebarOpen) => set({ sidebarOpen }),
   }))
 );
