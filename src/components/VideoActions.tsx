@@ -39,27 +39,27 @@ export default function VideoActions() {
   };
 
   return (
-    <div className="flex flex-row gap-4">
+    <div className="flex flex-row flex-wrap gap-2 md:gap-4">
       {selectedVideos.length > 0 && <MoveDropdown />}
       {videos.length !== selectedVideos.length && (
-        <button className="btn btn-neutral" onClick={handleSelectAll}>
+        <button className="btn btn-sm md:btn-md btn-neutral" onClick={handleSelectAll}>
           Select All
         </button>
       )}
       {selectedVideos.length > 0 && (
-        <button className="btn btn-neutral" onClick={handleDeselectAll}>
+        <button className="btn btn-sm md:btn-md btn-neutral" onClick={handleDeselectAll}>
           Deselect All
         </button>
       )}
       {selectedVideos.length > 0 && (
-        <button className="btn btn-error" onClick={handleDelete}>
-          Delete ({selectedVideos.length} selected)
+        <button className="btn btn-sm md:btn-md btn-error" onClick={handleDelete}>
+          Delete ({selectedVideos.length})
         </button>
       )}
       {selectedVideos.length === 0 && <SortDropdown />}
       {selectedVideos.length === 0 && (
         <button
-          className={`btn btn-square ${gridView ? "btn-primary" : "btn-neutral"}`}
+          className={`btn btn-sm md:btn-md btn-square ${gridView ? "btn-primary" : "btn-neutral"}`}
           onClick={() => setGridView(!gridView)}
           title={gridView ? "List view" : "Grid view"}
         >

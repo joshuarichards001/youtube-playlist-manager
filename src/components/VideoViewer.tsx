@@ -28,7 +28,7 @@ export default function VideoViewer({ video, onClose }: VideoViewerProps) {
   }, [accessToken, video.resourceId]);
 
   return (
-    <div className="w-1/2 h-full flex flex-col border-l border-base-300">
+    <div className="w-full md:w-1/2 h-full flex flex-col md:border-l border-base-300 bg-base-100">
       <div className="flex items-center justify-between p-4 border-b border-base-300">
         <h2 className="font-bold text-lg truncate pr-4">{video.title}</h2>
         <button

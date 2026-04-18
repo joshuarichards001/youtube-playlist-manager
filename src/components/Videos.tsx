@@ -179,17 +179,15 @@ export default function Videos() {
   return (
     <>
       {(selectedPlaylist || selectedSubscription) && (
-        <div className={`pt-10 px-10 overflow-y-auto flex flex-col ${viewingVideo ? 'w-1/2' : 'w-full'}`}>
-          <div className="flex flex-row justify-between items-center mb-4">
-            <div className="flex gap-4">
-              <div className="flex flex-col">
-                <h2 className="font-bold text-xl">
-                  {currentTitle}
-                </h2>
-              </div>
+        <div className={`pt-4 px-4 md:pt-10 md:px-10 overflow-y-auto flex-col ${viewingVideo ? 'hidden md:flex md:w-1/2' : 'flex w-full'}`}>
+          <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-3 mb-4">
+            <div className="flex items-center gap-3 min-w-0">
+              <h2 className="font-bold text-lg md:text-xl truncate">
+                {currentTitle}
+              </h2>
               {isPlaylistView && (
                 <button
-                  className="btn btn-error btn-xs"
+                  className="btn btn-error btn-xs flex-shrink-0"
                   onClick={() => deletePlaylist(selectedPlaylist?.id)}
                 >
                   Delete
@@ -197,7 +195,7 @@ export default function Videos() {
               )}
               {isChannelView && (
                 <button
-                  className="btn btn-error btn-xs"
+                  className="btn btn-error btn-xs flex-shrink-0"
                   onClick={handleUnsubscribe}
                 >
                   Unsubscribe
@@ -287,12 +285,12 @@ export default function Videos() {
                     </>
                   ) : (
                     <>
-                      <div className="flex flex-row items-center">
-                        <p className="mr-4 text-base-content/70">{i + 1}</p>
-                        <div className="flex flex-row">
-                          <div className="relative">
+                      <div className="flex flex-row items-center min-w-0 flex-1 gap-2 md:gap-0">
+                        <p className="md:mr-4 text-base-content/70 text-sm w-5 flex-shrink-0 text-center">{i + 1}</p>
+                        <div className="flex flex-row min-w-0 flex-1 gap-2 md:gap-0">
+                          <div className="relative flex-shrink-0">
                             <img
-                              className="rounded-md h-[66px] w-[120px] object-cover"
+                              className="rounded-md h-[56px] w-[100px] md:h-[66px] md:w-[120px] object-cover"
                               src={video.thumbnail}
                               alt={video.title}
                             />
@@ -300,9 +298,9 @@ export default function Videos() {
                               {convertDurationToTimeString(video.durationSeconds)}
                             </div>
                           </div>
-                          <div className="flex flex-col pl-2 gap-2">
+                          <div className="flex flex-col pl-2 gap-1 md:gap-2 min-w-0 flex-1">
                             <button
-                              className="link hover:text-primary text-left"
+                              className="link hover:text-primary text-left text-sm md:text-base line-clamp-2"
                               onClick={(e) => {
                                 e.stopPropagation();
                                 setViewingVideo(video);
@@ -310,8 +308,8 @@ export default function Videos() {
                             >
                               {video.title}
                             </button>
-                            <div className="flex flex-row gap-4">
-                              <p className="text-xs text-base-content/70">
+                            <div className="flex flex-row flex-wrap gap-x-2 gap-y-0 md:gap-4">
+                              <p className="text-xs text-base-content/70 truncate">
                                 {video.channel}
                               </p>
                               <p className="text-xs text-base-content/70">
@@ -328,7 +326,7 @@ export default function Videos() {
                       </div>
                       <input
                         type="checkbox"
-                        className="checkbox checkbox-lg mr-6"
+                        className="checkbox checkbox-sm md:checkbox-lg ml-2 md:mr-6 flex-shrink-0"
                         checked={video.selected}
                         onChange={(e) => {
                           setVideos(
