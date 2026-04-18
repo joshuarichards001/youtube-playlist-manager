@@ -31,6 +31,9 @@ interface State {
 
   gridView: boolean;
   setGridView: (gridView: boolean) => void;
+
+  sidebarOpen: boolean;
+  setSidebarOpen: (sidebarOpen: boolean) => void;
 }
 
 const useStore = create<State>(
@@ -65,6 +68,9 @@ const useStore = create<State>(
 
     gridView: false,
     setGridView: (gridView) => set({ gridView }),
+
+    sidebarOpen: false,
+    setSidebarOpen: (sidebarOpen) => set({ sidebarOpen }),
   }))
 );
 

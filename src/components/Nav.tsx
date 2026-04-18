@@ -3,6 +3,8 @@ import Cookies from "js-cookie";
 
 export default function Nav() {
   const user = useStore((state) => state.user);
+  const sidebarOpen = useStore((state) => state.sidebarOpen);
+  const setSidebarOpen = useStore((state) => state.setSidebarOpen);
 
   const handleSignOut = () => {
     Cookies.remove("accessToken");
@@ -11,13 +13,33 @@ export default function Nav() {
 
   return (
     <nav className="navbar bg-base-200">
-      <div className="flex-1">
+      <div className="flex-1 flex items-center">
+        <button
+          className="btn btn-ghost btn-square md:hidden"
+          onClick={() => setSidebarOpen(!sidebarOpen)}
+          aria-label="Toggle sidebar"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M4 6h16M4 12h16M4 18h16"
+            />
+          </svg>
+        </button>
         <a className="btn btn-ghost text-red-600 text-xl" href="/">
           YT Lite
         </a>
       </div>
       {user && <div className="flex flex-row gap-4">
-        <p>Welcome {user.name}!</p>
+        <p className="hidden sm:block">Welcome {user.name}!</p>
         <div className="dropdown dropdown-end">
           <div
             tabIndex={0}

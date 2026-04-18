@@ -8,6 +8,7 @@ export default function Subscriptions() {
   const setSubscriptions = useStore((state) => state.setSubscriptions);
   const currentView = useStore((state) => state.currentView);
   const setCurrentView = useStore((state) => state.setCurrentView);
+  const setSidebarOpen = useStore((state) => state.setSidebarOpen);
 
   const selectedSubscription = currentView.type === 'channel' ? currentView.subscription : null;
 
@@ -71,6 +72,7 @@ export default function Subscriptions() {
                   }`}
                 onClick={() => {
                   setCurrentView({ type: 'channel', subscription });
+                  setSidebarOpen(false);
                   const url = new URL(window.location.href);
                   url.pathname = `/channel/${subscription.channelId}`;
                   window.history.pushState({}, "", url.toString());
