@@ -22,6 +22,11 @@ export default function SubscriptionFeed() {
   const viewingVideo = useStore((state) => state.viewingVideo);
   const setViewingVideo = useStore((state) => state.setViewingVideo);
   const sort = useStore((state) => state.sort);
+  const setSort = useStore((state) => state.setSort);
+
+  useEffect(() => {
+    setSort("releaseDate");
+  }, [setSort]);
 
   const [feed, setFeed] = useState<SubscriptionFeed | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -59,7 +64,7 @@ export default function SubscriptionFeed() {
         videoId: video.id,
         sourcePlaylistId: undefined,
         videoItemId: undefined,
-      })
+      }),
     );
 
     const dragImage = document.createElement("img");
@@ -101,7 +106,9 @@ export default function SubscriptionFeed() {
       >
         <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-3 mb-4">
           <div className="flex items-center gap-3 min-w-0">
-            <h2 className="font-bold text-lg md:text-xl truncate">Recent Feed</h2>
+            <h2 className="font-bold text-lg md:text-xl truncate">
+              Recent Feed
+            </h2>
             {generatedLabel && (
               <p className="text-xs text-base-content/60">
                 Updated {generatedLabel}
