@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import useStore from "../helpers/store";
 import Playlists from "./Playlists";
 import Subscriptions from "./Subscriptions";
@@ -10,12 +11,76 @@ export default function Sidebar() {
 
   const isFeed = currentView.type === "feed";
 
+  useEffect(() => {
+    let startX: number | null = null;
+    let startY: number | null = null;
+    let startedOpen = false;
+
+    const onTouchStart = (e: TouchEvent) => {
+      if (window.innerWidth >= 768) return;
+      const touch = e.touches[0];
+      startX = touch.clientX;
+      startY = touch.clientY;
+      startedOpen = useStore.getState().sidebarOpen;
+    };
+
+    const onTouchEnd = (e: TouchEvent) => {
+      if (startX === null || startY === null) return;
+      const touch = e.changedTouches[0];
+      const deltaX = touch.clientX - startX;
+      const deltaY = touch.clientY - startY;
+      const startLeftEdge = startX;
+
+      startX = null;
+      startY = null;
+
+      if (Math.abs(deltaX) < Math.abs(deltaY)) return;
+
+      const threshold = 60;
+      if (!startedOpen && startLeftEdge < 40 && deltaX > threshold) {
+        setSidebarOpen(true);
+      } else if (startedOpen && deltaX < -threshold) {
+        setSidebarOpen(false);
+      }
+    };
+
+    window.addEventListener("touchstart", onTouchStart, { passive: true });
+    window.addEventListener("touchend", onTouchEnd, { passive: true });
+
+    return () => {
+      window.removeEventListener("touchstart", onTouchStart);
+      window.removeEventListener("touchend", onTouchEnd);
+    };
+  }, [setSidebarOpen]);
+
   return (
     <aside
-      className={`bg-base-200 flex-col overflow-hidden md:flex md:w-80 md:min-w-80 ${sidebarOpen ? "flex w-full" : "hidden"
+      className={`bg-base-200 flex-col overflow-y-auto md:flex md:static md:inset-auto md:z-auto md:w-80 md:min-w-80 md:h-auto ${sidebarOpen ? "fixed inset-0 z-50 flex w-full h-full" : "hidden"
         }`}
     >
-      <div className="px-4 pt-4">
+      <div className="flex md:hidden justify-end px-2 pt-2">
+        <button
+          className="btn btn-ghost btn-square"
+          onClick={() => setSidebarOpen(false)}
+          aria-label="Close sidebar"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
+      </div>
+      <div className="px-4 pt-4 md:pt-4">
         <button
           className={`w-full p-2 rounded-md hover:bg-neutral/10 text-base text-left font-semibold ${isFeed ? "bg-neutral/10" : ""}`}
           onClick={() => {
