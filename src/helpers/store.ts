@@ -28,6 +28,9 @@ interface State {
 
   viewingVideo: Video | null;
   setViewingVideo: (viewingVideo: Video | null) => void;
+
+  gridView: boolean;
+  setGridView: (gridView: boolean) => void;
 }
 
 const useStore = create<State>(
@@ -59,6 +62,9 @@ const useStore = create<State>(
 
     viewingVideo: null,
     setViewingVideo: (viewingVideo) => set({ viewingVideo }),
+
+    gridView: false,
+    setGridView: (gridView) => set({ gridView }),
   }))
 );
 

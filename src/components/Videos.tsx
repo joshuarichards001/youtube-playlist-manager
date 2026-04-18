@@ -24,6 +24,7 @@ export default function Videos() {
   const [loading, setLoading] = useState(false);
   const viewingVideo = useStore((state) => state.viewingVideo);
   const setViewingVideo = useStore((state) => state.setViewingVideo);
+  const gridView = useStore((state) => state.gridView);
 
   const selectedPlaylist = currentView.type === 'playlist' ? currentView.playlist : null;
   const selectedSubscription = currentView.type === 'channel' ? currentView.subscription : null;
@@ -206,11 +207,20 @@ export default function Videos() {
             <VideoActions />
           </div>
           <div className="overflow-y-auto">
-            <ul className="flex flex-col">
+            <ul
+              className={
+                gridView
+                  ? "grid grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-4"
+                  : "flex flex-col"
+              }
+            >
               {videos.map((video, i) => (
                 <li
-                  className={`flex flex-row cursor-move hover:bg-base-200 p-2 rounded-lg justify-between items-center w-full ${video.selected ? "bg-primary/10 hover:bg-primary/20" : ""
-                    }`}
+                  className={
+                    gridView
+                      ? `flex flex-col cursor-move hover:bg-base-200 p-2 rounded-lg ${video.selected ? "bg-primary/10 hover:bg-primary/20" : ""}`
+                      : `flex flex-row cursor-move hover:bg-base-200 p-2 rounded-lg justify-between items-center w-full ${video.selected ? "bg-primary/10 hover:bg-primary/20" : ""}`
+                  }
                   key={video.id}
                   draggable
                   onDragStart={(e) => handleDragStart(e, video)}
@@ -224,22 +234,36 @@ export default function Videos() {
                     );
                   }}
                 >
-                  <div className="flex flex-row items-center">
-                    <p className="mr-4 text-base-content/70">{i + 1}</p>
-                    <div className="flex flex-row">
-                      <div className="relative">
+                  {gridView ? (
+                    <>
+                      <div className="relative w-full">
                         <img
-                          className="rounded-md h-[66px] w-[120px] object-cover"
+                          className="rounded-md w-full aspect-video object-cover"
                           src={video.thumbnail}
                           alt={video.title}
                         />
-                        <div className="absolute bottom-0 right-0 bg-black text-white text-xs px-1 rounded">
+                        <div className="absolute bottom-1 right-1 bg-black text-white text-xs px-1 rounded">
                           {convertDurationToTimeString(video.durationSeconds)}
                         </div>
+                        <input
+                          type="checkbox"
+                          className="checkbox checkbox-sm absolute top-1 right-1"
+                          checked={video.selected}
+                          onClick={(e) => e.stopPropagation()}
+                          onChange={(e) => {
+                            setVideos(
+                              videos.map((mapVideo) =>
+                                mapVideo.id === video.id
+                                  ? { ...mapVideo, selected: e.target.checked }
+                                  : mapVideo
+                              )
+                            );
+                          }}
+                        />
                       </div>
-                      <div className="flex flex-col pl-2 gap-2">
+                      <div className="flex flex-col pt-2 gap-1">
                         <button
-                          className="link hover:text-primary text-left"
+                          className="link hover:text-primary text-left line-clamp-2"
                           onClick={(e) => {
                             e.stopPropagation();
                             setViewingVideo(video);
@@ -247,36 +271,77 @@ export default function Videos() {
                         >
                           {video.title}
                         </button>
-                        <div className="flex flex-row gap-4">
-                          <p className="text-xs text-base-content/70">
-                            {video.channel}
-                          </p>
-                          <p className="text-xs text-base-content/70">
-                            {video.viewCount.toLocaleString()} views
-                          </p>
-                          <p className="text-xs text-base-content/70">
+                        <p className="text-xs text-base-content/70">
+                          {video.channel}
+                        </p>
+                        <div className="flex flex-row gap-2 text-xs text-base-content/70">
+                          <p>{video.viewCount.toLocaleString()} views</p>
+                          <p>·</p>
+                          <p>
                             {convertReleaseDateToTimeSinceRelease(
                               video.releaseDate
                             )}
                           </p>
                         </div>
                       </div>
-                    </div>
-                  </div>
-                  <input
-                    type="checkbox"
-                    className="checkbox checkbox-lg mr-6"
-                    checked={video.selected}
-                    onChange={(e) => {
-                      setVideos(
-                        videos.map((mapVideo) =>
-                          mapVideo.id === video.id
-                            ? { ...mapVideo, selected: e.target.checked }
-                            : mapVideo
-                        )
-                      );
-                    }}
-                  />
+                    </>
+                  ) : (
+                    <>
+                      <div className="flex flex-row items-center">
+                        <p className="mr-4 text-base-content/70">{i + 1}</p>
+                        <div className="flex flex-row">
+                          <div className="relative">
+                            <img
+                              className="rounded-md h-[66px] w-[120px] object-cover"
+                              src={video.thumbnail}
+                              alt={video.title}
+                            />
+                            <div className="absolute bottom-0 right-0 bg-black text-white text-xs px-1 rounded">
+                              {convertDurationToTimeString(video.durationSeconds)}
+                            </div>
+                          </div>
+                          <div className="flex flex-col pl-2 gap-2">
+                            <button
+                              className="link hover:text-primary text-left"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setViewingVideo(video);
+                              }}
+                            >
+                              {video.title}
+                            </button>
+                            <div className="flex flex-row gap-4">
+                              <p className="text-xs text-base-content/70">
+                                {video.channel}
+                              </p>
+                              <p className="text-xs text-base-content/70">
+                                {video.viewCount.toLocaleString()} views
+                              </p>
+                              <p className="text-xs text-base-content/70">
+                                {convertReleaseDateToTimeSinceRelease(
+                                  video.releaseDate
+                                )}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <input
+                        type="checkbox"
+                        className="checkbox checkbox-lg mr-6"
+                        checked={video.selected}
+                        onChange={(e) => {
+                          setVideos(
+                            videos.map((mapVideo) =>
+                              mapVideo.id === video.id
+                                ? { ...mapVideo, selected: e.target.checked }
+                                : mapVideo
+                            )
+                          );
+                        }}
+                      />
+                    </>
+                  )}
                 </li>
               ))}
             </ul>
