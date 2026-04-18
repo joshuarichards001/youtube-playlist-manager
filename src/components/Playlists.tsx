@@ -119,7 +119,12 @@ export default function Playlists() {
       <h2 className="text-lg font-semibold mb-2">Playlists</h2>
       {playlists.length > 0 && (
         <ul className="gap-1 flex-1 overflow-y-auto">
-          {[...playlists].sort((a, b) => a.title.localeCompare(b.title)).map((playlist) => (
+          {[...playlists].sort((a, b) => {
+            const pinnedId = "PLJNJKH0ZCMnnakxI-Gg8onlbwQNiNEgOp";
+            if (a.id === pinnedId) return -1;
+            if (b.id === pinnedId) return 1;
+            return a.title.localeCompare(b.title);
+          }).map((playlist) => (
             <li
               key={playlist.id}
               onDrop={(e) => handleDrop(e, playlist.id)}
