@@ -33,7 +33,9 @@ const mapConcurrent = async (items, limit, worker) => {
 const fetchChannelFeed = async (channel) => {
   const url = `https://www.youtube.com/feeds/videos.xml?channel_id=${channel.id}`;
   try {
-    const res = await fetch(url);
+    const res = await fetch(url, {
+      headers: { "User-Agent": "Mozilla/5.0 (feed-builder)" },
+    });
     if (!res.ok) {
       console.warn(`[feed] ${channel.title || channel.id}: HTTP ${res.status}`);
       return [];
