@@ -11,6 +11,7 @@ export default function Playlists() {
   const currentView = useStore((state) => state.currentView);
   const setCurrentView = useStore((state) => state.setCurrentView);
   const setSidebarOpen = useStore((state) => state.setSidebarOpen);
+  const setViewingVideo = useStore((state) => state.setViewingVideo);
 
   const selectedPlaylist = currentView.type === 'playlist' ? currentView.playlist : null;
   const [dragOverId, setDragOverId] = useState<string | null>(null);
@@ -140,6 +141,7 @@ export default function Playlists() {
                 onClick={() => {
                   setCurrentView({ type: 'playlist', playlist });
                   setSidebarOpen(false);
+                  if (window.innerWidth < 768) setViewingVideo(null);
                   const url = new URL(window.location.href);
                   url.pathname = `/playlist/${playlist.id}`;
                   window.history.pushState({}, "", url.toString());

@@ -8,6 +8,7 @@ export default function Sidebar() {
   const currentView = useStore((state) => state.currentView);
   const setCurrentView = useStore((state) => state.setCurrentView);
   const setSidebarOpen = useStore((state) => state.setSidebarOpen);
+  const setViewingVideo = useStore((state) => state.setViewingVideo);
 
   const isFeed = currentView.type === "feed";
 
@@ -86,6 +87,7 @@ export default function Sidebar() {
           onClick={() => {
             setCurrentView({ type: "feed" });
             setSidebarOpen(false);
+            if (window.innerWidth < 768) setViewingVideo(null);
             const url = new URL(window.location.href);
             url.pathname = "/feed";
             window.history.pushState({}, "", url.toString());
