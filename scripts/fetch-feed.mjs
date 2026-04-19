@@ -7,7 +7,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, "..");
 const CHANNELS_PATH = resolve(ROOT, "data/channels.json");
 const OUTPUT_PATH = resolve(ROOT, "public/subscription-feed.json");
-const MAX_VIDEOS = 200;
+const MAX_VIDEOS = 100;
 const RSS_CONCURRENCY = 8;
 const SHORTS_CONCURRENCY = 10;
 
