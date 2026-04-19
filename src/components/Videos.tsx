@@ -7,7 +7,6 @@ import DeleteConfirmationModal from "./DeleteConfirmationModal";
 import MoveDropdown from "./MoveDropdown";
 import VideoActions from "./VideoActions";
 import VideoRow from "./VideoRow";
-import VideoViewer from "./VideoViewer";
 
 export default function Videos() {
   const accessToken = useStore((state) => state.accessToken);
@@ -281,9 +280,6 @@ export default function Videos() {
             )}
           </div>
         </div>
-      )}
-      {viewingVideo && (
-        <VideoViewer video={viewingVideo} onClose={() => setViewingVideo(null)} />
       )}
       <DeleteConfirmationModal />
     </>

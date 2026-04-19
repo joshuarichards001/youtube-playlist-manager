@@ -3,7 +3,6 @@ import useStore from "../helpers/store";
 import MoveDropdown from "./MoveDropdown";
 import VideoActions from "./VideoActions";
 import VideoRow from "./VideoRow";
-import VideoViewer from "./VideoViewer";
 
 const toViewerVideo = (v: FeedVideo): Video => ({
   id: v.id,
@@ -171,12 +170,6 @@ export default function SubscriptionFeed() {
           )}
         </div>
       </div>
-      {viewingVideo && (
-        <VideoViewer
-          video={viewingVideo}
-          onClose={() => setViewingVideo(null)}
-        />
-      )}
     </>
   );
 }
