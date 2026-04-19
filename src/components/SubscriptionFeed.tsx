@@ -101,7 +101,7 @@ export default function SubscriptionFeed() {
     <>
       <div
         className={`pt-4 px-4 md:pt-10 md:px-10 overflow-y-auto flex-col ${
-          viewingVideo ? "hidden md:flex md:w-1/2" : "flex w-full"
+          viewingVideo ? "hidden xl:flex xl:w-1/2" : "flex w-full"
         }`}
       >
         <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-3 mb-4">
