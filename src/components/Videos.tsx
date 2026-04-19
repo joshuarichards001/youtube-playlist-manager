@@ -181,6 +181,12 @@ export default function Videos() {
   const setAllSelected = (value: boolean) =>
     setVideos(videos.map((v) => ({ ...v, selected: value })));
 
+  const handleChannelClick = (channelId: string) => {
+    const match = subscriptions.find((s) => s.channelId === channelId);
+    const subscription = match ?? { id: "", title: channelId, thumbnail: "", channelId };
+    setCurrentView({ type: "channel", subscription });
+  };
+
   const openDeleteModal = () => {
     const modal = document.getElementById(
       "delete-confirmation-modal"
@@ -260,6 +266,7 @@ export default function Videos() {
                   }
                   onOpenViewer={() => setViewingVideo(video)}
                   onDragStart={(e) => handleDragStart(e, video)}
+                  onChannelClick={handleChannelClick}
                 />
               ))}
             </ul>

@@ -8,6 +8,7 @@ const toViewerVideo = (v: FeedVideo): Video => ({
   id: v.id,
   title: v.title,
   channel: v.channel,
+  channelId: v.channelId,
   thumbnail: v.thumbnail,
   resourceId: v.id,
   durationSeconds: 0,

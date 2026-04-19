@@ -7,6 +7,7 @@ export type VideoRowData = {
   id: string;
   title: string;
   channel: string;
+  channelId?: string;
   thumbnail: string;
   viewCount: number;
   releaseDate: string;
@@ -21,6 +22,7 @@ type Props = {
   onToggleSelect: () => void;
   onOpenViewer: () => void;
   onDragStart: (e: React.DragEvent) => void;
+  onChannelClick?: (channelId: string) => void;
 };
 
 export default function VideoRow({
@@ -31,6 +33,7 @@ export default function VideoRow({
   onToggleSelect,
   onOpenViewer,
   onDragStart,
+  onChannelClick,
 }: Props) {
   const hasDuration =
     video.durationSeconds !== undefined && video.durationSeconds > 0;
@@ -83,7 +86,16 @@ export default function VideoRow({
             >
               {video.title}
             </button>
-            <p className="text-xs text-base-content/70">{video.channel}</p>
+            {onChannelClick && video.channelId ? (
+              <button
+                className="text-xs text-base-content/70 hover:text-primary text-left w-fit"
+                onClick={(e) => { e.stopPropagation(); onChannelClick(video.channelId!); }}
+              >
+                {video.channel}
+              </button>
+            ) : (
+              <p className="text-xs text-base-content/70">{video.channel}</p>
+            )}
             <div className="flex flex-row gap-2 text-xs text-base-content/70">
               {video.viewCount > 0 && (
                 <>
@@ -131,9 +143,18 @@ export default function VideoRow({
                   {video.title}
                 </button>
                 <div className="flex flex-row flex-wrap gap-x-2 gap-y-0 md:gap-4">
-                  <p className="text-xs text-base-content/70 truncate">
-                    {video.channel}
-                  </p>
+                  {onChannelClick && video.channelId ? (
+                    <button
+                      className="text-xs text-base-content/70 hover:text-primary truncate text-left"
+                      onClick={(e) => { e.stopPropagation(); onChannelClick(video.channelId!); }}
+                    >
+                      {video.channel}
+                    </button>
+                  ) : (
+                    <p className="text-xs text-base-content/70 truncate">
+                      {video.channel}
+                    </p>
+                  )}
                   {video.viewCount > 0 && (
                     <p className="text-xs text-base-content/70">
                       {video.viewCount.toLocaleString()} views

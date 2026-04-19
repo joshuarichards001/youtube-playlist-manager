@@ -3,6 +3,7 @@ import { convertReleaseDateToTimeSinceRelease } from "../helpers/functions";
 import useStore from "../helpers/store";
 import { fetchVideoCommentsAPI } from "../helpers/youtubeAPI/videoAPI";
 
+
 interface VideoViewerProps {
   video: Video;
   onClose: () => void;
@@ -10,6 +11,8 @@ interface VideoViewerProps {
 
 export default function VideoViewer({ video, onClose }: VideoViewerProps) {
   const accessToken = useStore((state) => state.accessToken);
+  const subscriptions = useStore((state) => state.subscriptions);
+  const setCurrentView = useStore((state) => state.setCurrentView);
   const [comments, setComments] = useState<VideoComment[]>([]);
   const [loadingComments, setLoadingComments] = useState(false);
 
@@ -30,7 +33,19 @@ export default function VideoViewer({ video, onClose }: VideoViewerProps) {
   return (
     <div className="w-full xl:w-1/2 h-full flex flex-col xl:border-l border-base-300 bg-base-100">
       <div className="flex items-center justify-between p-4 border-b border-base-300">
-        <h2 className="font-bold text-lg truncate pr-4">{video.title}</h2>
+        <div className="flex flex-col min-w-0 pr-4">
+          <h2 className="font-bold text-lg truncate">{video.title}</h2>
+          <button
+            className="text-sm text-base-content/60 hover:text-primary truncate text-left"
+            onClick={() => {
+              const match = subscriptions.find((s) => s.channelId === video.channelId);
+              const subscription = match ?? { id: "", title: video.channel, thumbnail: "", channelId: video.channelId };
+              setCurrentView({ type: "channel", subscription });
+            }}
+          >
+            {video.channel}
+          </button>
+        </div>
         <button
           className="btn btn-ghost btn-sm btn-circle"
           onClick={onClose}

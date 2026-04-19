@@ -21,6 +21,7 @@ type Video = {
   id: string;
   title: string;
   channel: string;
+  channelId: string;
   thumbnail: string;
   resourceId: string;
   durationSeconds: number;
@@ -33,7 +34,8 @@ type YouTubeVideo = {
   id: string;
   snippet: {
     title: string;
-    videoOwnerChannelTitle: string;
+    channelTitle: string;
+    channelId: string;
     thumbnails: {
       default: { url: string };
       medium?: { url: string };

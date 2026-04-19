@@ -74,7 +74,8 @@ export const fetchVideoDetailsAPI = async (
   return videoDetails.data.items.map((video: YouTubeVideo) => ({
     id: video.id,
     title: video.snippet.title,
-    channel: video.snippet.videoOwnerChannelTitle,
+    channel: video.snippet.channelTitle,
+    channelId: video.snippet.channelId,
     thumbnail: video.snippet.thumbnails.high?.url,
     resourceId: video.id,
     durationSeconds: convertDurationToSeconds(video.contentDetails.duration),
