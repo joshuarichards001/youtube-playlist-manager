@@ -1,6 +1,9 @@
 import { useEffect } from "react";
 import useStore from "../helpers/store";
-import { fetchSubscriptionsAPI, unsubscribeAPI } from "../helpers/youtubeAPI/subscriptionAPI";
+import {
+  fetchSubscriptionsAPI,
+  unsubscribeAPI,
+} from "../helpers/youtubeAPI/subscriptionAPI";
 
 export default function Subscriptions() {
   const subscriptions = useStore((state) => state.subscriptions);
@@ -10,7 +13,8 @@ export default function Subscriptions() {
   const setCurrentView = useStore((state) => state.setCurrentView);
   const setSidebarOpen = useStore((state) => state.setSidebarOpen);
 
-  const selectedSubscription = currentView.type === 'channel' ? currentView.subscription : null;
+  const selectedSubscription =
+    currentView.type === "channel" ? currentView.subscription : null;
 
   useEffect(() => {
     if (accessToken) {
@@ -22,10 +26,10 @@ export default function Subscriptions() {
           const routeType = pathParts[0];
           const routeId = pathParts[1];
 
-          if (routeType === 'channel' && routeId) {
+          if (routeType === "channel" && routeId) {
             const selected = subscriptions.find((s) => s.channelId === routeId);
             if (selected) {
-              setCurrentView({ type: 'channel', subscription: selected });
+              setCurrentView({ type: "channel", subscription: selected });
             }
           }
         });
@@ -41,96 +45,82 @@ export default function Subscriptions() {
       : title;
   };
 
-  const handleUnsubscribe = async (e: React.MouseEvent, subscription: Subscription) => {
+  const handleUnsubscribe = async (
+    e: React.MouseEvent,
+    subscription: Subscription,
+  ) => {
     e.stopPropagation();
     if (!accessToken) return;
 
     const confirmUnsubscribe = window.confirm(
-      `Are you sure you want to unsubscribe from ${subscription.title}?`
+      `Are you sure you want to unsubscribe from ${subscription.title}?`,
     );
 
     if (confirmUnsubscribe) {
       const success = await unsubscribeAPI(accessToken, subscription.id);
       if (success) {
-        setSubscriptions(subscriptions.filter((sub) => sub.id !== subscription.id));
+        setSubscriptions(
+          subscriptions.filter((sub) => sub.id !== subscription.id),
+        );
         if (selectedSubscription?.id === subscription.id) {
-          setCurrentView({ type: 'none' });
+          setCurrentView({ type: "none" });
         }
       }
     }
   };
 
-  const exportChannels = () => {
-    const payload: ChannelEntry[] = [...subscriptions]
-      .sort((a, b) => a.title.localeCompare(b.title))
-      .map((s) => ({ id: s.channelId, title: s.title }));
-    const blob = new Blob([JSON.stringify(payload, null, 2) + "\n"], {
-      type: "application/json",
-    });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "channels.json";
-    a.click();
-    URL.revokeObjectURL(url);
-  };
-
   return (
     <div className="flex flex-col flex-1 p-4 overflow-hidden">
-      <div className="flex items-center justify-between mb-2">
-        <h2 className="text-lg font-semibold">Subscriptions</h2>
-        {subscriptions.length > 0 && (
-          <button
-            className="btn btn-ghost btn-xs"
-            onClick={exportChannels}
-            title="Download channels.json to commit to the repo"
-          >
-            Export
-          </button>
-        )}
-      </div>
+      <h2 className="text-lg font-semibold mb-2">Subscriptions</h2>
       {subscriptions.length > 0 && (
         <ul className="gap-1 flex-1 overflow-y-auto">
-          {[...subscriptions].sort((a, b) => a.title.localeCompare(b.title)).map((subscription) => (
-            <li key={subscription.id}>
-              <button
-                className={`group w-full p-2 rounded-md hover:bg-neutral/10 text-base flex flex-row items-center gap-2 ${selectedSubscription?.id === subscription.id ? "bg-neutral/10" : ""
+          {[...subscriptions]
+            .sort((a, b) => a.title.localeCompare(b.title))
+            .map((subscription) => (
+              <li key={subscription.id}>
+                <button
+                  className={`group w-full p-2 rounded-md hover:bg-neutral/10 text-base flex flex-row items-center gap-2 ${
+                    selectedSubscription?.id === subscription.id
+                      ? "bg-neutral/10"
+                      : ""
                   }`}
-                onClick={() => {
-                  setCurrentView({ type: 'channel', subscription });
-                  setSidebarOpen(false);
-                  const url = new URL(window.location.href);
-                  url.pathname = `/channel/${subscription.channelId}`;
-                  window.history.pushState({}, "", url.toString());
-                }}
-              >
-                <img
-                  src={subscription.thumbnail}
-                  alt={subscription.title}
-                  className="w-6 h-6 rounded-full"
-                />
-                <p className="flex-1 text-left">{truncateTitle(subscription.title, 18)}</p>
-                <span
-                  className="opacity-0 group-hover:opacity-100 p-1 rounded hover:bg-red-500/20 hover:text-red-500 transition-opacity"
-                  onClick={(e) => handleUnsubscribe(e, subscription)}
-                  title="Unsubscribe"
+                  onClick={() => {
+                    setCurrentView({ type: "channel", subscription });
+                    setSidebarOpen(false);
+                    const url = new URL(window.location.href);
+                    url.pathname = `/channel/${subscription.channelId}`;
+                    window.history.pushState({}, "", url.toString());
+                  }}
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-4 w-4"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
+                  <img
+                    src={subscription.thumbnail}
+                    alt={subscription.title}
+                    className="w-6 h-6 rounded-full"
+                  />
+                  <p className="flex-1 text-left">
+                    {truncateTitle(subscription.title, 18)}
+                  </p>
+                  <span
+                    className="opacity-0 group-hover:opacity-100 p-1 rounded hover:bg-red-500/20 hover:text-red-500 transition-opacity"
+                    onClick={(e) => handleUnsubscribe(e, subscription)}
+                    title="Unsubscribe"
                   >
-                    <path
-                      fillRule="evenodd"
-                      d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                </span>
-              </button>
-            </li>
-          ))}
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-4 w-4"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                </button>
+              </li>
+            ))}
         </ul>
       )}
     </div>
