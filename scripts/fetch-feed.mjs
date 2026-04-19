@@ -108,15 +108,13 @@ const main = async () => {
     deduped.push(v);
   }
 
-  // Check enough candidates to survive shorts filtering and still hit MAX_VIDEOS.
-  const candidates = deduped.slice(0, MAX_VIDEOS * 2);
-  console.log(`Checking shorts status for ${candidates.length} candidates…`);
+  console.log(`Checking shorts status for ${deduped.length} candidates…`);
   const shortsFlags = await mapConcurrent(
-    candidates,
+    deduped,
     SHORTS_CONCURRENCY,
     (v) => isShort(v.id)
   );
-  const nonShorts = candidates.filter((_, i) => !shortsFlags[i]);
+  const nonShorts = deduped.filter((_, i) => !shortsFlags[i]);
   console.log(`${nonShorts.length} non-shorts after filtering.`);
 
   const videos = nonShorts.slice(0, MAX_VIDEOS);
