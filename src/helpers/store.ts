@@ -17,6 +17,9 @@ interface State {
   accessToken: string | null;
   setAccessToken: (accessToken: string | null) => void;
 
+  authLoading: boolean;
+  setAuthLoading: (authLoading: boolean) => void;
+
   nextPageToken: string | null;
   setNextPageToken: (nextPageToken: string | null) => void;
 
@@ -53,6 +56,9 @@ const useStore = create<State>(
 
     accessToken: null,
     setAccessToken: (accessToken) => set({ accessToken }),
+
+    authLoading: true,
+    setAuthLoading: (authLoading) => set({ authLoading }),
 
     nextPageToken: null,
     setNextPageToken: (nextPageToken) => set({ nextPageToken }),

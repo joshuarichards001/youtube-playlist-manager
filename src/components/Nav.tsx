@@ -1,14 +1,12 @@
 import useStore from "../helpers/store";
-import Cookies from "js-cookie";
 
 export default function Nav() {
   const user = useStore((state) => state.user);
   const sidebarOpen = useStore((state) => state.sidebarOpen);
   const setSidebarOpen = useStore((state) => state.setSidebarOpen);
 
-  const handleSignOut = () => {
-    Cookies.remove("accessToken");
-    Cookies.remove("accessTokenExpiresAt");
+  const handleSignOut = async () => {
+    await fetch("/api/auth/logout", { method: "POST" });
     window.location.href = "/";
   };
 

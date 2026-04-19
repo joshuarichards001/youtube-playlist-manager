@@ -1,62 +1,65 @@
 import { useCallback, useEffect, useRef } from "react";
-import {
-  OverridableTokenClientConfig,
-  useGoogleLogin,
-  useGoogleOAuth,
-} from "@react-oauth/google";
-import Cookies from "js-cookie";
+import { useGoogleLogin } from "@react-oauth/google";
 import useStore from "../helpers/store";
 
-const TOKEN_COOKIE = "accessToken";
-const EXPIRES_AT_COOKIE = "accessTokenExpiresAt";
-const COOKIE_TTL_DAYS = 30;
 const REFRESH_LEAD_MS = 5 * 60 * 1000;
 const SCOPE =
   "https://www.googleapis.com/auth/youtube.readonly https://www.googleapis.com/auth/youtube.force-ssl";
 
-type LoginFn = (config?: OverridableTokenClientConfig) => void;
-
 export default function useAuth() {
   const setAccessToken = useStore((s) => s.setAccessToken);
-  const { scriptLoadedSuccessfully } = useGoogleOAuth();
-  const loginRef = useRef<LoginFn | null>(null);
+  const setAuthLoading = useStore((s) => s.setAuthLoading);
+  const silentRefreshRef = useRef<() => Promise<void>>(async () => {});
 
-  const scheduleRefresh = useCallback((expiresAt: number) => {
-    const delay = Math.max(expiresAt - Date.now() - REFRESH_LEAD_MS, 0);
-    window.setTimeout(() => loginRef.current?.({ prompt: "none" }), delay);
+  const scheduleRefresh = useCallback((expiresIn: number) => {
+    const delay = Math.max(expiresIn * 1000 - REFRESH_LEAD_MS, 0);
+    window.setTimeout(() => silentRefreshRef.current(), delay);
   }, []);
 
+  const silentRefresh = useCallback(async () => {
+    try {
+      const res = await fetch("/api/auth/refresh", { method: "POST" });
+      if (!res.ok) {
+        setAccessToken(null);
+        return;
+      }
+      const data: { accessToken: string; expiresIn: number } = await res.json();
+      setAccessToken(data.accessToken);
+      scheduleRefresh(data.expiresIn);
+    } finally {
+      setAuthLoading(false);
+    }
+  }, [setAccessToken, setAuthLoading, scheduleRefresh]);
+
+  silentRefreshRef.current = silentRefresh;
+
+  useEffect(() => {
+    silentRefresh();
+  }, [silentRefresh]);
+
   const login = useGoogleLogin({
-    flow: "implicit",
+    flow: "auth-code",
     scope: SCOPE,
-    prompt: "none",
-    onSuccess: (res) => {
-      const expiresAt = Date.now() + res.expires_in * 1000;
-      Cookies.set(TOKEN_COOKIE, res.access_token, { expires: COOKIE_TTL_DAYS });
-      Cookies.set(EXPIRES_AT_COOKIE, String(expiresAt), {
-        expires: COOKIE_TTL_DAYS,
+    // Not in the library's TS types but forwarded verbatim to GIS initCodeClient;
+    // forces Google to re-issue a refresh_token even if the app was previously authorized.
+    ...({ prompt: "consent" } as object),
+    onSuccess: async (res) => {
+      const callbackRes = await fetch("/api/auth/callback", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ code: res.code }),
       });
-      setAccessToken(res.access_token);
-      scheduleRefresh(expiresAt);
+      if (!callbackRes.ok) {
+        console.error("Auth callback failed:", await callbackRes.text());
+        return;
+      }
+      const data: { accessToken: string; expiresIn: number } =
+        await callbackRes.json();
+      setAccessToken(data.accessToken);
+      scheduleRefresh(data.expiresIn);
     },
     onError: (err) => console.error("Google login error:", err),
   });
-  loginRef.current = login;
 
-  useEffect(() => {
-    if (!scriptLoadedSuccessfully) return;
-
-    const token = Cookies.get(TOKEN_COOKIE);
-    if (!token) return;
-
-    const expiresAt = parseInt(Cookies.get(EXPIRES_AT_COOKIE) ?? "0", 10);
-    if (expiresAt - Date.now() > REFRESH_LEAD_MS) {
-      setAccessToken(token);
-      scheduleRefresh(expiresAt);
-    } else {
-      login({ prompt: "none" });
-    }
-  }, [scriptLoadedSuccessfully, scheduleRefresh, setAccessToken, login]);
-
-  return useCallback(() => login({ prompt: "consent" }), [login]);
+  return useCallback(() => login(), [login]);
 }

@@ -7,6 +7,7 @@ import LandingPage from "./LandingPage";
 
 const App = () => {
   const accessToken = useStore((state) => state.accessToken);
+  const authLoading = useStore((state) => state.authLoading);
   const setUser = useStore((state) => state.setUser);
   const login = useAuth();
 
@@ -19,6 +20,8 @@ const App = () => {
       setUser(user);
     });
   }, [accessToken, setUser]);
+
+  if (authLoading) return null;
 
   return accessToken ? (
     <HomePage />

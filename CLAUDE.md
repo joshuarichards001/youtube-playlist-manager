@@ -4,7 +4,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Commands
 
-- `npm run dev` — Vite dev server (note: README says `npm run start`, but the real script is `dev`).
+- `npm run dev` — Vite dev server. Note: `/api/auth/*` endpoints 404 here (Vite doesn't run Pages Functions). Use `dev:cf` to test auth.
+- `npm run dev:cf` — `wrangler pages dev dist` after a build; serves the `functions/` directory so the real auth flow works locally. Needs `.dev.vars` with `GOOGLE_CLIENT_SECRET=...`.
 - `npm run build` — `tsc -b` then `vite build`. Type errors fail the build.
 - `npm run lint` — ESLint (flat config in `eslint.config.js`, `typescript-eslint` + React hooks plugins).
 - `npm run preview` — preview the production build locally.
@@ -13,14 +14,16 @@ There is no test runner configured.
 
 ## Architecture
 
-Single-page React 18 + TypeScript + Vite app that talks directly to the YouTube Data API v3 from the browser. No backend — the Google OAuth access token is the only credential and is kept in a cookie.
+Single-page React 18 + TypeScript + Vite app that talks directly to the YouTube Data API v3 from the browser. A thin Cloudflare Pages Functions backend (`functions/api/auth/*`) exists only to hold the Google OAuth refresh token in an httpOnly cookie — the access token used for YouTube API calls lives in memory.
 
 ### Auth flow
 
-- `main.tsx` wraps the app in `GoogleOAuthProvider` with a hard-coded `clientId`.
-- `src/hooks/useAuth.ts` owns the implicit OAuth flow (scopes: `youtube.readonly` + `youtube.force-ssl`). It stores the token in an `accessToken` cookie and the absolute expiry in an `accessTokenExpiresAt` cookie (both TTL 30 days), writes the token to the Zustand store, and schedules a silent `prompt: "none"` refresh 5 minutes before expiry. On mount, it rehydrates from cookies; if the token is near expiry it triggers a silent refresh instead.
-- `useAuth()` returns a callback that opens the interactive `prompt: "consent"` dialog — `LoginButton.tsx` just wires that to a button.
-- `App.tsx` gates on `accessToken` (unauthenticated → `LandingPage`, authenticated → `HomePage`) and calls `fetchUserAPI` once the token is present. Sign-out removes the cookies and reloads.
+- `main.tsx` wraps the app in `GoogleOAuthProvider` with a hard-coded `clientId`. The same client ID is duplicated in the Pages Functions; the `GOOGLE_CLIENT_SECRET` env var is set in the Cloudflare Pages dashboard (and `.dev.vars` for local).
+- `src/hooks/useAuth.ts` uses the **auth-code flow** (scopes: `youtube.readonly` + `youtube.force-ssl`, `prompt: "consent"` on the interactive login to force Google to re-issue a refresh token). On mount it fires `POST /api/auth/refresh`; if that returns an access token the user is silently signed back in. Any time it gets an access token (from refresh or initial callback) it schedules the next silent refresh 5 minutes before expiry.
+- `functions/api/auth/callback.ts` exchanges the auth code for tokens, stores the refresh token in an httpOnly `refreshToken` cookie scoped to `/api/auth`, and returns the access token + TTL to the browser.
+- `functions/api/auth/refresh.ts` uses the cookie to mint a fresh access token from Google. If Google rejects the refresh token it clears the cookie in the response.
+- `functions/api/auth/logout.ts` clears the cookie; `Nav.tsx` calls it on sign-out and reloads.
+- `App.tsx` gates on `accessToken` + `authLoading` — while the initial refresh is in flight it renders null (prevents a landing-page flash on reload). Once settled it shows `LandingPage` or `HomePage` and calls `fetchUserAPI`.
 
 ### State (Zustand)
 
