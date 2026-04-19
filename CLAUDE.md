@@ -35,7 +35,7 @@ The Zustand middleware `devtools` is used; there is a `@ts-expect-error` above t
 
 ### Routing
 
-There is no router. URLs are synthesized manually with `window.history.pushState` from the click handlers (`/playlist/:id`, `/channel/:channelId`). On load, `Playlists.tsx` parses `window.location.pathname` after fetching playlists and restores `currentView` if the path matches. `vercel.json` rewrites all routes to `/` so client-side deep links resolve.
+There is no router. URLs are synthesized manually with `window.history.pushState` from the click handlers (`/playlist/:id`, `/channel/:channelId`). On load, `Playlists.tsx` parses `window.location.pathname` after fetching playlists and restores `currentView` if the path matches. `public/_redirects` rewrites all routes to `/index.html` so client-side deep links resolve on Cloudflare Pages.
 
 ### YouTube API layer
 
