@@ -105,12 +105,21 @@ export const fetchVideosAPI = async (
       }
     );
 
-    const videoIds = result.data.items
+    const validItems: YouTubeVideo[] = result.data.items
       .filter((video: YouTubeVideo) => video.snippet.title !== "Private video")
-      .filter((video: YouTubeVideo) => video.snippet.title !== "Deleted video")
-      .map((video: YouTubeVideo) => video.snippet.resourceId.videoId);
+      .filter((video: YouTubeVideo) => video.snippet.title !== "Deleted video");
 
-    const videos = await fetchVideoDetailsAPI(accessToken, videoIds);
+    const videoIdToItemId = new Map<string, string>();
+    for (const item of validItems) {
+      videoIdToItemId.set(item.snippet.resourceId.videoId, item.id);
+    }
+
+    const videoIds = validItems.map((video) => video.snippet.resourceId.videoId);
+    const hydrated = await fetchVideoDetailsAPI(accessToken, videoIds);
+    const videos = hydrated.map((video) => ({
+      ...video,
+      id: videoIdToItemId.get(video.resourceId) ?? video.id,
+    }));
 
     return { videos, nextPageToken: result.data.nextPageToken };
   } catch (error) {
