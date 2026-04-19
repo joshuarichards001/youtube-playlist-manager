@@ -78,7 +78,7 @@ export default function VideoRow({
               onChange={onToggleSelect}
             />
           </div>
-          <div className="flex flex-col pt-2 gap-1 peer-hover:[&>button]:text-primary">
+          <div className="flex flex-col pt-2 gap-1 peer-hover:[&>button:first-child]:text-primary">
             <button
               className="link hover:text-primary text-left line-clamp-2 w-fit"
               onClick={(e) => {
