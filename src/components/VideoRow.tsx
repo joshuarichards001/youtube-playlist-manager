@@ -23,6 +23,7 @@ type Props = {
   onOpenViewer: () => void;
   onDragStart: (e: React.DragEvent) => void;
   onChannelClick?: (channelId: string) => void;
+  hideChannel?: boolean;
 };
 
 export default function VideoRow({
@@ -34,6 +35,7 @@ export default function VideoRow({
   onOpenViewer,
   onDragStart,
   onChannelClick,
+  hideChannel,
 }: Props) {
   const hasDuration =
     video.durationSeconds !== undefined && video.durationSeconds > 0;
@@ -86,7 +88,7 @@ export default function VideoRow({
             >
               {video.title}
             </button>
-            {onChannelClick && video.channelId ? (
+            {!hideChannel && (onChannelClick && video.channelId ? (
               <button
                 className="text-xs text-base-content/70 hover:text-primary text-left w-fit"
                 onClick={(e) => { e.stopPropagation(); onChannelClick(video.channelId!); }}
@@ -95,7 +97,7 @@ export default function VideoRow({
               </button>
             ) : (
               <p className="text-xs text-base-content/70">{video.channel}</p>
-            )}
+            ))}
             <div className="flex flex-row gap-2 text-xs text-base-content/70">
               {video.viewCount > 0 && (
                 <>
@@ -143,7 +145,7 @@ export default function VideoRow({
                   {video.title}
                 </button>
                 <div className="flex flex-row flex-wrap gap-x-2 gap-y-0 md:gap-4">
-                  {onChannelClick && video.channelId ? (
+                  {!hideChannel && (onChannelClick && video.channelId ? (
                     <button
                       className="text-xs text-base-content/70 hover:text-primary truncate text-left"
                       onClick={(e) => { e.stopPropagation(); onChannelClick(video.channelId!); }}
@@ -154,7 +156,7 @@ export default function VideoRow({
                     <p className="text-xs text-base-content/70 truncate">
                       {video.channel}
                     </p>
-                  )}
+                  ))}
                   {video.viewCount > 0 && (
                     <p className="text-xs text-base-content/70">
                       {video.viewCount.toLocaleString()} views

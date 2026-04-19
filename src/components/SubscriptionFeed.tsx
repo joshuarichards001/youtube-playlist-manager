@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import useStore from "../helpers/store";
 import MoveDropdown from "./MoveDropdown";
 import VideoActions from "./VideoActions";
@@ -23,6 +23,8 @@ export default function SubscriptionFeed() {
   const setViewingVideo = useStore((state) => state.setViewingVideo);
   const sort = useStore((state) => state.sort);
   const setSort = useStore((state) => state.setSort);
+  const subscriptions = useStore((state) => state.subscriptions);
+  const setCurrentView = useStore((state) => state.setCurrentView);
 
   useEffect(() => {
     setSort("releaseDate");
@@ -92,6 +94,12 @@ export default function SubscriptionFeed() {
       cancelled = true;
     };
   }, []);
+
+  const handleChannelClick = useCallback((channelId: string) => {
+    const match = subscriptions.find((s) => s.channelId === channelId);
+    const subscription = match ?? { id: "", title: channelId, thumbnail: "", channelId };
+    setCurrentView({ type: "channel", subscription });
+  }, [subscriptions, setCurrentView]);
 
   const generatedLabel = feed?.generatedAt
     ? new Date(feed.generatedAt).toLocaleString()
@@ -165,6 +173,7 @@ export default function SubscriptionFeed() {
                   onToggleSelect={() => toggleSelected(video.id)}
                   onOpenViewer={() => setViewingVideo(toViewerVideo(video))}
                   onDragStart={(e) => handleDragStart(e, video)}
+                  onChannelClick={handleChannelClick}
                 />
               ))}
             </ul>

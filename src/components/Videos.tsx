@@ -266,7 +266,8 @@ export default function Videos() {
                   }
                   onOpenViewer={() => setViewingVideo(video)}
                   onDragStart={(e) => handleDragStart(e, video)}
-                  onChannelClick={handleChannelClick}
+                  onChannelClick={isChannelView ? undefined : handleChannelClick}
+                  hideChannel={isChannelView}
                 />
               ))}
             </ul>
