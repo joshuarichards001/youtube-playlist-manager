@@ -7,9 +7,11 @@ import { fetchVideoCommentsAPI } from "../helpers/youtubeAPI/videoAPI";
 interface VideoViewerProps {
   video: Video;
   onClose: () => void;
+  expanded?: boolean;
+  onExpandToggle?: () => void;
 }
 
-export default function VideoViewer({ video, onClose }: VideoViewerProps) {
+export default function VideoViewer({ video, onClose, expanded, onExpandToggle }: VideoViewerProps) {
   const accessToken = useStore((state) => state.accessToken);
   const subscriptions = useStore((state) => state.subscriptions);
   const setCurrentView = useStore((state) => state.setCurrentView);
@@ -31,7 +33,7 @@ export default function VideoViewer({ video, onClose }: VideoViewerProps) {
   }, [accessToken, video.resourceId]);
 
   return (
-    <div className="w-full xl:w-1/2 h-full flex flex-col xl:border-l border-base-300 bg-base-100">
+    <div className={`${expanded ? "w-full" : "w-full xl:w-1/2"} h-full flex flex-col xl:border-l border-base-300 bg-base-100`}>
       <div className="flex items-center justify-between p-4 border-b border-base-300">
         <div className="flex flex-col min-w-0 pr-4">
           <h2 className="font-bold text-lg truncate">{video.title}</h2>
@@ -46,12 +48,37 @@ export default function VideoViewer({ video, onClose }: VideoViewerProps) {
             {video.channel}
           </button>
         </div>
-        <button
-          className="btn btn-ghost btn-sm btn-circle"
-          onClick={onClose}
-        >
-          ✕
-        </button>
+        <div className="flex items-center gap-1">
+          {onExpandToggle && (
+            <button
+              className="btn btn-ghost btn-sm btn-circle hidden xl:flex"
+              onClick={onExpandToggle}
+              title={expanded ? "Collapse" : "Expand"}
+            >
+              {expanded ? (
+                <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="3" y1="12" x2="10" y2="12" />
+                  <polyline points="6 8 10 12 6 16" />
+                  <line x1="21" y1="12" x2="14" y2="12" />
+                  <polyline points="18 8 14 12 18 16" />
+                </svg>
+              ) : (
+                <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="10" y1="12" x2="3" y2="12" />
+                  <polyline points="6 8 3 12 6 16" />
+                  <line x1="14" y1="12" x2="21" y2="12" />
+                  <polyline points="18 8 21 12 18 16" />
+                </svg>
+              )}
+            </button>
+          )}
+          <button
+            className="btn btn-ghost btn-sm btn-circle"
+            onClick={onClose}
+          >
+            ✕
+          </button>
+        </div>
       </div>
       <div className="flex-1 overflow-y-auto p-4">
         <div className="w-full">
