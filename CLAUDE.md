@@ -18,9 +18,9 @@ Single-page React 18 + TypeScript + Vite app that talks directly to the YouTube 
 ### Auth flow
 
 - `main.tsx` wraps the app in `GoogleOAuthProvider` with a hard-coded `clientId`.
-- `LoginButton.tsx` uses `useGoogleLogin` (implicit flow) to obtain an access token with scopes `youtube.readonly` and `youtube.force-ssl`, stores it in an `accessToken` cookie (via `js-cookie`) with expiry matching `expires_in`, and writes it to the Zustand store.
-- `App.tsx` gates on `accessToken`: unauthenticated → `LandingPage`, authenticated → `HomePage` (Nav + Sidebar + Videos). `App.tsx` also calls `fetchUserAPI` once the token is present.
-- Sign-out just removes the cookie and reloads.
+- `src/hooks/useAuth.ts` owns the implicit OAuth flow (scopes: `youtube.readonly` + `youtube.force-ssl`). It stores the token in an `accessToken` cookie and the absolute expiry in an `accessTokenExpiresAt` cookie (both TTL 30 days), writes the token to the Zustand store, and schedules a silent `prompt: "none"` refresh 5 minutes before expiry. On mount, it rehydrates from cookies; if the token is near expiry it triggers a silent refresh instead.
+- `useAuth()` returns a callback that opens the interactive `prompt: "consent"` dialog — `LoginButton.tsx` just wires that to a button.
+- `App.tsx` gates on `accessToken` (unauthenticated → `LandingPage`, authenticated → `HomePage`) and calls `fetchUserAPI` once the token is present. Sign-out removes the cookies and reloads.
 
 ### State (Zustand)
 
@@ -47,6 +47,14 @@ There is no router. URLs are synthesized manually with `window.history.pushState
 - `userAPI.ts` — current user profile.
 
 Videos from the playlist-items endpoint only include snippet data, so `fetchVideosAPI` calls `fetchVideoDetailsAPI` to hydrate duration, view count, and publish date in a second request. `convertDurationToSeconds` in `helpers/functions.ts` parses ISO-8601 `PT#H#M#S` durations.
+
+### Subscription feed (offline pipeline)
+
+`SubscriptionFeed.tsx` does NOT call the YouTube Data API. Instead it `fetch`es `/subscription-feed.json`, a static file generated out-of-band by `scripts/fetch-feed.mjs` (Node, uses `fast-xml-parser`).
+
+The script reads channel IDs from `data/channels.json`, hits each channel's public RSS feed (`youtube.com/feeds/videos.xml?channel_id=…`) with 8-way concurrency, dedupes, sorts by `releaseDate` desc, then filters out Shorts by probing `youtube.com/shorts/<id>` with `redirect: "manual"` (status 200 = Short, 3xx = regular video). It keeps the top 200 and writes `public/subscription-feed.json`. The recent "refresh subscription feed" commits are regenerations of this file.
+
+Consequence: the feed is read-only and only as fresh as the last script run; drag-out of a feed video into a playlist works (via the same `dataTransfer` contract as `Videos.tsx`) but no upload/move-from-feed equivalent exists on the server side.
 
 ### Drag-and-drop
 
