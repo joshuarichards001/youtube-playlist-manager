@@ -4,6 +4,15 @@ const REFRESH_TOKEN_MAX_AGE = 60 * 60 * 24 * 365;
 
 interface Env {
   GOOGLE_CLIENT_SECRET: string;
+  ALLOWED_EMAIL: string;
+}
+
+function decodeIdTokenEmail(idToken: string): { email?: string; email_verified?: boolean } {
+  const payload = idToken.split(".")[1];
+  if (!payload) return {};
+  const base64 = payload.replace(/-/g, "+").replace(/_/g, "/");
+  const padded = base64 + "=".repeat((4 - (base64.length % 4)) % 4);
+  return JSON.parse(atob(padded));
 }
 
 export const onRequestPost: PagesFunction<Env> = async (context) => {
@@ -31,7 +40,22 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     access_token: string;
     refresh_token: string;
     expires_in: number;
+    id_token?: string;
   }>();
+
+  if (!tokens.id_token) {
+    return new Response("Missing id_token — ensure 'openid email' scopes are requested", { status: 400 });
+  }
+
+  const allowed = context.env.ALLOWED_EMAIL?.trim().toLowerCase();
+  if (!allowed) {
+    return new Response("Server misconfigured: ALLOWED_EMAIL is not set", { status: 500 });
+  }
+
+  const { email, email_verified } = decodeIdTokenEmail(tokens.id_token);
+  if (!email_verified || email?.toLowerCase() !== allowed) {
+    return new Response("Forbidden", { status: 403 });
+  }
 
   if (!tokens.refresh_token) {
     return new Response("No refresh token returned — re-authorize with prompt=consent", { status: 400 });
