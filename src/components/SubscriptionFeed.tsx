@@ -13,6 +13,7 @@ const toViewerVideo = (v: FeedVideo): Video => ({
   resourceId: v.id,
   durationSeconds: 0,
   releaseDate: v.releaseDate,
+  dateAdded: "",
   viewCount: v.viewCount,
   selected: false,
 });

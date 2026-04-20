@@ -80,6 +80,7 @@ export const fetchVideoDetailsAPI = async (
     resourceId: video.id,
     durationSeconds: convertDurationToSeconds(video.contentDetails.duration),
     releaseDate: video.snippet.publishedAt,
+    dateAdded: "",
     viewCount: Number(video.statistics.viewCount),
     selected: false,
   }));
@@ -111,8 +112,10 @@ export const fetchVideosAPI = async (
       .filter((video: YouTubeVideo) => video.snippet.title !== "Deleted video");
 
     const videoIdToItemId = new Map<string, string>();
+    const videoIdToDateAdded = new Map<string, string>();
     for (const item of validItems) {
       videoIdToItemId.set(item.snippet.resourceId.videoId, item.id);
+      videoIdToDateAdded.set(item.snippet.resourceId.videoId, item.snippet.publishedAt);
     }
 
     const videoIds = validItems.map((video) => video.snippet.resourceId.videoId);
@@ -120,6 +123,7 @@ export const fetchVideosAPI = async (
     const videos = hydrated.map((video) => ({
       ...video,
       id: videoIdToItemId.get(video.resourceId) ?? video.id,
+      dateAdded: videoIdToDateAdded.get(video.resourceId) ?? "",
     }));
 
     return { videos, nextPageToken: result.data.nextPageToken };

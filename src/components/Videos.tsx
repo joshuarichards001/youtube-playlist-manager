@@ -36,6 +36,8 @@ export default function Videos() {
           return b.viewCount - a.viewCount;
         case "releaseDate":
           return b.releaseDate.localeCompare(a.releaseDate);
+        case "dateAdded":
+          return b.dateAdded.localeCompare(a.dateAdded);
         case "duration":
           return b.durationSeconds - a.durationSeconds;
         default:
