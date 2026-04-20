@@ -8,13 +8,25 @@ const ROOT = resolve(__dirname, "..");
 const CHANNELS_PATH = resolve(ROOT, "data/channels.json");
 const OUTPUT_PATH = resolve(ROOT, "public/subscription-feed.json");
 const MAX_VIDEOS = 100;
-const RSS_CONCURRENCY = 8;
+const RSS_CONCURRENCY = 4;
 const SHORTS_CONCURRENCY = 10;
+const FETCH_RETRIES = 3;
 
 const parser = new XMLParser({
   ignoreAttributes: false,
   attributeNamePrefix: "@_",
 });
+
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+const fetchWithRetry = async (url, options, retries = FETCH_RETRIES) => {
+  for (let attempt = 0; attempt <= retries; attempt++) {
+    const res = await fetch(url, options);
+    if (res.ok || res.status === 404) return res;
+    if (attempt < retries) await sleep(1000 * 2 ** attempt);
+  }
+  return fetch(url, options);
+};
 
 const mapConcurrent = async (items, limit, worker) => {
   const results = new Array(items.length);
@@ -33,8 +45,12 @@ const mapConcurrent = async (items, limit, worker) => {
 const fetchChannelFeed = async (channel) => {
   const url = `https://www.youtube.com/feeds/videos.xml?channel_id=${channel.id}`;
   try {
-    const res = await fetch(url, {
-      headers: { "User-Agent": "Mozilla/5.0 (feed-builder)" },
+    const res = await fetchWithRetry(url, {
+      headers: {
+        "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Language": "en-US,en;q=0.5",
+      },
     });
     if (!res.ok) {
       console.warn(`[feed] ${channel.title || channel.id}: HTTP ${res.status}`);
@@ -74,7 +90,11 @@ const isShort = async (videoId) => {
     const res = await fetch(`https://www.youtube.com/shorts/${videoId}`, {
       method: "GET",
       redirect: "manual",
-      headers: { "User-Agent": "Mozilla/5.0 (feed-builder)" },
+      headers: {
+        "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Language": "en-US,en;q=0.5",
+      },
     });
     // 200 => genuine short page; 3xx redirect => regular video at /watch
     return res.status === 200;
@@ -94,8 +114,13 @@ const main = async () => {
 
   console.log(`Fetching RSS for ${channels.length} channels…`);
   const perChannel = await mapConcurrent(channels, RSS_CONCURRENCY, fetchChannelFeed);
+  const failCount = perChannel.filter((entries) => entries.length === 0).length;
+  if (failCount > channels.length * 0.5) {
+    console.error(`Too many channels failed (${failCount}/${channels.length}). Likely IP-blocked by YouTube. Aborting.`);
+    process.exit(1);
+  }
   const all = perChannel.flat();
-  console.log(`Collected ${all.length} total entries.`);
+  console.log(`Collected ${all.length} total entries (${failCount} channels returned no results).`);
 
   all.sort((a, b) => b.releaseDate.localeCompare(a.releaseDate));
 
