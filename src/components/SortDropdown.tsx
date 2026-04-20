@@ -37,6 +37,7 @@ export default function SortDropdown() {
         <SortButton label="Title" sortType="title" />
         <SortButton label="View Count" sortType="viewCount" />
         <SortButton label="Release Date" sortType="releaseDate" />
+        <SortButton label="Date Added" sortType="dateAdded" />
         <SortButton label="Duration" sortType="duration" />
       </ul>
     </div>

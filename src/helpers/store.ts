@@ -63,7 +63,7 @@ const useStore = create<State>(
     nextPageToken: null,
     setNextPageToken: (nextPageToken) => set({ nextPageToken }),
 
-    sort: "title",
+    sort: "dateAdded",
     setSort: (sort) => set({ sort }),
 
     user: null,
