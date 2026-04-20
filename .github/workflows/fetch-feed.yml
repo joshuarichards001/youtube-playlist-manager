@@ -23,6 +23,8 @@ jobs:
 
       - name: Fetch subscription feed
         run: node scripts/fetch-feed.mjs
+        env:
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
 
       - name: Commit updated feed
         run: |
