@@ -41,6 +41,45 @@ export const fetchSubscriptionsAPI = async (
   }
 };
 
+export const subscribeAPI = async (
+  accessToken: string,
+  channelId: string
+): Promise<Subscription | null> => {
+  try {
+    const result = await axios.post(
+      "https://www.googleapis.com/youtube/v3/subscriptions",
+      {
+        snippet: {
+          resourceId: {
+            kind: "youtube#channel",
+            channelId,
+          },
+        },
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "application/json",
+        },
+        params: {
+          part: "snippet",
+        },
+      }
+    );
+
+    const sub: YouTubeSubscription = result.data;
+    return {
+      id: sub.id,
+      title: sub.snippet.title,
+      thumbnail: sub.snippet.thumbnails.default?.url,
+      channelId: sub.snippet.resourceId.channelId,
+    };
+  } catch (error) {
+    console.error("Error subscribing:", error);
+    return null;
+  }
+};
+
 export const unsubscribeAPI = async (
   accessToken: string,
   subscriptionId: string

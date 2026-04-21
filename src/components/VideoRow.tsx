@@ -22,7 +22,7 @@ type Props = {
   onToggleSelect: () => void;
   onOpenViewer: () => void;
   onDragStart: (e: React.DragEvent) => void;
-  onChannelClick?: (channelId: string) => void;
+  onChannelClick?: (channelId: string, channelTitle: string) => void;
   hideChannel?: boolean;
 };
 
@@ -91,7 +91,7 @@ export default function VideoRow({
             {!hideChannel && (onChannelClick && video.channelId ? (
               <button
                 className="text-xs text-base-content/70 hover:text-primary text-left w-fit"
-                onClick={(e) => { e.stopPropagation(); onChannelClick(video.channelId!); }}
+                onClick={(e) => { e.stopPropagation(); onChannelClick(video.channelId!, video.channel); }}
               >
                 {video.channel}
               </button>
@@ -148,7 +148,7 @@ export default function VideoRow({
                   {!hideChannel && (onChannelClick && video.channelId ? (
                     <button
                       className="text-xs text-base-content/70 hover:text-primary truncate text-left"
-                      onClick={(e) => { e.stopPropagation(); onChannelClick(video.channelId!); }}
+                      onClick={(e) => { e.stopPropagation(); onChannelClick(video.channelId!, video.channel); }}
                     >
                       {video.channel}
                     </button>

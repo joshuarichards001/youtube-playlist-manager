@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import useStore from "../helpers/store";
-import { unsubscribeAPI } from "../helpers/youtubeAPI/subscriptionAPI";
+import { subscribeAPI, unsubscribeAPI } from "../helpers/youtubeAPI/subscriptionAPI";
 import { fetchChannelVideosAPI, fetchVideosAPI } from "../helpers/youtubeAPI/videoAPI";
 import { deletePlaylistAPI } from "../helpers/youtubeAPI/playlistAPI";
 import DeleteConfirmationModal from "./DeleteConfirmationModal";
@@ -157,22 +157,38 @@ export default function Videos() {
   const handleUnsubscribe = async () => {
     if (!selectedSubscription || !accessToken) return;
 
+    const existing = subscriptions.find(
+      (sub) => sub.channelId === selectedSubscription.channelId
+    );
+    if (!existing) return;
+
     const confirmUnsubscribe = window.confirm(
       `Are you sure you want to unsubscribe from ${selectedSubscription.title}?`
     );
 
     if (confirmUnsubscribe) {
-      const success = await unsubscribeAPI(accessToken, selectedSubscription.id);
+      const success = await unsubscribeAPI(accessToken, existing.id);
       if (success) {
-        setSubscriptions(subscriptions.filter((sub) => sub.id !== selectedSubscription.id));
+        setSubscriptions(subscriptions.filter((sub) => sub.id !== existing.id));
         setCurrentView({ type: 'none' });
       }
+    }
+  };
+
+  const handleSubscribe = async () => {
+    if (!selectedSubscription || !accessToken) return;
+    const newSub = await subscribeAPI(accessToken, selectedSubscription.channelId);
+    if (newSub) {
+      setSubscriptions([...subscriptions, newSub]);
     }
   };
 
   const currentTitle = selectedPlaylist?.title || selectedSubscription?.title || "";
   const isPlaylistView = currentView.type === 'playlist';
   const isChannelView = currentView.type === 'channel';
+  const isSubscribed =
+    isChannelView &&
+    subscriptions.some((s) => s.channelId === selectedSubscription?.channelId);
 
   const selectedVideos = videos.filter((video) => video.selected);
   const selectedVideoResourceIds = selectedVideos.map((v) => v.resourceId);
@@ -181,9 +197,9 @@ export default function Videos() {
   const setAllSelected = (value: boolean) =>
     setVideos(videos.map((v) => ({ ...v, selected: value })));
 
-  const handleChannelClick = (channelId: string) => {
+  const handleChannelClick = (channelId: string, channelTitle: string) => {
     const match = subscriptions.find((s) => s.channelId === channelId);
-    const subscription = match ?? { id: "", title: channelId, thumbnail: "", channelId };
+    const subscription = match ?? { id: "", title: channelTitle, thumbnail: "", channelId };
     setCurrentView({ type: "channel", subscription });
   };
 
@@ -211,14 +227,21 @@ export default function Videos() {
                   Delete
                 </button>
               )}
-              {isChannelView && (
+              {isChannelView && (isSubscribed ? (
                 <button
                   className="btn btn-error btn-xs flex-shrink-0"
                   onClick={handleUnsubscribe}
                 >
                   Unsubscribe
                 </button>
-              )}
+              ) : (
+                <button
+                  className="btn btn-primary btn-xs flex-shrink-0"
+                  onClick={handleSubscribe}
+                >
+                  Subscribe
+                </button>
+              ))}
             </div>
             <VideoActions
               selectedCount={selectedVideos.length}
