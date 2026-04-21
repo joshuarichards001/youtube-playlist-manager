@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import useStore from "../helpers/store";
 import {
   fetchSubscriptionsAPI,
@@ -9,42 +9,21 @@ export default function Subscriptions() {
   const subscriptions = useStore((state) => state.subscriptions);
   const accessToken = useStore((state) => state.accessToken);
   const setSubscriptions = useStore((state) => state.setSubscriptions);
-  const currentView = useStore((state) => state.currentView);
   const setCurrentView = useStore((state) => state.setCurrentView);
   const setSidebarOpen = useStore((state) => state.setSidebarOpen);
   const setViewingVideo = useStore((state) => state.setViewingVideo);
+  const viewingVideo = useStore((state) => state.viewingVideo);
 
-  const selectedSubscription =
-    currentView.type === "channel" ? currentView.subscription : null;
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (accessToken) {
-      try {
-        fetchSubscriptionsAPI(accessToken).then((subscriptions) => {
-          setSubscriptions(subscriptions);
-
-          const pathParts = window.location.pathname.split("/").filter(Boolean);
-          const routeType = pathParts[0];
-          const routeId = pathParts[1];
-
-          if (routeType === "channel" && routeId) {
-            const selected = subscriptions.find((s) => s.channelId === routeId);
-            if (selected) {
-              setCurrentView({ type: "channel", subscription: selected });
-            }
-          }
-        });
-      } catch (error) {
-        console.error("Error fetching subscriptions:", error);
-      }
-    }
-  }, [accessToken, setSubscriptions, setCurrentView]);
-
-  const truncateTitle = (title: string, maxLength: number) => {
-    return title.length > maxLength
-      ? title.substring(0, maxLength) + "..."
-      : title;
-  };
+    if (!accessToken) return;
+    setLoading(true);
+    fetchSubscriptionsAPI(accessToken)
+      .then((subs) => setSubscriptions(subs))
+      .catch((error) => console.error("Error fetching subscriptions:", error))
+      .finally(() => setLoading(false));
+  }, [accessToken, setSubscriptions]);
 
   const handleUnsubscribe = async (
     e: React.MouseEvent,
@@ -63,66 +42,82 @@ export default function Subscriptions() {
         setSubscriptions(
           subscriptions.filter((sub) => sub.id !== subscription.id),
         );
-        if (selectedSubscription?.id === subscription.id) {
-          setCurrentView({ type: "none" });
-        }
       }
     }
   };
 
+  const openChannel = (subscription: Subscription) => {
+    setCurrentView({ type: "channel", subscription });
+    setSidebarOpen(false);
+    if (window.innerWidth < 768) setViewingVideo(null);
+    const url = new URL(window.location.href);
+    url.pathname = `/channel/${subscription.channelId}`;
+    window.history.pushState({}, "", url.toString());
+  };
+
+  const sorted = [...subscriptions].sort((a, b) =>
+    a.title.localeCompare(b.title),
+  );
+
   return (
-    <div className="flex flex-col flex-1 p-4 overflow-hidden">
-      <h2 className="text-lg font-semibold mb-2">Subscriptions</h2>
+    <div
+      className={`pt-4 px-4 md:pt-10 md:px-10 overflow-y-auto flex-col ${
+        viewingVideo ? "hidden xl:flex xl:w-1/2" : "flex w-full"
+      }`}
+    >
+      <div className="flex items-center gap-3 mb-4">
+        <h2 className="font-bold text-lg md:text-xl truncate">Subscriptions</h2>
+        {subscriptions.length > 0 && (
+          <p className="text-xs text-base-content/60">
+            {subscriptions.length} channels
+          </p>
+        )}
+      </div>
+      {loading && subscriptions.length === 0 && (
+        <div className="flex items-center justify-center py-10">
+          <span className="loading loading-spinner loading-lg"></span>
+        </div>
+      )}
+      {!loading && subscriptions.length === 0 && (
+        <p className="text-sm text-base-content/60">No subscriptions found.</p>
+      )}
       {subscriptions.length > 0 && (
-        <ul className="gap-1 flex-1 overflow-y-auto">
-          {[...subscriptions]
-            .sort((a, b) => a.title.localeCompare(b.title))
-            .map((subscription) => (
-              <li key={subscription.id}>
-                <button
-                  className={`group w-full p-2 rounded-md hover:bg-neutral/10 text-base flex flex-row items-center gap-2 ${
-                    selectedSubscription?.id === subscription.id
-                      ? "bg-neutral/10"
-                      : ""
-                  }`}
-                  onClick={() => {
-                    setCurrentView({ type: "channel", subscription });
-                    setSidebarOpen(false);
-                    if (window.innerWidth < 768) setViewingVideo(null);
-                    const url = new URL(window.location.href);
-                    url.pathname = `/channel/${subscription.channelId}`;
-                    window.history.pushState({}, "", url.toString());
-                  }}
+        <ul className="grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-3 overflow-y-auto">
+          {sorted.map((subscription) => (
+            <li key={subscription.id}>
+              <button
+                className="group w-full p-3 rounded-md hover:bg-neutral/10 text-base flex flex-row items-center gap-3"
+                onClick={() => openChannel(subscription)}
+              >
+                <img
+                  src={subscription.thumbnail}
+                  alt={subscription.title}
+                  className="w-10 h-10 rounded-full flex-shrink-0"
+                />
+                <p className="flex-1 text-left truncate">
+                  {subscription.title}
+                </p>
+                <span
+                  className="opacity-0 group-hover:opacity-100 p-1 rounded hover:bg-red-500/20 hover:text-red-500 transition-opacity"
+                  onClick={(e) => handleUnsubscribe(e, subscription)}
+                  title="Unsubscribe"
                 >
-                  <img
-                    src={subscription.thumbnail}
-                    alt={subscription.title}
-                    className="w-6 h-6 rounded-full"
-                  />
-                  <p className="flex-1 text-left">
-                    {truncateTitle(subscription.title, 18)}
-                  </p>
-                  <span
-                    className="opacity-0 group-hover:opacity-100 p-1 rounded hover:bg-red-500/20 hover:text-red-500 transition-opacity"
-                    onClick={(e) => handleUnsubscribe(e, subscription)}
-                    title="Unsubscribe"
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-4 w-4"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
                   >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-4 w-4"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                  </span>
-                </button>
-              </li>
-            ))}
+                    <path
+                      fillRule="evenodd"
+                      d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </span>
+              </button>
+            </li>
+          ))}
         </ul>
       )}
     </div>

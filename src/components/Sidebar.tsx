@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import useStore from "../helpers/store";
 import Playlists from "./Playlists";
-import Subscriptions from "./Subscriptions";
 
 export default function Sidebar() {
   const sidebarOpen = useStore((state) => state.sidebarOpen);
@@ -11,6 +10,7 @@ export default function Sidebar() {
   const setViewingVideo = useStore((state) => state.setViewingVideo);
 
   const isFeed = currentView.type === "feed";
+  const isSubscriptions = currentView.type === "subscriptions";
 
   useEffect(() => {
     let startX: number | null = null;
@@ -81,7 +81,7 @@ export default function Sidebar() {
           </svg>
         </button>
       </div>
-      <div className="px-4 pt-4 md:pt-4">
+      <div className="px-4 pt-4 md:pt-4 flex flex-col gap-1">
         <button
           className={`w-full p-2 rounded-md hover:bg-neutral/10 text-base text-left font-semibold ${isFeed ? "bg-neutral/10" : ""}`}
           onClick={() => {
@@ -95,9 +95,20 @@ export default function Sidebar() {
         >
           Recent Feed
         </button>
+        <button
+          className={`w-full p-2 rounded-md hover:bg-neutral/10 text-base text-left font-semibold ${isSubscriptions ? "bg-neutral/10" : ""}`}
+          onClick={() => {
+            setCurrentView({ type: "subscriptions" });
+            setSidebarOpen(false);
+            if (window.innerWidth < 768) setViewingVideo(null);
+            const url = new URL(window.location.href);
+            url.pathname = "/subscriptions";
+            window.history.pushState({}, "", url.toString());
+          }}
+        >
+          Subscriptions
+        </button>
       </div>
-      <div className="divider my-0 mx-4"></div>
-      <Subscriptions />
       <div className="divider my-0 mx-4"></div>
       <Playlists />
     </aside>

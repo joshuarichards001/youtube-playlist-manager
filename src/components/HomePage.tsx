@@ -1,20 +1,43 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useStore from "../helpers/store";
 import Nav from "./Nav";
 import Sidebar from "./Sidebar";
+import Subscriptions from "./Subscriptions";
 import SubscriptionFeed from "./SubscriptionFeed";
 import VideoViewer from "./VideoViewer";
 import Videos from "./Videos";
 
 export default function HomePage() {
   const currentView = useStore((state) => state.currentView);
+  const setCurrentView = useStore((state) => state.setCurrentView);
   const viewingVideo = useStore((state) => state.viewingVideo);
   const setViewingVideo = useStore((state) => state.setViewingVideo);
   const [videoViewerExpanded, setVideoViewerExpanded] = useState(false);
 
+  useEffect(() => {
+    const pathParts = window.location.pathname.split("/").filter(Boolean);
+    const routeType = pathParts[0];
+    const routeId = pathParts[1];
+
+    if (routeType === "subscriptions") {
+      setCurrentView({ type: "subscriptions" });
+    } else if (routeType === "channel" && routeId) {
+      setCurrentView({
+        type: "channel",
+        subscription: { id: "", title: "", thumbnail: "", channelId: routeId },
+      });
+    }
+  }, [setCurrentView]);
+
   const handleClose = () => {
     setViewingVideo(null);
     setVideoViewerExpanded(false);
+  };
+
+  const renderMain = () => {
+    if (currentView.type === "feed") return <SubscriptionFeed />;
+    if (currentView.type === "subscriptions") return <Subscriptions />;
+    return <Videos />;
   };
 
   return (
@@ -22,9 +45,7 @@ export default function HomePage() {
       <Nav />
       <div className="flex flex-1 overflow-hidden">
         <Sidebar />
-        {(!viewingVideo || !videoViewerExpanded) && (
-          currentView.type === 'feed' ? <SubscriptionFeed /> : <Videos />
-        )}
+        {(!viewingVideo || !videoViewerExpanded) && renderMain()}
         {viewingVideo && (
           <VideoViewer
             video={viewingVideo}

@@ -69,6 +69,7 @@ type VideoComment = {
 type CurrentView =
   | { type: 'playlist'; playlist: Playlist }
   | { type: 'channel'; subscription: Subscription }
+  | { type: 'subscriptions' }
   | { type: 'feed' }
   | { type: 'none' };
 
