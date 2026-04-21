@@ -4,8 +4,8 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "dev:cf": "npm run build && wrangler pages dev dist",
+    "dev": "wrangler pages dev --port 5173 -- vite --port 5174 --strictPort",
+    "dev:vite": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview"

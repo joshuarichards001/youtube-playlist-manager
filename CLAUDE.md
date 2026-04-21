@@ -4,8 +4,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Commands
 
-- `npm run dev` — Vite dev server. Note: `/api/auth/*` endpoints 404 here (Vite doesn't run Pages Functions). Use `dev:cf` to test auth.
-- `npm run dev:cf` — `wrangler pages dev dist` after a build; serves the `functions/` directory so the real auth flow works locally. Needs `.dev.vars` with `GOOGLE_CLIENT_SECRET=...`.
+- `npm run dev` — wrangler (port 5173) fronting Vite (port 5174). Wrangler serves the `functions/` directory so `/api/auth/*` works; all other requests proxy to Vite with full HMR. Reads env vars from `.dev.vars` at the repo root (must contain `GOOGLE_CLIENT_SECRET=...`). Open http://localhost:5173.
+- `npm run dev:vite` — plain Vite on whatever port it picks; `/api/auth/*` will 404. Only useful if you're working on UI and don't need the auth flow.
 - `npm run build` — `tsc -b` then `vite build`. Type errors fail the build.
 - `npm run lint` — ESLint (flat config in `eslint.config.js`, `typescript-eslint` + React hooks plugins).
 - `npm run preview` — preview the production build locally.
