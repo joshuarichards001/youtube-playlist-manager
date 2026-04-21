@@ -8,13 +8,32 @@ const ROOT = resolve(__dirname, "..");
 const CHANNELS_PATH = resolve(ROOT, "data/channels.json");
 const OUTPUT_PATH = resolve(ROOT, "public/subscription-feed.json");
 const MAX_VIDEOS = 100;
-const RSS_CONCURRENCY = 8;
+const RSS_CONCURRENCY = 4;
 const SHORTS_CONCURRENCY = 10;
+const FETCH_RETRIES = 3;
+const YOUTUBE_API_KEY = process.env.YOUTUBE_API_KEY ?? null;
 
 const parser = new XMLParser({
   ignoreAttributes: false,
   attributeNamePrefix: "@_",
 });
+
+const BROWSER_HEADERS = {
+  "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+  "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+  "Accept-Language": "en-US,en;q=0.5",
+};
+
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+const fetchWithRetry = async (url, options, retries = FETCH_RETRIES) => {
+  for (let attempt = 0; attempt <= retries; attempt++) {
+    const res = await fetch(url, options);
+    if (res.ok || res.status === 404) return res;
+    if (attempt < retries) await sleep(1000 * 2 ** attempt);
+  }
+  return fetch(url, options);
+};
 
 const mapConcurrent = async (items, limit, worker) => {
   const results = new Array(items.length);
@@ -30,13 +49,54 @@ const mapConcurrent = async (items, limit, worker) => {
   return results;
 };
 
+// Uploads playlist ID = channel ID with the leading UC replaced by UU.
+const uploadsPlaylistId = (channelId) => "UU" + channelId.slice(2);
+
+const fetchChannelFeedViaAPI = async (channel) => {
+  const playlistId = uploadsPlaylistId(channel.id);
+  const url =
+    `https://www.googleapis.com/youtube/v3/playlistItems` +
+    `?part=snippet&playlistId=${playlistId}&maxResults=15&key=${YOUTUBE_API_KEY}`;
+  try {
+    const res = await fetch(url);
+    if (!res.ok) {
+      console.warn(`[api] ${channel.title || channel.id}: HTTP ${res.status}`);
+      return [];
+    }
+    const data = await res.json();
+    return (data.items ?? [])
+      .map((item) => {
+        const s = item.snippet;
+        const videoId = s.resourceId?.videoId;
+        return {
+          id: videoId,
+          title: s.title,
+          channel: s.channelTitle ?? channel.title ?? "",
+          channelId: s.channelId ?? channel.id,
+          thumbnail:
+            s.thumbnails?.high?.url ??
+            s.thumbnails?.default?.url ??
+            `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`,
+          releaseDate: s.publishedAt,
+          viewCount: 0,
+        };
+      })
+      .filter((v) => v.id && v.releaseDate);
+  } catch (err) {
+    console.warn(`[api] ${channel.title || channel.id}: ${err.message}`);
+    return [];
+  }
+};
+
 const fetchChannelFeed = async (channel) => {
   const url = `https://www.youtube.com/feeds/videos.xml?channel_id=${channel.id}`;
   try {
-    const res = await fetch(url, {
-      headers: { "User-Agent": "Mozilla/5.0 (feed-builder)" },
-    });
+    const res = await fetchWithRetry(url, { headers: BROWSER_HEADERS });
     if (!res.ok) {
+      if (res.status === 404 && YOUTUBE_API_KEY) {
+        console.warn(`[feed] ${channel.title || channel.id}: HTTP 404, falling back to Data API`);
+        return fetchChannelFeedViaAPI(channel);
+      }
       console.warn(`[feed] ${channel.title || channel.id}: HTTP ${res.status}`);
       return [];
     }
@@ -74,7 +134,7 @@ const isShort = async (videoId) => {
     const res = await fetch(`https://www.youtube.com/shorts/${videoId}`, {
       method: "GET",
       redirect: "manual",
-      headers: { "User-Agent": "Mozilla/5.0 (feed-builder)" },
+      headers: BROWSER_HEADERS,
     });
     // 200 => genuine short page; 3xx redirect => regular video at /watch
     return res.status === 200;
@@ -92,10 +152,21 @@ const main = async () => {
     process.exit(1);
   }
 
+  if (YOUTUBE_API_KEY) {
+    console.log("YouTube Data API key present — will use as fallback for blocked RSS feeds.");
+  } else {
+    console.log("No YOUTUBE_API_KEY set — RSS only, no fallback.");
+  }
+
   console.log(`Fetching RSS for ${channels.length} channels…`);
   const perChannel = await mapConcurrent(channels, RSS_CONCURRENCY, fetchChannelFeed);
+  const failCount = perChannel.filter((entries) => entries.length === 0).length;
+  if (failCount > channels.length * 0.5) {
+    console.error(`Too many channels failed (${failCount}/${channels.length}). Aborting.`);
+    process.exit(1);
+  }
   const all = perChannel.flat();
-  console.log(`Collected ${all.length} total entries.`);
+  console.log(`Collected ${all.length} total entries (${failCount} channels returned no results).`);
 
   all.sort((a, b) => b.releaseDate.localeCompare(a.releaseDate));
 

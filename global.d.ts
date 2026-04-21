@@ -27,6 +27,7 @@ type Video = {
   durationSeconds: number;
   viewCount: number;
   releaseDate: string;
+  dateAdded: string;
   selected: boolean;
 };
 
@@ -54,7 +55,7 @@ type YouTubeVideoDetails = {
   viewCount: number;
 };
 
-type SortValues = "title" | "duration" | "viewCount" | "releaseDate";
+type SortValues = "title" | "duration" | "viewCount" | "releaseDate" | "dateAdded";
 
 type VideoComment = {
   id: string;

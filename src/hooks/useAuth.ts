@@ -4,7 +4,7 @@ import useStore from "../helpers/store";
 
 const REFRESH_LEAD_MS = 5 * 60 * 1000;
 const SCOPE =
-  "https://www.googleapis.com/auth/youtube.readonly https://www.googleapis.com/auth/youtube.force-ssl";
+  "openid email https://www.googleapis.com/auth/youtube.readonly https://www.googleapis.com/auth/youtube.force-ssl";
 
 export default function useAuth() {
   const setAccessToken = useStore((s) => s.setAccessToken);
@@ -50,7 +50,11 @@ export default function useAuth() {
         body: JSON.stringify({ code: res.code }),
       });
       if (!callbackRes.ok) {
-        console.error("Auth callback failed:", await callbackRes.text());
+        const message = await callbackRes.text();
+        console.error("Auth callback failed:", message);
+        if (callbackRes.status === 403) {
+          alert("This application is restricted to its owner. Your Google account is not authorized.");
+        }
         return;
       }
       const data: { accessToken: string; expiresIn: number } =
