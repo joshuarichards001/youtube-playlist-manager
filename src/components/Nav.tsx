@@ -1,13 +1,29 @@
+import { useState } from "react";
+import { downloadBackup } from "../helpers/backup";
 import useStore from "../helpers/store";
 
 export default function Nav() {
   const user = useStore((state) => state.user);
   const sidebarOpen = useStore((state) => state.sidebarOpen);
   const setSidebarOpen = useStore((state) => state.setSidebarOpen);
+  const playlists = useStore((state) => state.playlists);
+  const subscriptions = useStore((state) => state.subscriptions);
+  const accessToken = useStore((state) => state.accessToken);
+  const [backupLoading, setBackupLoading] = useState(false);
 
   const handleSignOut = async () => {
     await fetch("/api/auth/logout", { method: "POST" });
     window.location.href = "/";
+  };
+
+  const handleBackup = async () => {
+    if (!accessToken || backupLoading) return;
+    setBackupLoading(true);
+    try {
+      await downloadBackup(accessToken, playlists, subscriptions);
+    } finally {
+      setBackupLoading(false);
+    }
   };
 
   return (
@@ -53,6 +69,14 @@ export default function Nav() {
             tabIndex={0}
             className="menu menu-sm dropdown-content bg-base-200 rounded-box z-[1] mt-3 w-52 p-2 shadow"
           >
+            <li>
+              <button onClick={handleBackup}>
+                Backup
+                {backupLoading && (
+                  <span className="loading loading-spinner loading-xs"></span>
+                )}
+              </button>
+            </li>
             <li>
               <button onClick={handleSignOut}>Sign Out</button>
             </li>
