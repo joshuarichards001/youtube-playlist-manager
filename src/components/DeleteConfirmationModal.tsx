@@ -44,7 +44,16 @@ export default function DeleteConfirmationModal() {
   };
 
   return (
-    <dialog id="delete-confirmation-modal" className="modal">
+    <dialog
+      id="delete-confirmation-modal"
+      className="modal"
+      onKeyDown={(e) => {
+        if (e.key === "Enter" && !loading) {
+          e.preventDefault();
+          handleDelete();
+        }
+      }}
+    >
       <div className="modal-box">
         <h3 className="font-bold text-lg">
           Are you sure you want to delete these {selectedVideos.length} videos

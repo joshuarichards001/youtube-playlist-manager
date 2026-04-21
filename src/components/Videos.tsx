@@ -212,6 +212,33 @@ export default function Videos() {
     modal?.showModal();
   };
 
+  const hasSelection = selectedVideos.length > 0;
+  useEffect(() => {
+    if (!isPlaylistView || !hasSelection) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key !== "Delete" && e.key !== "Backspace") return;
+      const target = e.target as HTMLElement | null;
+      if (
+        target &&
+        (target.tagName === "INPUT" ||
+          target.tagName === "TEXTAREA" ||
+          target.isContentEditable)
+      ) {
+        return;
+      }
+      const modal = document.getElementById(
+        "delete-confirmation-modal"
+      ) as HTMLDialogElement | null;
+      if (!modal || modal.open) return;
+      e.preventDefault();
+      modal.showModal();
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [isPlaylistView, hasSelection]);
+
   return (
     <>
       {(selectedPlaylist || selectedSubscription) && (
