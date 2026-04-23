@@ -81,14 +81,16 @@ export default function VideoViewer({ video, onClose, expanded, onExpandToggle }
         </div>
       </div>
       <div className="flex-1 overflow-y-auto p-4">
-        <div className="w-full">
-          <iframe
-            className="w-full aspect-video"
-            src={`https://www.youtube.com/embed/${video.resourceId}?autoplay=1`}
-            title={video.title}
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          />
+        <div className="w-full flex justify-center">
+          <div className="w-full aspect-video max-h-[calc(100dvh-180px)] max-w-[calc((100dvh-180px)*16/9)]">
+            <iframe
+              className="w-full h-full"
+              src={`https://www.youtube.com/embed/${video.resourceId}?autoplay=1`}
+              title={video.title}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            />
+          </div>
         </div>
         <div className="mt-4">
           <h3 className="font-semibold text-base mb-3">Top Comments</h3>
