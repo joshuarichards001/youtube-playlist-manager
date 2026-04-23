@@ -1,13 +1,121 @@
 {
-  "generatedAt": "2026-04-21T06:48:08.639Z",
+  "generatedAt": "2026-04-23T06:48:35.429Z",
   "videos": [
+    {
+      "id": "md7R0YB7T4Y",
+      "title": "Pragmata",
+      "channel": "videogamedunkey",
+      "channelId": "UCsvn_Po0SmunchJYOWpOxMg",
+      "thumbnail": "https://i.ytimg.com/vi/md7R0YB7T4Y/hqdefault.jpg",
+      "releaseDate": "2026-04-22T19:30:08Z",
+      "viewCount": 0
+    },
+    {
+      "id": "DWBWebX63Vs",
+      "title": "ContraPoints: How Online Politics Became Real Life | Doomscroll",
+      "channel": "Joshua Citarella",
+      "channelId": "UC4pEm3-yshBWa7nH3sQIKHQ",
+      "thumbnail": "https://i.ytimg.com/vi/DWBWebX63Vs/hqdefault.jpg",
+      "releaseDate": "2026-04-22T15:44:08Z",
+      "viewCount": 0
+    },
+    {
+      "id": "JBhwxfnRPZQ",
+      "title": "Carlquest Is Real",
+      "channel": "Lessons in Meme Culture",
+      "channelId": "UCaHT88aobpcvRFEuy4v5Clg",
+      "thumbnail": "https://i3.ytimg.com/vi/JBhwxfnRPZQ/hqdefault.jpg",
+      "releaseDate": "2026-04-22T13:15:00+00:00",
+      "viewCount": 176674
+    },
+    {
+      "id": "LUJx0Yvkxzg",
+      "title": "Can I Top 100 the Most Popular Jump Map?",
+      "channel": "base_thomas",
+      "channelId": "UC-8H_OP0hLgM04EIno8IPqQ",
+      "thumbnail": "https://i.ytimg.com/vi/LUJx0Yvkxzg/hqdefault.jpg",
+      "releaseDate": "2026-04-22T05:01:59Z",
+      "viewCount": 0
+    },
+    {
+      "id": "t1ue6GeVBGk",
+      "title": "Every Game I Played in 2025",
+      "channel": "raz",
+      "channelId": "UCivETRAS-l1zO3RaR9f8PjA",
+      "thumbnail": "https://i.ytimg.com/vi/t1ue6GeVBGk/hqdefault.jpg",
+      "releaseDate": "2026-04-21T17:39:49Z",
+      "viewCount": 0
+    },
+    {
+      "id": "EAsa5VXULm0",
+      "title": "Hex vs Cubes: Which Actually Makes a Better Planet?",
+      "channel": "Incandescent Games",
+      "channelId": "UCzjDxCSoGtqbZPTK9qwQ3Eg",
+      "thumbnail": "https://i2.ytimg.com/vi/EAsa5VXULm0/hqdefault.jpg",
+      "releaseDate": "2026-04-21T17:07:00+00:00",
+      "viewCount": 27340
+    },
+    {
+      "id": "ErBNfZEAW5c",
+      "title": "AI Knowledge",
+      "channel": "Nate Ziller",
+      "channelId": "UC75sZDv6cuxARkRuouhHKwg",
+      "thumbnail": "https://i.ytimg.com/vi/ErBNfZEAW5c/hqdefault.jpg",
+      "releaseDate": "2026-04-21T16:35:27Z",
+      "viewCount": 0
+    },
+    {
+      "id": "pScCLQ3LwKE",
+      "title": "why do we want to be blonde?",
+      "channel": "Mina Le",
+      "channelId": "UCoOss5XiPpnLHGmLrBvNkJg",
+      "thumbnail": "https://i.ytimg.com/vi/pScCLQ3LwKE/hqdefault.jpg",
+      "releaseDate": "2026-04-21T16:30:00Z",
+      "viewCount": 0
+    },
+    {
+      "id": "setwpDYtHk0",
+      "title": "Most Food Is Toxic... So I Fixed It",
+      "channel": "Bryan Johnson",
+      "channelId": "UCnRVL1-HJnXWB_Xi2dAoTcg",
+      "thumbnail": "https://i.ytimg.com/vi/setwpDYtHk0/hqdefault.jpg",
+      "releaseDate": "2026-04-21T16:15:05Z",
+      "viewCount": 0
+    },
     {
       "id": "L43xHjdnpEU",
       "title": "Game art! Come say hi :)",
       "channel": "Watt",
       "channelId": "UCC9Rie0-VQAtnEeXhurYAeg",
-      "thumbnail": "https://i.ytimg.com/vi/L43xHjdnpEU/hqdefault_live.jpg",
-      "releaseDate": "2026-04-21T01:54:37Z",
+      "thumbnail": "https://i.ytimg.com/vi/L43xHjdnpEU/hqdefault.jpg",
+      "releaseDate": "2026-04-21T15:18:13Z",
+      "viewCount": 0
+    },
+    {
+      "id": "l7ZpEr1TyXs",
+      "title": "Nigel Cheese | Down the Rabbit Hole",
+      "channel": "Fredrik Knudsen",
+      "channelId": "UCbWcXB0PoqOsAvAdfzWMf0w",
+      "thumbnail": "https://i.ytimg.com/vi/l7ZpEr1TyXs/hqdefault.jpg",
+      "releaseDate": "2026-04-21T13:50:21Z",
+      "viewCount": 0
+    },
+    {
+      "id": "AZtBU26clKo",
+      "title": "Mbappe Is A Dictator",
+      "channel": "Lessons in Meme Culture",
+      "channelId": "UCaHT88aobpcvRFEuy4v5Clg",
+      "thumbnail": "https://i2.ytimg.com/vi/AZtBU26clKo/hqdefault.jpg",
+      "releaseDate": "2026-04-21T13:00:00+00:00",
+      "viewCount": 244753
+    },
+    {
+      "id": "SBdimCZPdTU",
+      "title": "Readability — Pixel Art Academy: Learn Mode devlog 32",
+      "channel": "Retronator",
+      "channelId": "UC1AXAXqc8eY5H60qeM4lkdw",
+      "thumbnail": "https://i.ytimg.com/vi/SBdimCZPdTU/hqdefault.jpg",
+      "releaseDate": "2026-04-21T12:21:58Z",
       "viewCount": 0
     },
     {
@@ -96,13 +204,13 @@
       "title": "Elvis Hound Dog Remix Is Cooked",
       "channel": "Lessons in Meme Culture",
       "channelId": "UCaHT88aobpcvRFEuy4v5Clg",
-      "thumbnail": "https://i.ytimg.com/vi/VY94hSaPw9M/hqdefault.jpg",
-      "releaseDate": "2026-04-19T13:00:00Z",
-      "viewCount": 0
+      "thumbnail": "https://i3.ytimg.com/vi/VY94hSaPw9M/hqdefault.jpg",
+      "releaseDate": "2026-04-19T13:00:00+00:00",
+      "viewCount": 262075
     },
     {
       "id": "ygCoyygZI6Q",
-      "title": "when the director happens to know nothing about CGI",
+      "title": "when you spend $200 MILLION on the movie, but forget to.…",
       "channel": "Scene It",
       "channelId": "UCCA75dU6oaqia36HHrVveaQ",
       "thumbnail": "https://i.ytimg.com/vi/ygCoyygZI6Q/hqdefault.jpg",
@@ -168,9 +276,9 @@
       "title": "The Amazing Digital Circus Is Officially Cinema",
       "channel": "Lessons in Meme Culture",
       "channelId": "UCaHT88aobpcvRFEuy4v5Clg",
-      "thumbnail": "https://i.ytimg.com/vi/7BMQdYDDM00/hqdefault.jpg",
-      "releaseDate": "2026-04-18T13:00:00Z",
-      "viewCount": 0
+      "thumbnail": "https://i4.ytimg.com/vi/7BMQdYDDM00/hqdefault.jpg",
+      "releaseDate": "2026-04-18T13:00:00+00:00",
+      "viewCount": 247608
     },
     {
       "id": "osYs0pYFVT4",
@@ -222,9 +330,9 @@
       "title": "Claude Opus 4.7 - A New Frontier, in Performance … and Drama",
       "channel": "AI Explained",
       "channelId": "UCNJ1Ymd5yFuUPtn21xtRbbw",
-      "thumbnail": "https://i.ytimg.com/vi/QVJcdfkRpH8/hqdefault.jpg",
-      "releaseDate": "2026-04-17T18:07:46Z",
-      "viewCount": 0
+      "thumbnail": "https://i2.ytimg.com/vi/QVJcdfkRpH8/hqdefault.jpg",
+      "releaseDate": "2026-04-17T18:07:46+00:00",
+      "viewCount": 81598
     },
     {
       "id": "OLSi5k8Feew",
@@ -249,27 +357,27 @@
       "title": "Why is oil still such a big deal?",
       "channel": "Good Work",
       "channelId": "UC_-hYjoNe4PJNFa9iZ4lraA",
-      "thumbnail": "https://i.ytimg.com/vi/XuADayBQ5No/hqdefault.jpg",
-      "releaseDate": "2026-04-17T13:42:51Z",
-      "viewCount": 0
+      "thumbnail": "https://i1.ytimg.com/vi/XuADayBQ5No/hqdefault.jpg",
+      "releaseDate": "2026-04-17T13:42:51+00:00",
+      "viewCount": 882673
     },
     {
       "id": "3EEC0Qma-YE",
       "title": "Sykkuno Responded…",
       "channel": "Lessons in Meme Culture",
       "channelId": "UCaHT88aobpcvRFEuy4v5Clg",
-      "thumbnail": "https://i.ytimg.com/vi/3EEC0Qma-YE/hqdefault.jpg",
-      "releaseDate": "2026-04-17T13:00:00Z",
-      "viewCount": 0
+      "thumbnail": "https://i4.ytimg.com/vi/3EEC0Qma-YE/hqdefault.jpg",
+      "releaseDate": "2026-04-17T13:00:00+00:00",
+      "viewCount": 819924
     },
     {
       "id": "UhPJEY7DYn8",
       "title": "The Most Unique FPS You'll Play This Year - MOUSE: P.I. For Hire",
       "channel": "Jack Sather",
       "channelId": "UCYkEkdsIRPfaKZMlfVLvI9g",
-      "thumbnail": "https://i.ytimg.com/vi/UhPJEY7DYn8/hqdefault.jpg",
-      "releaseDate": "2026-04-17T01:15:04Z",
-      "viewCount": 0
+      "thumbnail": "https://i2.ytimg.com/vi/UhPJEY7DYn8/hqdefault.jpg",
+      "releaseDate": "2026-04-17T01:15:04+00:00",
+      "viewCount": 28244
     },
     {
       "id": "Z7ms75L5O7M",
@@ -303,9 +411,9 @@
       "title": "Narwhals Song Is Frying Me Bro",
       "channel": "Lessons in Meme Culture",
       "channelId": "UCaHT88aobpcvRFEuy4v5Clg",
-      "thumbnail": "https://i.ytimg.com/vi/UwJ6ZxDX1Ys/hqdefault.jpg",
-      "releaseDate": "2026-04-16T13:00:00Z",
-      "viewCount": 0
+      "thumbnail": "https://i2.ytimg.com/vi/UwJ6ZxDX1Ys/hqdefault.jpg",
+      "releaseDate": "2026-04-16T13:00:00+00:00",
+      "viewCount": 461653
     },
     {
       "id": "fbwzEzTcABk",
@@ -339,9 +447,9 @@
       "title": "Sneakers O'Toole Family Guy Edits Are EVERYWHERE",
       "channel": "Lessons in Meme Culture",
       "channelId": "UCaHT88aobpcvRFEuy4v5Clg",
-      "thumbnail": "https://i.ytimg.com/vi/YhRUhpQJ5DM/hqdefault.jpg",
-      "releaseDate": "2026-04-15T13:00:00Z",
-      "viewCount": 0
+      "thumbnail": "https://i2.ytimg.com/vi/YhRUhpQJ5DM/hqdefault.jpg",
+      "releaseDate": "2026-04-15T13:00:00+00:00",
+      "viewCount": 292672
     },
     {
       "id": "Ltedc9mDJHc",
@@ -384,9 +492,9 @@
       "title": "I Was Looking For A Job And I Found A Job",
       "channel": "Lessons in Meme Culture",
       "channelId": "UCaHT88aobpcvRFEuy4v5Clg",
-      "thumbnail": "https://i.ytimg.com/vi/ctjwLS4F1zc/hqdefault.jpg",
-      "releaseDate": "2026-04-14T13:00:00Z",
-      "viewCount": 0
+      "thumbnail": "https://i4.ytimg.com/vi/ctjwLS4F1zc/hqdefault.jpg",
+      "releaseDate": "2026-04-14T13:00:00+00:00",
+      "viewCount": 595128
     },
     {
       "id": "l243VACUUEY",
@@ -438,9 +546,9 @@
       "title": "Influencers Ruined Coachella",
       "channel": "Lessons in Meme Culture",
       "channelId": "UCaHT88aobpcvRFEuy4v5Clg",
-      "thumbnail": "https://i.ytimg.com/vi/BoE3og5K6ks/hqdefault.jpg",
-      "releaseDate": "2026-04-13T13:00:00Z",
-      "viewCount": 0
+      "thumbnail": "https://i3.ytimg.com/vi/BoE3og5K6ks/hqdefault.jpg",
+      "releaseDate": "2026-04-13T13:00:00+00:00",
+      "viewCount": 768045
     },
     {
       "id": "9aM3JbcPNAk",
@@ -492,9 +600,9 @@
       "title": "Blue Shirt Kid Has Insane Moves",
       "channel": "Lessons in Meme Culture",
       "channelId": "UCaHT88aobpcvRFEuy4v5Clg",
-      "thumbnail": "https://i.ytimg.com/vi/ojKzteX2_dc/hqdefault.jpg",
-      "releaseDate": "2026-04-12T13:00:00Z",
-      "viewCount": 0
+      "thumbnail": "https://i4.ytimg.com/vi/ojKzteX2_dc/hqdefault.jpg",
+      "releaseDate": "2026-04-12T13:00:00+00:00",
+      "viewCount": 262736
     },
     {
       "id": "IBsau5GlYcU",
@@ -582,9 +690,9 @@
       "title": "Homelander HATES His Memes",
       "channel": "Lessons in Meme Culture",
       "channelId": "UCaHT88aobpcvRFEuy4v5Clg",
-      "thumbnail": "https://i.ytimg.com/vi/qrCz1-2QfBE/hqdefault.jpg",
-      "releaseDate": "2026-04-10T13:00:00Z",
-      "viewCount": 0
+      "thumbnail": "https://i2.ytimg.com/vi/qrCz1-2QfBE/hqdefault.jpg",
+      "releaseDate": "2026-04-10T13:00:00+00:00",
+      "viewCount": 415690
     },
     {
       "id": "hTcAKWf3lcs",
@@ -618,9 +726,9 @@
       "title": "Invincible Animations Are WILD",
       "channel": "Lessons in Meme Culture",
       "channelId": "UCaHT88aobpcvRFEuy4v5Clg",
-      "thumbnail": "https://i.ytimg.com/vi/44XFGIM_SUk/hqdefault.jpg",
-      "releaseDate": "2026-04-09T13:00:00Z",
-      "viewCount": 0
+      "thumbnail": "https://i1.ytimg.com/vi/44XFGIM_SUk/hqdefault.jpg",
+      "releaseDate": "2026-04-09T13:00:00+00:00",
+      "viewCount": 436827
     },
     {
       "id": "gx2R81MkvsI",
@@ -636,9 +744,9 @@
       "title": "Claude Mythos: Highlights from 244-page Release",
       "channel": "AI Explained",
       "channelId": "UCNJ1Ymd5yFuUPtn21xtRbbw",
-      "thumbnail": "https://i.ytimg.com/vi/txx6ec6MLNY/hqdefault.jpg",
-      "releaseDate": "2026-04-08T17:39:20Z",
-      "viewCount": 0
+      "thumbnail": "https://i1.ytimg.com/vi/txx6ec6MLNY/hqdefault.jpg",
+      "releaseDate": "2026-04-08T17:39:20+00:00",
+      "viewCount": 143454
     },
     {
       "id": "ESYGn8KOnrw",
@@ -681,9 +789,9 @@
       "title": "Meme Warfare Is Out Of Control",
       "channel": "Lessons in Meme Culture",
       "channelId": "UCaHT88aobpcvRFEuy4v5Clg",
-      "thumbnail": "https://i.ytimg.com/vi/q2BCwZuDXMY/hqdefault.jpg",
-      "releaseDate": "2026-04-08T13:00:00Z",
-      "viewCount": 0
+      "thumbnail": "https://i2.ytimg.com/vi/q2BCwZuDXMY/hqdefault.jpg",
+      "releaseDate": "2026-04-08T13:00:00+00:00",
+      "viewCount": 734071
     },
     {
       "id": "ECNbH-dJMBw",
@@ -699,9 +807,9 @@
       "title": "How Speedrunners Broke Spyro",
       "channel": "Summoning Salt",
       "channelId": "UCtUbO6rBht0daVIOGML3c8w",
-      "thumbnail": "https://i.ytimg.com/vi/zLAu1Cy9_SQ/hqdefault.jpg",
-      "releaseDate": "2026-04-08T01:07:39Z",
-      "viewCount": 0
+      "thumbnail": "https://i3.ytimg.com/vi/zLAu1Cy9_SQ/hqdefault.jpg",
+      "releaseDate": "2026-04-08T01:07:39+00:00",
+      "viewCount": 1512585
     },
     {
       "id": "TW_Tsqjcojo",
@@ -726,9 +834,9 @@
       "title": "An initiative to secure the world's software | Project Glasswing",
       "channel": "Anthropic",
       "channelId": "UCrDwWp7EBBv4NwvScIpBDOA",
-      "thumbnail": "https://i.ytimg.com/vi/INGOC6-LLv0/hqdefault.jpg",
-      "releaseDate": "2026-04-07T18:03:51Z",
-      "viewCount": 0
+      "thumbnail": "https://i2.ytimg.com/vi/INGOC6-LLv0/hqdefault.jpg",
+      "releaseDate": "2026-04-07T18:03:51+00:00",
+      "viewCount": 334702
     },
     {
       "id": "PENMB1YY0wo",
@@ -753,9 +861,9 @@
       "title": "Why Is 7 x 7 = 49 Attractive?",
       "channel": "Lessons in Meme Culture",
       "channelId": "UCaHT88aobpcvRFEuy4v5Clg",
-      "thumbnail": "https://i.ytimg.com/vi/-cuwzyPTqnU/hqdefault.jpg",
-      "releaseDate": "2026-04-07T13:00:00Z",
-      "viewCount": 0
+      "thumbnail": "https://i2.ytimg.com/vi/-cuwzyPTqnU/hqdefault.jpg",
+      "releaseDate": "2026-04-07T13:00:00+00:00",
+      "viewCount": 354551
     },
     {
       "id": "wRqxECgc4ms",
@@ -791,114 +899,6 @@
       "channelId": "UCrcOrUcsMYRMqTfAy-IG0rg",
       "thumbnail": "https://i.ytimg.com/vi/knbvVBZwEvs/hqdefault.jpg",
       "releaseDate": "2026-04-06T15:30:19Z",
-      "viewCount": 0
-    },
-    {
-      "id": "zKx1VJsLsfk",
-      "title": "They can fly 200 miles with no fuel. Here's how.",
-      "channel": "Tom Scott",
-      "channelId": "UCBa659QWEk1AI4Tg--mrJ2A",
-      "thumbnail": "https://i.ytimg.com/vi/zKx1VJsLsfk/hqdefault.jpg",
-      "releaseDate": "2026-04-06T15:01:40Z",
-      "viewCount": 0
-    },
-    {
-      "id": "V6H8Ic-Oxxo",
-      "title": "Tiger Woods Bodycam Has Become A Meme",
-      "channel": "Lessons in Meme Culture",
-      "channelId": "UCaHT88aobpcvRFEuy4v5Clg",
-      "thumbnail": "https://i.ytimg.com/vi/V6H8Ic-Oxxo/hqdefault.jpg",
-      "releaseDate": "2026-04-06T13:00:00Z",
-      "viewCount": 0
-    },
-    {
-      "id": "uQKYvdSUr64",
-      "title": "Compose an Orchestral Sea Monster Theme 🦈🎶🌊 | Weekly Production Challenge #151",
-      "channel": "Max Konyi",
-      "channelId": "UCUzHYuS7EdFSQvOJBZNet6g",
-      "thumbnail": "https://i.ytimg.com/vi/uQKYvdSUr64/hqdefault.jpg",
-      "releaseDate": "2026-04-06T07:37:20Z",
-      "viewCount": 0
-    },
-    {
-      "id": "8io7Mqxp-uo",
-      "title": "Games I Played in November (2025)",
-      "channel": "raz",
-      "channelId": "UCivETRAS-l1zO3RaR9f8PjA",
-      "thumbnail": "https://i.ytimg.com/vi/8io7Mqxp-uo/hqdefault.jpg",
-      "releaseDate": "2026-04-05T19:09:14Z",
-      "viewCount": 0
-    },
-    {
-      "id": "S9E2rVPudF8",
-      "title": "My Outfit Got me Killed...",
-      "channel": "STAR_",
-      "channelId": "UCgSHGbs2oGoLItc-8y5hJ9g",
-      "thumbnail": "https://i.ytimg.com/vi/S9E2rVPudF8/hqdefault.jpg",
-      "releaseDate": "2026-04-05T18:16:43Z",
-      "viewCount": 0
-    },
-    {
-      "id": "K5-6b5auAuY",
-      "title": "Discord Mods Are The Worst...",
-      "channel": "MeatCanyon",
-      "channelId": "UC91V6D3nkhP89wUb9f_h17g",
-      "thumbnail": "https://i.ytimg.com/vi/K5-6b5auAuY/hqdefault.jpg",
-      "releaseDate": "2026-04-05T17:00:29Z",
-      "viewCount": 0
-    },
-    {
-      "id": "79HqrIz9jsc",
-      "title": "The Art Of Stealing People's Trust",
-      "channel": "Noodle",
-      "channelId": "UCj74rJ9Lgl3WTngq675wxKg",
-      "thumbnail": "https://i.ytimg.com/vi/79HqrIz9jsc/hqdefault.jpg",
-      "releaseDate": "2026-04-05T16:30:06Z",
-      "viewCount": 0
-    },
-    {
-      "id": "uhGvD38qe9o",
-      "title": "Is Palm Beach Pete Jeffrey Epstein?",
-      "channel": "Lessons in Meme Culture",
-      "channelId": "UCaHT88aobpcvRFEuy4v5Clg",
-      "thumbnail": "https://i.ytimg.com/vi/uhGvD38qe9o/hqdefault.jpg",
-      "releaseDate": "2026-04-05T13:00:00Z",
-      "viewCount": 0
-    },
-    {
-      "id": "Oi265I48MdI",
-      "title": "The Iran economic shock is coming. How to protect yourself",
-      "channel": "Garys Economics",
-      "channelId": "UC5Ghe5TBQGYIOANuiNW4hDQ",
-      "thumbnail": "https://i.ytimg.com/vi/Oi265I48MdI/hqdefault.jpg",
-      "releaseDate": "2026-04-05T08:00:21Z",
-      "viewCount": 0
-    },
-    {
-      "id": "YSbl42zUFR0",
-      "title": "Games I Played in October (2025)",
-      "channel": "raz",
-      "channelId": "UCivETRAS-l1zO3RaR9f8PjA",
-      "thumbnail": "https://i.ytimg.com/vi/YSbl42zUFR0/hqdefault.jpg",
-      "releaseDate": "2026-04-04T18:30:09Z",
-      "viewCount": 0
-    },
-    {
-      "id": "cPgkeyNdjmU",
-      "title": "insane.",
-      "channel": "Woman Carrying Man",
-      "channelId": "UC8aGE10t6QrcdRMpgorwkAA",
-      "thumbnail": "https://i.ytimg.com/vi/cPgkeyNdjmU/hqdefault.jpg",
-      "releaseDate": "2026-04-04T16:30:36Z",
-      "viewCount": 0
-    },
-    {
-      "id": "5xghgfp3jwU",
-      "title": "Does Weed Steal Your Soul?",
-      "channel": "Broken Ruune",
-      "channelId": "UCtkXUJi2eHXDkgV3xt_UloQ",
-      "thumbnail": "https://i.ytimg.com/vi/5xghgfp3jwU/hqdefault.jpg",
-      "releaseDate": "2026-04-04T16:06:08Z",
       "viewCount": 0
     }
   ]
