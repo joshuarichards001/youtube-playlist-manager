@@ -246,7 +246,27 @@ export default function Videos() {
           <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-3 mb-4">
             <div className="flex items-center gap-3 min-w-0">
               <h2 className="font-bold text-lg md:text-xl truncate">
-                {currentTitle}
+                {isPlaylistView && selectedPlaylist ? (
+                  <a
+                    href={`https://www.youtube.com/playlist?list=${selectedPlaylist.id}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="link link-hover"
+                  >
+                    {currentTitle}
+                  </a>
+                ) : isChannelView && selectedSubscription ? (
+                  <a
+                    href={`https://www.youtube.com/channel/${selectedSubscription.channelId}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="link link-hover"
+                  >
+                    {currentTitle}
+                  </a>
+                ) : (
+                  currentTitle
+                )}
               </h2>
               {isPlaylistView && (
                 <button
