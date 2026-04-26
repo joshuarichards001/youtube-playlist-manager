@@ -23,6 +23,13 @@ export default function HomePage() {
     const routeType = pathParts[0];
     const routeId = pathParts[1];
 
+    if (!routeType) {
+      const url = new URL(window.location.href);
+      url.pathname = "/feed";
+      window.history.replaceState({}, "", url.toString());
+      return;
+    }
+
     if (routeType === "subscriptions") {
       setCurrentView({ type: "subscriptions" });
     } else if (routeType === "channel" && routeId) {
