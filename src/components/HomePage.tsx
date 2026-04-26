@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import useStore from "../helpers/store";
+import { fetchVideoByIdAPI } from "../helpers/youtubeAPI/videoAPI";
 import Nav from "./Nav";
 import Sidebar from "./Sidebar";
 import Subscriptions from "./Subscriptions";
@@ -8,11 +9,14 @@ import VideoViewer from "./VideoViewer";
 import Videos from "./Videos";
 
 export default function HomePage() {
+  const accessToken = useStore((state) => state.accessToken);
   const currentView = useStore((state) => state.currentView);
   const setCurrentView = useStore((state) => state.setCurrentView);
   const viewingVideo = useStore((state) => state.viewingVideo);
   const setViewingVideo = useStore((state) => state.setViewingVideo);
   const [videoViewerExpanded, setVideoViewerExpanded] = useState(false);
+  const hydratedFromUrlRef = useRef(false);
+  const skipNextUrlSyncRef = useRef(true);
 
   useEffect(() => {
     const pathParts = window.location.pathname.split("/").filter(Boolean);
@@ -28,6 +32,42 @@ export default function HomePage() {
       });
     }
   }, [setCurrentView]);
+
+  useEffect(() => {
+    if (hydratedFromUrlRef.current || !accessToken) return;
+    hydratedFromUrlRef.current = true;
+
+    const videoId = new URLSearchParams(window.location.search).get("v");
+    if (!videoId) return;
+
+    fetchVideoByIdAPI(accessToken, videoId).then((video) => {
+      if (video) {
+        setViewingVideo(video);
+      } else {
+        const url = new URL(window.location.href);
+        url.searchParams.delete("v");
+        window.history.replaceState({}, "", url.toString());
+      }
+    });
+  }, [accessToken, setViewingVideo]);
+
+  useEffect(() => {
+    if (skipNextUrlSyncRef.current) {
+      skipNextUrlSyncRef.current = false;
+      return;
+    }
+    const url = new URL(window.location.href);
+    const currentParam = url.searchParams.get("v");
+    const desired = viewingVideo?.resourceId ?? null;
+    if (currentParam === desired) return;
+
+    if (desired) {
+      url.searchParams.set("v", desired);
+    } else {
+      url.searchParams.delete("v");
+    }
+    window.history.pushState({}, "", url.toString());
+  }, [viewingVideo]);
 
   const handleClose = () => {
     setViewingVideo(null);

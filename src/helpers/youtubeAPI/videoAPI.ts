@@ -86,6 +86,19 @@ export const fetchVideoDetailsAPI = async (
   }));
 };
 
+export const fetchVideoByIdAPI = async (
+  accessToken: string,
+  videoId: string
+): Promise<Video | null> => {
+  try {
+    const [video] = await fetchVideoDetailsAPI(accessToken, [videoId]);
+    return video ?? null;
+  } catch (error) {
+    console.error("Error fetching video by id:", error);
+    return null;
+  }
+};
+
 export const fetchVideosAPI = async (
   accessToken: string,
   playlist: Playlist,

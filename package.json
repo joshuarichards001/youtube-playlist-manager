@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "wrangler pages dev --port 5173 -- vite --port 5174 --strictPort",
+    "dev": "wrangler pages dev --port 5173 --compatibility-date=2026-04-22 -- vite --port 5174 --strictPort",
     "dev:vite": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
