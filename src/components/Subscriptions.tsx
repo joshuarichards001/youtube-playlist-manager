@@ -13,6 +13,7 @@ export default function Subscriptions() {
   const setSidebarOpen = useStore((state) => state.setSidebarOpen);
   const setViewingVideo = useStore((state) => state.setViewingVideo);
   const viewingVideo = useStore((state) => state.viewingVideo);
+  const videoViewerPip = useStore((state) => state.videoViewerPip);
 
   const [loading, setLoading] = useState(false);
 
@@ -62,7 +63,7 @@ export default function Subscriptions() {
   return (
     <div
       className={`pt-4 px-4 md:pt-10 md:px-10 overflow-y-auto flex-col ${
-        viewingVideo ? "hidden xl:flex xl:w-1/2" : "flex w-full"
+        viewingVideo && !videoViewerPip ? "hidden xl:flex xl:w-1/2" : "flex w-full"
       }`}
     >
       <div className="flex items-center gap-3 mb-4">

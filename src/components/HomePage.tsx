@@ -14,6 +14,8 @@ export default function HomePage() {
   const setCurrentView = useStore((state) => state.setCurrentView);
   const viewingVideo = useStore((state) => state.viewingVideo);
   const setViewingVideo = useStore((state) => state.setViewingVideo);
+  const videoViewerPip = useStore((state) => state.videoViewerPip);
+  const setVideoViewerPip = useStore((state) => state.setVideoViewerPip);
   const [videoViewerExpanded, setVideoViewerExpanded] = useState(false);
   const hydratedFromUrlRef = useRef(false);
   const skipNextUrlSyncRef = useRef(true);
@@ -79,6 +81,17 @@ export default function HomePage() {
   const handleClose = () => {
     setViewingVideo(null);
     setVideoViewerExpanded(false);
+    setVideoViewerPip(false);
+  };
+
+  const handleExpandToggle = () => {
+    setVideoViewerPip(false);
+    setVideoViewerExpanded((e) => !e);
+  };
+
+  const handlePipToggle = () => {
+    setVideoViewerExpanded(false);
+    setVideoViewerPip(!videoViewerPip);
   };
 
   const renderMain = () => {
@@ -92,13 +105,15 @@ export default function HomePage() {
       <Nav />
       <div className="flex flex-1 overflow-hidden">
         <Sidebar />
-        {(!viewingVideo || !videoViewerExpanded) && renderMain()}
+        {(!viewingVideo || !videoViewerExpanded || videoViewerPip) && renderMain()}
         {viewingVideo && (
           <VideoViewer
             video={viewingVideo}
             onClose={handleClose}
             expanded={videoViewerExpanded}
-            onExpandToggle={() => setVideoViewerExpanded((e) => !e)}
+            onExpandToggle={handleExpandToggle}
+            pip={videoViewerPip}
+            onPipToggle={handlePipToggle}
           />
         )}
       </div>

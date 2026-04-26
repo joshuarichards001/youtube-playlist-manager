@@ -22,6 +22,7 @@ export default function SubscriptionFeed() {
   const gridView = useStore((state) => state.gridView);
   const viewingVideo = useStore((state) => state.viewingVideo);
   const setViewingVideo = useStore((state) => state.setViewingVideo);
+  const videoViewerPip = useStore((state) => state.videoViewerPip);
   const sort = useStore((state) => state.sort);
   const setSort = useStore((state) => state.setSort);
   const subscriptions = useStore((state) => state.subscriptions);
@@ -110,7 +111,7 @@ export default function SubscriptionFeed() {
     <>
       <div
         className={`pt-4 px-4 md:pt-10 md:px-10 overflow-y-auto flex-col ${
-          viewingVideo ? "hidden xl:flex xl:w-1/2" : "flex w-full"
+          viewingVideo && !videoViewerPip ? "hidden xl:flex xl:w-1/2" : "flex w-full"
         }`}
       >
         <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-3 mb-4">

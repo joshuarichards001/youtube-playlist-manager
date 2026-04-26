@@ -32,6 +32,9 @@ interface State {
   viewingVideo: Video | null;
   setViewingVideo: (viewingVideo: Video | null) => void;
 
+  videoViewerPip: boolean;
+  setVideoViewerPip: (videoViewerPip: boolean) => void;
+
   gridView: boolean;
   setGridView: (gridView: boolean) => void;
 
@@ -71,6 +74,9 @@ const useStore = create<State>(
 
     viewingVideo: null,
     setViewingVideo: (viewingVideo) => set({ viewingVideo }),
+
+    videoViewerPip: false,
+    setVideoViewerPip: (videoViewerPip) => set({ videoViewerPip }),
 
     gridView: true,
     setGridView: (gridView) => set({ gridView }),

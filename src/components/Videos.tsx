@@ -22,6 +22,7 @@ export default function Videos() {
   const [loading, setLoading] = useState(false);
   const viewingVideo = useStore((state) => state.viewingVideo);
   const setViewingVideo = useStore((state) => state.setViewingVideo);
+  const videoViewerPip = useStore((state) => state.videoViewerPip);
   const gridView = useStore((state) => state.gridView);
 
   const selectedPlaylist = currentView.type === 'playlist' ? currentView.playlist : null;
@@ -242,7 +243,7 @@ export default function Videos() {
   return (
     <>
       {(selectedPlaylist || selectedSubscription) && (
-        <div className={`pt-4 px-4 md:pt-10 md:px-10 overflow-y-auto flex-col ${viewingVideo ? 'hidden xl:flex xl:w-1/2' : 'flex w-full'}`}>
+        <div className={`pt-4 px-4 md:pt-10 md:px-10 overflow-y-auto flex-col ${viewingVideo && !videoViewerPip ? 'hidden xl:flex xl:w-1/2' : 'flex w-full'}`}>
           <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-3 mb-4">
             <div className="flex items-center gap-3 min-w-0">
               <h2 className="font-bold text-lg md:text-xl truncate">

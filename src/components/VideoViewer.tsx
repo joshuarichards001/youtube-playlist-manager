@@ -14,12 +14,15 @@ interface VideoViewerProps {
   onClose: () => void;
   expanded?: boolean;
   onExpandToggle?: () => void;
+  pip?: boolean;
+  onPipToggle?: () => void;
 }
 
-export default function VideoViewer({ video, onClose, expanded, onExpandToggle }: VideoViewerProps) {
+export default function VideoViewer({ video, onClose, expanded, onExpandToggle, pip, onPipToggle }: VideoViewerProps) {
   const accessToken = useStore((state) => state.accessToken);
   const subscriptions = useStore((state) => state.subscriptions);
   const setCurrentView = useStore((state) => state.setCurrentView);
+  const sidebarOpen = useStore((state) => state.sidebarOpen);
   const [comments, setComments] = useState<VideoComment[]>([]);
   const [loadingComments, setLoadingComments] = useState(false);
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
@@ -178,23 +181,52 @@ export default function VideoViewer({ video, onClose, expanded, onExpandToggle }
   }, [video.resourceId]);
 
   return (
-    <div className={`${expanded ? "w-full" : "w-full xl:w-1/2"} h-full flex flex-col xl:border-l border-base-300 bg-base-100`}>
-      <div className="flex items-center justify-between p-4 border-b border-base-300">
+    <div
+      className={
+        pip
+          ? `fixed bottom-4 right-4 w-80 md:w-96 z-50 flex-col bg-base-100 border border-base-300 rounded-lg shadow-2xl overflow-hidden ${sidebarOpen ? "hidden md:flex" : "flex"}`
+          : `${expanded ? "w-full" : "w-full xl:w-1/2"} h-full flex flex-col xl:border-l border-base-300 bg-base-100`
+      }
+    >
+      <div className={`flex items-center justify-between border-b border-base-300 ${pip ? "p-2" : "p-4"}`}>
         <div className="flex flex-col min-w-0 pr-4">
-          <h2 className="font-bold text-lg truncate">{video.title}</h2>
-          <button
-            className="text-sm text-base-content/60 hover:text-primary truncate text-left"
-            onClick={() => {
-              const match = subscriptions.find((s) => s.channelId === video.channelId);
-              const subscription = match ?? { id: "", title: video.channel, thumbnail: "", channelId: video.channelId };
-              setCurrentView({ type: "channel", subscription });
-            }}
-          >
-            {video.channel}
-          </button>
+          <h2 className={`font-bold truncate ${pip ? "text-sm" : "text-lg"}`}>{video.title}</h2>
+          {!pip && (
+            <button
+              className="text-sm text-base-content/60 hover:text-primary truncate text-left"
+              onClick={() => {
+                const match = subscriptions.find((s) => s.channelId === video.channelId);
+                const subscription = match ?? { id: "", title: video.channel, thumbnail: "", channelId: video.channelId };
+                setCurrentView({ type: "channel", subscription });
+              }}
+            >
+              {video.channel}
+            </button>
+          )}
         </div>
         <div className="flex items-center gap-1">
-          {onExpandToggle && (
+          {onPipToggle && (
+            <button
+              className="btn btn-ghost btn-sm btn-circle"
+              onClick={onPipToggle}
+              title={pip ? "Restore" : "Picture in picture"}
+            >
+              {pip ? (
+                <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="15 3 21 3 21 9" />
+                  <polyline points="9 21 3 21 3 15" />
+                  <line x1="21" y1="3" x2="14" y2="10" />
+                  <line x1="3" y1="21" x2="10" y2="14" />
+                </svg>
+              ) : (
+                <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="2" y="4" width="20" height="16" rx="2" ry="2" />
+                  <rect x="12" y="12" width="8" height="6" rx="1" ry="1" fill="currentColor" />
+                </svg>
+              )}
+            </button>
+          )}
+          {onExpandToggle && !pip && (
             <button
               className="btn btn-ghost btn-sm btn-circle hidden xl:flex"
               onClick={onExpandToggle}
@@ -225,9 +257,9 @@ export default function VideoViewer({ video, onClose, expanded, onExpandToggle }
           </button>
         </div>
       </div>
-      <div className="flex-1 overflow-y-auto p-4">
+      <div className={`flex-1 overflow-y-auto ${pip ? "" : "p-4"}`}>
         <div className="w-full flex justify-center">
-          <div className="w-full aspect-video max-h-[calc(100dvh-180px)] max-w-[calc((100dvh-180px)*16/9)]">
+          <div className={pip ? "w-full aspect-video" : "w-full aspect-video max-h-[calc(100dvh-180px)] max-w-[calc((100dvh-180px)*16/9)]"}>
             <iframe
               ref={iframeRef}
               className="w-full h-full"
@@ -238,6 +270,7 @@ export default function VideoViewer({ video, onClose, expanded, onExpandToggle }
             />
           </div>
         </div>
+        {!pip && (
         <div className="mt-4">
           <h3 className="font-semibold text-base mb-3">Top Comments</h3>
           {loadingComments ? (
@@ -291,6 +324,7 @@ export default function VideoViewer({ video, onClose, expanded, onExpandToggle }
             </div>
           )}
         </div>
+        )}
       </div>
     </div>
   );

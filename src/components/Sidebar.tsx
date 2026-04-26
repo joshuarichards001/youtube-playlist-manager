@@ -7,7 +7,8 @@ export default function Sidebar() {
   const currentView = useStore((state) => state.currentView);
   const setCurrentView = useStore((state) => state.setCurrentView);
   const setSidebarOpen = useStore((state) => state.setSidebarOpen);
-  const setViewingVideo = useStore((state) => state.setViewingVideo);
+  const viewingVideo = useStore((state) => state.viewingVideo);
+  const setVideoViewerPip = useStore((state) => state.setVideoViewerPip);
 
   const isFeed = currentView.type === "feed";
   const isSubscriptions = currentView.type === "subscriptions";
@@ -87,7 +88,7 @@ export default function Sidebar() {
           onClick={() => {
             setCurrentView({ type: "feed" });
             setSidebarOpen(false);
-            if (window.innerWidth < 768) setViewingVideo(null);
+            if (window.innerWidth < 768 && viewingVideo) setVideoViewerPip(true);
             const url = new URL(window.location.href);
             url.pathname = "/feed";
             window.history.pushState({}, "", url.toString());
@@ -100,7 +101,7 @@ export default function Sidebar() {
           onClick={() => {
             setCurrentView({ type: "subscriptions" });
             setSidebarOpen(false);
-            if (window.innerWidth < 768) setViewingVideo(null);
+            if (window.innerWidth < 768 && viewingVideo) setVideoViewerPip(true);
             const url = new URL(window.location.href);
             url.pathname = "/subscriptions";
             window.history.pushState({}, "", url.toString());
