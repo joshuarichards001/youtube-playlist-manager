@@ -1,6 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { convertReleaseDateToTimeSinceRelease } from "../helpers/functions";
+import {
+  getResumePosition,
+  saveResumePosition,
+} from "../helpers/resumePosition";
 import useStore from "../helpers/store";
+import { loadYouTubeIframeApi } from "../helpers/youtubeIframeApi";
 import { fetchVideoCommentsAPI } from "../helpers/youtubeAPI/videoAPI";
 
 
@@ -17,6 +22,26 @@ export default function VideoViewer({ video, onClose, expanded, onExpandToggle }
   const setCurrentView = useStore((state) => state.setCurrentView);
   const [comments, setComments] = useState<VideoComment[]>([]);
   const [loadingComments, setLoadingComments] = useState(false);
+  const iframeRef = useRef<HTMLIFrameElement | null>(null);
+  const playerRef = useRef<YT.Player | null>(null);
+  const playerReadyRef = useRef(false);
+  const videoIdRef = useRef(video.resourceId);
+  const lastPositionRef = useRef(0);
+  const lastDurationRef = useRef(0);
+  const intervalIdRef = useRef<number | null>(null);
+  const saveCurrentRef = useRef<() => void>(() => {});
+  const pendingSwitchRef = useRef<{
+    videoId: string;
+    startSeconds: number;
+  } | null>(null);
+
+  const [initialSrc] = useState(() => {
+    const start = Math.floor(getResumePosition(video.resourceId) ?? 0);
+    lastPositionRef.current = start;
+    const params = new URLSearchParams({ autoplay: "1", enablejsapi: "1" });
+    if (start > 0) params.set("start", String(start));
+    return `https://www.youtube.com/embed/${video.resourceId}?${params.toString()}`;
+  });
 
   useEffect(() => {
     const fetchComments = async () => {
@@ -31,6 +56,126 @@ export default function VideoViewer({ video, onClose, expanded, onExpandToggle }
     };
     fetchComments();
   }, [accessToken, video.resourceId]);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    const capture = () => {
+      const player = playerRef.current;
+      if (!player) return;
+      try {
+        if (player.getVideoData().video_id !== videoIdRef.current) return;
+        const t = player.getCurrentTime();
+        const d = player.getDuration();
+        if (Number.isFinite(t)) lastPositionRef.current = t;
+        if (Number.isFinite(d) && d > 0) lastDurationRef.current = d;
+      } catch {
+        // player not ready, destroyed, or transitioning
+      }
+    };
+
+    const saveCurrent = () => {
+      capture();
+      saveResumePosition(
+        videoIdRef.current,
+        lastPositionRef.current,
+        lastDurationRef.current
+      );
+    };
+    saveCurrentRef.current = saveCurrent;
+
+    const stopInterval = () => {
+      if (intervalIdRef.current !== null) {
+        window.clearInterval(intervalIdRef.current);
+        intervalIdRef.current = null;
+      }
+    };
+
+    const startInterval = () => {
+      stopInterval();
+      intervalIdRef.current = window.setInterval(saveCurrent, 5000);
+    };
+
+    loadYouTubeIframeApi().then((YT) => {
+      if (cancelled || !iframeRef.current) return;
+      playerRef.current = new YT.Player(iframeRef.current, {
+        events: {
+          onReady: () => {
+            playerReadyRef.current = true;
+            try {
+              const d = playerRef.current?.getDuration() ?? 0;
+              if (Number.isFinite(d) && d > 0) lastDurationRef.current = d;
+            } catch {
+              // ignore
+            }
+            const pending = pendingSwitchRef.current;
+            if (pending) {
+              pendingSwitchRef.current = null;
+              try {
+                playerRef.current?.loadVideoById(pending);
+              } catch {
+                // ignore
+              }
+            }
+          },
+          onStateChange: (e) => {
+            const PLAYING = 1;
+            const PAUSED = 2;
+            const ENDED = 0;
+            if (e.data === PLAYING) {
+              startInterval();
+            } else if (e.data === PAUSED || e.data === ENDED) {
+              stopInterval();
+              saveCurrent();
+            }
+          },
+        },
+      });
+    });
+
+    const handleVisibility = () => {
+      if (document.visibilityState === "hidden") saveCurrent();
+    };
+    document.addEventListener("visibilitychange", handleVisibility);
+    window.addEventListener("pagehide", saveCurrent);
+
+    return () => {
+      cancelled = true;
+      stopInterval();
+      saveCurrent();
+      document.removeEventListener("visibilitychange", handleVisibility);
+      window.removeEventListener("pagehide", saveCurrent);
+      try {
+        playerRef.current?.destroy();
+      } catch {
+        // ignore
+      }
+      playerRef.current = null;
+      playerReadyRef.current = false;
+    };
+  }, []);
+
+  useEffect(() => {
+    if (videoIdRef.current === video.resourceId) return;
+
+    saveCurrentRef.current();
+
+    videoIdRef.current = video.resourceId;
+    const start = Math.floor(getResumePosition(video.resourceId) ?? 0);
+    lastPositionRef.current = start;
+    lastDurationRef.current = 0;
+
+    const switchTo = { videoId: video.resourceId, startSeconds: start };
+    if (playerReadyRef.current && playerRef.current) {
+      try {
+        playerRef.current.loadVideoById(switchTo);
+      } catch {
+        pendingSwitchRef.current = switchTo;
+      }
+    } else {
+      pendingSwitchRef.current = switchTo;
+    }
+  }, [video.resourceId]);
 
   return (
     <div className={`${expanded ? "w-full" : "w-full xl:w-1/2"} h-full flex flex-col xl:border-l border-base-300 bg-base-100`}>
@@ -84,8 +229,9 @@ export default function VideoViewer({ video, onClose, expanded, onExpandToggle }
         <div className="w-full flex justify-center">
           <div className="w-full aspect-video max-h-[calc(100dvh-180px)] max-w-[calc((100dvh-180px)*16/9)]">
             <iframe
+              ref={iframeRef}
               className="w-full h-full"
-              src={`https://www.youtube.com/embed/${video.resourceId}?autoplay=1`}
+              src={initialSrc}
               title={video.title}
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen

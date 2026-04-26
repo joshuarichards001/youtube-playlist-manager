@@ -108,3 +108,25 @@ type YouTubeSubscription = {
     resourceId: { channelId: string };
   };
 };
+
+declare namespace YT {
+  class Player {
+    constructor(element: HTMLElement | string, options: PlayerOptions);
+    getCurrentTime(): number;
+    getDuration(): number;
+    getVideoData(): { video_id: string };
+    loadVideoById(args: { videoId: string; startSeconds?: number }): void;
+    destroy(): void;
+  }
+  interface PlayerOptions {
+    events?: {
+      onReady?: (event: { target: Player }) => void;
+      onStateChange?: (event: { data: number; target: Player }) => void;
+    };
+  }
+}
+
+interface Window {
+  YT?: { Player: typeof YT.Player };
+  onYouTubeIframeAPIReady?: () => void;
+}
