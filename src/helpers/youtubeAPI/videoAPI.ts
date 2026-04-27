@@ -103,7 +103,7 @@ export const fetchVideosAPI = async (
   accessToken: string,
   playlist: Playlist,
   pageToken: string | null
-): Promise<{ videos: Video[]; nextPageToken: string }> => {
+): Promise<{ videos: Video[]; nextPageToken: string | null }> => {
   try {
     const result = await axios.get(
       "https://www.googleapis.com/youtube/v3/playlistItems",
@@ -139,10 +139,10 @@ export const fetchVideosAPI = async (
       dateAdded: videoIdToDateAdded.get(video.resourceId) ?? "",
     }));
 
-    return { videos, nextPageToken: result.data.nextPageToken };
+    return { videos, nextPageToken: result.data.nextPageToken ?? null };
   } catch (error) {
     console.error("Error fetching videos:", error);
-    return { videos: [], nextPageToken: "" };
+    return { videos: [], nextPageToken: null };
   }
 };
 
@@ -150,7 +150,7 @@ export const fetchChannelVideosAPI = async (
   accessToken: string,
   channelId: string,
   pageToken: string | null
-): Promise<{ videos: Video[]; nextPageToken: string }> => {
+): Promise<{ videos: Video[]; nextPageToken: string | null }> => {
   try {
     const searchResult = await axios.get(
       "https://www.googleapis.com/youtube/v3/search",
@@ -173,15 +173,15 @@ export const fetchChannelVideosAPI = async (
       .map((item: { id: { videoId: string } }) => item.id.videoId);
 
     if (videoIds.length === 0) {
-      return { videos: [], nextPageToken: "" };
+      return { videos: [], nextPageToken: null };
     }
 
     const videos = await fetchVideoDetailsAPI(accessToken, videoIds);
 
-    return { videos, nextPageToken: searchResult.data.nextPageToken || "" };
+    return { videos, nextPageToken: searchResult.data.nextPageToken ?? null };
   } catch (error) {
     console.error("Error fetching channel videos:", error);
-    return { videos: [], nextPageToken: "" };
+    return { videos: [], nextPageToken: null };
   }
 };
 

@@ -354,6 +354,7 @@ export default function Videos() {
               <button
                 className="btn btn-primary my-10"
                 onClick={selectedPlaylist ? fetchNextPlaylistVideos : fetchNextChannelVideos}
+                disabled={loading}
               >
                 {loading && <span className="loading loading-spinner"></span>}
                 Load More Videos...
