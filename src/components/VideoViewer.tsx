@@ -184,7 +184,7 @@ export default function VideoViewer({ video, onClose, expanded, onExpandToggle, 
     <div
       className={
         pip
-          ? `fixed bottom-4 right-4 w-80 md:w-96 z-50 flex-col bg-base-100 border border-base-300 rounded-lg shadow-2xl overflow-hidden ${sidebarOpen ? "hidden md:flex" : "flex"}`
+          ? `fixed bottom-4 right-4 w-40 md:w-48 z-50 flex-col bg-base-100 border border-base-300 rounded-lg shadow-2xl overflow-hidden ${sidebarOpen ? "hidden md:flex" : "flex"}`
           : `${expanded ? "w-full" : "w-full xl:w-1/2"} h-full flex flex-col xl:border-l border-base-300 bg-base-100`
       }
     >
@@ -257,7 +257,7 @@ export default function VideoViewer({ video, onClose, expanded, onExpandToggle, 
           </button>
         </div>
       </div>
-      <div className={`flex-1 overflow-y-auto ${pip ? "" : "p-4"}`}>
+      <div className={pip ? "" : "flex-1 overflow-y-auto p-4"}>
         <div className="w-full flex justify-center">
           <div className={pip ? "w-full aspect-video" : "w-full aspect-video max-h-[calc(100dvh-180px)] max-w-[calc((100dvh-180px)*16/9)]"}>
             <iframe
