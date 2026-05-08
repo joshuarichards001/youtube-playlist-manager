@@ -1,17 +1,19 @@
-import { readFile, writeFile, mkdir } from "node:fs/promises";
+import { writeFile, mkdir } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { XMLParser } from "fast-xml-parser";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, "..");
-const CHANNELS_PATH = resolve(ROOT, "data/channels.json");
 const OUTPUT_PATH = resolve(ROOT, "public/subscription-feed.json");
 const MAX_VIDEOS = 100;
 const RSS_CONCURRENCY = 4;
 const SHORTS_CONCURRENCY = 10;
 const FETCH_RETRIES = 3;
 const YOUTUBE_API_KEY = process.env.YOUTUBE_API_KEY ?? null;
+const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID ?? null;
+const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET ?? null;
+const GOOGLE_REFRESH_TOKEN = process.env.GOOGLE_REFRESH_TOKEN ?? null;
 
 const parser = new XMLParser({
   ignoreAttributes: false,
@@ -144,13 +146,67 @@ const isShort = async (videoId) => {
   }
 };
 
+const fetchAccessToken = async () => {
+  if (!GOOGLE_CLIENT_ID || !GOOGLE_CLIENT_SECRET || !GOOGLE_REFRESH_TOKEN) {
+    throw new Error(
+      "Missing GOOGLE_CLIENT_ID / GOOGLE_CLIENT_SECRET / GOOGLE_REFRESH_TOKEN env vars."
+    );
+  }
+  const params = new URLSearchParams({
+    client_id: GOOGLE_CLIENT_ID,
+    client_secret: GOOGLE_CLIENT_SECRET,
+    refresh_token: GOOGLE_REFRESH_TOKEN,
+    grant_type: "refresh_token",
+  });
+  const res = await fetch("https://oauth2.googleapis.com/token", {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: params,
+  });
+  if (!res.ok) {
+    const body = await res.text();
+    throw new Error(`Token refresh failed (HTTP ${res.status}): ${body}`);
+  }
+  const data = await res.json();
+  return data.access_token;
+};
+
+const fetchSubscribedChannels = async (accessToken) => {
+  const channels = [];
+  let pageToken = "";
+  do {
+    const url =
+      `https://www.googleapis.com/youtube/v3/subscriptions` +
+      `?part=snippet&mine=true&maxResults=50` +
+      (pageToken ? `&pageToken=${pageToken}` : "");
+    const res = await fetch(url, {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    });
+    if (!res.ok) {
+      const body = await res.text();
+      throw new Error(`subscriptions.list failed (HTTP ${res.status}): ${body}`);
+    }
+    const data = await res.json();
+    for (const item of data.items ?? []) {
+      const id = item.snippet?.resourceId?.channelId;
+      const title = item.snippet?.title;
+      if (id) channels.push({ id, title: title ?? id });
+    }
+    pageToken = data.nextPageToken ?? "";
+  } while (pageToken);
+  return channels;
+};
+
 const main = async () => {
-  const channelsRaw = await readFile(CHANNELS_PATH, "utf8");
-  const channels = JSON.parse(channelsRaw);
-  if (!Array.isArray(channels) || channels.length === 0) {
-    console.error("No channels in data/channels.json");
+  console.log("Authenticating with Google…");
+  const accessToken = await fetchAccessToken();
+  console.log("Fetching subscriptions from YouTube Data API…");
+  const channels = await fetchSubscribedChannels(accessToken);
+  if (channels.length === 0) {
+    console.error("YouTube returned 0 subscriptions. Aborting.");
     process.exit(1);
   }
+  console.log(`Found ${channels.length} subscribed channels.`);
 
   if (YOUTUBE_API_KEY) {
     console.log("YouTube Data API key present — will use as fallback for blocked RSS feeds.");
