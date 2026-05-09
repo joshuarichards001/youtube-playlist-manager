@@ -60,6 +60,52 @@ export default function Subscriptions() {
     a.title.localeCompare(b.title),
   );
 
+  const exportOpml = () => {
+    const escapeXml = (value: string) =>
+      value
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&apos;");
+
+    const outlines = sorted
+      .map((sub) => {
+        const title = escapeXml(sub.title);
+        const xmlUrl = escapeXml(
+          `https://www.youtube.com/feeds/videos.xml?channel_id=${sub.channelId}`,
+        );
+        const htmlUrl = escapeXml(
+          `https://www.youtube.com/channel/${sub.channelId}`,
+        );
+        return `        <outline text="${title}" title="${title}" type="rss" xmlUrl="${xmlUrl}" htmlUrl="${htmlUrl}"/>`;
+      })
+      .join("\n");
+
+    const opml = `<?xml version="1.0" encoding="UTF-8"?>
+<opml version="1.1">
+  <head>
+    <title>YouTube Subscriptions</title>
+  </head>
+  <body>
+    <outline text="YouTube Subscriptions" title="YouTube Subscriptions">
+${outlines}
+    </outline>
+  </body>
+</opml>
+`;
+
+    const blob = new Blob([opml], { type: "text/x-opml" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "youtube-subscriptions.opml";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
+
   return (
     <div
       className={`pt-4 px-4 md:pt-10 md:px-10 overflow-y-auto flex-col ${
@@ -72,6 +118,15 @@ export default function Subscriptions() {
           <p className="text-xs text-base-content/60">
             {subscriptions.length} channels
           </p>
+        )}
+        {subscriptions.length > 0 && (
+          <button
+            className="btn btn-sm btn-outline ml-auto"
+            onClick={exportOpml}
+            title="Export subscriptions as OPML"
+          >
+            Export to OPML
+          </button>
         )}
       </div>
       {loading && subscriptions.length === 0 && (
