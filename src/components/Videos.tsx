@@ -108,10 +108,12 @@ export default function Videos() {
   };
 
   useEffect(() => {
+    if (!selectedPlaylist || videos.length > 0) return;
     fetchNextPlaylistVideos();
   }, [selectedPlaylist]);
 
   useEffect(() => {
+    if (!selectedSubscription || videos.length > 0) return;
     fetchNextChannelVideos();
   }, [selectedSubscription]);
 
