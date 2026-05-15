@@ -1,10 +1,23 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import useStore from "../helpers/store";
 import useAuth from "../hooks/useAuth";
 import { fetchSubscriptionsAPI } from "../helpers/youtubeAPI/subscriptionAPI";
 import { fetchUserAPI } from "../helpers/youtubeAPI/userAPI";
+import DowntimeNotice from "./DowntimeNotice";
 import HomePage from "./HomePage";
 import LandingPage from "./LandingPage";
+
+// Site is offline between 22:00 and 12:00 Europe/London time.
+const isDowntime = () => {
+  const hour = Number(
+    new Intl.DateTimeFormat("en-GB", {
+      timeZone: "Europe/London",
+      hour: "2-digit",
+      hourCycle: "h23",
+    }).format(new Date()),
+  );
+  return hour >= 22 || hour < 12;
+};
 
 const App = () => {
   const accessToken = useStore((state) => state.accessToken);
@@ -12,6 +25,12 @@ const App = () => {
   const setUser = useStore((state) => state.setUser);
   const setSubscriptions = useStore((state) => state.setSubscriptions);
   const login = useAuth();
+  const [downtime, setDowntime] = useState(isDowntime);
+
+  useEffect(() => {
+    const id = setInterval(() => setDowntime(isDowntime()), 60_000);
+    return () => clearInterval(id);
+  }, []);
 
   useEffect(() => {
     if (!accessToken) return;
@@ -27,6 +46,8 @@ const App = () => {
       setSubscriptions(subs);
     });
   }, [accessToken, setUser, setSubscriptions]);
+
+  if (downtime) return <DowntimeNotice />;
 
   if (authLoading) return null;
 
