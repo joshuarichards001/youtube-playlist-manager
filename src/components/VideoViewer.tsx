@@ -6,7 +6,7 @@ import {
 } from "../helpers/resumePosition";
 import useStore from "../helpers/store";
 import { loadYouTubeIframeApi } from "../helpers/youtubeIframeApi";
-import { fetchVideoCommentsAPI } from "../helpers/youtubeAPI/videoAPI";
+import { fetchVideoCommentsAPI, fetchVideoDescriptionAPI } from "../helpers/youtubeAPI/videoAPI";
 
 
 interface VideoViewerProps {
@@ -25,6 +25,7 @@ export default function VideoViewer({ video, onClose, expanded, onExpandToggle, 
   const sidebarOpen = useStore((state) => state.sidebarOpen);
   const [comments, setComments] = useState<VideoComment[]>([]);
   const [loadingComments, setLoadingComments] = useState(false);
+  const [description, setDescription] = useState("");
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
   const playerRef = useRef<YT.Player | null>(null);
   const playerReadyRef = useRef(false);
@@ -58,6 +59,19 @@ export default function VideoViewer({ video, onClose, expanded, onExpandToggle, 
       setLoadingComments(false);
     };
     fetchComments();
+  }, [accessToken, video.resourceId]);
+
+  useEffect(() => {
+    const fetchDescription = async () => {
+      if (!accessToken) return;
+      setDescription("");
+      const fetchedDescription = await fetchVideoDescriptionAPI(
+        accessToken,
+        video.resourceId
+      );
+      setDescription(fetchedDescription);
+    };
+    fetchDescription();
   }, [accessToken, video.resourceId]);
 
   useEffect(() => {
@@ -270,6 +284,14 @@ export default function VideoViewer({ video, onClose, expanded, onExpandToggle, 
             />
           </div>
         </div>
+        {!pip && description && (
+          <div className="mt-4">
+            <h3 className="font-semibold text-base mb-3">Description</h3>
+            <p className="text-sm whitespace-pre-wrap break-words text-base-content/80">
+              {description}
+            </p>
+          </div>
+        )}
         {!pip && (
         <div className="mt-4">
           <h3 className="font-semibold text-base mb-3">Top Comments</h3>

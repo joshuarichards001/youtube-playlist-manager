@@ -16,7 +16,7 @@ export const fetchVideoCommentsAPI = async (
         params: {
           part: "snippet",
           videoId,
-          maxResults: 5,
+          maxResults: 10,
           order: "relevance",
         },
       }
@@ -49,6 +49,30 @@ export const fetchVideoCommentsAPI = async (
   } catch (error) {
     console.error("Error fetching comments:", error);
     return [];
+  }
+};
+
+export const fetchVideoDescriptionAPI = async (
+  accessToken: string,
+  videoId: string
+): Promise<string> => {
+  try {
+    const result = await axios.get(
+      "https://www.googleapis.com/youtube/v3/videos",
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+        params: {
+          part: "snippet",
+          id: videoId,
+        },
+      }
+    );
+    return result.data.items[0]?.snippet?.description ?? "";
+  } catch (error) {
+    console.error("Error fetching video description:", error);
+    return "";
   }
 };
 
