@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { convertReleaseDateToTimeSinceRelease } from "../helpers/functions";
 import {
   getResumePosition,
@@ -26,6 +26,9 @@ export default function VideoViewer({ video, onClose, expanded, onExpandToggle, 
   const [comments, setComments] = useState<VideoComment[]>([]);
   const [loadingComments, setLoadingComments] = useState(false);
   const [description, setDescription] = useState("");
+  const [descriptionExpanded, setDescriptionExpanded] = useState(false);
+  const [descriptionOverflows, setDescriptionOverflows] = useState(false);
+  const descriptionRef = useRef<HTMLParagraphElement | null>(null);
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
   const playerRef = useRef<YT.Player | null>(null);
   const playerReadyRef = useRef(false);
@@ -65,6 +68,8 @@ export default function VideoViewer({ video, onClose, expanded, onExpandToggle, 
     const fetchDescription = async () => {
       if (!accessToken) return;
       setDescription("");
+      setDescriptionExpanded(false);
+      setDescriptionOverflows(false);
       const fetchedDescription = await fetchVideoDescriptionAPI(
         accessToken,
         video.resourceId
@@ -73,6 +78,17 @@ export default function VideoViewer({ video, onClose, expanded, onExpandToggle, 
     };
     fetchDescription();
   }, [accessToken, video.resourceId]);
+
+  useLayoutEffect(() => {
+    const el = descriptionRef.current;
+    if (!el || !description) {
+      setDescriptionOverflows(false);
+      return;
+    }
+    const lineHeight = parseFloat(getComputedStyle(el).lineHeight);
+    if (!Number.isFinite(lineHeight) || lineHeight <= 0) return;
+    setDescriptionOverflows(el.scrollHeight > lineHeight * 5 + 1);
+  }, [description]);
 
   useEffect(() => {
     let cancelled = false;
@@ -287,9 +303,20 @@ export default function VideoViewer({ video, onClose, expanded, onExpandToggle, 
         {!pip && description && (
           <div className="mt-4">
             <h3 className="font-semibold text-base mb-3">Description</h3>
-            <p className="text-sm whitespace-pre-wrap break-words text-base-content/80">
+            <p
+              ref={descriptionRef}
+              className={`text-sm whitespace-pre-wrap break-words text-base-content/80 ${descriptionOverflows && !descriptionExpanded ? "line-clamp-5" : ""}`}
+            >
               {description}
             </p>
+            {descriptionOverflows && (
+              <button
+                className="mt-2 text-sm font-medium text-primary hover:underline"
+                onClick={() => setDescriptionExpanded((v) => !v)}
+              >
+                {descriptionExpanded ? "Show less" : "Read more"}
+              </button>
+            )}
           </div>
         )}
         {!pip && (
