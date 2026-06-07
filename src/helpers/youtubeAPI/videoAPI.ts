@@ -209,6 +209,51 @@ export const fetchChannelVideosAPI = async (
   }
 };
 
+export const searchVideosAPI = async (
+  accessToken: string,
+  query: string
+): Promise<Video[]> => {
+  try {
+    const searchResult = await axios.get(
+      "https://www.googleapis.com/youtube/v3/search",
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+        params: {
+          part: "snippet",
+          q: query,
+          order: "relevance",
+          type: "video",
+          maxResults: 25,
+        },
+      }
+    );
+
+    const videoIds: string[] = searchResult.data.items
+      .map((item: { id: { videoId: string } }) => item.id.videoId)
+      .filter(Boolean);
+
+    if (videoIds.length === 0) {
+      return [];
+    }
+
+    const hydrated = await fetchVideoDetailsAPI(accessToken, videoIds);
+
+    // Preserve the relevance order returned by the search endpoint.
+    const byId = new Map(hydrated.map((video) => [video.id, video]));
+    const ordered = videoIds
+      .map((id) => byId.get(id))
+      .filter((video): video is Video => video !== undefined);
+
+    // Exclude Shorts (<= 60s) and keep the ten most relevant results.
+    return ordered.filter((video) => video.durationSeconds > 60).slice(0, 10);
+  } catch (error) {
+    console.error("Error searching videos:", error);
+    return [];
+  }
+};
+
 export const addVideosToPlaylistAPI = async (
   accessToken: string,
   videoIds: string[],

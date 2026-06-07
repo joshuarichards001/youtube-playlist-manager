@@ -71,6 +71,7 @@ type CurrentView =
   | { type: 'channel'; subscription: Subscription }
   | { type: 'subscriptions' }
   | { type: 'feed' }
+  | { type: 'search' }
   | { type: 'none' };
 
 type FeedVideo = {
