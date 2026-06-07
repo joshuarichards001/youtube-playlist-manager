@@ -3,6 +3,7 @@ import useStore from "../helpers/store";
 import { fetchVideoByIdAPI } from "../helpers/youtubeAPI/videoAPI";
 import Nav from "./Nav";
 import Sidebar from "./Sidebar";
+import Search from "./Search";
 import Subscriptions from "./Subscriptions";
 import SubscriptionFeed from "./SubscriptionFeed";
 import VideoViewer from "./VideoViewer";
@@ -34,6 +35,8 @@ export default function HomePage() {
 
     if (routeType === "subscriptions") {
       setCurrentView({ type: "subscriptions" });
+    } else if (routeType === "search") {
+      setCurrentView({ type: "search" });
     } else if (routeType === "channel" && routeId) {
       setCurrentView({
         type: "channel",
@@ -97,6 +100,7 @@ export default function HomePage() {
   const renderMain = () => {
     if (currentView.type === "feed") return <SubscriptionFeed />;
     if (currentView.type === "subscriptions") return <Subscriptions />;
+    if (currentView.type === "search") return <Search />;
     return <Videos />;
   };
 
