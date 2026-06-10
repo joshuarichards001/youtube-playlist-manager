@@ -1,6 +1,15 @@
 {
-  "generatedAt": "2026-06-10T13:11:53.065Z",
+  "generatedAt": "2026-06-10T13:21:39.797Z",
   "videos": [
+    {
+      "id": "ltzK-jv5SBU",
+      "title": "LEGO Scandal Has Been Silenced",
+      "channel": "Lessons in Internet Culture",
+      "channelId": "UCbUwR0r6R7hXCx205DCg2Ww",
+      "thumbnail": "https://i.ytimg.com/vi/ltzK-jv5SBU/hqdefault.jpg",
+      "releaseDate": "2026-06-10T13:15:17Z",
+      "viewCount": 1164
+    },
     {
       "id": "mVNzvSaO4j0",
       "title": "I Listened To The Bible Driving Across America",
@@ -8,7 +17,16 @@
       "channelId": "UCw--xPGVVxYzRsWyV1nFqgg",
       "thumbnail": "https://i.ytimg.com/vi/mVNzvSaO4j0/hqdefault.jpg",
       "releaseDate": "2026-06-08T14:00:35Z",
-      "viewCount": 93388
+      "viewCount": 93548
+    },
+    {
+      "id": "SHO1uonf_tM",
+      "title": "Why Is Robin Brushing His Teeth?",
+      "channel": "Lessons in Meme Culture",
+      "channelId": "UCaHT88aobpcvRFEuy4v5Clg",
+      "thumbnail": "https://i.ytimg.com/vi/SHO1uonf_tM/hqdefault.jpg",
+      "releaseDate": "2026-06-10T13:00:32Z",
+      "viewCount": 5777
     },
     {
       "id": "yZzclkJopt4",
@@ -17,43 +35,25 @@
       "channelId": "UCQN8cKi1MfcSCbE07bCc4rg",
       "thumbnail": "https://i.ytimg.com/vi/yZzclkJopt4/hqdefault.jpg",
       "releaseDate": "2026-06-06T06:41:05Z",
-      "viewCount": 43527
+      "viewCount": 43663
     },
     {
-      "id": "zkjVHnou9KI",
-      "title": "productivity desk setup tour 2026",
-      "channel": "jvscholz",
-      "channelId": "UCcaTUtGzOiS4cqrgtcsHYWg",
-      "thumbnail": "https://i.ytimg.com/vi/zkjVHnou9KI/hqdefault.jpg",
-      "releaseDate": "2025-09-05T23:30:59Z",
-      "viewCount": 316245
+      "id": "mRPVf_0vkRY",
+      "title": "say what you want",
+      "channel": "soph’s books",
+      "channelId": "UCEqTDUduZv1TC8-j8Z5PfkQ",
+      "thumbnail": "https://i.ytimg.com/vi/mRPVf_0vkRY/hqdefault.jpg",
+      "releaseDate": "2026-06-09T13:30:03Z",
+      "viewCount": 172
     },
     {
-      "id": "gAjyBJl1OF8",
-      "title": "Concerning Omega-3 Brain Study",
-      "channel": "Dr Brad Stanfield",
-      "channelId": "UCpcvPcHJVOkO9Qp79BOagTg",
-      "thumbnail": "https://i.ytimg.com/vi/gAjyBJl1OF8/hqdefault.jpg",
-      "releaseDate": "2026-05-20T14:40:41Z",
-      "viewCount": 113443
-    },
-    {
-      "id": "LQxR7WfaHms",
-      "title": "“Christianity and Humanism” by Dale Jorgenson—BOOK REVIEW",
-      "channel": "Jamey Reads",
-      "channelId": "UCLNgRntNLPM97aLnPF-B7uA",
-      "thumbnail": "https://i.ytimg.com/vi/LQxR7WfaHms/hqdefault.jpg",
-      "releaseDate": "2026-06-08T02:32:48Z",
-      "viewCount": 21
-    },
-    {
-      "id": "rtAxZfio9BA",
-      "title": "Matan Even Humbling Guests With HUGE Egos",
-      "channel": "Matan Show Clips",
-      "channelId": "UCZnyjwIscipcU0AiSWGA3dQ",
-      "thumbnail": "https://i.ytimg.com/vi/rtAxZfio9BA/hqdefault.jpg",
-      "releaseDate": "2026-06-08T22:25:59Z",
-      "viewCount": 131484
+      "id": "V90V9a8ghRU",
+      "title": "Cheap Computing is Dead. What now?",
+      "channel": "2kliksphilip",
+      "channelId": "UCEKJKJ3FO-9SFv5x5BzyxhQ",
+      "thumbnail": "https://i.ytimg.com/vi/V90V9a8ghRU/hqdefault.jpg",
+      "releaseDate": "2026-05-29T15:35:18Z",
+      "viewCount": 110016
     },
     {
       "id": "_tNgfk5tr6k",
@@ -65,40 +65,58 @@
       "viewCount": 164
     },
     {
-      "id": "muUYgYC4iZE",
-      "title": "Why You Should Stop Using Face ID",
-      "channel": "The Rest Is Science",
-      "channelId": "UCThg2IH7bNbIQF0hmXA9ECw",
-      "thumbnail": "https://i.ytimg.com/vi/muUYgYC4iZE/hqdefault.jpg",
-      "releaseDate": "2026-06-07T21:00:39Z",
-      "viewCount": 187193
+      "id": "0TcfpkT5DpA",
+      "title": "How the war in Iran could end affordable air travel",
+      "channel": "Vox",
+      "channelId": "UCLXo7UDZvByw2ixzpQCufnA",
+      "thumbnail": "https://i.ytimg.com/vi/0TcfpkT5DpA/hqdefault.jpg",
+      "releaseDate": "2026-06-03T17:00:11Z",
+      "viewCount": 293262
     },
     {
-      "id": "V90V9a8ghRU",
-      "title": "Cheap Computing is Dead. What now?",
-      "channel": "2kliksphilip",
-      "channelId": "UCEKJKJ3FO-9SFv5x5BzyxhQ",
-      "thumbnail": "https://i.ytimg.com/vi/V90V9a8ghRU/hqdefault.jpg",
-      "releaseDate": "2026-05-29T15:35:18Z",
-      "viewCount": 109991
+      "id": "zkjVHnou9KI",
+      "title": "productivity desk setup tour 2026",
+      "channel": "jvscholz",
+      "channelId": "UCcaTUtGzOiS4cqrgtcsHYWg",
+      "thumbnail": "https://i.ytimg.com/vi/zkjVHnou9KI/hqdefault.jpg",
+      "releaseDate": "2025-09-05T23:30:59Z",
+      "viewCount": 316245
     },
     {
-      "id": "hLARADCm5sI",
-      "title": "Jean Piaget Cognitive Development Theory | Essential for Psychiatry Exam Prep",
-      "channel": "Conceptual Psychiatry",
-      "channelId": "UCmRWCSOZAx4h4vaeLCxWXlA",
-      "thumbnail": "https://i.ytimg.com/vi/hLARADCm5sI/hqdefault.jpg",
-      "releaseDate": "2026-06-08T18:18:05Z",
-      "viewCount": 30
+      "id": "FjSKei_UxdU",
+      "title": "(UCLA) Borel Determinacy: complete, explicit proof of Martin's monumental theorem",
+      "channel": "Daniel Rui",
+      "channelId": "UCr0mcf5bs4eEkc9xlaXgD8g",
+      "thumbnail": "https://i.ytimg.com/vi/FjSKei_UxdU/hqdefault.jpg",
+      "releaseDate": "2026-06-07T05:59:31Z",
+      "viewCount": 245
     },
     {
-      "id": "Yg_Px6lMcVk",
-      "title": "Why I Quit My Dream Job at Yes Theory",
-      "channel": "Harrison King",
-      "channelId": "UC6WtK9D2g1KIuw-eQeTe2EA",
-      "thumbnail": "https://i.ytimg.com/vi/Yg_Px6lMcVk/hqdefault.jpg",
-      "releaseDate": "2026-06-06T15:02:06Z",
-      "viewCount": 7837
+      "id": "gAjyBJl1OF8",
+      "title": "Concerning Omega-3 Brain Study",
+      "channel": "Dr Brad Stanfield",
+      "channelId": "UCpcvPcHJVOkO9Qp79BOagTg",
+      "thumbnail": "https://i.ytimg.com/vi/gAjyBJl1OF8/hqdefault.jpg",
+      "releaseDate": "2026-05-20T14:40:41Z",
+      "viewCount": 113511
+    },
+    {
+      "id": "OOqL-G0kFPI",
+      "title": "Why the Big 3 Feared Stan Wawrinka",
+      "channel": "Ace",
+      "channelId": "UCuo76cYt1_GxxZK1lXv9ewg",
+      "thumbnail": "https://i.ytimg.com/vi/OOqL-G0kFPI/hqdefault.jpg",
+      "releaseDate": "2026-02-17T15:15:04Z",
+      "viewCount": 72979
+    },
+    {
+      "id": "rtAxZfio9BA",
+      "title": "Matan Even Humbling Guests With HUGE Egos",
+      "channel": "Matan Show Clips",
+      "channelId": "UCZnyjwIscipcU0AiSWGA3dQ",
+      "thumbnail": "https://i.ytimg.com/vi/rtAxZfio9BA/hqdefault.jpg",
+      "releaseDate": "2026-06-08T22:25:59Z",
+      "viewCount": 131803
     },
     {
       "id": "Rb8pFX1jDIQ",
@@ -107,97 +125,79 @@
       "channelId": "UCT8aWINII3rDvUZUBGq-2tw",
       "thumbnail": "https://i.ytimg.com/vi/Rb8pFX1jDIQ/hqdefault.jpg",
       "releaseDate": "2021-10-31T13:15:03Z",
-      "viewCount": 174983
+      "viewCount": 174989
     },
     {
-      "id": "mD7N0CniOyM",
-      "title": "GO FIND IT",
-      "channel": "Ali Gallop",
-      "channelId": "UC3wbTROYJgiegwsqy3uKJAQ",
-      "thumbnail": "https://i.ytimg.com/vi/mD7N0CniOyM/hqdefault.jpg",
-      "releaseDate": "2026-06-08T15:27:30Z",
-      "viewCount": 7740
+      "id": "Yg_Px6lMcVk",
+      "title": "Why I Quit My Dream Job at Yes Theory",
+      "channel": "Harrison King",
+      "channelId": "UC6WtK9D2g1KIuw-eQeTe2EA",
+      "thumbnail": "https://i.ytimg.com/vi/Yg_Px6lMcVk/hqdefault.jpg",
+      "releaseDate": "2026-06-06T15:02:06Z",
+      "viewCount": 8014
     },
     {
-      "id": "nro_NcC93-g",
-      "title": "Why My New Podcast Isn't on YouTube",
-      "channel": "Hank Green",
-      "channelId": "UCOT2iLov0V7Re7ku_3UBtcQ",
-      "thumbnail": "https://i.ytimg.com/vi/nro_NcC93-g/hqdefault.jpg",
-      "releaseDate": "2026-06-04T19:02:50Z",
-      "viewCount": 173195
+      "id": "wKbVIDSsGoQ",
+      "title": "hoser report: Tim Cooked",
+      "channel": "hoser",
+      "channelId": "UCAiEWppTvoNSHU939xhMb2g",
+      "thumbnail": "https://i.ytimg.com/vi/wKbVIDSsGoQ/hqdefault.jpg",
+      "releaseDate": "2026-06-03T14:00:34Z",
+      "viewCount": 233519
     },
     {
-      "id": "iDHnv6QLIwQ",
-      "title": "Cooper Does It Again 🔥 | 2026 Stockholm Diamond League",
-      "channel": "FloTrack",
-      "channelId": "UC1Fp52XJH8UKaa_gHMZrckw",
-      "thumbnail": "https://i.ytimg.com/vi/iDHnv6QLIwQ/hqdefault.jpg",
-      "releaseDate": "2026-06-07T18:30:26Z",
-      "viewCount": 117500
+      "id": "3oPcQzbTjdY",
+      "title": "Deep Fried Honeycomb",
+      "channel": "Ordinary Sausage",
+      "channelId": "UCJLKwTg0IaSMoq6hLHT3CAA",
+      "thumbnail": "https://i.ytimg.com/vi/3oPcQzbTjdY/hqdefault.jpg",
+      "releaseDate": "2026-06-07T17:15:35Z",
+      "viewCount": 202712
     },
     {
-      "id": "S0zM3KQp74I",
-      "title": "Gaza: Dying in the Dark",
-      "channel": "Noah Samsen",
-      "channelId": "UCAXCE0MLOSTTkkOU1HTh_IA",
-      "thumbnail": "https://i.ytimg.com/vi/S0zM3KQp74I/hqdefault.jpg",
-      "releaseDate": "2026-06-06T13:00:21Z",
-      "viewCount": 74614
+      "id": "H52ned18l8Y",
+      "title": "Every Deleted Scene From Avatar The Last Airbender",
+      "channel": "TheAvatarist",
+      "channelId": "UCP8lPMdnsqGTOHrMv8273WA",
+      "thumbnail": "https://i.ytimg.com/vi/H52ned18l8Y/hqdefault.jpg",
+      "releaseDate": "2025-05-05T13:00:35Z",
+      "viewCount": 938568
     },
     {
-      "id": "XCH46c6cxTc",
-      "title": "'I was wrong' - The Full Story Behind the Court Verdict",
-      "channel": "Duncan Garner Podcast",
-      "channelId": "UCSypyI8wbnZgJDYY0VCdwJQ",
-      "thumbnail": "https://i.ytimg.com/vi/XCH46c6cxTc/hqdefault.jpg",
-      "releaseDate": "2026-06-10T02:48:55Z",
-      "viewCount": 10144
+      "id": "muUYgYC4iZE",
+      "title": "Why You Should Stop Using Face ID",
+      "channel": "The Rest Is Science",
+      "channelId": "UCThg2IH7bNbIQF0hmXA9ECw",
+      "thumbnail": "https://i.ytimg.com/vi/muUYgYC4iZE/hqdefault.jpg",
+      "releaseDate": "2026-06-07T21:00:39Z",
+      "viewCount": 187462
     },
     {
-      "id": "hR6aVUcekCY",
-      "title": "Bryan Johnson Used My Clip to Promote Bad Science",
-      "channel": "Göran Winblad",
-      "channelId": "UCUwGYfvGvmqMnvQTOY8E_qg",
-      "thumbnail": "https://i.ytimg.com/vi/hR6aVUcekCY/hqdefault.jpg",
-      "releaseDate": "2026-06-07T10:00:37Z",
-      "viewCount": 55981
+      "id": "ZeKfiAcjHnE",
+      "title": "Introducing Bruno Latour's \"Politics Of Nature\"",
+      "channel": "President Sunday PRIME",
+      "channelId": "UCKpSiUg_W-scoE6ltSp4TnQ",
+      "thumbnail": "https://i.ytimg.com/vi/ZeKfiAcjHnE/hqdefault.jpg",
+      "releaseDate": "2026-06-08T13:00:07Z",
+      "viewCount": 2068
     },
     {
-      "id": "2_PBBbLQHD8",
-      "title": "What's in My Pack? | My 7.7 lb Ultralight Backpacking Gear List",
-      "channel": "pepper steps | outdoors & adventure",
-      "channelId": "UCgut0aj_YW9tJNKJ8Rd7EoA",
-      "thumbnail": "https://i.ytimg.com/vi/2_PBBbLQHD8/hqdefault.jpg",
-      "releaseDate": "2026-05-31T19:12:02Z",
-      "viewCount": 233304
+      "id": "clsbuM6uf1A",
+      "title": "2026 Nissan Leaf Graduated from Glow-Up University",
+      "channel": "Auto Focus",
+      "channelId": "UC2J-0g_nxlwcD9JBK1eTleQ",
+      "thumbnail": "https://i.ytimg.com/vi/clsbuM6uf1A/hqdefault.jpg",
+      "releaseDate": "2026-06-01T20:45:58Z",
+      "viewCount": 503394
     },
     {
-      "id": "nUqLHeW3Wj0",
-      "title": "Politics and the English Language/ George Orwell's Essay/ Introduction and Orwell's First Argument",
-      "channel": "Learn English with Faisal Hameed",
-      "channelId": "UCUpk2DDxeJvnLmMBa-vSCUg",
-      "thumbnail": "https://i.ytimg.com/vi/nUqLHeW3Wj0/hqdefault.jpg",
-      "releaseDate": "2026-06-07T13:28:34Z",
-      "viewCount": 71
-    },
-    {
-      "id": "i_CckVut9nc",
-      "title": "Karma is coming...",
-      "channel": "Andrew Lawrence",
-      "channelId": "UC876yBInncBfsiknqMdHvuA",
-      "thumbnail": "https://i.ytimg.com/vi/i_CckVut9nc/hqdefault.jpg",
-      "releaseDate": "2026-06-10T11:25:47Z",
-      "viewCount": 13309
-    },
-    {
-      "id": "mPj8FouOu8Q",
-      "title": "The Wolf Among Us 2 - Announcement Trailer | PS5 Games",
-      "channel": "PlayStation",
-      "channelId": "UC-2Y8dQb0S6DtpxNgAKoJKA",
-      "thumbnail": "https://i.ytimg.com/vi/mPj8FouOu8Q/hqdefault.jpg",
-      "releaseDate": "2026-06-08T13:00:30Z",
-      "viewCount": 97155
+      "id": "dQEemdsoLDM",
+      "title": "The Day 16 Year Old Lamine Yamal Substituted and IMPRESSED The World @LamineYamal",
+      "channel": "Arias Football HD",
+      "channelId": "UCUs3zz2DhuQOi3S9E01uE2w",
+      "thumbnail": "https://i.ytimg.com/vi/dQEemdsoLDM/hqdefault.jpg",
+      "releaseDate": "2025-01-28T19:48:02Z",
+      "viewCount": 10768010
     }
   ]
 }
