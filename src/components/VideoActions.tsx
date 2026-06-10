@@ -9,6 +9,7 @@ type Props = {
   onDeselectAll: () => void;
   onDelete?: () => void;
   moveDropdown?: ReactNode;
+  hideSort?: boolean;
 };
 
 export default function VideoActions({
@@ -18,6 +19,7 @@ export default function VideoActions({
   onDeselectAll,
   onDelete,
   moveDropdown,
+  hideSort,
 }: Props) {
   const gridView = useStore((state) => state.gridView);
   const setGridView = useStore((state) => state.setGridView);
@@ -40,7 +42,7 @@ export default function VideoActions({
           Delete ({selectedCount})
         </button>
       )}
-      {selectedCount === 0 && <SortDropdown />}
+      {selectedCount === 0 && !hideSort && <SortDropdown />}
       {selectedCount === 0 && (
         <button
           className={`btn btn-sm md:btn-md btn-square ${gridView ? "btn-primary" : "btn-neutral"}`}

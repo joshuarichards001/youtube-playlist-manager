@@ -29,13 +29,25 @@ jobs:
           GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
           GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
 
-      - name: Commit updated feed
+      # continue-on-error: an expired YOUTUBE_COOKIE must not block the
+      # subscription feed refresh. On failure the previous recommended-feed
+      # JSON simply stays in place.
+      - name: Fetch recommended feed
+        continue-on-error: true
+        run: node scripts/fetch-recommended.mjs
+        env:
+          YOUTUBE_COOKIE: ${{ secrets.YOUTUBE_COOKIE }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+
+      - name: Commit updated feeds
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          if [[ -n "$(git status --porcelain public/subscription-feed.json)" ]]; then
-            git add public/subscription-feed.json
-            git commit -m "chore: refresh subscription feed"
+          if [[ -n "$(git status --porcelain public/subscription-feed.json public/recommended-feed.json)" ]]; then
+            git add public/subscription-feed.json public/recommended-feed.json
+            git commit -m "chore: refresh feeds"
             git push
           else
             echo "No changes to commit."

@@ -11,6 +11,7 @@ export default function Sidebar() {
   const setVideoViewerPip = useStore((state) => state.setVideoViewerPip);
 
   const isFeed = currentView.type === "feed";
+  const isRecommended = currentView.type === "recommended";
   const isSubscriptions = currentView.type === "subscriptions";
   const isSearch = currentView.type === "search";
 
@@ -96,6 +97,19 @@ export default function Sidebar() {
           }}
         >
           Recent Feed
+        </button>
+        <button
+          className={`w-full p-2 rounded-md hover:bg-neutral/10 text-base text-left font-semibold ${isRecommended ? "bg-neutral/10" : ""}`}
+          onClick={() => {
+            setCurrentView({ type: "recommended" });
+            setSidebarOpen(false);
+            if (window.innerWidth < 768 && viewingVideo) setVideoViewerPip(true);
+            const url = new URL(window.location.href);
+            url.pathname = "/recommended";
+            window.history.pushState({}, "", url.toString());
+          }}
+        >
+          Recommended
         </button>
         <button
           className={`w-full p-2 rounded-md hover:bg-neutral/10 text-base text-left font-semibold ${isSubscriptions ? "bg-neutral/10" : ""}`}

@@ -5,7 +5,7 @@ import Nav from "./Nav";
 import Sidebar from "./Sidebar";
 import Search from "./Search";
 import Subscriptions from "./Subscriptions";
-import SubscriptionFeed from "./SubscriptionFeed";
+import StaticFeed from "./StaticFeed";
 import VideoViewer from "./VideoViewer";
 import Videos from "./Videos";
 
@@ -35,6 +35,8 @@ export default function HomePage() {
 
     if (routeType === "subscriptions") {
       setCurrentView({ type: "subscriptions" });
+    } else if (routeType === "recommended") {
+      setCurrentView({ type: "recommended" });
     } else if (routeType === "search") {
       setCurrentView({ type: "search" });
     } else if (routeType === "channel" && routeId) {
@@ -98,7 +100,10 @@ export default function HomePage() {
   };
 
   const renderMain = () => {
-    if (currentView.type === "feed") return <SubscriptionFeed />;
+    if (currentView.type === "feed")
+      return <StaticFeed title="Recent Feed" src="/subscription-feed.json" sortable />;
+    if (currentView.type === "recommended")
+      return <StaticFeed title="Recommended" src="/recommended-feed.json" />;
     if (currentView.type === "subscriptions") return <Subscriptions />;
     if (currentView.type === "search") return <Search />;
     return <Videos />;
