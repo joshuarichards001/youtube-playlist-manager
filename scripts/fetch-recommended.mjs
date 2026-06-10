@@ -8,7 +8,7 @@ const ROOT = resolve(__dirname, "..");
 const OUTPUT_PATH = resolve(ROOT, "public/recommended-feed.json");
 const MAX_VIDEOS = 50;
 const MIN_VIDEOS = 10;
-const MAX_CONTINUATIONS = 6;
+const MAX_CONTINUATIONS = 12;
 const YOUTUBE_COOKIE = process.env.YOUTUBE_COOKIE ?? null;
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID ?? null;
 const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET ?? null;
@@ -85,15 +85,22 @@ const fetchHomeFeedIds = async () => {
   const ids = [];
   let feed = await yt.getHomeFeed();
   for (let i = 0; ; i++) {
+    const before = ids.length;
     for (const id of videoIdsFromFeed(feed)) {
       if (seen.has(id)) continue;
       seen.add(id);
       ids.push(id);
     }
+    console.log(`[home] page ${i + 1}: +${ids.length - before} videos (${ids.length} total)`);
     // Overshoot the target so we still have 50 after dropping live streams
     // and stray Shorts during hydration.
     if (ids.length >= MAX_VIDEOS * 1.5) break;
-    if (i >= MAX_CONTINUATIONS || !feed.has_continuation) break;
+    if (i >= MAX_CONTINUATIONS || !feed.has_continuation) {
+      console.log(
+        `[home] stopping: ${!feed.has_continuation ? "no further continuation available" : "continuation budget exhausted"}`
+      );
+      break;
+    }
     try {
       feed = await feed.getContinuation();
     } catch (err) {
