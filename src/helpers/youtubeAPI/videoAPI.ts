@@ -200,7 +200,10 @@ export const fetchChannelVideosAPI = async (
       return { videos: [], nextPageToken: null };
     }
 
-    const videos = await fetchVideoDetailsAPI(accessToken, videoIds);
+    const hydrated = await fetchVideoDetailsAPI(accessToken, videoIds);
+
+    // Exclude Shorts (<= 60s) from the channel videos list.
+    const videos = hydrated.filter((video) => video.durationSeconds > 60);
 
     return { videos, nextPageToken: searchResult.data.nextPageToken ?? null };
   } catch (error) {
