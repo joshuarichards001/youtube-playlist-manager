@@ -18,7 +18,15 @@ const toViewerVideo = (v: FeedVideo): Video => ({
   selected: false,
 });
 
-export default function SubscriptionFeed() {
+type Props = {
+  title: string;
+  src: string;
+  // When false the JSON array order is meaningful (recommendation ranking),
+  // so the sort dropdown is hidden and no sorting is applied.
+  sortable?: boolean;
+};
+
+export default function StaticFeed({ title, src, sortable = false }: Props) {
   const gridView = useStore((state) => state.gridView);
   const viewingVideo = useStore((state) => state.viewingVideo);
   const setViewingVideo = useStore((state) => state.setViewingVideo);
@@ -29,10 +37,10 @@ export default function SubscriptionFeed() {
   const setCurrentView = useStore((state) => state.setCurrentView);
 
   useEffect(() => {
-    setSort("releaseDate");
-  }, [setSort]);
+    if (sortable) setSort("releaseDate");
+  }, [sortable, setSort]);
 
-  const [feed, setFeed] = useState<SubscriptionFeed | null>(null);
+  const [feed, setFeed] = useState<StaticFeedData | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
 
@@ -47,6 +55,7 @@ export default function SubscriptionFeed() {
 
   const sortedVideos = useMemo(() => {
     if (!feed) return [];
+    if (!sortable) return feed.videos;
     return [...feed.videos].sort((a, b) => {
       switch (sort) {
         case "title":
@@ -59,7 +68,7 @@ export default function SubscriptionFeed() {
           return 0;
       }
     });
-  }, [feed, sort]);
+  }, [feed, sort, sortable]);
 
   const handleDragStart = (e: React.DragEvent, video: FeedVideo) => {
     e.dataTransfer.setData(
@@ -81,12 +90,15 @@ export default function SubscriptionFeed() {
 
   useEffect(() => {
     let cancelled = false;
-    fetch("/subscription-feed.json", { cache: "no-cache" })
+    setFeed(null);
+    setError(null);
+    setSelectedIds(new Set());
+    fetch(src, { cache: "no-cache" })
       .then((res) => {
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         return res.json();
       })
-      .then((data: SubscriptionFeed) => {
+      .then((data: StaticFeedData) => {
         if (!cancelled) setFeed(data);
       })
       .catch((err) => {
@@ -95,7 +107,7 @@ export default function SubscriptionFeed() {
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [src]);
 
   const handleChannelClick = useCallback((channelId: string) => {
     const match = subscriptions.find((s) => s.channelId === channelId);
@@ -117,7 +129,7 @@ export default function SubscriptionFeed() {
         <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-3 mb-4">
           <div className="flex items-center gap-3 min-w-0">
             <h2 className="font-bold text-lg md:text-xl truncate">
-              Recent Feed
+              {title}
             </h2>
             {generatedLabel && (
               <p className="text-xs text-base-content/60">
@@ -133,6 +145,7 @@ export default function SubscriptionFeed() {
                 setSelectedIds(new Set(feed.videos.map((v) => v.id)))
               }
               onDeselectAll={() => setSelectedIds(new Set())}
+              hideSort={!sortable}
               moveDropdown={
                 <MoveDropdown
                   selectedVideoResourceIds={Array.from(selectedIds)}
@@ -153,8 +166,7 @@ export default function SubscriptionFeed() {
           )}
           {feed && feed.videos.length === 0 && (
             <p className="text-sm text-base-content/60">
-              The feed is empty. Run the daily job or populate
-              <code className="mx-1">data/channels.json</code>.
+              The feed is empty. Run the daily refresh job to populate it.
             </p>
           )}
           {feed && feed.videos.length > 0 && (

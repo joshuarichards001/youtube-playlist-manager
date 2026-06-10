@@ -53,11 +53,15 @@ Videos from the playlist-items endpoint only include snippet data, so `fetchVide
 
 ### Subscription feed (offline pipeline)
 
-`SubscriptionFeed.tsx` does NOT call the YouTube Data API. Instead it `fetch`es `/subscription-feed.json`, a static file generated out-of-band by `scripts/fetch-feed.mjs` (Node, uses `fast-xml-parser`).
+`StaticFeed.tsx` does NOT call the YouTube Data API. It is a generic component that `fetch`es a static JSON file (`/subscription-feed.json` for the "Recent Feed" view, `/recommended-feed.json` for the "Recommended" view, both `StaticFeedData`-shaped). The subscription feed file is generated out-of-band by `scripts/fetch-feed.mjs` (Node, uses `fast-xml-parser`).
 
 The script pulls the subscription list live from the YouTube Data API (`subscriptions.list?mine=true`, paginated) using a refresh token stored in GitHub Actions secrets. It exchanges `GOOGLE_CLIENT_ID` + `GOOGLE_CLIENT_SECRET` + `GOOGLE_REFRESH_TOKEN` for an access token at the start of the run, then hits each channel's public RSS feed (`youtube.com/feeds/videos.xml?channel_id=…`) with 4-way concurrency, dedupes, sorts by `releaseDate` desc, then filters out Shorts by probing `youtube.com/shorts/<id>` with `redirect: "manual"` (status 200 = Short, 3xx = regular video). It keeps the top 100 and writes `public/subscription-feed.json`. The "refresh subscription feed" commits are regenerations of this file. If the OAuth call or `subscriptions.list` fails the run aborts — there is no static fallback list.
 
 Consequence: the feed is read-only and only as fresh as the last script run; drag-out of a feed video into a playlist works (via the same `dataTransfer` contract as `Videos.tsx`) but no upload/move-from-feed equivalent exists on the server side.
+
+### Recommended feed (offline pipeline)
+
+`scripts/fetch-recommended.mjs` generates `public/recommended-feed.json` (max 50 videos, kept in YouTube's recommendation ranking order — the "Recommended" view hides the sort dropdown and does not sort). It uses `youtubei.js` (unofficial Innertube API) authenticated with a logged-in youtube.com `Cookie` header from the `YOUTUBE_COOKIE` GitHub Actions secret to harvest video IDs from the personalized Home feed, then hydrates titles/dates/view counts through the official Data API `videos.list` using the same refresh-token OAuth exchange as `fetch-feed.mjs`. Shorts (≤61s), live streams, Mixes, and playlists are filtered out. The script verifies the cookie actually authenticates (`yt.account.getInfo()`) and aborts without writing otherwise — an expired cookie leaves the previous JSON in place instead of replacing it with the generic logged-out feed. The workflow step runs with `continue-on-error: true` so a cookie failure never blocks the subscription refresh. Cookies expire every few weeks-to-months; renew by re-copying the `Cookie` request header from devtools into the secret.
 
 ### Drag-and-drop
 

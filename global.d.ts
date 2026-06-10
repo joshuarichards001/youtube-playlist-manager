@@ -71,6 +71,7 @@ type CurrentView =
   | { type: 'channel'; subscription: Subscription }
   | { type: 'subscriptions' }
   | { type: 'feed' }
+  | { type: 'recommended' }
   | { type: 'search' }
   | { type: 'none' };
 
@@ -84,7 +85,7 @@ type FeedVideo = {
   viewCount: number;
 };
 
-type SubscriptionFeed = {
+type StaticFeedData = {
   generatedAt: string;
   videos: FeedVideo[];
 };
