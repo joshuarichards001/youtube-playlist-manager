@@ -102,7 +102,7 @@ export const fetchVideoDetailsAPI = async (
     channelId: video.snippet.channelId,
     thumbnail: video.snippet.thumbnails.high?.url,
     resourceId: video.id,
-    durationSeconds: convertDurationToSeconds(video.contentDetails.duration),
+    durationSeconds: convertDurationToSeconds(video.contentDetails.duration ?? ""),
     releaseDate: video.snippet.publishedAt,
     dateAdded: "",
     viewCount: Number(video.statistics.viewCount),
