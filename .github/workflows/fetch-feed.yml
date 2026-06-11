@@ -2,7 +2,10 @@ name: Refresh subscription feed
 
 on:
   schedule:
-    - cron: "0 12 * * *"
+    # 11:20 Europe/London in summer (BST), 10:20 in winter. Scheduled ~40 min
+    # before the site reopens at 12:00 because GitHub cron triggers are often
+    # 5-20+ minutes late and the run + Pages deploy needs a few more minutes.
+    - cron: "20 10 * * *"
   workflow_dispatch:
 
 permissions:
