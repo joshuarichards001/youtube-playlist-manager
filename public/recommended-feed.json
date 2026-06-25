@@ -1,6 +1,51 @@
 {
-  "generatedAt": "2026-06-24T11:21:57.140Z",
+  "generatedAt": "2026-06-25T11:18:27.638Z",
   "videos": [
+    {
+      "id": "xvvGbzR2Xek",
+      "title": "Palestine",
+      "channel": "Channel 5 with Andrew Callaghan",
+      "channelId": "UC-AQKm7HUNMmxjdS371MSwg",
+      "thumbnail": "https://i.ytimg.com/vi/xvvGbzR2Xek/hqdefault.jpg",
+      "releaseDate": "2026-06-24T15:51:40Z",
+      "viewCount": 775546
+    },
+    {
+      "id": "XPNW3GCIeOM",
+      "title": "Steam Machine: Official Overview and Quick Start Guide",
+      "channel": "Valve",
+      "channelId": "UCg0FSqPeiGD_lIiPaaAehQg",
+      "thumbnail": "https://i.ytimg.com/vi/XPNW3GCIeOM/hqdefault.jpg",
+      "releaseDate": "2026-06-24T20:41:35Z",
+      "viewCount": 218701
+    },
+    {
+      "id": "6xdfiB2bnEY",
+      "title": "Clavicular Gets Rejected",
+      "channel": "Lessons in Meme Culture",
+      "channelId": "UCaHT88aobpcvRFEuy4v5Clg",
+      "thumbnail": "https://i.ytimg.com/vi/6xdfiB2bnEY/hqdefault.jpg",
+      "releaseDate": "2026-06-24T13:00:15Z",
+      "viewCount": 223041
+    },
+    {
+      "id": "pDP-3U7X0a4",
+      "title": "an honest channel update",
+      "channel": "Swift Busboy Maneuvers",
+      "channelId": "UC68DW2AqUiL5Y8hFWu2wUng",
+      "thumbnail": "https://i.ytimg.com/vi/pDP-3U7X0a4/hqdefault.jpg",
+      "releaseDate": "2026-06-24T14:00:18Z",
+      "viewCount": 891
+    },
+    {
+      "id": "48JxW_-UN4M",
+      "title": "Why Grand Theft Auto VI Is Scaring Off Other Games",
+      "channel": "Jason Schreier",
+      "channelId": "UCQoOmu6mKZkXTnwZcpD8Ciw",
+      "thumbnail": "https://i.ytimg.com/vi/48JxW_-UN4M/hqdefault.jpg",
+      "releaseDate": "2026-06-24T13:58:35Z",
+      "viewCount": 107670
+    },
     {
       "id": "HTUh0OO6Kmo",
       "title": "What AI does to the minds of novice coders",
@@ -8,7 +53,79 @@
       "channelId": "UCQXevj27Hxi5xgA4ZVYUB3g",
       "thumbnail": "https://i.ytimg.com/vi/HTUh0OO6Kmo/hqdefault.jpg",
       "releaseDate": "2026-06-22T11:29:33Z",
-      "viewCount": 13536
+      "viewCount": 79856
+    },
+    {
+      "id": "_eCs_80rI7g",
+      "title": "Steam Machine Price Is Insane",
+      "channel": "Lessons in Internet Culture",
+      "channelId": "UCbUwR0r6R7hXCx205DCg2Ww",
+      "thumbnail": "https://i.ytimg.com/vi/_eCs_80rI7g/hqdefault.jpg",
+      "releaseDate": "2026-06-24T13:15:18Z",
+      "viewCount": 66940
+    },
+    {
+      "id": "hi2FXRoDBRM",
+      "title": "drawing outside (asmr, only whispers)",
+      "channel": "Cloudman Draws",
+      "channelId": "UCYaKhX6ci3WpLMuC05xsPog",
+      "thumbnail": "https://i.ytimg.com/vi/hi2FXRoDBRM/hqdefault.jpg",
+      "releaseDate": "2026-06-24T16:00:06Z",
+      "viewCount": 1159
+    },
+    {
+      "id": "AneSaZfcr1s",
+      "title": "A24 Just Opened Pandora's Box. - Fireside Discussion",
+      "channel": "Stole My Line",
+      "channelId": "UC8EcphhfWclL5PONk4DA6dA",
+      "thumbnail": "https://i.ytimg.com/vi/AneSaZfcr1s/hqdefault.jpg",
+      "releaseDate": "2026-06-24T19:20:47Z",
+      "viewCount": 658
+    },
+    {
+      "id": "BF2gZrmCgwE",
+      "title": "Evolve or Die",
+      "channel": "philosofree",
+      "channelId": "UCiZ4gWQXZksphbUhSVEIexw",
+      "thumbnail": "https://i.ytimg.com/vi/BF2gZrmCgwE/hqdefault.jpg",
+      "releaseDate": "2026-06-25T02:32:15Z",
+      "viewCount": 2685
+    },
+    {
+      "id": "5Jn32xb4R_c",
+      "title": "Alastair Campbell and Jacob Rees-Mogg Debate Brexit | The Mishal Husain Show",
+      "channel": "Bloomberg Podcasts",
+      "channelId": "UChF5O40UBqAc82I7-i5ig6A",
+      "thumbnail": "https://i.ytimg.com/vi/5Jn32xb4R_c/hqdefault.jpg",
+      "releaseDate": "2026-06-23T05:00:38Z",
+      "viewCount": 133541
+    },
+    {
+      "id": "vhYS1diXZMM",
+      "title": "The Revolt Against Technology",
+      "channel": "Jared Henderson",
+      "channelId": "UC2Kyj04yISmHr1V-UlJz4eg",
+      "thumbnail": "https://i.ytimg.com/vi/vhYS1diXZMM/hqdefault.jpg",
+      "releaseDate": "2026-06-24T14:33:06Z",
+      "viewCount": 56001
+    },
+    {
+      "id": "TY1rGBFriII",
+      "title": "what GTA VI news feels like to a non-gamer",
+      "channel": "Man Carrying Thing",
+      "channelId": "UCPdaxSov0mgwh77JvjQO2jQ",
+      "thumbnail": "https://i.ytimg.com/vi/TY1rGBFriII/hqdefault.jpg",
+      "releaseDate": "2026-06-24T22:09:33Z",
+      "viewCount": 154148
+    },
+    {
+      "id": "41dTlw4QNbE",
+      "title": "goodbye",
+      "channel": "Juby Philosophy",
+      "channelId": "UCLrpO7U1lnmbRtVxji843-Q",
+      "thumbnail": "https://i.ytimg.com/vi/41dTlw4QNbE/hqdefault.jpg",
+      "releaseDate": "2026-06-24T01:41:57Z",
+      "viewCount": 12035
     },
     {
       "id": "yY1LG2Mh0T0",
@@ -17,178 +134,61 @@
       "channelId": "UCGaVdbSav8xWuFWTadK6loA",
       "thumbnail": "https://i.ytimg.com/vi/yY1LG2Mh0T0/hqdefault.jpg",
       "releaseDate": "2021-09-28T17:01:31Z",
-      "viewCount": 285651
+      "viewCount": 291205
     },
     {
-      "id": "aU1qooe6pgU",
-      "title": "Star Wars: Galactic Racer Fuses Episode 1: Racer and Burnout Into a Compelling Roguelite",
-      "channel": "IGN",
-      "channelId": "UCKy1dAqELo0zrOtPkf0eTMw",
-      "thumbnail": "https://i.ytimg.com/vi/aU1qooe6pgU/hqdefault.jpg",
-      "releaseDate": "2026-06-23T15:00:31Z",
-      "viewCount": 261429
+      "id": "1XQYGW2F6RY",
+      "title": "Thoughts on the WCA’s Removal of Clock and Addition of FTO",
+      "channel": "Luke Garrett",
+      "channelId": "UCG1tJk0qxrq-f0KZWy2Hw-w",
+      "thumbnail": "https://i.ytimg.com/vi/1XQYGW2F6RY/hqdefault.jpg",
+      "releaseDate": "2026-06-24T21:18:57Z",
+      "viewCount": 12176
     },
     {
-      "id": "PruLqdK9ik8",
-      "title": "write w me in the greatest city in the world",
-      "channel": "Louise",
-      "channelId": "UC55wRXEf1chU4J9OCO_3QaQ",
-      "thumbnail": "https://i.ytimg.com/vi/PruLqdK9ik8/hqdefault.jpg",
-      "releaseDate": "2026-06-23T20:22:16Z",
-      "viewCount": 74
+      "id": "hmSgA093-K0",
+      "title": "Mamdani Knicks speech edit ",
+      "channel": "Jet",
+      "channelId": "UCGZbiE_5IrPdSR6goQ3AgYg",
+      "thumbnail": "https://i.ytimg.com/vi/hmSgA093-K0/hqdefault.jpg",
+      "releaseDate": "2026-06-20T04:00:13Z",
+      "viewCount": 34174
     },
     {
-      "id": "45ynsws5zVk",
-      "title": "The New Americana",
-      "channel": "pagemelt",
-      "channelId": "UC-iaQP4DqEaith7kNvDP3mg",
-      "thumbnail": "https://i.ytimg.com/vi/45ynsws5zVk/hqdefault.jpg",
-      "releaseDate": "2026-06-21T13:01:32Z",
-      "viewCount": 20096
+      "id": "UFYkVSnQVDI",
+      "title": "Netflix Avatar Was Not Great | An Overdue Critique",
+      "channel": "Hello Future Me",
+      "channelId": "UCFQMO-YL87u-6Rt8hIVsRjA",
+      "thumbnail": "https://i.ytimg.com/vi/UFYkVSnQVDI/hqdefault.jpg",
+      "releaseDate": "2026-06-25T07:02:47Z",
+      "viewCount": 7981
     },
     {
-      "id": "xXDPYftyIn4",
-      "title": "Why Destiny Died (RIP 2014-2026)",
-      "channel": "Jason Schreier",
-      "channelId": "UCQoOmu6mKZkXTnwZcpD8Ciw",
-      "thumbnail": "https://i.ytimg.com/vi/xXDPYftyIn4/hqdefault.jpg",
-      "releaseDate": "2026-05-27T14:42:09Z",
-      "viewCount": 281954
+      "id": "8tjs6tQsDZc",
+      "title": "What World of Warcraft Taught Me About Making Money",
+      "channel": "Ali Abdaal – Lifestyle Business Academy",
+      "channelId": "UChfo46ZNOV-vtehDc25A1Ug",
+      "thumbnail": "https://i.ytimg.com/vi/8tjs6tQsDZc/hqdefault.jpg",
+      "releaseDate": "2026-06-24T19:49:39Z",
+      "viewCount": 1404
     },
     {
-      "id": "q-TUNjmm7h0",
-      "title": "SAG HARBOR",
-      "channel": "Tyler, The Creator - Topic",
-      "channelId": "UCo1DYcm1IZ9v3UPkpiAcgtg",
-      "thumbnail": "https://i.ytimg.com/vi/q-TUNjmm7h0/hqdefault.jpg",
-      "releaseDate": "2026-06-23T12:04:13Z",
-      "viewCount": 80260
+      "id": "QP2n38Sgv4c",
+      "title": "BURNHAM GETS HIS OWN CHANT ALREADY",
+      "channel": "Preston Journalist ",
+      "channelId": "UCfkZHPkzCm2wlhnLA7bCQzQ",
+      "thumbnail": "https://i.ytimg.com/vi/QP2n38Sgv4c/hqdefault.jpg",
+      "releaseDate": "2026-06-24T15:00:10Z",
+      "viewCount": 39458
     },
     {
-      "id": "UtH_oTKk9iM",
-      "title": "Day in the Life of a Pro Footballer | Erling Haaland",
-      "channel": "Erling Haaland",
-      "channelId": "UCOlyWftmF4SxONwrS1KUsxA",
-      "thumbnail": "https://i.ytimg.com/vi/UtH_oTKk9iM/hqdefault.jpg",
-      "releaseDate": "2026-04-21T08:00:00Z",
-      "viewCount": 2721829
-    },
-    {
-      "id": "C-NgGAyzSN0",
-      "title": "Procrastination is Killing Your YouTube Progress",
-      "channel": "Creator Mindset Lab",
-      "channelId": "UCFnCLcvtis-71US63HCbfgQ",
-      "thumbnail": "https://i.ytimg.com/vi/C-NgGAyzSN0/hqdefault.jpg",
-      "releaseDate": "2026-06-22T13:13:36Z",
-      "viewCount": 14
-    },
-    {
-      "id": "E_V7m_lnybY",
-      "title": "Prediction markets are a trap",
-      "channel": "Christophe",
-      "channelId": "UCqykZoZjaOPb6i_Y5gk0kLQ",
-      "thumbnail": "https://i.ytimg.com/vi/E_V7m_lnybY/hqdefault.jpg",
-      "releaseDate": "2026-06-17T12:00:18Z",
-      "viewCount": 236267
-    },
-    {
-      "id": "y5ubOp2bxgI",
-      "title": "Could Burnham See Off Farage?",
-      "channel": "TLDR News",
-      "channelId": "UCSMqateX8OA2s1wsOR2EgJA",
-      "thumbnail": "https://i.ytimg.com/vi/y5ubOp2bxgI/hqdefault.jpg",
-      "releaseDate": "2026-06-24T08:30:30Z",
-      "viewCount": 27365
-    },
-    {
-      "id": "HgrenNRhNNA",
-      "title": "The $900 Billion Question: Is AI Overvalued? | Office Hours",
-      "channel": "The Prof G Pod – Scott Galloway",
-      "channelId": "UC1E1SVcVyU3ntWMSQEp38Yw",
-      "thumbnail": "https://i.ytimg.com/vi/HgrenNRhNNA/hqdefault.jpg",
-      "releaseDate": "2026-06-17T16:00:19Z",
-      "viewCount": 42697
-    },
-    {
-      "id": "5W29fk8mnDA",
-      "title": "Why 2028 could be the most unstable election in modern history",
-      "channel": "The Recount",
-      "channelId": "UCmsrXvrQ1S_61vVO-fNL-Mg",
-      "thumbnail": "https://i.ytimg.com/vi/5W29fk8mnDA/hqdefault.jpg",
-      "releaseDate": "2026-06-17T16:36:23Z",
-      "viewCount": 54416
-    },
-    {
-      "id": "-AAS1WH6GRk",
-      "title": "Steam Machine Companion Cube",
-      "channel": "dbrand",
-      "channelId": "UCQVZyRwjli3YS4rHb9bQ0Pg",
-      "thumbnail": "https://i.ytimg.com/vi/-AAS1WH6GRk/hqdefault.jpg",
-      "releaseDate": "2026-06-22T17:16:04Z",
-      "viewCount": 106858
-    },
-    {
-      "id": "N1w6czQYOLc",
-      "title": "They Planted Fake Knicks Fans to Advertise Gambling",
-      "channel": "Damarr",
-      "channelId": "UCCp9548-LEMNVpSLz2cTmGg",
-      "thumbnail": "https://i.ytimg.com/vi/N1w6czQYOLc/hqdefault.jpg",
-      "releaseDate": "2026-06-21T03:38:38Z",
-      "viewCount": 25449
-    },
-    {
-      "id": "jkWcSh9cycI",
-      "title": "Video Game Sales And How To Cheat The System",
-      "channel": "Foekoe",
-      "channelId": "UCmTPhoY-bYX2PKU03IKcKcA",
-      "thumbnail": "https://i.ytimg.com/vi/jkWcSh9cycI/hqdefault.jpg",
-      "releaseDate": "2024-07-05T16:20:11Z",
-      "viewCount": 246429
-    },
-    {
-      "id": "R1ul9iBhpVM",
-      "title": "I Hate Modern Desks... So I Built This.",
-      "channel": "Morley Kert",
-      "channelId": "UCbtEd1MuY6gd2RpdWqkzXFw",
-      "thumbnail": "https://i.ytimg.com/vi/R1ul9iBhpVM/hqdefault.jpg",
-      "releaseDate": "2026-06-20T17:31:58Z",
-      "viewCount": 677003
-    },
-    {
-      "id": "lOEy382GeVU",
-      "title": "Lionel Messi Scores First Career HAT TRICK in FIFA World Cup™ 🇦🇷 Ties Most Goals at Men's World Cup™",
-      "channel": "FOX Sports",
-      "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
-      "thumbnail": "https://i.ytimg.com/vi/lOEy382GeVU/hqdefault.jpg",
-      "releaseDate": "2026-06-17T02:56:15Z",
-      "viewCount": 1597573
-    },
-    {
-      "id": "1XDUidcLjqk",
-      "title": "Permission to Journal: Let Go of Perfectionism",
-      "channel": "Julie Jordan Scott: Aging Joyfully ",
-      "channelId": "UCTdYFuvu2nznpM3JjtFrMog",
-      "thumbnail": "https://i.ytimg.com/vi/1XDUidcLjqk/hqdefault.jpg",
-      "releaseDate": "2026-06-23T11:14:02Z",
-      "viewCount": 68
-    },
-    {
-      "id": "5MdRobMgFas",
-      "title": "The Tastemakers Have No Taste",
-      "channel": "Elroddd",
-      "channelId": "UCuQ1Ops2K_Ud5_gb-xOqcCw",
-      "thumbnail": "https://i.ytimg.com/vi/5MdRobMgFas/hqdefault.jpg",
-      "releaseDate": "2026-06-21T18:57:10Z",
-      "viewCount": 2400
-    },
-    {
-      "id": "GfD9UROPOLg",
-      "title": "I Tried Out for Norway's National Climbing Team...",
-      "channel": "Magnus Midtbø",
-      "channelId": "UC_gSotrFVZ_PiAxo3fTQVuQ",
-      "thumbnail": "https://i.ytimg.com/vi/GfD9UROPOLg/hqdefault.jpg",
-      "releaseDate": "2026-06-18T16:35:47Z",
-      "viewCount": 1161473
+      "id": "i-fbfFLSefE",
+      "title": "POV your unemployed friend is recommending you films but he lowkey knows ball so you keep listening",
+      "channel": "Almost_Orpheus",
+      "channelId": "UCYcCCnr1ZbJf0prcLzt9NdA",
+      "thumbnail": "https://i.ytimg.com/vi/i-fbfFLSefE/hqdefault.jpg",
+      "releaseDate": "2026-06-21T14:00:08Z",
+      "viewCount": 4632
     }
   ]
 }
