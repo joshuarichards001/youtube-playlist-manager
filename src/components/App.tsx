@@ -7,7 +7,7 @@ import DowntimeNotice from "./DowntimeNotice";
 import HomePage from "./HomePage";
 import LandingPage from "./LandingPage";
 
-// Site is offline between 22:00 and 12:00 Europe/London time.
+// Site is offline between 22:00 and 10:00 Europe/London time.
 const isDowntime = () => {
   const hour = Number(
     new Intl.DateTimeFormat("en-GB", {
@@ -16,7 +16,7 @@ const isDowntime = () => {
       hourCycle: "h23",
     }).format(new Date()),
   );
-  return hour >= 22 || hour < 12;
+  return hour >= 22 || hour < 10;
 };
 
 const App = () => {
