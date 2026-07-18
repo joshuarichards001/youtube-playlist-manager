@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-18T11:27:20.623Z",
+  "generatedAt": "2026-07-18T12:07:03.235Z",
   "videos": [
     {
       "id": "BgumWTaxzcM",
@@ -8,7 +8,16 @@
       "channelId": "UCYkEkdsIRPfaKZMlfVLvI9g",
       "thumbnail": "https://i.ytimg.com/vi/BgumWTaxzcM/hqdefault.jpg",
       "releaseDate": "2026-07-16T20:34:07Z",
-      "viewCount": 61758
+      "viewCount": 62068
+    },
+    {
+      "id": "X3mQphQQ-Vg",
+      "title": "America's future seems eerily British",
+      "channel": "A Show About The News",
+      "channelId": "UCtomO9lUCFyuND0C096UVZw",
+      "thumbnail": "https://i.ytimg.com/vi/X3mQphQQ-Vg/hqdefault.jpg",
+      "releaseDate": "2026-07-17T15:52:28Z",
+      "viewCount": 8205
     },
     {
       "id": "1_PBUTblEj0",
@@ -17,7 +26,16 @@
       "channelId": "UCcUQgjlYTq0T01mYq4n9USQ",
       "thumbnail": "https://i.ytimg.com/vi/1_PBUTblEj0/hqdefault.jpg",
       "releaseDate": "2026-07-16T15:29:00Z",
-      "viewCount": 25237
+      "viewCount": 25366
+    },
+    {
+      "id": "Uqq9az_Suw0",
+      "title": "Fundación Maná Para El Planeta",
+      "channel": "Fundación Mana Para El Planeta",
+      "channelId": "UCeiYy5XLB8s5Yp2rnhpY-pA",
+      "thumbnail": "https://i.ytimg.com/vi/Uqq9az_Suw0/hqdefault.jpg",
+      "releaseDate": "2026-07-14T16:25:44Z",
+      "viewCount": 4
     },
     {
       "id": "57Sm_7MRNnU",
@@ -26,16 +44,7 @@
       "channelId": "UClAxTtZvmP5yyBTiWj-6vhw",
       "thumbnail": "https://i.ytimg.com/vi/57Sm_7MRNnU/hqdefault.jpg",
       "releaseDate": "2026-07-17T12:46:35Z",
-      "viewCount": 264161
-    },
-    {
-      "id": "h_pmtEHFfjA",
-      "title": "working on things: A visit to Porto Rocha’s New York studio, where attendance is entirely optional",
-      "channel": "the thing Magazine",
-      "channelId": "UC5M2bsjlNhCInSMYbmbJ2mw",
-      "thumbnail": "https://i.ytimg.com/vi/h_pmtEHFfjA/hqdefault.jpg",
-      "releaseDate": "2026-07-16T14:24:33Z",
-      "viewCount": 1514
+      "viewCount": 268157
     },
     {
       "id": "mtvFvpGLyrg",
@@ -47,40 +56,22 @@
       "viewCount": 2060
     },
     {
-      "id": "1BTtmt--LD8",
-      "title": "The Uprising - Official Trailer (2026) Andrew Garfield, Jamie Bell, Katherine Waterston",
-      "channel": "IGN Movie Trailers",
-      "channelId": "UCWJ5MfdQZ6jXbF5gYuSAf5Q",
-      "thumbnail": "https://i.ytimg.com/vi/1BTtmt--LD8/hqdefault.jpg",
-      "releaseDate": "2026-07-16T17:11:08Z",
-      "viewCount": 275888
-    },
-    {
-      "id": "ZVkrhHebz1Q",
-      "title": "THE UPRISING - Official Trailer [HD] - Only In Theaters September 11",
-      "channel": "Focus Features",
-      "channelId": "UCU4SM3j_9TNWaSu8KdGV50g",
-      "thumbnail": "https://i.ytimg.com/vi/ZVkrhHebz1Q/hqdefault.jpg",
-      "releaseDate": "2026-07-16T15:00:03Z",
-      "viewCount": 10704750
-    },
-    {
       "id": "WKQ2FD7rMN4",
       "title": "We're Being Sued",
       "channel": "Channel 5 with Andrew Callaghan",
       "channelId": "UC-AQKm7HUNMmxjdS371MSwg",
       "thumbnail": "https://i.ytimg.com/vi/WKQ2FD7rMN4/hqdefault.jpg",
       "releaseDate": "2026-07-10T16:03:34Z",
-      "viewCount": 2691549
+      "viewCount": 2691796
     },
     {
-      "id": "eN_Hu_R4JF8",
-      "title": "I want to be remembered for failing",
-      "channel": "Olivia Squizzle",
-      "channelId": "UC2NP0NIBz3Gp3ZzvrN7FuoA",
-      "thumbnail": "https://i.ytimg.com/vi/eN_Hu_R4JF8/hqdefault.jpg",
-      "releaseDate": "2026-07-18T04:00:09Z",
-      "viewCount": 602
+      "id": "1BTtmt--LD8",
+      "title": "The Uprising - Official Trailer (2026) Andrew Garfield, Jamie Bell, Katherine Waterston",
+      "channel": "IGN Movie Trailers",
+      "channelId": "UCWJ5MfdQZ6jXbF5gYuSAf5Q",
+      "thumbnail": "https://i.ytimg.com/vi/1BTtmt--LD8/hqdefault.jpg",
+      "releaseDate": "2026-07-16T17:11:08Z",
+      "viewCount": 280718
     },
     {
       "id": "j3vP8EOmtRk",
@@ -89,16 +80,16 @@
       "channelId": "UCQoOmu6mKZkXTnwZcpD8Ciw",
       "thumbnail": "https://i.ytimg.com/vi/j3vP8EOmtRk/hqdefault.jpg",
       "releaseDate": "2026-07-17T14:01:18Z",
-      "viewCount": 168373
+      "viewCount": 169445
     },
     {
-      "id": "tdDBjP9qot4",
-      "title": "Building Custom Voxel Physics From Scratch",
-      "channel": "Incandescent Games",
-      "channelId": "UCzjDxCSoGtqbZPTK9qwQ3Eg",
-      "thumbnail": "https://i.ytimg.com/vi/tdDBjP9qot4/hqdefault.jpg",
-      "releaseDate": "2026-07-16T18:00:05Z",
-      "viewCount": 20448
+      "id": "2d36t_hkd3M",
+      "title": "Something in the Wall 3",
+      "channel": "InterAction School of Performing Arts",
+      "channelId": "UCGnNvc7vQ3geq0gBCB1Gq7g",
+      "thumbnail": "https://i.ytimg.com/vi/2d36t_hkd3M/hqdefault.jpg",
+      "releaseDate": "2026-07-14T15:56:15Z",
+      "viewCount": 137
     },
     {
       "id": "J0eyGHBaFTk",
@@ -107,7 +98,16 @@
       "channelId": "UCPdaxSov0mgwh77JvjQO2jQ",
       "thumbnail": "https://i.ytimg.com/vi/J0eyGHBaFTk/hqdefault.jpg",
       "releaseDate": "2026-07-14T22:44:22Z",
-      "viewCount": 213282
+      "viewCount": 214117
+    },
+    {
+      "id": "tdDBjP9qot4",
+      "title": "Building Custom Voxel Physics From Scratch",
+      "channel": "Incandescent Games",
+      "channelId": "UCzjDxCSoGtqbZPTK9qwQ3Eg",
+      "thumbnail": "https://i.ytimg.com/vi/tdDBjP9qot4/hqdefault.jpg",
+      "releaseDate": "2026-07-16T18:00:05Z",
+      "viewCount": 20537
     },
     {
       "id": "YJtEq--lsNc",
@@ -116,16 +116,7 @@
       "channelId": "UCGaVdbSav8xWuFWTadK6loA",
       "thumbnail": "https://i.ytimg.com/vi/YJtEq--lsNc/hqdefault.jpg",
       "releaseDate": "2026-07-17T18:35:09Z",
-      "viewCount": 59634
-    },
-    {
-      "id": "Olt57docm10",
-      "title": "Cognitive offloading to AI: how bad will it get? | Animated video essay",
-      "channel": "Steve Adams",
-      "channelId": "UC_ugkuJa4ooE9SvHg6yIkKQ",
-      "thumbnail": "https://i.ytimg.com/vi/Olt57docm10/hqdefault.jpg",
-      "releaseDate": "2026-07-09T16:41:13Z",
-      "viewCount": 47376
+      "viewCount": 60319
     },
     {
       "id": "hEsmUiNJ4yw",
@@ -134,7 +125,7 @@
       "channelId": "UCsvn_Po0SmunchJYOWpOxMg",
       "thumbnail": "https://i.ytimg.com/vi/hEsmUiNJ4yw/hqdefault.jpg",
       "releaseDate": "2026-07-17T19:30:03Z",
-      "viewCount": 557667
+      "viewCount": 568940
     },
     {
       "id": "SlkIlKlDazY",
@@ -143,7 +134,16 @@
       "channelId": "UCaHT88aobpcvRFEuy4v5Clg",
       "thumbnail": "https://i.ytimg.com/vi/SlkIlKlDazY/hqdefault.jpg",
       "releaseDate": "2026-07-16T13:00:06Z",
-      "viewCount": 492379
+      "viewCount": 493047
+    },
+    {
+      "id": "Olt57docm10",
+      "title": "Cognitive offloading to AI: how bad will it get? | Animated video essay",
+      "channel": "Steve Adams",
+      "channelId": "UC_ugkuJa4ooE9SvHg6yIkKQ",
+      "thumbnail": "https://i.ytimg.com/vi/Olt57docm10/hqdefault.jpg",
+      "releaseDate": "2026-07-09T16:41:13Z",
+      "viewCount": 47391
     },
     {
       "id": "4SKkTY-1FMs",
@@ -152,25 +152,16 @@
       "channelId": "UCVhbP_v4pFx6uJWfgrGqNvw",
       "thumbnail": "https://i.ytimg.com/vi/4SKkTY-1FMs/hqdefault.jpg",
       "releaseDate": "2026-07-17T21:00:08Z",
-      "viewCount": 73
+      "viewCount": 76
     },
     {
-      "id": "Msz7V6GLwfk",
-      "title": "Game Feel In Video Games",
-      "channel": "Stoney",
-      "channelId": "UCsCJYXgYMEGLAOTzmfyrLhw",
-      "thumbnail": "https://i.ytimg.com/vi/Msz7V6GLwfk/hqdefault.jpg",
-      "releaseDate": "2026-07-17T19:43:29Z",
-      "viewCount": 788
-    },
-    {
-      "id": "_4M99V70wJI",
-      "title": "I Let GPT-5.6 Sol Run a Business Alone for 7 Days",
-      "channel": "Ben Awad",
-      "channelId": "UC-8QAzbLcRglXeN_MY9blyw",
-      "thumbnail": "https://i.ytimg.com/vi/_4M99V70wJI/hqdefault.jpg",
-      "releaseDate": "2026-07-16T16:00:14Z",
-      "viewCount": 38668
+      "id": "ak7ZOuFsmao",
+      "title": "18-Year-old Erling Haaland Scored 9 Goals in 1 Game",
+      "channel": "Alsido Football",
+      "channelId": "UC9j-24zF2RK7obcSPrSd7Lg",
+      "thumbnail": "https://i.ytimg.com/vi/ak7ZOuFsmao/hqdefault.jpg",
+      "releaseDate": "2022-03-11T14:30:00Z",
+      "viewCount": 20221078
     },
     {
       "id": "BANrHGXpOxY",
@@ -179,7 +170,16 @@
       "channelId": "UCUWZ58fzuwgBvc72eu2Kjtw",
       "thumbnail": "https://i.ytimg.com/vi/BANrHGXpOxY/hqdefault.jpg",
       "releaseDate": "2026-07-17T13:41:39Z",
-      "viewCount": 1947
+      "viewCount": 1959
+    },
+    {
+      "id": "_4M99V70wJI",
+      "title": "I Let GPT-5.6 Sol Run a Business Alone for 7 Days",
+      "channel": "Ben Awad",
+      "channelId": "UC-8QAzbLcRglXeN_MY9blyw",
+      "thumbnail": "https://i.ytimg.com/vi/_4M99V70wJI/hqdefault.jpg",
+      "releaseDate": "2026-07-16T16:00:14Z",
+      "viewCount": 38771
     }
   ]
 }
