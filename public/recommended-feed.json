@@ -1,6 +1,15 @@
 {
-  "generatedAt": "2026-07-29T09:55:10.841Z",
+  "generatedAt": "2026-07-29T12:25:42.705Z",
   "videos": [
+    {
+      "id": "oF2wsn2UyZ4",
+      "title": "Trump Whisperer | Lindsey Graham",
+      "channel": "Thomas Skean",
+      "channelId": "UCAoKEayL5zrWYMF_Dyrg9Bw",
+      "thumbnail": "https://i.ytimg.com/vi/oF2wsn2UyZ4/hqdefault.jpg",
+      "releaseDate": "2026-07-29T03:32:26Z",
+      "viewCount": 12167
+    },
     {
       "id": "blqoTIoq_8I",
       "title": "Walking Through Target While Purple",
@@ -8,7 +17,7 @@
       "channelId": "UCYMKvKclvVtQZbLrV2v-_5g",
       "thumbnail": "https://i.ytimg.com/vi/blqoTIoq_8I/hqdefault.jpg",
       "releaseDate": "2026-07-28T18:47:36Z",
-      "viewCount": 101952
+      "viewCount": 109184
     },
     {
       "id": "Esk5w-dQuis",
@@ -17,16 +26,7 @@
       "channelId": "UCbUwR0r6R7hXCx205DCg2Ww",
       "thumbnail": "https://i.ytimg.com/vi/Esk5w-dQuis/hqdefault.jpg",
       "releaseDate": "2026-07-28T13:15:37Z",
-      "viewCount": 93422
-    },
-    {
-      "id": "SDich6serU0",
-      "title": "The EXACT moment AI took my job...",
-      "channel": "xyphid",
-      "channelId": "UCUWZ58fzuwgBvc72eu2Kjtw",
-      "thumbnail": "https://i.ytimg.com/vi/SDich6serU0/hqdefault.jpg",
-      "releaseDate": "2026-07-28T13:38:23Z",
-      "viewCount": 5699
+      "viewCount": 96470
     },
     {
       "id": "zeLXlc1ecjk",
@@ -35,16 +35,7 @@
       "channelId": "UCl_4XSTrB9TJOlfEfdSXNSQ",
       "thumbnail": "https://i.ytimg.com/vi/zeLXlc1ecjk/hqdefault.jpg",
       "releaseDate": "2026-07-25T09:18:01Z",
-      "viewCount": 2
-    },
-    {
-      "id": "EWDs9XAZx9M",
-      "title": "David Harvey: Marx and Capitalism | Doomscroll",
-      "channel": "Joshua Citarella",
-      "channelId": "UC4pEm3-yshBWa7nH3sQIKHQ",
-      "thumbnail": "https://i.ytimg.com/vi/EWDs9XAZx9M/hqdefault.jpg",
-      "releaseDate": "2026-07-28T18:11:15Z",
-      "viewCount": 21520
+      "viewCount": 3
     },
     {
       "id": "2b1hD9QKKDI",
@@ -53,7 +44,16 @@
       "channelId": "UCaHT88aobpcvRFEuy4v5Clg",
       "thumbnail": "https://i.ytimg.com/vi/2b1hD9QKKDI/hqdefault.jpg",
       "releaseDate": "2026-07-28T13:00:21Z",
-      "viewCount": 210814
+      "viewCount": 216068
+    },
+    {
+      "id": "EWDs9XAZx9M",
+      "title": "David Harvey: Marx and Capitalism | Doomscroll",
+      "channel": "Joshua Citarella",
+      "channelId": "UC4pEm3-yshBWa7nH3sQIKHQ",
+      "thumbnail": "https://i.ytimg.com/vi/EWDs9XAZx9M/hqdefault.jpg",
+      "releaseDate": "2026-07-28T18:11:15Z",
+      "viewCount": 23182
     },
     {
       "id": "mOrljLeKLVs",
@@ -62,25 +62,7 @@
       "channelId": "UCzjbia0NqUsSL1_-loJihMg",
       "thumbnail": "https://i.ytimg.com/vi/mOrljLeKLVs/hqdefault.jpg",
       "releaseDate": "2026-07-24T19:00:21Z",
-      "viewCount": 695023
-    },
-    {
-      "id": "NemhyWVAY68",
-      "title": "MINECRAFT WORLD RECORD 6:39",
-      "channel": "skycrab1",
-      "channelId": "UCuqy6M-rLvfFdwowQA0lvhA",
-      "thumbnail": "https://i.ytimg.com/vi/NemhyWVAY68/hqdefault.jpg",
-      "releaseDate": "2026-07-27T18:35:13Z",
-      "viewCount": 351173
-    },
-    {
-      "id": "NT_B3kMEC44",
-      "title": "#57 中谷宇吉郎「サラダの謎」",
-      "channel": "石田 迪子 Michiko Ishida",
-      "channelId": "UCfuODsMVlea13_Rq90rbbpw",
-      "thumbnail": "https://i.ytimg.com/vi/NT_B3kMEC44/hqdefault.jpg",
-      "releaseDate": "2026-07-26T11:00:34Z",
-      "viewCount": 87
+      "viewCount": 704376
     },
     {
       "id": "40XiBPx2GAA",
@@ -89,43 +71,25 @@
       "channelId": "UCOcphUKAnUaair1uZ7SlqiA",
       "thumbnail": "https://i.ytimg.com/vi/40XiBPx2GAA/hqdefault.jpg",
       "releaseDate": "2026-07-27T17:34:18Z",
-      "viewCount": 35689
+      "viewCount": 36188
     },
     {
-      "id": "_xjxwl1zLMc",
-      "title": "Framework 13 Pro: The Modular Laptop is Real!",
-      "channel": "Marques Brownlee",
-      "channelId": "UCBJycsmduvYEL83R_U4JriQ",
-      "thumbnail": "https://i.ytimg.com/vi/_xjxwl1zLMc/hqdefault.jpg",
-      "releaseDate": "2026-07-27T15:38:21Z",
-      "viewCount": 2225202
+      "id": "NemhyWVAY68",
+      "title": "MINECRAFT WORLD RECORD 6:39",
+      "channel": "skycrab1",
+      "channelId": "UCuqy6M-rLvfFdwowQA0lvhA",
+      "thumbnail": "https://i.ytimg.com/vi/NemhyWVAY68/hqdefault.jpg",
+      "releaseDate": "2026-07-27T18:35:13Z",
+      "viewCount": 358917
     },
     {
-      "id": "AMLCbpM1fRQ",
-      "title": "Onslaught | Official Trailer 2 HD | A24",
-      "channel": "A24",
-      "channelId": "UCuPivVjnfNo4mb3Oog_frZg",
-      "thumbnail": "https://i.ytimg.com/vi/AMLCbpM1fRQ/hqdefault.jpg",
-      "releaseDate": "2026-07-27T13:07:12Z",
-      "viewCount": 5810665
-    },
-    {
-      "id": "Odx8YoYb9UE",
-      "title": "\"Are You John Green?\"",
-      "channel": "vlogbrothers",
-      "channelId": "UCGaVdbSav8xWuFWTadK6loA",
-      "thumbnail": "https://i.ytimg.com/vi/Odx8YoYb9UE/hqdefault.jpg",
-      "releaseDate": "2026-07-28T15:00:17Z",
-      "viewCount": 85349
-    },
-    {
-      "id": "bMMFmpbbY6M",
-      "title": "Let's talk about my clone...",
-      "channel": "Bryan Johnson",
-      "channelId": "UCnRVL1-HJnXWB_Xi2dAoTcg",
-      "thumbnail": "https://i.ytimg.com/vi/bMMFmpbbY6M/hqdefault.jpg",
-      "releaseDate": "2026-07-28T16:00:28Z",
-      "viewCount": 63249
+      "id": "Z64sKz_OhdQ",
+      "title": "anyway",
+      "channel": "kenessi - Topic",
+      "channelId": "UCKG-d-IvhWhi0EKgRIKYiHA",
+      "thumbnail": "https://i.ytimg.com/vi/Z64sKz_OhdQ/hqdefault.jpg",
+      "releaseDate": "2026-07-26T03:02:41Z",
+      "viewCount": 305
     },
     {
       "id": "KsjW_OHRDsY",
@@ -134,34 +98,7 @@
       "channelId": "UCnYw1oo5fei5BKaaT5SSt9A",
       "thumbnail": "https://i.ytimg.com/vi/KsjW_OHRDsY/hqdefault.jpg",
       "releaseDate": "2026-07-25T01:27:26Z",
-      "viewCount": 15221
-    },
-    {
-      "id": "TlgTYZYu_S8",
-      "title": "Why More Young People Are Getting Colon Cancer",
-      "channel": "SciShow",
-      "channelId": "UCZYTClx2T1of7BRZ86-8fow",
-      "thumbnail": "https://i.ytimg.com/vi/TlgTYZYu_S8/hqdefault.jpg",
-      "releaseDate": "2025-08-26T17:00:38Z",
-      "viewCount": 1135943
-    },
-    {
-      "id": "lMc6sSUkspY",
-      "title": "I added those cameras to my game, you know, to read license plates :)",
-      "channel": "Jam2go",
-      "channelId": "UClSfrg5hVNhIlwv7hEmVD2g",
-      "thumbnail": "https://i.ytimg.com/vi/lMc6sSUkspY/hqdefault.jpg",
-      "releaseDate": "2026-07-27T15:28:32Z",
-      "viewCount": 28728
-    },
-    {
-      "id": "Av-gV5HAxXk",
-      "title": "Bizarre CGI from BBC election coverage 2005",
-      "channel": "Harry Bhalerao",
-      "channelId": "UCMV2-UJpdNWBAJKGWSbqa_w",
-      "thumbnail": "https://i.ytimg.com/vi/Av-gV5HAxXk/hqdefault.jpg",
-      "releaseDate": "2024-07-04T16:23:42Z",
-      "viewCount": 524308
+      "viewCount": 15956
     },
     {
       "id": "d-XRj2xItgg",
@@ -170,7 +107,34 @@
       "channelId": "UCeldNadm6EFp5WItF4WlGWg",
       "thumbnail": "https://i.ytimg.com/vi/d-XRj2xItgg/hqdefault.jpg",
       "releaseDate": "2026-07-23T10:35:05Z",
-      "viewCount": 277882
+      "viewCount": 279240
+    },
+    {
+      "id": "AMLCbpM1fRQ",
+      "title": "Onslaught | Official Trailer 2 HD | A24",
+      "channel": "A24",
+      "channelId": "UCuPivVjnfNo4mb3Oog_frZg",
+      "thumbnail": "https://i.ytimg.com/vi/AMLCbpM1fRQ/hqdefault.jpg",
+      "releaseDate": "2026-07-27T13:07:12Z",
+      "viewCount": 6107120
+    },
+    {
+      "id": "bMMFmpbbY6M",
+      "title": "Let's talk about my clone...",
+      "channel": "Bryan Johnson",
+      "channelId": "UCnRVL1-HJnXWB_Xi2dAoTcg",
+      "thumbnail": "https://i.ytimg.com/vi/bMMFmpbbY6M/hqdefault.jpg",
+      "releaseDate": "2026-07-28T16:00:28Z",
+      "viewCount": 71456
+    },
+    {
+      "id": "Odx8YoYb9UE",
+      "title": "\"Are You John Green?\"",
+      "channel": "vlogbrothers",
+      "channelId": "UCGaVdbSav8xWuFWTadK6loA",
+      "thumbnail": "https://i.ytimg.com/vi/Odx8YoYb9UE/hqdefault.jpg",
+      "releaseDate": "2026-07-28T15:00:17Z",
+      "viewCount": 87733
     },
     {
       "id": "oNjpDDftpKc",
@@ -179,7 +143,61 @@
       "channelId": "UCj74rJ9Lgl3WTngq675wxKg",
       "thumbnail": "https://i.ytimg.com/vi/oNjpDDftpKc/hqdefault.jpg",
       "releaseDate": "2026-07-25T13:27:22Z",
-      "viewCount": 337093
+      "viewCount": 338168
+    },
+    {
+      "id": "_xjxwl1zLMc",
+      "title": "Framework 13 Pro: The Modular Laptop is Real!",
+      "channel": "Marques Brownlee",
+      "channelId": "UCBJycsmduvYEL83R_U4JriQ",
+      "thumbnail": "https://i.ytimg.com/vi/_xjxwl1zLMc/hqdefault.jpg",
+      "releaseDate": "2026-07-27T15:38:21Z",
+      "viewCount": 2256123
+    },
+    {
+      "id": "gZJR1dEIXhs",
+      "title": "World's FIRST Purely Mechanical Proportional 8x8 Rubik's Cube (new version coming soon)",
+      "channel": "Jacob Cubing",
+      "channelId": "UCD-71sLbZXi5hufDPWOlvFg",
+      "thumbnail": "https://i.ytimg.com/vi/gZJR1dEIXhs/hqdefault.jpg",
+      "releaseDate": "2026-07-14T17:33:59Z",
+      "viewCount": 9896
+    },
+    {
+      "id": "v3V-X_BRp_o",
+      "title": "Nick Fuentes Interview (Ft. Hunter Biden)",
+      "channel": "Channel 5 with Andrew Callaghan",
+      "channelId": "UC-AQKm7HUNMmxjdS371MSwg",
+      "thumbnail": "https://i.ytimg.com/vi/v3V-X_BRp_o/hqdefault.jpg",
+      "releaseDate": "2026-07-24T22:57:09Z",
+      "viewCount": 4253911
+    },
+    {
+      "id": "63QlOBbl6pM",
+      "title": "What If Computers Were a Gorilla?",
+      "channel": "Junferno",
+      "channelId": "UCRb6Mw3fJ6OFzp-cB9X29aA",
+      "thumbnail": "https://i.ytimg.com/vi/63QlOBbl6pM/hqdefault.jpg",
+      "releaseDate": "2026-07-29T10:40:06Z",
+      "viewCount": 2311
+    },
+    {
+      "id": "NT_B3kMEC44",
+      "title": "#57 中谷宇吉郎「サラダの謎」",
+      "channel": "石田 迪子 Michiko Ishida",
+      "channelId": "UCfuODsMVlea13_Rq90rbbpw",
+      "thumbnail": "https://i.ytimg.com/vi/NT_B3kMEC44/hqdefault.jpg",
+      "releaseDate": "2026-07-26T11:00:34Z",
+      "viewCount": 89
+    },
+    {
+      "id": "Av-gV5HAxXk",
+      "title": "Bizarre CGI from BBC election coverage 2005",
+      "channel": "Harry Bhalerao",
+      "channelId": "UCMV2-UJpdNWBAJKGWSbqa_w",
+      "thumbnail": "https://i.ytimg.com/vi/Av-gV5HAxXk/hqdefault.jpg",
+      "releaseDate": "2024-07-04T16:23:42Z",
+      "viewCount": 526875
     }
   ]
 }
