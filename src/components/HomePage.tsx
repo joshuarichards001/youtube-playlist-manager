@@ -99,6 +99,16 @@ export default function HomePage() {
     setVideoViewerPip(!videoViewerPip);
   };
 
+  // Navigating to a channel from the viewer has to reveal the channel list: drop
+  // out of full screen into the split layout, or into pip below the xl breakpoint
+  // where the viewer covers the whole pane instead of splitting it.
+  const handleChannelNavigate = () => {
+    setVideoViewerExpanded(false);
+    if (!window.matchMedia("(min-width: 1280px)").matches) {
+      setVideoViewerPip(true);
+    }
+  };
+
   const renderMain = () => {
     if (currentView.type === "feed")
       return <StaticFeed title="Recent Feed" src="/subscription-feed.json" sortable />;
@@ -123,6 +133,7 @@ export default function HomePage() {
             onExpandToggle={handleExpandToggle}
             pip={videoViewerPip}
             onPipToggle={handlePipToggle}
+            onChannelNavigate={handleChannelNavigate}
           />
         )}
       </div>

@@ -16,9 +16,10 @@ interface VideoViewerProps {
   onExpandToggle?: () => void;
   pip?: boolean;
   onPipToggle?: () => void;
+  onChannelNavigate?: () => void;
 }
 
-export default function VideoViewer({ video, onClose, expanded, onExpandToggle, pip, onPipToggle }: VideoViewerProps) {
+export default function VideoViewer({ video, onClose, expanded, onExpandToggle, pip, onPipToggle, onChannelNavigate }: VideoViewerProps) {
   const accessToken = useStore((state) => state.accessToken);
   const subscriptions = useStore((state) => state.subscriptions);
   const setCurrentView = useStore((state) => state.setCurrentView);
@@ -228,6 +229,7 @@ export default function VideoViewer({ video, onClose, expanded, onExpandToggle, 
                 const match = subscriptions.find((s) => s.channelId === video.channelId);
                 const subscription = match ?? { id: "", title: video.channel, thumbnail: "", channelId: video.channelId };
                 setCurrentView({ type: "channel", subscription });
+                onChannelNavigate?.();
               }}
             >
               {video.channel}
