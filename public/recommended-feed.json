@@ -1,24 +1,6 @@
 {
-  "generatedAt": "2026-08-14T11:12:30.743Z",
+  "generatedAt": "2026-08-15T10:44:00.762Z",
   "videos": [
-    {
-      "id": "Pf6ryHy37xc",
-      "title": "New Learning and Self Study ASMR",
-      "channel": "AlexAhrASMR",
-      "channelId": "UCttZsBftM6ZYiGn17VEWD7A",
-      "thumbnail": "https://i.ytimg.com/vi/Pf6ryHy37xc/hqdefault.jpg",
-      "releaseDate": "2026-08-10T21:00:15Z",
-      "viewCount": 3048
-    },
-    {
-      "id": "jVEOiCPZpOs",
-      "title": "Farage Wins, But at What Cost?",
-      "channel": "TLDR News",
-      "channelId": "UCSMqateX8OA2s1wsOR2EgJA",
-      "thumbnail": "https://i.ytimg.com/vi/jVEOiCPZpOs/hqdefault.jpg",
-      "releaseDate": "2026-08-14T08:30:01Z",
-      "viewCount": 50942
-    },
     {
       "id": "3YtygAx_C6A",
       "title": "A Walkable ASCII Cyberpunk City in One HTML File",
@@ -26,43 +8,52 @@
       "channelId": "UCIECT3oBEgNfjKa8NoDgr8A",
       "thumbnail": "https://i.ytimg.com/vi/3YtygAx_C6A/hqdefault.jpg",
       "releaseDate": "2026-08-13T13:49:42Z",
-      "viewCount": 43055
+      "viewCount": 132603
     },
     {
-      "id": "pJwpRKSc9W0",
-      "title": "summer drink lofi asmr 2 💛",
-      "channel": "lofiMamii",
-      "channelId": "UC8RL7uodSYgpfBu8Md3fj-A",
-      "thumbnail": "https://i.ytimg.com/vi/pJwpRKSc9W0/hqdefault.jpg",
-      "releaseDate": "2026-08-12T16:56:12Z",
-      "viewCount": 1404
+      "id": "23p5Y74C-OU",
+      "title": "The Charli XCX Interview",
+      "channel": "turning the tables",
+      "channelId": "UCgmDCcn9oo7m9XCIfi8eavw",
+      "thumbnail": "https://i.ytimg.com/vi/23p5Y74C-OU/hqdefault.jpg",
+      "releaseDate": "2026-08-13T23:22:48Z",
+      "viewCount": 89130
     },
     {
-      "id": "5NDe7U1HNss",
-      "title": "The 10 Games I've Played Most On Steam",
-      "channel": "Jason Schreier",
-      "channelId": "UCQoOmu6mKZkXTnwZcpD8Ciw",
-      "thumbnail": "https://i.ytimg.com/vi/5NDe7U1HNss/hqdefault.jpg",
-      "releaseDate": "2026-08-10T19:15:53Z",
-      "viewCount": 81018
+      "id": "w1jAAHtStdA",
+      "title": "Work is dead; we have killed it│Animated Video Essay",
+      "channel": "Steve Adams",
+      "channelId": "UC_ugkuJa4ooE9SvHg6yIkKQ",
+      "thumbnail": "https://i.ytimg.com/vi/w1jAAHtStdA/hqdefault.jpg",
+      "releaseDate": "2026-08-14T17:00:39Z",
+      "viewCount": 962
     },
     {
-      "id": "rE75WvOtcu8",
-      "title": "We Need To Talk About Leopold",
-      "channel": "Patrick Boyle",
-      "channelId": "UCASM0cgfkJxQ1ICmRilfHLw",
-      "thumbnail": "https://i.ytimg.com/vi/rE75WvOtcu8/hqdefault.jpg",
-      "releaseDate": "2026-08-10T19:15:06Z",
-      "viewCount": 1106704
+      "id": "X1aFkAkFASk",
+      "title": "Avengers: Doomsday | Special Look | In Theaters December 18",
+      "channel": "Marvel Entertainment",
+      "channelId": "UCvC4D8onUfXzvjTOM-dBfEA",
+      "thumbnail": "https://i.ytimg.com/vi/X1aFkAkFASk/hqdefault.jpg",
+      "releaseDate": "2026-08-15T04:06:21Z",
+      "viewCount": 12646241
     },
     {
-      "id": "k_tmCRzNbhk",
-      "title": "My Clacton Victory Speech!",
-      "channel": "Count Binface",
-      "channelId": "UClAxTtZvmP5yyBTiWj-6vhw",
-      "thumbnail": "https://i.ytimg.com/vi/k_tmCRzNbhk/hqdefault.jpg",
-      "releaseDate": "2026-08-14T05:52:38Z",
-      "viewCount": 201730
+      "id": "uZSP5c92SD8",
+      "title": "ASMR book collection part 3 (tapping, scratching, whispering)",
+      "channel": "roxas ASMR",
+      "channelId": "UC7MWI1SNt-yg0nNAn-ZCZHQ",
+      "thumbnail": "https://i.ytimg.com/vi/uZSP5c92SD8/hqdefault.jpg",
+      "releaseDate": "2026-08-13T20:00:19Z",
+      "viewCount": 1092
+    },
+    {
+      "id": "vJ2T5m89Wj0",
+      "title": "Vision Quest - Official Teaser Trailer | D23 2026",
+      "channel": "IGN",
+      "channelId": "UCKy1dAqELo0zrOtPkf0eTMw",
+      "thumbnail": "https://i.ytimg.com/vi/vJ2T5m89Wj0/hqdefault.jpg",
+      "releaseDate": "2026-08-15T04:05:05Z",
+      "viewCount": 394787
     },
     {
       "id": "pmqPXerwyJo",
@@ -71,88 +62,124 @@
       "channelId": "UC5DJ2Sa11AToP2SnKag2Pyw",
       "thumbnail": "https://i.ytimg.com/vi/pmqPXerwyJo/hqdefault.jpg",
       "releaseDate": "2026-08-10T13:21:53Z",
-      "viewCount": 3844
+      "viewCount": 4430
     },
     {
-      "id": "3VPxJ_89yek",
-      "title": "The Death of Free Speech in the UK",
-      "channel": "Channel 5 with Andrew Callaghan",
-      "channelId": "UC-AQKm7HUNMmxjdS371MSwg",
-      "thumbnail": "https://i.ytimg.com/vi/3VPxJ_89yek/hqdefault.jpg",
-      "releaseDate": "2026-08-12T15:36:34Z",
-      "viewCount": 672565
+      "id": "jVEOiCPZpOs",
+      "title": "Farage Wins, But at What Cost?",
+      "channel": "TLDR News",
+      "channelId": "UCSMqateX8OA2s1wsOR2EgJA",
+      "thumbnail": "https://i.ytimg.com/vi/jVEOiCPZpOs/hqdefault.jpg",
+      "releaseDate": "2026-08-14T08:30:01Z",
+      "viewCount": 421969
     },
     {
-      "id": "8JPOgIEVOpM",
-      "title": "Banned 90s Sourcebook Commercials! (ft. Brennan Lee Mulligan)",
-      "channel": "RocketJump",
-      "channelId": "UCDsO-0Yo5zpJk575nKXgMVA",
-      "thumbnail": "https://i.ytimg.com/vi/8JPOgIEVOpM/hqdefault.jpg",
-      "releaseDate": "2026-08-12T17:30:26Z",
-      "viewCount": 171708
+      "id": "0MfkmlNWcJU",
+      "title": "Can We Predict Tipping Points Before They Happen?",
+      "channel": "Charlotte Moser",
+      "channelId": "UCp0gSuDOFh-rC2gqmfOoHfA",
+      "thumbnail": "https://i.ytimg.com/vi/0MfkmlNWcJU/hqdefault.jpg",
+      "releaseDate": "2026-08-14T19:00:18Z",
+      "viewCount": 1835
     },
     {
-      "id": "2_5ihqjmqEg",
-      "title": "DOOMSWEEPERS | Official First Look",
-      "channel": "Lightfold",
-      "channelId": "UCd6A9qjHD7AzkJGaa5HtiBg",
-      "thumbnail": "https://i.ytimg.com/vi/2_5ihqjmqEg/hqdefault.jpg",
-      "releaseDate": "2026-08-10T13:59:34Z",
-      "viewCount": 1088119
+      "id": "T3TESB_lkyQ",
+      "title": "Coworker Confrontation",
+      "channel": "Ghoul Productions!",
+      "channelId": "UCLCAuSzEZOcDtgSkcnIzuBQ",
+      "thumbnail": "https://i.ytimg.com/vi/T3TESB_lkyQ/hqdefault.jpg",
+      "releaseDate": "2026-08-14T20:40:42Z",
+      "viewCount": 6880
     },
     {
-      "id": "TlPDwngJEbM",
-      "title": "The Anthony Bourdain Biopic Is Bizarre...",
-      "channel": "Karsten Runquist",
-      "channelId": "UCS85PXHRkizrbGHBCe4tV3g",
-      "thumbnail": "https://i.ytimg.com/vi/TlPDwngJEbM/hqdefault.jpg",
-      "releaseDate": "2026-08-09T16:30:39Z",
-      "viewCount": 144255
+      "id": "UHKe1nF6C7Y",
+      "title": "Mario Party for Adults",
+      "channel": "STAR_",
+      "channelId": "UCgSHGbs2oGoLItc-8y5hJ9g",
+      "thumbnail": "https://i.ytimg.com/vi/UHKe1nF6C7Y/hqdefault.jpg",
+      "releaseDate": "2026-08-14T16:42:11Z",
+      "viewCount": 26547
     },
     {
-      "id": "K-onEum_YWs",
-      "title": "May 2012",
-      "channel": "Matt Bennett",
-      "channelId": "UCvM18LsxuTok5f356cU8_LA",
-      "thumbnail": "https://i.ytimg.com/vi/K-onEum_YWs/hqdefault.jpg",
-      "releaseDate": "2012-05-31T19:31:39Z",
-      "viewCount": 1401122
+      "id": "73_He_AO7dE",
+      "title": "you're in the wind, i'm in the water",
+      "channel": "Ross",
+      "channelId": "UCwse5sUXsD4x2Zf9M26kF3g",
+      "thumbnail": "https://i.ytimg.com/vi/73_He_AO7dE/hqdefault.jpg",
+      "releaseDate": "2026-08-14T22:21:15Z",
+      "viewCount": 658
     },
     {
-      "id": "VEqcbOot_-E",
-      "title": "Hollywood, Ending",
-      "channel": "vlogbrothers",
-      "channelId": "UCGaVdbSav8xWuFWTadK6loA",
-      "thumbnail": "https://i.ytimg.com/vi/VEqcbOot_-E/hqdefault.jpg",
-      "releaseDate": "2026-08-11T14:41:03Z",
-      "viewCount": 106777
+      "id": "Pf6ryHy37xc",
+      "title": "New Learning and Self Study ASMR",
+      "channel": "AlexAhrASMR",
+      "channelId": "UCttZsBftM6ZYiGn17VEWD7A",
+      "thumbnail": "https://i.ytimg.com/vi/Pf6ryHy37xc/hqdefault.jpg",
+      "releaseDate": "2026-08-10T21:00:15Z",
+      "viewCount": 3295
     },
     {
-      "id": "IkK97i8eLxE",
-      "title": "Why Spider-Man 2 is a Phenomenal Movie | Soft-spoken (ASMR style)",
-      "channel": "Everything's Shiny ASMR",
-      "channelId": "UCvboSo723tvSJHMY-S8pIng",
-      "thumbnail": "https://i.ytimg.com/vi/IkK97i8eLxE/hqdefault.jpg",
-      "releaseDate": "2026-08-13T13:00:30Z",
-      "viewCount": 536
+      "id": "k_tmCRzNbhk",
+      "title": "My Clacton Victory Speech!",
+      "channel": "Count Binface",
+      "channelId": "UClAxTtZvmP5yyBTiWj-6vhw",
+      "thumbnail": "https://i.ytimg.com/vi/k_tmCRzNbhk/hqdefault.jpg",
+      "releaseDate": "2026-08-14T05:52:38Z",
+      "viewCount": 748869
     },
     {
-      "id": "FQKaT5K5QkQ",
-      "title": "The Intersection of Religion and Technology w/ Ordinary Things",
-      "channel": "Horseshoe Theory Podcast",
-      "channelId": "UCJIRNvzcyZAUoU5JYDVIQmQ",
-      "thumbnail": "https://i.ytimg.com/vi/FQKaT5K5QkQ/hqdefault.jpg",
-      "releaseDate": "2026-08-08T16:00:10Z",
-      "viewCount": 9057
+      "id": "mIloHWYfym4",
+      "title": "more birds for some reason",
+      "channel": "Avocado Animations",
+      "channelId": "UCWLeX1gPvS5ooyyytGRufLg",
+      "thumbnail": "https://i.ytimg.com/vi/mIloHWYfym4/hqdefault.jpg",
+      "releaseDate": "2026-08-15T02:33:00Z",
+      "viewCount": 710622
     },
     {
-      "id": "P7nKSI0duaU",
-      "title": "Skyrim Roleplay & Lore Reading | ASMR",
-      "channel": "Snow Munkey ASMR",
-      "channelId": "UCXLBwi_ZsgjV7-qM4Ordcgg",
-      "thumbnail": "https://i.ytimg.com/vi/P7nKSI0duaU/hqdefault.jpg",
-      "releaseDate": "2025-09-02T21:00:33Z",
-      "viewCount": 35709
+      "id": "Gf-fCJ6TkRU",
+      "title": "underscores — The Peace",
+      "channel": "underscores",
+      "channelId": "UC7Dr19bFdqkkfREMITgY9Vg",
+      "thumbnail": "https://i.ytimg.com/vi/Gf-fCJ6TkRU/hqdefault.jpg",
+      "releaseDate": "2026-08-12T16:00:07Z",
+      "viewCount": 307510
+    },
+    {
+      "id": "5NDe7U1HNss",
+      "title": "The 10 Games I've Played Most On Steam",
+      "channel": "Jason Schreier",
+      "channelId": "UCQoOmu6mKZkXTnwZcpD8Ciw",
+      "thumbnail": "https://i.ytimg.com/vi/5NDe7U1HNss/hqdefault.jpg",
+      "releaseDate": "2026-08-10T19:15:53Z",
+      "viewCount": 81828
+    },
+    {
+      "id": "cJbkw-94fkI",
+      "title": "[ASMR] Big Announcement: A Leap of Faith!",
+      "channel": "Low Growl ASMR",
+      "channelId": "UC5RXL3jL3zcTnglgNMfLF_A",
+      "thumbnail": "https://i.ytimg.com/vi/cJbkw-94fkI/hqdefault.jpg",
+      "releaseDate": "2026-08-14T19:22:53Z",
+      "viewCount": 423
+    },
+    {
+      "id": "I3b-sjZ480s",
+      "title": "19 FOREVER (animation)",
+      "channel": "mean velvet",
+      "channelId": "UCMNALX_zB1HXV4rd4jZoQBA",
+      "thumbnail": "https://i.ytimg.com/vi/I3b-sjZ480s/hqdefault.jpg",
+      "releaseDate": "2026-08-06T15:00:17Z",
+      "viewCount": 129890
+    },
+    {
+      "id": "zm1dYsBUEW0",
+      "title": "ASMR that Isn’t Overstimulating (part 3)",
+      "channel": "Kaylee’s Cozy ASMR",
+      "channelId": "UCn70vKPtIPkD0W8ISmwlK0A",
+      "thumbnail": "https://i.ytimg.com/vi/zm1dYsBUEW0/hqdefault.jpg",
+      "releaseDate": "2026-08-09T22:39:16Z",
+      "viewCount": 24558
     }
   ]
 }
