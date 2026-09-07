@@ -9,12 +9,21 @@ type Playlist = {
   id: string;
   title: string;
   videoCount: number;
+  // Set on playlists saved from another channel — the user can watch them but
+  // can't add to, remove from, or delete them.
+  saved?: boolean;
+  channelTitle?: string;
 };
 
 type YouTubePlaylist = {
   id: string;
-  snippet: { title: string };
+  snippet: { title: string; channelTitle: string };
   contentDetails: { itemCount: number };
+};
+
+type YouTubeChannelSection = {
+  id: string;
+  contentDetails?: { playlists?: string[] };
 };
 
 type Video = {

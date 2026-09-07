@@ -27,6 +27,10 @@ export default function Videos() {
 
   const selectedPlaylist = currentView.type === 'playlist' ? currentView.playlist : null;
   const selectedSubscription = currentView.type === 'channel' ? currentView.subscription : null;
+  // Saved playlists are owned by another channel: read-only, so no move-out,
+  // no video removal and no playlist deletion.
+  const isSavedPlaylist = !!selectedPlaylist?.saved;
+  const editablePlaylistId = isSavedPlaylist ? undefined : selectedPlaylist?.id;
 
   useEffect(() => {
     const sortedVideos = [...videos].sort((a, b) => {
@@ -122,7 +126,7 @@ export default function Videos() {
       "video",
       JSON.stringify({
         videoId: video.resourceId,
-        sourcePlaylistId: selectedPlaylist?.id,
+        sourcePlaylistId: editablePlaylistId,
         videoItemId: video.id,
       })
     );
@@ -217,7 +221,7 @@ export default function Videos() {
 
   const hasSelection = selectedVideos.length > 0;
   useEffect(() => {
-    if (!isPlaylistView || !hasSelection) return;
+    if (!isPlaylistView || isSavedPlaylist || !hasSelection) return;
 
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key !== "Delete" && e.key !== "Backspace") return;
@@ -240,7 +244,7 @@ export default function Videos() {
 
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [isPlaylistView, hasSelection]);
+  }, [isPlaylistView, isSavedPlaylist, hasSelection]);
 
   return (
     <>
@@ -271,13 +275,18 @@ export default function Videos() {
                   currentTitle
                 )}
               </h2>
-              {isPlaylistView && (
+              {isPlaylistView && !isSavedPlaylist && (
                 <button
                   className="btn btn-error btn-xs flex-shrink-0"
                   onClick={() => deletePlaylist(selectedPlaylist?.id)}
                 >
                   Delete
                 </button>
+              )}
+              {isSavedPlaylist && selectedPlaylist?.channelTitle && (
+                <span className="text-xs text-base-content/70 flex-shrink-0">
+                  Saved from {selectedPlaylist.channelTitle}
+                </span>
               )}
               {isChannelView && (isSubscribed ? (
                 <button
@@ -300,14 +309,16 @@ export default function Videos() {
               totalCount={videos.length}
               onSelectAll={() => setAllSelected(true)}
               onDeselectAll={() => setAllSelected(false)}
-              onDelete={isPlaylistView ? openDeleteModal : undefined}
+              onDelete={isPlaylistView && !isSavedPlaylist ? openDeleteModal : undefined}
               moveDropdown={
                 <MoveDropdown
                   selectedVideoResourceIds={selectedVideoResourceIds}
                   selectedVideoItemIds={
-                    isPlaylistView ? selectedVideoItemIds : undefined
+                    isPlaylistView && !isSavedPlaylist
+                      ? selectedVideoItemIds
+                      : undefined
                   }
-                  sourcePlaylistId={selectedPlaylist?.id}
+                  sourcePlaylistId={editablePlaylistId}
                   onComplete={() =>
                     setVideos(videos.filter((v) => !v.selected))
                   }
