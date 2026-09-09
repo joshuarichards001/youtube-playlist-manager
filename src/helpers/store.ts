@@ -5,6 +5,9 @@ interface State {
   playlists: Playlist[];
   setPlaylists: (playlists: Playlist[]) => void;
 
+  savedPlaylists: Playlist[];
+  setSavedPlaylists: (savedPlaylists: Playlist[]) => void;
+
   subscriptions: Subscription[];
   setSubscriptions: (subscriptions: Subscription[]) => void;
 
@@ -47,6 +50,9 @@ const useStore = create<State>(
   devtools((set) => ({
     playlists: [],
     setPlaylists: (playlists) => set({ playlists }),
+
+    savedPlaylists: [],
+    setSavedPlaylists: (savedPlaylists) => set({ savedPlaylists }),
 
     subscriptions: [],
     setSubscriptions: (subscriptions) => set({ subscriptions }),

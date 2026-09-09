@@ -44,7 +44,7 @@ There is no router. URLs are synthesized manually with `window.history.pushState
 
 `src/helpers/youtubeAPI/` wraps the YouTube Data API with axios. Each function takes `accessToken` as its first argument; callers pull it from the store. Errors are caught and logged — functions return empty arrays / `null` / `false` on failure rather than throwing, so callers generally don't need try/catch.
 
-- `playlistAPI.ts` — list/create/delete playlists.
+- `playlistAPI.ts` — list/create/delete playlists, plus `fetchSavedPlaylistsAPI`. The Data API has no "playlists I saved" endpoint, so that one reads `channelSections.list?mine=true`, collects the playlist ids out of `contentDetails.playlists`, drops the ones `playlists.list?mine=true` already returned (those are the user's own), and hydrates the rest via `playlists.list?id=…` in chunks of 50. Consequence: only saved playlists that appear as a section on the user's channel page are discoverable. Results land in `savedPlaylists` in the store and are flagged `saved: true` so the UI can treat them as read-only (no drop target, no Delete playlist, no remove-videos, move-out becomes copy).
 - `videoAPI.ts` — playlist items (`fetchVideosAPI`), channel uploads via search endpoint (`fetchChannelVideosAPI`), bulk detail hydration (`fetchVideoDetailsAPI`), plus comments, add, delete. Add/delete iterate serially — the API has no batch endpoint.
 - `subscriptionAPI.ts` — paginates through all subscriptions in one call (loops until `nextPageToken` is absent); unsubscribe.
 - `userAPI.ts` — current user profile.
