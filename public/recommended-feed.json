@@ -1,6 +1,114 @@
 {
-  "generatedAt": "2026-09-09T14:41:00.367Z",
+  "generatedAt": "2026-09-10T14:31:29.154Z",
   "videos": [
+    {
+      "id": "3ILUhEQYHMo",
+      "title": "The Most Broken Movie Star",
+      "channel": "Dodford",
+      "channelId": "UC-k1VD5K6kwizjhg-HKj1rw",
+      "thumbnail": "https://i.ytimg.com/vi/3ILUhEQYHMo/hqdefault.jpg",
+      "releaseDate": "2026-09-10T14:00:30Z",
+      "viewCount": 564
+    },
+    {
+      "id": "GEHHTh5OTnQ",
+      "title": "Exposing a global AI slop empire ruining the internet for profit",
+      "channel": "CBC News",
+      "channelId": "UCuFFtHWoLl5fauMMD5Ww2jA",
+      "thumbnail": "https://i.ytimg.com/vi/GEHHTh5OTnQ/hqdefault.jpg",
+      "releaseDate": "2026-09-09T21:30:04Z",
+      "viewCount": 50022
+    },
+    {
+      "id": "N3pGwu3hO-4",
+      "title": "What Is The Kirkaversary?",
+      "channel": "Lessons in Internet Culture",
+      "channelId": "UCbUwR0r6R7hXCx205DCg2Ww",
+      "thumbnail": "https://i.ytimg.com/vi/N3pGwu3hO-4/hqdefault.jpg",
+      "releaseDate": "2026-09-10T13:15:08Z",
+      "viewCount": 12046
+    },
+    {
+      "id": "Od6M0AXpcxQ",
+      "title": "iPhone 18 Pro/Duo Impressions: Mogged",
+      "channel": "Marques Brownlee",
+      "channelId": "UCBJycsmduvYEL83R_U4JriQ",
+      "thumbnail": "https://i.ytimg.com/vi/Od6M0AXpcxQ/hqdefault.jpg",
+      "releaseDate": "2026-09-10T07:29:55Z",
+      "viewCount": 2636066
+    },
+    {
+      "id": "MNPhs_bOS8Y",
+      "title": "Limmy Chooses Happiness Over Viewers",
+      "channel": "LimmyTwitchClipsPlus",
+      "channelId": "UC53jLQgJEo-E08snHiAvliw",
+      "thumbnail": "https://i.ytimg.com/vi/MNPhs_bOS8Y/hqdefault.jpg",
+      "releaseDate": "2026-09-06T21:30:06Z",
+      "viewCount": 7755
+    },
+    {
+      "id": "Q0FCIwY4Li4",
+      "title": "White Victimhood",
+      "channel": "Thomas Skean",
+      "channelId": "UCAoKEayL5zrWYMF_Dyrg9Bw",
+      "thumbnail": "https://i.ytimg.com/vi/Q0FCIwY4Li4/hqdefault.jpg",
+      "releaseDate": "2026-09-10T00:02:55Z",
+      "viewCount": 43937
+    },
+    {
+      "id": "IsCWOdfoeUM",
+      "title": "Triple AAA Zelda Is Here",
+      "channel": "Lessons in Meme Culture",
+      "channelId": "UCaHT88aobpcvRFEuy4v5Clg",
+      "thumbnail": "https://i.ytimg.com/vi/IsCWOdfoeUM/hqdefault.jpg",
+      "releaseDate": "2026-09-09T13:00:10Z",
+      "viewCount": 379026
+    },
+    {
+      "id": "SN2U0bJNyRw",
+      "title": "How Politics Actually Works",
+      "channel": "JREG",
+      "channelId": "UCGSGPehp0RWfca-kENgBJ9Q",
+      "thumbnail": "https://i.ytimg.com/vi/SN2U0bJNyRw/hqdefault.jpg",
+      "releaseDate": "2026-09-10T10:00:31Z",
+      "viewCount": 10688
+    },
+    {
+      "id": "HCQYwJZ7NoE",
+      "title": "Back to Business: 45 Min. Volca Bass + Volca Drum (Improvised Jam 140 BPM)",
+      "channel": "VolcaNiced",
+      "channelId": "UCRbokjBskfrBj_SicmipRdg",
+      "thumbnail": "https://i.ytimg.com/vi/HCQYwJZ7NoE/hqdefault.jpg",
+      "releaseDate": "2022-02-12T23:23:11Z",
+      "viewCount": 49940
+    },
+    {
+      "id": "RSUfvh9MowE",
+      "title": "The Tool That Solves The Silent Data Problem",
+      "channel": "marimo",
+      "channelId": "UCKSXs4jiLetyWsW5Lba3ZjQ",
+      "thumbnail": "https://i.ytimg.com/vi/RSUfvh9MowE/hqdefault.jpg",
+      "releaseDate": "2026-09-07T09:15:36Z",
+      "viewCount": 14677
+    },
+    {
+      "id": "JzQZFJ4zkRM",
+      "title": "Stack Order - Official Gameplay Trailer",
+      "channel": "Panflip Studio",
+      "channelId": "UCkNpxjvf5o-mxSFRd9utpmQ",
+      "thumbnail": "https://i.ytimg.com/vi/JzQZFJ4zkRM/hqdefault.jpg",
+      "releaseDate": "2026-09-08T13:00:52Z",
+      "viewCount": 18515
+    },
+    {
+      "id": "yNmGRWJlzDs",
+      "title": "Verity Is Bigger Than 67",
+      "channel": "Lessons in Meme Culture",
+      "channelId": "UCaHT88aobpcvRFEuy4v5Clg",
+      "thumbnail": "https://i.ytimg.com/vi/yNmGRWJlzDs/hqdefault.jpg",
+      "releaseDate": "2026-09-10T13:00:33Z",
+      "viewCount": 19951
+    },
     {
       "id": "pEzbE77Kl2w",
       "title": "Neon AI Stream Is A Disaster",
@@ -8,7 +116,25 @@
       "channelId": "UCbUwR0r6R7hXCx205DCg2Ww",
       "thumbnail": "https://i.ytimg.com/vi/pEzbE77Kl2w/hqdefault.jpg",
       "releaseDate": "2026-09-09T13:15:31Z",
-      "viewCount": 33336
+      "viewCount": 406101
+    },
+    {
+      "id": "of0XGiy2n4I",
+      "title": "Addressing Hunter Biden Crypto Coin",
+      "channel": "Channel 5 with Andrew Callaghan",
+      "channelId": "UC-AQKm7HUNMmxjdS371MSwg",
+      "thumbnail": "https://i.ytimg.com/vi/of0XGiy2n4I/hqdefault.jpg",
+      "releaseDate": "2026-09-09T23:48:09Z",
+      "viewCount": 370152
+    },
+    {
+      "id": "ku-vSTDNsT8",
+      "title": "Metroid Ravenous – Nintendo Direct 9.9.2026",
+      "channel": "Nintendo of America",
+      "channelId": "UCGIY_O-8vW4rfX98KlMkvRg",
+      "thumbnail": "https://i.ytimg.com/vi/ku-vSTDNsT8/hqdefault.jpg",
+      "releaseDate": "2026-09-09T14:49:36Z",
+      "viewCount": 2182196
     },
     {
       "id": "Jg7zNFwwb-A",
@@ -17,169 +143,61 @@
       "channelId": "UCGacX4lqGSqYXZjnXrDPTOg",
       "thumbnail": "https://i.ytimg.com/vi/Jg7zNFwwb-A/hqdefault.jpg",
       "releaseDate": "2026-09-09T12:03:11Z",
-      "viewCount": 1519
+      "viewCount": 16622
     },
     {
-      "id": "vPG6a2gAFeo",
-      "title": "OpenAI Is Stealing Research...",
-      "channel": "Basic Dev",
-      "channelId": "UCE8m-P9Qcogb9x-luljGnBQ",
-      "thumbnail": "https://i.ytimg.com/vi/vPG6a2gAFeo/hqdefault.jpg",
-      "releaseDate": "2026-09-09T07:36:38Z",
-      "viewCount": 6564
+      "id": "YpOWOoxFqPk",
+      "title": "I Watched Every Steven Spielberg Movie...",
+      "channel": "Karsten Runquist",
+      "channelId": "UCS85PXHRkizrbGHBCe4tV3g",
+      "thumbnail": "https://i.ytimg.com/vi/YpOWOoxFqPk/hqdefault.jpg",
+      "releaseDate": "2026-09-09T16:34:38Z",
+      "viewCount": 115621
     },
     {
-      "id": "CoIUv3wBjRY",
-      "title": "DLSS 5 Has some Problems - Tested in Hitman",
-      "channel": "Joats",
-      "channelId": "UCgNPf3W5dNKZE2OveMaVTVQ",
-      "thumbnail": "https://i.ytimg.com/vi/CoIUv3wBjRY/hqdefault.jpg",
-      "releaseDate": "2026-09-07T11:00:10Z",
-      "viewCount": 466
+      "id": "UVhVC8uBmW8",
+      "title": "ASMR Rambling About Dreams (And Other Things)",
+      "channel": "SamboASMR",
+      "channelId": "UCBzhR72rxfIZ6plZfBKhgow",
+      "thumbnail": "https://i.ytimg.com/vi/UVhVC8uBmW8/hqdefault.jpg",
+      "releaseDate": "2026-06-11T01:18:47Z",
+      "viewCount": 3434
     },
     {
-      "id": "job8V254NAE",
-      "title": "DIGGER | Official Final Trailer",
-      "channel": "Warner Bros.",
-      "channelId": "UCjmJDM5pRKbUlVIzDYYWb6g",
-      "thumbnail": "https://i.ytimg.com/vi/job8V254NAE/hqdefault.jpg",
-      "releaseDate": "2026-09-09T13:00:03Z",
-      "viewCount": 82745
+      "id": "jJyrv_VPt8A",
+      "title": "how to never waste another day (backed by neuroscience)",
+      "channel": "MikeAnti",
+      "channelId": "UCnC9EtbyuWFVYbRTG1fzu7A",
+      "thumbnail": "https://i.ytimg.com/vi/jJyrv_VPt8A/hqdefault.jpg",
+      "releaseDate": "2026-09-07T13:00:34Z",
+      "viewCount": 21193
     },
     {
-      "id": "IsCWOdfoeUM",
-      "title": "Triple AAA Zelda Is Real",
-      "channel": "Lessons in Meme Culture",
-      "channelId": "UCaHT88aobpcvRFEuy4v5Clg",
-      "thumbnail": "https://i.ytimg.com/vi/IsCWOdfoeUM/hqdefault.jpg",
-      "releaseDate": "2026-09-09T13:00:10Z",
-      "viewCount": 31562
+      "id": "RIyaUlFcxgU",
+      "title": "my channel got hacked but I'm back",
+      "channel": "CyanSandwich",
+      "channelId": "UC3Dhhru82h2tFJpnzwI9Y3Q",
+      "thumbnail": "https://i.ytimg.com/vi/RIyaUlFcxgU/hqdefault.jpg",
+      "releaseDate": "2026-09-07T04:32:38Z",
+      "viewCount": 4985
     },
     {
-      "id": "t6trdkqI7Qs",
-      "title": "The 7 Levels of Climbing Purgatory",
-      "channel": "Joseph Kang",
-      "channelId": "UCe86nTlqcE05NVergzaRQTw",
-      "thumbnail": "https://i.ytimg.com/vi/t6trdkqI7Qs/hqdefault.jpg",
-      "releaseDate": "2026-01-31T15:01:49Z",
-      "viewCount": 81297
+      "id": "Sc6ZpGA1cnw",
+      "title": "Seal of Approval! 🦭🎸",
+      "channel": "Louie Zong",
+      "channelId": "UCdkkQvJoB0kGgYHCYwSkdww",
+      "thumbnail": "https://i.ytimg.com/vi/Sc6ZpGA1cnw/hqdefault.jpg",
+      "releaseDate": "2026-06-20T23:59:32Z",
+      "viewCount": 108681
     },
     {
-      "id": "NrU61N2qB24",
-      "title": "The Midnight Trainwreck",
-      "channel": "Owl Criticism",
-      "channelId": "UCCxvrAIPqJZW-UlGxXdWs4w",
-      "thumbnail": "https://i.ytimg.com/vi/NrU61N2qB24/hqdefault.jpg",
-      "releaseDate": "2026-09-09T11:18:11Z",
-      "viewCount": 3370
-    },
-    {
-      "id": "s1ZYEy0etUI",
-      "title": "Why Is ChatGPT OBSESSED with Goblins?",
-      "channel": "Siliconversations",
-      "channelId": "UCaItA_xyCNvDSf-DLkzClRg",
-      "thumbnail": "https://i.ytimg.com/vi/s1ZYEy0etUI/hqdefault.jpg",
-      "releaseDate": "2026-09-09T11:28:55Z",
-      "viewCount": 25455
-    },
-    {
-      "id": "9XYt-_GdPIU",
-      "title": "Did OpenAI Just Solve a $1,000,000 Math Problem? (Navier-Stokes)",
-      "channel": "Physics by Oimeow",
-      "channelId": "UCC1InsGIpkA8e_0eAEl79xg",
-      "thumbnail": "https://i.ytimg.com/vi/9XYt-_GdPIU/hqdefault.jpg",
-      "releaseDate": "2026-09-09T09:40:24Z",
-      "viewCount": 6077
-    },
-    {
-      "id": "inZfjVQxC3o",
-      "title": "No Man's Sky COSMOS Update Trailer",
-      "channel": "HelloGamesTube",
-      "channelId": "UCGKx5XhGuf09VERiw_QIemA",
-      "thumbnail": "https://i.ytimg.com/vi/inZfjVQxC3o/hqdefault.jpg",
-      "releaseDate": "2026-09-09T12:58:06Z",
-      "viewCount": 82171
-    },
-    {
-      "id": "tzuik3BWYz8",
-      "title": "Give Me 32 Minutes and I'll Fix Your Cubing Mindset",
-      "channel": "Brandon True | Cubing",
-      "channelId": "UCZj-Qqny6Z5nddUHfhR6yUQ",
-      "thumbnail": "https://i.ytimg.com/vi/tzuik3BWYz8/hqdefault.jpg",
-      "releaseDate": "2025-12-05T14:30:47Z",
-      "viewCount": 4024
-    },
-    {
-      "id": "EQx60EFu8XU",
-      "title": "Full EG Tutorial!",
-      "channel": "Canyon Pettitt",
-      "channelId": "UCsIote14EqakPxjEbaMJUnA",
-      "thumbnail": "https://i.ytimg.com/vi/EQx60EFu8XU/hqdefault.jpg",
-      "releaseDate": "2025-01-18T15:00:13Z",
-      "viewCount": 8463
-    },
-    {
-      "id": "CftEMc4MO2E",
-      "title": "nobonoko - Music For Animal Cafés [FULL]",
-      "channel": "nobonoko",
-      "channelId": "UCxdmyeSO3y-hHxiOad7MEnQ",
-      "thumbnail": "https://i.ytimg.com/vi/CftEMc4MO2E/hqdefault.jpg",
-      "releaseDate": "2023-09-26T23:00:08Z",
-      "viewCount": 1632720
-    },
-    {
-      "id": "SbcqVLSoAkc",
-      "title": "I dug into Bethesda's tech for Elder Scrolls 6...",
-      "channel": "MrMattyPlays",
-      "channelId": "UCmXH6CX_juGwNFTj3PESdoA",
-      "thumbnail": "https://i.ytimg.com/vi/SbcqVLSoAkc/hqdefault.jpg",
-      "releaseDate": "2026-09-02T23:00:14Z",
-      "viewCount": 131094
-    },
-    {
-      "id": "ADtPzdWiTQ0",
-      "title": "Oklou - obvious, choke enough, blade bird | NTS Session",
-      "channel": "NTS",
-      "channelId": "UCmqKuYoZCI7D6FQzDv5nKNw",
-      "thumbnail": "https://i.ytimg.com/vi/ADtPzdWiTQ0/hqdefault.jpg",
-      "releaseDate": "2025-02-11T15:00:06Z",
-      "viewCount": 564603
-    },
-    {
-      "id": "Xfytu5ZuA-I",
-      "title": "The Medievalization of Work and the Cooperative Cure",
-      "channel": "Literate Machine",
-      "channelId": "UC6P7fA8xlykuJVDZCQ5hRvw",
-      "thumbnail": "https://i.ytimg.com/vi/Xfytu5ZuA-I/hqdefault.jpg",
-      "releaseDate": "2026-09-07T12:51:09Z",
-      "viewCount": 50210
-    },
-    {
-      "id": "6B209EM_IJM",
-      "title": "The Life Expectancy Lies That Won't Die",
-      "channel": "vlogbrothers",
-      "channelId": "UCGaVdbSav8xWuFWTadK6loA",
-      "thumbnail": "https://i.ytimg.com/vi/6B209EM_IJM/hqdefault.jpg",
-      "releaseDate": "2026-09-08T14:45:12Z",
-      "viewCount": 279843
-    },
-    {
-      "id": "UW9CTQ7l83E",
-      "title": "Newcomer's Guide To (Classic) RPGs",
-      "channel": "Craftian",
-      "channelId": "UCMp36lXsBXi2yYlCkxU9Jhw",
-      "thumbnail": "https://i.ytimg.com/vi/UW9CTQ7l83E/hqdefault.jpg",
-      "releaseDate": "2026-09-03T09:54:23Z",
-      "viewCount": 18165
-    },
-    {
-      "id": "Vd2cT-YRpk4",
-      "title": "| Can't Believe This Exists in New York City",
-      "channel": "Magnus Midtbø",
-      "channelId": "UC_gSotrFVZ_PiAxo3fTQVuQ",
-      "thumbnail": "https://i.ytimg.com/vi/Vd2cT-YRpk4/hqdefault.jpg",
-      "releaseDate": "2026-08-30T16:59:31Z",
-      "viewCount": 1621294
+      "id": "e9WMvP6SwFk",
+      "title": "Solar Power is Crazy",
+      "channel": "kliksphilip",
+      "channelId": "UC0a8nteER_pU4Aj6hmEyJAQ",
+      "thumbnail": "https://i.ytimg.com/vi/e9WMvP6SwFk/hqdefault.jpg",
+      "releaseDate": "2026-09-09T21:53:15Z",
+      "viewCount": 40984
     }
   ]
 }
