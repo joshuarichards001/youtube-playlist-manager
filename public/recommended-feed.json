@@ -1,158 +1,95 @@
 {
-  "generatedAt": "2026-09-10T14:31:29.154Z",
+  "generatedAt": "2026-09-11T14:30:50.778Z",
   "videos": [
     {
-      "id": "3ILUhEQYHMo",
-      "title": "The Most Broken Movie Star",
-      "channel": "Dodford",
-      "channelId": "UC-k1VD5K6kwizjhg-HKj1rw",
-      "thumbnail": "https://i.ytimg.com/vi/3ILUhEQYHMo/hqdefault.jpg",
-      "releaseDate": "2026-09-10T14:00:30Z",
-      "viewCount": 564
-    },
-    {
-      "id": "GEHHTh5OTnQ",
-      "title": "Exposing a global AI slop empire ruining the internet for profit",
-      "channel": "CBC News",
-      "channelId": "UCuFFtHWoLl5fauMMD5Ww2jA",
-      "thumbnail": "https://i.ytimg.com/vi/GEHHTh5OTnQ/hqdefault.jpg",
-      "releaseDate": "2026-09-09T21:30:04Z",
-      "viewCount": 50022
-    },
-    {
-      "id": "N3pGwu3hO-4",
-      "title": "What Is The Kirkaversary?",
+      "id": "6RE0prmJRjw",
+      "title": "iPhone Duo Costs HOW MUCH?",
       "channel": "Lessons in Internet Culture",
       "channelId": "UCbUwR0r6R7hXCx205DCg2Ww",
-      "thumbnail": "https://i.ytimg.com/vi/N3pGwu3hO-4/hqdefault.jpg",
-      "releaseDate": "2026-09-10T13:15:08Z",
-      "viewCount": 12046
+      "thumbnail": "https://i.ytimg.com/vi/6RE0prmJRjw/hqdefault.jpg",
+      "releaseDate": "2026-09-11T13:15:17Z",
+      "viewCount": 32671
     },
     {
-      "id": "Od6M0AXpcxQ",
-      "title": "iPhone 18 Pro/Duo Impressions: Mogged",
-      "channel": "Marques Brownlee",
-      "channelId": "UCBJycsmduvYEL83R_U4JriQ",
-      "thumbnail": "https://i.ytimg.com/vi/Od6M0AXpcxQ/hqdefault.jpg",
-      "releaseDate": "2026-09-10T07:29:55Z",
-      "viewCount": 2636066
+      "id": "PWkMUmEZbq4",
+      "title": "‘We don’t have months’: Bernie Sanders sounds alarm on AI's 'extinction' threat",
+      "channel": "MS NOW",
+      "channelId": "UCaXkIU1QidjPwiAYu6GcHjg",
+      "thumbnail": "https://i.ytimg.com/vi/PWkMUmEZbq4/hqdefault.jpg",
+      "releaseDate": "2026-09-10T01:10:09Z",
+      "viewCount": 678618
     },
     {
-      "id": "MNPhs_bOS8Y",
-      "title": "Limmy Chooses Happiness Over Viewers",
-      "channel": "LimmyTwitchClipsPlus",
-      "channelId": "UC53jLQgJEo-E08snHiAvliw",
-      "thumbnail": "https://i.ytimg.com/vi/MNPhs_bOS8Y/hqdefault.jpg",
-      "releaseDate": "2026-09-06T21:30:06Z",
-      "viewCount": 7755
+      "id": "aOWwGl6d0Iw",
+      "title": "Why PlayStation Ditched Hideo Kojima's Physint",
+      "channel": "Jason Schreier",
+      "channelId": "UCQoOmu6mKZkXTnwZcpD8Ciw",
+      "thumbnail": "https://i.ytimg.com/vi/aOWwGl6d0Iw/hqdefault.jpg",
+      "releaseDate": "2026-09-11T13:38:49Z",
+      "viewCount": 17580
     },
     {
-      "id": "Q0FCIwY4Li4",
-      "title": "White Victimhood",
-      "channel": "Thomas Skean",
-      "channelId": "UCAoKEayL5zrWYMF_Dyrg9Bw",
-      "thumbnail": "https://i.ytimg.com/vi/Q0FCIwY4Li4/hqdefault.jpg",
-      "releaseDate": "2026-09-10T00:02:55Z",
-      "viewCount": 43937
+      "id": "et_78xq34fA",
+      "title": "5:54.51 Guildford Challenge World Best!",
+      "channel": "Luke Garrett",
+      "channelId": "UCG1tJk0qxrq-f0KZWy2Hw-w",
+      "thumbnail": "https://i.ytimg.com/vi/et_78xq34fA/hqdefault.jpg",
+      "releaseDate": "2025-12-26T21:28:24Z",
+      "viewCount": 33490
     },
     {
-      "id": "IsCWOdfoeUM",
-      "title": "Triple AAA Zelda Is Here",
+      "id": "_3Xqpi75sGo",
+      "title": "Is La Fairs A Forced Meme?",
       "channel": "Lessons in Meme Culture",
       "channelId": "UCaHT88aobpcvRFEuy4v5Clg",
-      "thumbnail": "https://i.ytimg.com/vi/IsCWOdfoeUM/hqdefault.jpg",
-      "releaseDate": "2026-09-09T13:00:10Z",
-      "viewCount": 379026
+      "thumbnail": "https://i.ytimg.com/vi/_3Xqpi75sGo/hqdefault.jpg",
+      "releaseDate": "2026-09-11T13:00:14Z",
+      "viewCount": 6339
     },
     {
-      "id": "SN2U0bJNyRw",
-      "title": "How Politics Actually Works",
-      "channel": "JREG",
-      "channelId": "UCGSGPehp0RWfca-kENgBJ9Q",
-      "thumbnail": "https://i.ytimg.com/vi/SN2U0bJNyRw/hqdefault.jpg",
-      "releaseDate": "2026-09-10T10:00:31Z",
-      "viewCount": 10688
+      "id": "B49tT0qLRe0",
+      "title": "How Cloudflare interns are helping build a better Internet",
+      "channel": "Cloudflare",
+      "channelId": "UCgv3xMy6kECn0boYP9d2o-g",
+      "thumbnail": "https://i.ytimg.com/vi/B49tT0qLRe0/hqdefault.jpg",
+      "releaseDate": "2026-09-09T17:25:24Z",
+      "viewCount": 4970
     },
     {
-      "id": "HCQYwJZ7NoE",
-      "title": "Back to Business: 45 Min. Volca Bass + Volca Drum (Improvised Jam 140 BPM)",
-      "channel": "VolcaNiced",
-      "channelId": "UCRbokjBskfrBj_SicmipRdg",
-      "thumbnail": "https://i.ytimg.com/vi/HCQYwJZ7NoE/hqdefault.jpg",
-      "releaseDate": "2022-02-12T23:23:11Z",
-      "viewCount": 49940
+      "id": "WXK3s-TITuc",
+      "title": "The AI Human Extinction Problem is Worse Than You Think",
+      "channel": "Philip DeFranco",
+      "channelId": "UClFSU9_bUb4Rc6OYfTt5SPw",
+      "thumbnail": "https://i.ytimg.com/vi/WXK3s-TITuc/hqdefault.jpg",
+      "releaseDate": "2026-09-09T21:20:36Z",
+      "viewCount": 896961
     },
     {
-      "id": "RSUfvh9MowE",
-      "title": "The Tool That Solves The Silent Data Problem",
-      "channel": "marimo",
-      "channelId": "UCKSXs4jiLetyWsW5Lba3ZjQ",
-      "thumbnail": "https://i.ytimg.com/vi/RSUfvh9MowE/hqdefault.jpg",
-      "releaseDate": "2026-09-07T09:15:36Z",
-      "viewCount": 14677
+      "id": "vPG6a2gAFeo",
+      "title": "OpenAI Is Lying...",
+      "channel": "Basic Dev",
+      "channelId": "UCE8m-P9Qcogb9x-luljGnBQ",
+      "thumbnail": "https://i.ytimg.com/vi/vPG6a2gAFeo/hqdefault.jpg",
+      "releaseDate": "2026-09-09T07:36:38Z",
+      "viewCount": 445632
     },
     {
-      "id": "JzQZFJ4zkRM",
-      "title": "Stack Order - Official Gameplay Trailer",
-      "channel": "Panflip Studio",
-      "channelId": "UCkNpxjvf5o-mxSFRd9utpmQ",
-      "thumbnail": "https://i.ytimg.com/vi/JzQZFJ4zkRM/hqdefault.jpg",
-      "releaseDate": "2026-09-08T13:00:52Z",
-      "viewCount": 18515
+      "id": "GG0ATiVPzWc",
+      "title": "1 Day to 10 Years of Cubing",
+      "channel": "J T Cubing",
+      "channelId": "UCxpan7PBuJAT-T6mFMGq7dA",
+      "thumbnail": "https://i.ytimg.com/vi/GG0ATiVPzWc/hqdefault.jpg",
+      "releaseDate": "2025-03-01T11:25:10Z",
+      "viewCount": 546828
     },
     {
-      "id": "yNmGRWJlzDs",
-      "title": "Verity Is Bigger Than 67",
-      "channel": "Lessons in Meme Culture",
-      "channelId": "UCaHT88aobpcvRFEuy4v5Clg",
-      "thumbnail": "https://i.ytimg.com/vi/yNmGRWJlzDs/hqdefault.jpg",
-      "releaseDate": "2026-09-10T13:00:33Z",
-      "viewCount": 19951
-    },
-    {
-      "id": "pEzbE77Kl2w",
-      "title": "Neon AI Stream Is A Disaster",
-      "channel": "Lessons in Internet Culture",
-      "channelId": "UCbUwR0r6R7hXCx205DCg2Ww",
-      "thumbnail": "https://i.ytimg.com/vi/pEzbE77Kl2w/hqdefault.jpg",
-      "releaseDate": "2026-09-09T13:15:31Z",
-      "viewCount": 406101
-    },
-    {
-      "id": "of0XGiy2n4I",
-      "title": "Addressing Hunter Biden Crypto Coin",
-      "channel": "Channel 5 with Andrew Callaghan",
-      "channelId": "UC-AQKm7HUNMmxjdS371MSwg",
-      "thumbnail": "https://i.ytimg.com/vi/of0XGiy2n4I/hqdefault.jpg",
-      "releaseDate": "2026-09-09T23:48:09Z",
-      "viewCount": 370152
-    },
-    {
-      "id": "ku-vSTDNsT8",
-      "title": "Metroid Ravenous – Nintendo Direct 9.9.2026",
-      "channel": "Nintendo of America",
-      "channelId": "UCGIY_O-8vW4rfX98KlMkvRg",
-      "thumbnail": "https://i.ytimg.com/vi/ku-vSTDNsT8/hqdefault.jpg",
-      "releaseDate": "2026-09-09T14:49:36Z",
-      "viewCount": 2182196
-    },
-    {
-      "id": "Jg7zNFwwb-A",
-      "title": "the worst date of my life",
-      "channel": "fuzz",
-      "channelId": "UCGacX4lqGSqYXZjnXrDPTOg",
-      "thumbnail": "https://i.ytimg.com/vi/Jg7zNFwwb-A/hqdefault.jpg",
-      "releaseDate": "2026-09-09T12:03:11Z",
-      "viewCount": 16622
-    },
-    {
-      "id": "YpOWOoxFqPk",
-      "title": "I Watched Every Steven Spielberg Movie...",
-      "channel": "Karsten Runquist",
-      "channelId": "UCS85PXHRkizrbGHBCe4tV3g",
-      "thumbnail": "https://i.ytimg.com/vi/YpOWOoxFqPk/hqdefault.jpg",
-      "releaseDate": "2026-09-09T16:34:38Z",
-      "viewCount": 115621
+      "id": "-izW-ROF94Q",
+      "title": "I Climbed All the Best Routes in Squamish!! (Squamish Top 5 Climbs)",
+      "channel": "Reagan_Rocks_Rides",
+      "channelId": "UCvKCzxXLxK7S72ss8d3hSeQ",
+      "thumbnail": "https://i.ytimg.com/vi/-izW-ROF94Q/hqdefault.jpg",
+      "releaseDate": "2026-09-10T23:00:37Z",
+      "viewCount": 2644
     },
     {
       "id": "UVhVC8uBmW8",
@@ -161,43 +98,106 @@
       "channelId": "UCBzhR72rxfIZ6plZfBKhgow",
       "thumbnail": "https://i.ytimg.com/vi/UVhVC8uBmW8/hqdefault.jpg",
       "releaseDate": "2026-06-11T01:18:47Z",
-      "viewCount": 3434
+      "viewCount": 3465
     },
     {
-      "id": "jJyrv_VPt8A",
-      "title": "how to never waste another day (backed by neuroscience)",
-      "channel": "MikeAnti",
-      "channelId": "UCnC9EtbyuWFVYbRTG1fzu7A",
-      "thumbnail": "https://i.ytimg.com/vi/jJyrv_VPt8A/hqdefault.jpg",
-      "releaseDate": "2026-09-07T13:00:34Z",
-      "viewCount": 21193
+      "id": "pEzbE77Kl2w",
+      "title": "Neon AI Stream Is A Disaster",
+      "channel": "Lessons in Internet Culture",
+      "channelId": "UCbUwR0r6R7hXCx205DCg2Ww",
+      "thumbnail": "https://i.ytimg.com/vi/pEzbE77Kl2w/hqdefault.jpg",
+      "releaseDate": "2026-09-09T13:15:31Z",
+      "viewCount": 473990
     },
     {
-      "id": "RIyaUlFcxgU",
-      "title": "my channel got hacked but I'm back",
-      "channel": "CyanSandwich",
-      "channelId": "UC3Dhhru82h2tFJpnzwI9Y3Q",
-      "thumbnail": "https://i.ytimg.com/vi/RIyaUlFcxgU/hqdefault.jpg",
-      "releaseDate": "2026-09-07T04:32:38Z",
-      "viewCount": 4985
+      "id": "Mcst8RNYSvk",
+      "title": "Introducing StanfordNext",
+      "channel": "Stanford",
+      "channelId": "UC-EnprmCZ3OXyAoG7vjVNCA",
+      "thumbnail": "https://i.ytimg.com/vi/Mcst8RNYSvk/hqdefault.jpg",
+      "releaseDate": "2026-09-09T19:00:32Z",
+      "viewCount": 42403
     },
     {
-      "id": "Sc6ZpGA1cnw",
-      "title": "Seal of Approval! 🦭🎸",
-      "channel": "Louie Zong",
-      "channelId": "UCdkkQvJoB0kGgYHCYwSkdww",
-      "thumbnail": "https://i.ytimg.com/vi/Sc6ZpGA1cnw/hqdefault.jpg",
-      "releaseDate": "2026-06-20T23:59:32Z",
-      "viewCount": 108681
+      "id": "qbnu_z6S-RE",
+      "title": "The Dying Shooter Subgenre",
+      "channel": "Gallantry",
+      "channelId": "UCbwWfLbCEllckrUiPbyKPaA",
+      "thumbnail": "https://i.ytimg.com/vi/qbnu_z6S-RE/hqdefault.jpg",
+      "releaseDate": "2026-09-08T23:14:45Z",
+      "viewCount": 255418
     },
     {
-      "id": "e9WMvP6SwFk",
-      "title": "Solar Power is Crazy",
-      "channel": "kliksphilip",
-      "channelId": "UC0a8nteER_pU4Aj6hmEyJAQ",
-      "thumbnail": "https://i.ytimg.com/vi/e9WMvP6SwFk/hqdefault.jpg",
-      "releaseDate": "2026-09-09T21:53:15Z",
-      "viewCount": 40984
+      "id": "J96uuxoakag",
+      "title": "Reckless Ben and YouTube Journalism",
+      "channel": "The Morbid Zoo",
+      "channelId": "UCOXhxpe6-cDq7SyJdxasTkQ",
+      "thumbnail": "https://i.ytimg.com/vi/J96uuxoakag/hqdefault.jpg",
+      "releaseDate": "2026-09-05T17:48:11Z",
+      "viewCount": 643288
+    },
+    {
+      "id": "pm1QrxZxI5g",
+      "title": "The ONLY 4 Steps You need To Master F2L! (Advanced F2L Tutorial)",
+      "channel": "ShalabokaCubing",
+      "channelId": "UC1mqF-pAtv4QwUQ2vjUZhrg",
+      "thumbnail": "https://i.ytimg.com/vi/pm1QrxZxI5g/hqdefault.jpg",
+      "releaseDate": "2026-08-28T19:12:55Z",
+      "viewCount": 20468
+    },
+    {
+      "id": "Xp9VBvAslyU",
+      "title": "The Leftist Manosphere and Identity Politics",
+      "channel": "Politically Depressed",
+      "channelId": "UC_d8-WfM5gyULH5zL0_e89A",
+      "thumbnail": "https://i.ytimg.com/vi/Xp9VBvAslyU/hqdefault.jpg",
+      "releaseDate": "2026-09-05T16:13:36Z",
+      "viewCount": 253200
+    },
+    {
+      "id": "1JvT4J5sLgk",
+      "title": "Why I Started an Electrical Apprenticeship in my 30s",
+      "channel": "Sam Burns",
+      "channelId": "UCJVoxZFmzbAcRqo9EpuB7ew",
+      "thumbnail": "https://i.ytimg.com/vi/1JvT4J5sLgk/hqdefault.jpg",
+      "releaseDate": "2026-06-21T11:45:23Z",
+      "viewCount": 46426
+    },
+    {
+      "id": "5sFDbnPf7lc",
+      "title": "Thiefs",
+      "channel": "Ghoul Productions!",
+      "channelId": "UCLCAuSzEZOcDtgSkcnIzuBQ",
+      "thumbnail": "https://i.ytimg.com/vi/5sFDbnPf7lc/hqdefault.jpg",
+      "releaseDate": "2025-04-27T17:18:07Z",
+      "viewCount": 16370
+    },
+    {
+      "id": "9PPhFvIfHG0",
+      "title": "Asrm & Hammer",
+      "channel": "asmr scenery",
+      "channelId": "UCNnrHZIEUa2jkiH1jjw2SOg",
+      "thumbnail": "https://i.ytimg.com/vi/9PPhFvIfHG0/hqdefault.jpg",
+      "releaseDate": "2026-09-11T03:58:53Z",
+      "viewCount": 821
+    },
+    {
+      "id": "Rf8N4crfVe4",
+      "title": "Eric Weinstein is Propaganda in Human Form",
+      "channel": "Professor Dave Explains",
+      "channelId": "UC0cd_-e49hZpWLH3UIwoWRA",
+      "thumbnail": "https://i.ytimg.com/vi/Rf8N4crfVe4/hqdefault.jpg",
+      "releaseDate": "2026-09-11T14:00:01Z",
+      "viewCount": 6318
+    },
+    {
+      "id": "QzBtTgsmEBM",
+      "title": "iShowSpeed Meets Marques Brownlee At Apple Park 🤯 (iPHONE 18 REVIEW)",
+      "channel": "Speedy Boykins",
+      "channelId": "UCd09ztChTkJ9dlY6RLawSog",
+      "thumbnail": "https://i.ytimg.com/vi/QzBtTgsmEBM/hqdefault.jpg",
+      "releaseDate": "2026-09-09T19:46:54Z",
+      "viewCount": 787445
     }
   ]
 }
