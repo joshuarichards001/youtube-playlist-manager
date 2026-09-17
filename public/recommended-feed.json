@@ -1,6 +1,24 @@
 {
-  "generatedAt": "2026-09-16T15:02:59.827Z",
+  "generatedAt": "2026-09-17T15:06:03.327Z",
   "videos": [
+    {
+      "id": "8KfHkqozKTY",
+      "title": "Jreg: Online Extremism and Political Assassinations | Doomscroll",
+      "channel": "Joshua Citarella",
+      "channelId": "UC4pEm3-yshBWa7nH3sQIKHQ",
+      "thumbnail": "https://i.ytimg.com/vi/8KfHkqozKTY/hqdefault.jpg",
+      "releaseDate": "2026-09-16T20:01:24Z",
+      "viewCount": 92837
+    },
+    {
+      "id": "-rzwRa4ollc",
+      "title": "Is Ed Sheeran Cooked?",
+      "channel": "Lessons in Internet Culture",
+      "channelId": "UCbUwR0r6R7hXCx205DCg2Ww",
+      "thumbnail": "https://i.ytimg.com/vi/-rzwRa4ollc/hqdefault.jpg",
+      "releaseDate": "2026-09-17T13:15:25Z",
+      "viewCount": 21608
+    },
     {
       "id": "pgPQoLaVnhA",
       "title": "Bro Hop On Google Giggles",
@@ -8,88 +26,97 @@
       "channelId": "UCaHT88aobpcvRFEuy4v5Clg",
       "thumbnail": "https://i.ytimg.com/vi/pgPQoLaVnhA/hqdefault.jpg",
       "releaseDate": "2026-09-15T13:00:18Z",
-      "viewCount": 1124678
+      "viewCount": 1401838
     },
     {
-      "id": "XScUlB8m3p0",
-      "title": "Mitch McConnell Is Alive",
-      "channel": "Lessons in Internet Culture",
-      "channelId": "UCbUwR0r6R7hXCx205DCg2Ww",
-      "thumbnail": "https://i.ytimg.com/vi/XScUlB8m3p0/hqdefault.jpg",
-      "releaseDate": "2026-09-15T13:15:24Z",
-      "viewCount": 192481
+      "id": "SDUoj5iKLwc",
+      "title": "Terence Tao: What Comes After AI Solves the Problem?",
+      "channel": "AI Signal",
+      "channelId": "UCUyTq5cd_IW5ANEWLtbn4gw",
+      "thumbnail": "https://i.ytimg.com/vi/SDUoj5iKLwc/hqdefault.jpg",
+      "releaseDate": "2026-09-15T18:09:54Z",
+      "viewCount": 173
+    },
+    {
+      "id": "J3ljHm57yU0",
+      "title": "What AI Researchers Saw, Before Their Demand to ‘Pace’ AI",
+      "channel": "AI Explained",
+      "channelId": "UCNJ1Ymd5yFuUPtn21xtRbbw",
+      "thumbnail": "https://i.ytimg.com/vi/J3ljHm57yU0/hqdefault.jpg",
+      "releaseDate": "2026-09-16T20:51:40Z",
+      "viewCount": 134282
+    },
+    {
+      "id": "6GE2kXiF1I0",
+      "title": "Devlog: Rethinking the Health Bar",
+      "channel": "Edym Pixels",
+      "channelId": "UC20BZweNAEt0LGkkKMgmd5Q",
+      "thumbnail": "https://i.ytimg.com/vi/6GE2kXiF1I0/hqdefault.jpg",
+      "releaseDate": "2026-09-16T11:37:12Z",
+      "viewCount": 34212
+    },
+    {
+      "id": "gifFhW3M724",
+      "title": "Ed Sheeran apology video",
+      "channel": "Man Carrying Thing",
+      "channelId": "UCPdaxSov0mgwh77JvjQO2jQ",
+      "thumbnail": "https://i.ytimg.com/vi/gifFhW3M724/hqdefault.jpg",
+      "releaseDate": "2026-09-16T23:09:35Z",
+      "viewCount": 326742
+    },
+    {
+      "id": "tLrvEQn3Bjs",
+      "title": "Any Help",
+      "channel": "David Tich Ennis",
+      "channelId": "UCH7pAc2h4PrpCIEpy6d_4ag",
+      "thumbnail": "https://i.ytimg.com/vi/tLrvEQn3Bjs/hqdefault.jpg",
+      "releaseDate": "2026-09-16T09:00:14Z",
+      "viewCount": 544124
+    },
+    {
+      "id": "H9NRdItN9Ug",
+      "title": "Day 1,232: Playing chess every day until I reach a 2000 rating",
+      "channel": "Chess with Patrick",
+      "channelId": "UCo6XZxOfryTFnyxf-E27c1g",
+      "thumbnail": "https://i.ytimg.com/vi/H9NRdItN9Ug/hqdefault.jpg",
+      "releaseDate": "2026-09-15T07:00:28Z",
+      "viewCount": 14491
+    },
+    {
+      "id": "i4KZ-32MvB8",
+      "title": "Is GG EZ A Bad Song?",
+      "channel": "Lessons in Meme Culture",
+      "channelId": "UCaHT88aobpcvRFEuy4v5Clg",
+      "thumbnail": "https://i.ytimg.com/vi/i4KZ-32MvB8/hqdefault.jpg",
+      "releaseDate": "2026-09-17T13:00:23Z",
+      "viewCount": 40946
+    },
+    {
+      "id": "xnmqfQVpHAo",
+      "title": "The LBL Square-1 is interesting...",
+      "channel": "Cube Master",
+      "channelId": "UC4UDM9EMX1oMOpUYe7-aWlw",
+      "thumbnail": "https://i.ytimg.com/vi/xnmqfQVpHAo/hqdefault.jpg",
+      "releaseDate": "2026-09-17T02:54:16Z",
+      "viewCount": 5195
+    },
+    {
+      "id": "_JbDZ2Rj2SA",
+      "title": "Anthropic CEO tells CNN how AI 'agent swarms' could threaten humanity",
+      "channel": "CNN",
+      "channelId": "UCupvZG-5ko_eiXAupbDfxWw",
+      "thumbnail": "https://i.ytimg.com/vi/_JbDZ2Rj2SA/hqdefault.jpg",
+      "releaseDate": "2026-09-15T02:00:28Z",
+      "viewCount": 1720166
     },
     {
       "id": "GTlF8X8Du_4",
-      "title": "YouTube Says This Video Has 252,588 Views, It Actually Has 116,190",
+      "title": "YouTube Says This Video Has 386,864 Views, It Actually Has 177,957",
       "channel": "vlogbrothers",
       "channelId": "UCGaVdbSav8xWuFWTadK6loA",
       "thumbnail": "https://i.ytimg.com/vi/GTlF8X8Du_4/hqdefault.jpg",
       "releaseDate": "2026-09-15T14:30:18Z",
-      "viewCount": 252588
-    },
-    {
-      "id": "6yiRISxYRLE",
-      "title": "When You Get Back to Back LAST LAYER SKIPS (3.96 Mo3)",
-      "channel": "Dylan Miller",
-      "channelId": "UCqudufFLm9QE56vvOhXx7qw",
-      "thumbnail": "https://i.ytimg.com/vi/6yiRISxYRLE/hqdefault.jpg",
-      "releaseDate": "2024-02-26T13:10:25Z",
-      "viewCount": 12855
-    },
-    {
-      "id": "kdyJOJd9qCQ",
-      "title": "AI Solved a Millennium Problem. I Grew 10,000 Carrots.",
-      "channel": "Stride",
-      "channelId": "UCV-MN4rfLdAbbk2rxqmHKxg",
-      "thumbnail": "https://i.ytimg.com/vi/kdyJOJd9qCQ/hqdefault.jpg",
-      "releaseDate": "2026-09-13T09:57:39Z",
-      "viewCount": 16780
-    },
-    {
-      "id": "62JPtNOKQfk",
-      "title": "wtf did i watch.",
-      "channel": "Woman Carrying Man",
-      "channelId": "UC8aGE10t6QrcdRMpgorwkAA",
-      "thumbnail": "https://i.ytimg.com/vi/62JPtNOKQfk/hqdefault.jpg",
-      "releaseDate": "2026-09-15T15:13:06Z",
-      "viewCount": 72381
-    },
-    {
-      "id": "pKNiiUbZyZ8",
-      "title": "every AI ceo all of a sudden",
-      "channel": "Man Carrying Thing",
-      "channelId": "UCPdaxSov0mgwh77JvjQO2jQ",
-      "thumbnail": "https://i.ytimg.com/vi/pKNiiUbZyZ8/hqdefault.jpg",
-      "releaseDate": "2026-09-16T00:03:32Z",
-      "viewCount": 608989
-    },
-    {
-      "id": "yD-QHvRv-q4",
-      "title": "Steam Frame: Official Overview and Quick Start Guide",
-      "channel": "Valve",
-      "channelId": "UCg0FSqPeiGD_lIiPaaAehQg",
-      "thumbnail": "https://i.ytimg.com/vi/yD-QHvRv-q4/hqdefault.jpg",
-      "releaseDate": "2026-09-14T17:00:08Z",
-      "viewCount": 465712
-    },
-    {
-      "id": "mQa-D7JivtM",
-      "title": "Thoughts On Lanterns?",
-      "channel": "Lessons in Meme Culture",
-      "channelId": "UCaHT88aobpcvRFEuy4v5Clg",
-      "thumbnail": "https://i.ytimg.com/vi/mQa-D7JivtM/hqdefault.jpg",
-      "releaseDate": "2026-09-16T13:00:27Z",
-      "viewCount": 37622
-    },
-    {
-      "id": "jICR3JPmsp0",
-      "title": "your music sounds like garbage because you don't use AI",
-      "channel": "Fluxeon",
-      "channelId": "UC2ecRbDEZQ2TNNaQX8YVJoQ",
-      "thumbnail": "https://i.ytimg.com/vi/jICR3JPmsp0/hqdefault.jpg",
-      "releaseDate": "2026-09-16T02:09:01Z",
-      "viewCount": 499
+      "viewCount": 387372
     },
     {
       "id": "C0NZa01qTRU",
@@ -98,16 +125,52 @@
       "channelId": "UCuPivVjnfNo4mb3Oog_frZg",
       "thumbnail": "https://i.ytimg.com/vi/C0NZa01qTRU/hqdefault.jpg",
       "releaseDate": "2026-09-15T13:00:07Z",
-      "viewCount": 2063691
+      "viewCount": 3910523
     },
     {
-      "id": "JSr67ozWdDg",
-      "title": "The Perfect Parkour Game",
-      "channel": "Sckurge",
-      "channelId": "UCLDielvdVOg600yEh-aUT8Q",
-      "thumbnail": "https://i.ytimg.com/vi/JSr67ozWdDg/hqdefault.jpg",
-      "releaseDate": "2026-09-06T00:56:58Z",
-      "viewCount": 22610
+      "id": "tvhCugDZvPo",
+      "title": "Camera catches dog bringing toy to intruder during San Diego home break-in | NBC 7 San Diego",
+      "channel": "NBC 7 San Diego",
+      "channelId": "UCUPU09hfdemclhLeO_ecgnA",
+      "thumbnail": "https://i.ytimg.com/vi/tvhCugDZvPo/hqdefault.jpg",
+      "releaseDate": "2026-09-16T06:33:58Z",
+      "viewCount": 2771204
+    },
+    {
+      "id": "ajixA8fauyE",
+      "title": "Did the Old Internet have Better Memes?",
+      "channel": "2kliksphilip",
+      "channelId": "UCEKJKJ3FO-9SFv5x5BzyxhQ",
+      "thumbnail": "https://i.ytimg.com/vi/ajixA8fauyE/hqdefault.jpg",
+      "releaseDate": "2026-09-16T23:44:38Z",
+      "viewCount": 70410
+    },
+    {
+      "id": "V_l7iKVCj7Y",
+      "title": "ASMR | Organizing My Movie Collection",
+      "channel": "Mattastic ASMR",
+      "channelId": "UCO5gXBJ1bCW-zoKU1jZRMOg",
+      "thumbnail": "https://i.ytimg.com/vi/V_l7iKVCj7Y/hqdefault.jpg",
+      "releaseDate": "2026-09-16T18:27:39Z",
+      "viewCount": 12701
+    },
+    {
+      "id": "74oTdgrOc80",
+      "title": "The Best Local AI On 4GB VRAM",
+      "channel": "Coding Horizon",
+      "channelId": "UCUajAady896edAMw5phbIvg",
+      "thumbnail": "https://i.ytimg.com/vi/74oTdgrOc80/hqdefault.jpg",
+      "releaseDate": "2026-09-15T22:45:20Z",
+      "viewCount": 12393
+    },
+    {
+      "id": "J3aCGn6SQ1c",
+      "title": "macOS 27 Released! What's New?",
+      "channel": "MacVince",
+      "channelId": "UCw0VJwhVBFDiBZD1gyvZOCA",
+      "thumbnail": "https://i.ytimg.com/vi/J3aCGn6SQ1c/hqdefault.jpg",
+      "releaseDate": "2026-09-14T17:04:36Z",
+      "viewCount": 1376751
     },
     {
       "id": "7r4ikZHm9AI",
@@ -116,52 +179,7 @@
       "channelId": "UCsBjURrPoezykLs9EqgamOA",
       "thumbnail": "https://i.ytimg.com/vi/7r4ikZHm9AI/hqdefault.jpg",
       "releaseDate": "2026-09-15T17:45:39Z",
-      "viewCount": 1778548
-    },
-    {
-      "id": "ohqxP8EEumo",
-      "title": "iPhone 18 Pro Review: All About that Chip",
-      "channel": "Marques Brownlee",
-      "channelId": "UCBJycsmduvYEL83R_U4JriQ",
-      "thumbnail": "https://i.ytimg.com/vi/ohqxP8EEumo/hqdefault.jpg",
-      "releaseDate": "2026-09-16T12:01:27Z",
-      "viewCount": 462880
-    },
-    {
-      "id": "fVTDvACvnbg",
-      "title": "bro you’re solving life TOO DAMN FAST.",
-      "channel": "Mellow Matter",
-      "channelId": "UCm9P7qpH7dBk0sJu20xXNlg",
-      "thumbnail": "https://i.ytimg.com/vi/fVTDvACvnbg/hqdefault.jpg",
-      "releaseDate": "2026-09-10T17:00:18Z",
-      "viewCount": 9378
-    },
-    {
-      "id": "Xd-W4rFjovc",
-      "title": "So You’ve Been Fooled Twice? ",
-      "channel": "Shaun Hermes",
-      "channelId": "UC3FWUuV_4gMyyabcJyu3aUw",
-      "thumbnail": "https://i.ytimg.com/vi/Xd-W4rFjovc/hqdefault.jpg",
-      "releaseDate": "2026-09-10T05:43:59Z",
-      "viewCount": 60734
-    },
-    {
-      "id": "iUZDGd70l9o",
-      "title": "back at the thrift 🧙‍♂️ ASMR",
-      "channel": "AlexAhrASMR",
-      "channelId": "UCttZsBftM6ZYiGn17VEWD7A",
-      "thumbnail": "https://i.ytimg.com/vi/iUZDGd70l9o/hqdefault.jpg",
-      "releaseDate": "2026-09-14T22:00:07Z",
-      "viewCount": 4276
-    },
-    {
-      "id": "Q1ZaZlB8Tpk",
-      "title": "All* PLL Algorithms Sub-1 second | How to Turn Faster",
-      "channel": "J Perm",
-      "channelId": "UCqTVfT9JQqhA6_Hi_h_h97Q",
-      "thumbnail": "https://i.ytimg.com/vi/Q1ZaZlB8Tpk/hqdefault.jpg",
-      "releaseDate": "2019-08-21T16:00:12Z",
-      "viewCount": 430970
+      "viewCount": 2344550
     }
   ]
 }
