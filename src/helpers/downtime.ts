@@ -40,7 +40,10 @@ export const FALLBACK_SCHEDULE: AccessSchedule = {
 export const fetchAccessSchedule = async (): Promise<AccessSchedule | null> => {
   try {
     const res = await fetch("/api/downtime");
-    if (!res.ok) return null;
+    if (!res.ok) {
+      console.warn("Downtime schedule unavailable", res.status, await res.text());
+      return null;
+    }
     return await res.json();
   } catch (error) {
     console.error("Failed to fetch downtime schedule", error);
