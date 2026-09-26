@@ -25,6 +25,10 @@ Single-page React 18 + TypeScript + Vite app that talks directly to the YouTube 
 - `functions/api/auth/logout.ts` clears the cookie; `Nav.tsx` calls it on sign-out and reloads.
 - `App.tsx` gates on `accessToken` + `authLoading` — while the initial refresh is in flight it renders null (prevents a landing-page flash on reload). Once settled it shows `LandingPage` or `HomePage` and calls `fetchUserAPI`.
 
+### Downtime (NextDNS Recreation Time)
+
+The site is only usable while NextDNS Parental Control would let YouTube through. `functions/api/downtime.ts` calls `GET api.nextdns.io/profiles/:id/parentalControl` (env vars `NEXTDNS_API_KEY`, `NEXTDNS_PROFILE_ID`; the key stays server-side) and returns the YouTube service's schedule: `{ blocked: false }` if the YouTube entry is missing or toggled off, otherwise `{ blocked: true, timezone, windows }` with per-weekday Recreation Time windows (empty if the clock toggle is off → blocked all day). `src/hooks/useDowntime.ts` refetches every 5 minutes and re-evaluates every minute; `App.tsx` renders null until the first response, then `DowntimeNotice` with a countdown. If the endpoint fails it keeps the last schedule, or falls back to 14:00–22:00 Europe/London (`FALLBACK_SCHEDULE` in `src/helpers/downtime.ts`) — including under `npm run dev:vite`, where `/api/*` 404s.
+
 ### State (Zustand)
 
 `src/helpers/store.ts` is the single store. Key fields:

@@ -7,14 +7,17 @@ const formatTimeLeft = (minutesLeft: number) => {
   return `${hours} hour${hours === 1 ? "" : "s"} and ${minutes} minute${minutes === 1 ? "" : "s"}`;
 };
 
-const DowntimeNotice = ({ minutesLeft }: { minutesLeft: number }) => {
+// minutesLeft is null when there is no Recreation Time in the coming week.
+const DowntimeNotice = ({ minutesLeft }: { minutesLeft: number | null }) => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-base-200 p-6">
       <div className="max-w-md text-center">
         <h1 className="text-3xl font-bold mb-4">We&apos;re taking a break</h1>
         <p className="text-base-content/80">
-          This site is only available between 2:00 PM and 10:00 PM (UK time).
-          Come back in {formatTimeLeft(minutesLeft)}.
+          This site is only available during YouTube recreation time.{" "}
+          {minutesLeft === null
+            ? "There's none scheduled right now."
+            : `Come back in ${formatTimeLeft(minutesLeft)}.`}
         </p>
       </div>
     </div>
