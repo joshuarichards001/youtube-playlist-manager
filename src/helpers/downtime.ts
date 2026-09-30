@@ -37,17 +37,27 @@ export const FALLBACK_SCHEDULE: AccessSchedule = {
   ),
 };
 
-export const fetchAccessSchedule = async (): Promise<AccessSchedule | null> => {
+// Returns the schedule, or an error message if /api/downtime is unavailable.
+export const fetchAccessSchedule = async (): Promise<
+  { schedule: AccessSchedule } | { error: string }
+> => {
   try {
     const res = await fetch("/api/downtime");
     if (!res.ok) {
-      console.warn("Downtime schedule unavailable", res.status, await res.text());
-      return null;
+      const body = await res.text();
+      console.warn("Downtime schedule unavailable", res.status, body);
+      let error = `HTTP ${res.status}`;
+      try {
+        error = JSON.parse(body).error ?? error;
+      } catch {
+        // Not our JSON error shape (e.g. a Cloudflare error page).
+      }
+      return { error };
     }
-    return await res.json();
+    return { schedule: await res.json() };
   } catch (error) {
     console.error("Failed to fetch downtime schedule", error);
-    return null;
+    return { error: String(error) };
   }
 };
 

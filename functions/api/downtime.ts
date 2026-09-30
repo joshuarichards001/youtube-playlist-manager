@@ -25,7 +25,7 @@ interface Env {
 }
 
 interface NextDNSParentalControl {
-  data: {
+  data?: {
     services?: { id: string; active: boolean; recreation?: boolean }[];
     recreation?: {
       times?: Partial<Record<Weekday, { start: string; end: string }>>;
@@ -54,17 +54,30 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
     return json({ error: "NextDNS not configured" }, 500);
   }
 
-  const res = await fetch(
-    `https://api.nextdns.io/profiles/${NEXTDNS_PROFILE_ID}/parentalControl`,
-    { headers: { "X-Api-Key": NEXTDNS_API_KEY } }
-  );
-  if (!res.ok) {
-    return json({ error: `NextDNS returned ${res.status}` }, 502);
+  let data: NextDNSParentalControl["data"] | undefined;
+  try {
+    const res = await fetch(
+      `https://api.nextdns.io/profiles/${NEXTDNS_PROFILE_ID}/parentalControl`,
+      {
+        headers: {
+          "X-Api-Key": NEXTDNS_API_KEY,
+          "User-Agent": "youtube-playlist-manager",
+        },
+      }
+    );
+    if (!res.ok) {
+      const body = (await res.text()).slice(0, 200);
+      return json({ error: `NextDNS returned ${res.status}: ${body}` }, 502);
+    }
+    ({ data } = await res.json<NextDNSParentalControl>());
+  } catch (error) {
+    return json({ error: `NextDNS request failed: ${error}` }, 502);
   }
+  if (!data) return json({ error: "NextDNS response had no data" }, 502);
 
-  const { data } = await res.json<NextDNSParentalControl>();
   const youtube = data.services?.find((s) => s.id === "youtube");
 
+  // YouTube removed from Parental Control or toggled off: never blocked.
   if (!youtube?.active) return json({ blocked: false });
 
   const windows: Partial<Record<Weekday, { start: number; end: number }>> = {};

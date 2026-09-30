@@ -8,17 +8,28 @@ import {
 
 const SCHEDULE_REFRESH_MS = 5 * 60_000;
 
-// Returns undefined until the schedule has loaded, then the minutes until the
-// site reopens (0 = open now, null = no Recreation Time in the coming week).
+interface ScheduleState {
+  schedule: AccessSchedule;
+  // Set when FALLBACK_SCHEDULE is in use because NextDNS couldn't be read.
+  fallbackReason?: string;
+}
+
+// Returns undefined until the schedule has loaded. minutesLeft is the minutes
+// until the site reopens (0 = open now, null = no Recreation Time in the
+// coming week).
 const useDowntime = () => {
-  const [schedule, setSchedule] = useState<AccessSchedule | null>(null);
+  const [state, setState] = useState<ScheduleState | null>(null);
   const [now, setNow] = useState(() => new Date());
 
   useEffect(() => {
     const load = () =>
-      fetchAccessSchedule().then((next) =>
-        // On failure keep the last known schedule, or fall back if there is none.
-        setSchedule((prev) => next ?? prev ?? FALLBACK_SCHEDULE),
+      fetchAccessSchedule().then((result) =>
+        setState((prev) => {
+          if ("schedule" in result) return { schedule: result.schedule };
+          // On failure keep the last known schedule, or fall back if there is none.
+          if (prev && !prev.fallbackReason) return prev;
+          return { schedule: FALLBACK_SCHEDULE, fallbackReason: result.error };
+        }),
       );
 
     load();
@@ -31,8 +42,11 @@ const useDowntime = () => {
     return () => clearInterval(id);
   }, []);
 
-  if (!schedule) return undefined;
-  return minutesUntilOpen(schedule, now);
+  if (!state) return undefined;
+  return {
+    minutesLeft: minutesUntilOpen(state.schedule, now),
+    fallbackReason: state.fallbackReason,
+  };
 };
 
 export default useDowntime;

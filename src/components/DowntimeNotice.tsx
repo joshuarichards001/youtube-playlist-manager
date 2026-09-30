@@ -8,7 +8,14 @@ const formatTimeLeft = (minutesLeft: number) => {
 };
 
 // minutesLeft is null when there is no Recreation Time in the coming week.
-const DowntimeNotice = ({ minutesLeft }: { minutesLeft: number | null }) => {
+// fallbackReason is set when NextDNS couldn't be read and default hours apply.
+const DowntimeNotice = ({
+  minutesLeft,
+  fallbackReason,
+}: {
+  minutesLeft: number | null;
+  fallbackReason?: string;
+}) => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-base-200 p-6">
       <div className="max-w-md text-center">
@@ -19,6 +26,12 @@ const DowntimeNotice = ({ minutesLeft }: { minutesLeft: number | null }) => {
             ? "There's none scheduled right now."
             : `Come back in ${formatTimeLeft(minutesLeft)}.`}
         </p>
+        {fallbackReason && (
+          <p className="mt-6 text-sm text-base-content/60">
+            Couldn&apos;t load the NextDNS schedule ({fallbackReason}), so the
+            default 2pm–10pm hours apply.
+          </p>
+        )}
       </div>
     </div>
   );

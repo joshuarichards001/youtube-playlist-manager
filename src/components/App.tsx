@@ -14,7 +14,7 @@ const App = () => {
   const setUser = useStore((state) => state.setUser);
   const setSubscriptions = useStore((state) => state.setSubscriptions);
   const login = useAuth();
-  const minutesLeft = useDowntime();
+  const downtime = useDowntime();
 
   useEffect(() => {
     if (!accessToken) return;
@@ -31,9 +31,16 @@ const App = () => {
     });
   }, [accessToken, setUser, setSubscriptions]);
 
-  if (minutesLeft === undefined) return null;
+  if (downtime === undefined) return null;
 
-  if (minutesLeft !== 0) return <DowntimeNotice minutesLeft={minutesLeft} />;
+  if (downtime.minutesLeft !== 0) {
+    return (
+      <DowntimeNotice
+        minutesLeft={downtime.minutesLeft}
+        fallbackReason={downtime.fallbackReason}
+      />
+    );
+  }
 
   if (authLoading) return null;
 
