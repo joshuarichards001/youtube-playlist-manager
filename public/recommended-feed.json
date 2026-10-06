@@ -1,203 +1,194 @@
 {
-  "generatedAt": "2026-10-05T19:21:27.711Z",
+  "generatedAt": "2026-10-06T16:53:12.306Z",
   "videos": [
     {
-      "id": "lV9IyPKrVx0",
-      "title": "Perfect Fragmentation Everywhere",
-      "channel": "A little light, like a rushlight",
-      "channelId": "UCuVb-sa5s06JEZsg0g1bVYQ",
-      "thumbnail": "https://i.ytimg.com/vi/lV9IyPKrVx0/hqdefault.jpg",
-      "releaseDate": "2026-10-02T12:59:55Z",
-      "viewCount": 29107
+      "id": "qnTNfyeqjPw",
+      "title": "\"It Gets Better\"",
+      "channel": "Jred",
+      "channelId": "UCKGCof63C6pLCFT4R6YPEtQ",
+      "thumbnail": "https://i.ytimg.com/vi/qnTNfyeqjPw/hqdefault.jpg",
+      "releaseDate": "2026-10-06T14:45:17Z",
+      "viewCount": 1160
     },
     {
-      "id": "9UUPGnmhewk",
-      "title": "I asked Nakey Jakey 100 Questions about YouTube, Mental Health, Videogamedunkey & Making Music",
-      "channel": "100 Questions with Tom Simons",
-      "channelId": "UC-71I3qt1d35IYL5XC-0LZw",
-      "thumbnail": "https://i.ytimg.com/vi/9UUPGnmhewk/hqdefault.jpg",
-      "releaseDate": "2026-09-29T17:00:06Z",
-      "viewCount": 205083
-    },
-    {
-      "id": "4cO6f5pTeUY",
-      "title": "Court Throws Out AI Generated Victim Video",
-      "channel": "Lessons in Internet Culture",
-      "channelId": "UCbUwR0r6R7hXCx205DCg2Ww",
-      "thumbnail": "https://i.ytimg.com/vi/4cO6f5pTeUY/hqdefault.jpg",
-      "releaseDate": "2026-10-05T12:15:18Z",
-      "viewCount": 107841
-    },
-    {
-      "id": "J406W-WK34k",
-      "title": "Rambling on a Rainy Fall Night (ASMR Whisper Ramble)",
-      "channel": "SamboASMR",
-      "channelId": "UCBzhR72rxfIZ6plZfBKhgow",
-      "thumbnail": "https://i.ytimg.com/vi/J406W-WK34k/hqdefault.jpg",
-      "releaseDate": "2026-10-02T01:46:33Z",
-      "viewCount": 5967
-    },
-    {
-      "id": "GckkaKEQ3vo",
-      "title": "I Made a Claude Code Plugin That Forces You to Learn",
-      "channel": "Noah Kim",
-      "channelId": "UCekGb_B6CvGKHt1lq27zoZA",
-      "thumbnail": "https://i.ytimg.com/vi/GckkaKEQ3vo/hqdefault.jpg",
-      "releaseDate": "2026-10-01T11:30:07Z",
-      "viewCount": 293586
-    },
-    {
-      "id": "zbJ8kbLFpaU",
-      "title": "ASMR I'm not doing so good... | Clicky Whisper | #asmr ",
-      "channel": "Draig ASMR",
-      "channelId": "UCdIND_zJbopNd8NZdQvGOrg",
-      "thumbnail": "https://i.ytimg.com/vi/zbJ8kbLFpaU/hqdefault.jpg",
-      "releaseDate": "2026-10-04T23:28:16Z",
-      "viewCount": 1314
-    },
-    {
-      "id": "WKee524zcpo",
-      "title": "This Sleepy Jerry Meme Has Completely Taken Over the Internet",
-      "channel": "Lessons in Meme Culture",
-      "channelId": "UCaHT88aobpcvRFEuy4v5Clg",
-      "thumbnail": "https://i.ytimg.com/vi/WKee524zcpo/hqdefault.jpg",
-      "releaseDate": "2026-10-05T12:00:14Z",
-      "viewCount": 118056
-    },
-    {
-      "id": "4XJKE9V--N4",
-      "title": "Welcome to Lightford | Teaser Trailer",
-      "channel": "NightInk",
-      "channelId": "UCc4rep0x1HvVTQk4M47yyfw",
-      "thumbnail": "https://i.ytimg.com/vi/4XJKE9V--N4/hqdefault.jpg",
-      "releaseDate": "2026-09-11T17:39:12Z",
-      "viewCount": 283480
-    },
-    {
-      "id": "Psc5wuSNg_c",
-      "title": "A picture is worth a thousand data points",
-      "channel": "Reject Convenience",
-      "channelId": "UC-ufRLYrXxrIEApGn9VG5pQ",
-      "thumbnail": "https://i.ytimg.com/vi/Psc5wuSNg_c/hqdefault.jpg",
-      "releaseDate": "2026-10-05T14:37:27Z",
-      "viewCount": 37811
-    },
-    {
-      "id": "CB86Z2vWvw4",
-      "title": "ASMR Psychology facts/ experiments you never knew 🤯 (British accent ramble)",
-      "channel": "Baba ASMR",
-      "channelId": "UCU5f4xI_oqB0FyF7nwn5nQA",
-      "thumbnail": "https://i.ytimg.com/vi/CB86Z2vWvw4/hqdefault.jpg",
-      "releaseDate": "2026-10-03T19:26:25Z",
-      "viewCount": 5000
-    },
-    {
-      "id": "4PZXqt0zWkI",
-      "title": "Pretending to be Teacher Analysed like Chess | Catch Me If You Can",
-      "channel": "Analysed Like Chess",
-      "channelId": "UC6BqwJRjN-qmNMFJSM-A0Xw",
-      "thumbnail": "https://i.ytimg.com/vi/4PZXqt0zWkI/hqdefault.jpg",
-      "releaseDate": "2026-10-01T20:13:08Z",
-      "viewCount": 76808
-    },
-    {
-      "id": "l7tQ1v4TCeY",
-      "title": "That’s Firefox? See the browser’s surprising new changes",
-      "channel": "Firefox",
-      "channelId": "UC-CBSBRP82j2t5PQ3M33CVw",
-      "thumbnail": "https://i.ytimg.com/vi/l7tQ1v4TCeY/hqdefault.jpg",
-      "releaseDate": "2026-09-29T12:58:35Z",
-      "viewCount": 632102
-    },
-    {
-      "id": "E7yeVBXXW9I",
-      "title": "1996: Can a Computer Produce Art? | It'll Never Work | BBC Archive",
-      "channel": "BBC Archive",
-      "channelId": "UCCwUTfKeDj4p9uTNrn9U6Sw",
-      "thumbnail": "https://i.ytimg.com/vi/E7yeVBXXW9I/hqdefault.jpg",
-      "releaseDate": "2026-10-01T11:00:11Z",
-      "viewCount": 444953
-    },
-    {
-      "id": "AvNZfUjYYOk",
-      "title": "Why Are We So Bad at Executing People?",
+      "id": "TgUMME8J2Hg",
+      "title": "Make Your Art.",
       "channel": "vlogbrothers",
       "channelId": "UCGaVdbSav8xWuFWTadK6loA",
-      "thumbnail": "https://i.ytimg.com/vi/AvNZfUjYYOk/hqdefault.jpg",
-      "releaseDate": "2026-10-05T17:58:36Z",
-      "viewCount": 13580
+      "thumbnail": "https://i.ytimg.com/vi/TgUMME8J2Hg/hqdefault.jpg",
+      "releaseDate": "2026-10-06T15:02:35Z",
+      "viewCount": 10947
     },
     {
-      "id": "SUG2ACZotP8",
-      "title": "Welcome to The Introvert Travel Agency",
-      "channel": "Visit Sweden",
-      "channelId": "UC7-AfAX_aDvwmFy4sg4h3GQ",
-      "thumbnail": "https://i.ytimg.com/vi/SUG2ACZotP8/hqdefault.jpg",
-      "releaseDate": "2026-09-29T05:46:20Z",
-      "viewCount": 127729
+      "id": "9y2C8qoJptA",
+      "title": "Most Intermediate Climbers Make The Same 4 Mistakes",
+      "channel": "Hannah Morris Bouldering",
+      "channelId": "UCd41X9UCCXAgruATzShEl4w",
+      "thumbnail": "https://i.ytimg.com/vi/9y2C8qoJptA/hqdefault.jpg",
+      "releaseDate": "2025-03-31T14:00:10Z",
+      "viewCount": 384292
     },
     {
-      "id": "Zm9sF-ijcB4",
-      "title": "DYNAMISM UPGRADE | THE FINALS PRIME TIME",
-      "channel": "THE FINALS",
-      "channelId": "UCEqzN3PRSCrxYq5tUwYJaPw",
-      "thumbnail": "https://i.ytimg.com/vi/Zm9sF-ijcB4/hqdefault.jpg",
-      "releaseDate": "2026-10-04T16:00:24Z",
-      "viewCount": 523985
+      "id": "EUN_t3e647A",
+      "title": "The “Logan is Christopher” Theory | Gilmore Girls",
+      "channel": "Sloan Stowe",
+      "channelId": "UCj6eKhSfgRyAqZAMseSyB0g",
+      "thumbnail": "https://i.ytimg.com/vi/EUN_t3e647A/hqdefault.jpg",
+      "releaseDate": "2026-10-06T16:42:30Z",
+      "viewCount": 97
     },
     {
-      "id": "19ABLf5b9Qw",
-      "title": "The Day After the Midterms",
-      "channel": "Aidan Hall",
-      "channelId": "UCPTrIwdhJAlBkItRNyFcLPA",
-      "thumbnail": "https://i.ytimg.com/vi/19ABLf5b9Qw/hqdefault.jpg",
-      "releaseDate": "2026-10-05T15:15:30Z",
-      "viewCount": 20236
+      "id": "ubgG5NpPH00",
+      "title": "math major’s take on the gen z job market (IT’S REALLY BAD)",
+      "channel": "Connor Flannery",
+      "channelId": "UCLWJScl1pW2y7oZxxza0LqQ",
+      "thumbnail": "https://i.ytimg.com/vi/ubgG5NpPH00/hqdefault.jpg",
+      "releaseDate": "2026-10-04T22:24:14Z",
+      "viewCount": 10418
     },
     {
-      "id": "clVY3TacXWA",
-      "title": "I Spent 14 Years Hand-Animating a Feature Film — THE SAGA OF REX | Official Trailer",
-      "channel": "Michel Gagne",
-      "channelId": "UCtZ2fT1lYO-gcFYM-7IBRWA",
-      "thumbnail": "https://i.ytimg.com/vi/clVY3TacXWA/hqdefault.jpg",
-      "releaseDate": "2026-08-21T19:00:06Z",
-      "viewCount": 225298
+      "id": "vJdbrbG_mbo",
+      "title": "The Russian Plague Is Here",
+      "channel": "Lessons in Internet Culture",
+      "channelId": "UCbUwR0r6R7hXCx205DCg2Ww",
+      "thumbnail": "https://i.ytimg.com/vi/vJdbrbG_mbo/hqdefault.jpg",
+      "releaseDate": "2026-10-06T12:15:24Z",
+      "viewCount": 79717
     },
     {
-      "id": "7GIULwETan4",
-      "title": "Max Verstappen Vs 100 Amateur Kart Racers",
-      "channel": "Red Bull",
-      "channelId": "UCblfuW_4rakIf2h6aqANefA",
-      "thumbnail": "https://i.ytimg.com/vi/7GIULwETan4/hqdefault.jpg",
-      "releaseDate": "2026-10-01T15:00:04Z",
-      "viewCount": 9539654
+      "id": "1tvThqFkdpM",
+      "title": "Breakdown of Xuanyi's 2.51 World Record",
+      "channel": "LaZer0MonKey",
+      "channelId": "UCC4iSbeDmVQB89oX4tqW13A",
+      "thumbnail": "https://i.ytimg.com/vi/1tvThqFkdpM/hqdefault.jpg",
+      "releaseDate": "2026-10-06T15:14:06Z",
+      "viewCount": 1057
     },
     {
-      "id": "3b253Aja75U",
-      "title": "False Hero - a True Evolution of The Souls Formula",
-      "channel": "Rahat Rants",
-      "channelId": "UC-qBAH6hUmR-h353su5tq7A",
-      "thumbnail": "https://i.ytimg.com/vi/3b253Aja75U/hqdefault.jpg",
-      "releaseDate": "2026-10-03T20:00:39Z",
-      "viewCount": 7743
+      "id": "CPlNDJq3C1s",
+      "title": "HOW TO CLIMB V7 • Analyzing essential V7 techniques",
+      "channel": "Richardsons Climbing",
+      "channelId": "UChT1fv0xpIMSeVAJ_Hg1tjg",
+      "thumbnail": "https://i.ytimg.com/vi/CPlNDJq3C1s/hqdefault.jpg",
+      "releaseDate": "2024-12-05T11:00:11Z",
+      "viewCount": 77539
     },
     {
-      "id": "9dSLJHS2Uns",
-      "title": "Mayor Zohran Mamdani on His Relationship with Trump, People in Sewers & New Public Restrooms",
-      "channel": "Jimmy Kimmel Live",
-      "channelId": "UCa6vGFO9ty8v5KZJXQxdhaw",
-      "thumbnail": "https://i.ytimg.com/vi/9dSLJHS2Uns/hqdefault.jpg",
-      "releaseDate": "2026-09-29T06:00:21Z",
-      "viewCount": 4707020
+      "id": "FZ3b99yHZKQ",
+      "title": "One prompt is all it took, bro!",
+      "channel": "Mark Jivko",
+      "channelId": "UCqh3rwGu5sCSOAeSmz8CAdQ",
+      "thumbnail": "https://i.ytimg.com/vi/FZ3b99yHZKQ/hqdefault.jpg",
+      "releaseDate": "2026-10-06T13:57:30Z",
+      "viewCount": 3951
     },
     {
-      "id": "DJGOS6HIz6c",
-      "title": "friends - short film",
-      "channel": "Olivia Reburn",
-      "channelId": "UCsaAC3NC9VlHvmIUKs-iTiQ",
-      "thumbnail": "https://i.ytimg.com/vi/DJGOS6HIz6c/hqdefault.jpg",
-      "releaseDate": "2026-08-19T19:52:56Z",
-      "viewCount": 563325
+      "id": "r0Mm_79yKso",
+      "title": "i gave AI a memory upgrade—and found a serious problem | HINDSIGHT review",
+      "channel": "y8y.systems",
+      "channelId": "UCKc0YsRJRQZCZbA-REaK4DA",
+      "thumbnail": "https://i.ytimg.com/vi/r0Mm_79yKso/hqdefault.jpg",
+      "releaseDate": "2026-10-03T11:01:56Z",
+      "viewCount": 12859
+    },
+    {
+      "id": "L6G_6VwJv6w",
+      "title": "i actually WAS born yesterday",
+      "channel": "Eric's Realm",
+      "channelId": "UC5HTVmqT5y49_J79Nbk1tNw",
+      "thumbnail": "https://i.ytimg.com/vi/L6G_6VwJv6w/hqdefault.jpg",
+      "releaseDate": "2026-10-06T14:04:12Z",
+      "viewCount": 7015
+    },
+    {
+      "id": "q7jRCtJ9fJc",
+      "title": "NEON One-Ups A24 (New SCP Movie Announced)",
+      "channel": "Nightmare Masterclass",
+      "channelId": "UCsoZWD7Uagg2yv3YcQ3zqBA",
+      "thumbnail": "https://i.ytimg.com/vi/q7jRCtJ9fJc/hqdefault.jpg",
+      "releaseDate": "2026-10-06T15:00:21Z",
+      "viewCount": 302
+    },
+    {
+      "id": "F8MxP9adPO8",
+      "title": "The Long-Shot Candidate",
+      "channel": "CBS",
+      "channelId": "UClzCn8DxRSCuMFv_WfzkcrQ",
+      "thumbnail": "https://i.ytimg.com/vi/F8MxP9adPO8/hqdefault.jpg",
+      "releaseDate": "2008-12-29T00:01:09Z",
+      "viewCount": 2149515
+    },
+    {
+      "id": "oESZ6ealwxA",
+      "title": "Pro Coach Gives a Tip For Every Grade",
+      "channel": "Catalyst Climbing",
+      "channelId": "UC5CSgrlchwozIeFlacSztHw",
+      "thumbnail": "https://i.ytimg.com/vi/oESZ6ealwxA/hqdefault.jpg",
+      "releaseDate": "2024-04-10T16:15:02Z",
+      "viewCount": 387009
+    },
+    {
+      "id": "CdGAXwHGyCg",
+      "title": "Sean O'Pry Finger Snap Edits Are Everywhere",
+      "channel": "Lessons in Meme Culture",
+      "channelId": "UCaHT88aobpcvRFEuy4v5Clg",
+      "thumbnail": "https://i.ytimg.com/vi/CdGAXwHGyCg/hqdefault.jpg",
+      "releaseDate": "2026-10-06T12:00:08Z",
+      "viewCount": 37661
+    },
+    {
+      "id": "lXs2wbv0x_Y",
+      "title": "Which OLL 29 algorithm do you use?",
+      "channel": "RLC Cuber",
+      "channelId": "UCmFdzO9PpDbdtrTsNQfkgBg",
+      "thumbnail": "https://i.ytimg.com/vi/lXs2wbv0x_Y/hqdefault.jpg",
+      "releaseDate": "2021-02-25T12:03:48Z",
+      "viewCount": 19682
+    },
+    {
+      "id": "-tFobd9I8zY",
+      "title": "How Hard are World Cup Boulders?",
+      "channel": "Josh Rundle",
+      "channelId": "UCWbnwdWGSqc8CVqReOL1ehA",
+      "thumbnail": "https://i.ytimg.com/vi/-tFobd9I8zY/hqdefault.jpg",
+      "releaseDate": "2026-08-17T18:48:20Z",
+      "viewCount": 241637
+    },
+    {
+      "id": "sXKnmgmbkoE",
+      "title": "Marvel Television’s VisionQuest | Official Trailer",
+      "channel": "Marvel Entertainment",
+      "channelId": "UCvC4D8onUfXzvjTOM-dBfEA",
+      "thumbnail": "https://i.ytimg.com/vi/sXKnmgmbkoE/hqdefault.jpg",
+      "releaseDate": "2026-10-01T16:00:21Z",
+      "viewCount": 18236265
+    },
+    {
+      "id": "41WA7ocM_xs",
+      "title": "Week 8 Intern mid-week check-in",
+      "channel": "RobWPowell",
+      "channelId": "UCV4_gfAVRU4DQbgjwrMTjaw",
+      "thumbnail": "https://i.ytimg.com/vi/41WA7ocM_xs/hqdefault.jpg",
+      "releaseDate": "2026-10-03T15:39:31Z",
+      "viewCount": 180
+    },
+    {
+      "id": "uaSX1SU_MIU",
+      "title": "Chopin - Prelude No. 24 in D Minor:  Allegro appassionato",
+      "channel": "SeeMusic",
+      "channelId": "UCVjdNxZvxbnxWs_RL--x2uQ",
+      "thumbnail": "https://i.ytimg.com/vi/uaSX1SU_MIU/hqdefault.jpg",
+      "releaseDate": "2022-11-30T17:00:06Z",
+      "viewCount": 294867
+    },
+    {
+      "id": "3R6VsFNdqdE",
+      "title": "Identifying Image Fraud in a Nature Neuroscience Paper",
+      "channel": "Sholto David",
+      "channelId": "UCUWRBES836QDNDT5jiIIj1A",
+      "thumbnail": "https://i.ytimg.com/vi/3R6VsFNdqdE/hqdefault.jpg",
+      "releaseDate": "2026-09-13T16:49:56Z",
+      "viewCount": 174044
     }
   ]
 }
