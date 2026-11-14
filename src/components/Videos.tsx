@@ -8,6 +8,8 @@ import MoveDropdown from "./MoveDropdown";
 import VideoActions from "./VideoActions";
 import VideoRow from "./VideoRow";
 
+const PLAYLIST_BATCH_SIZE = 500;
+
 export default function Videos() {
   const accessToken = useStore((state) => state.accessToken);
   const videos = useStore((state) => state.videos);
@@ -61,14 +63,25 @@ export default function Videos() {
       }
 
       setLoading(true);
-      const videoResponse = await fetchVideosAPI(
-        accessToken,
-        selectedPlaylist,
-        nextPageToken
-      );
+      // The API caps pages at 50, so keep paging until we have a full batch.
+      const fetched: Video[] = [];
+      let pageToken = nextPageToken;
+      do {
+        const videoResponse = await fetchVideosAPI(
+          accessToken,
+          selectedPlaylist,
+          pageToken
+        );
+        fetched.push(...videoResponse.videos);
+        pageToken = videoResponse.nextPageToken;
+      } while (pageToken && fetched.length < PLAYLIST_BATCH_SIZE);
 
-      setVideos([...videos, ...videoResponse.videos]);
-      setNextPageToken(videoResponse.nextPageToken);
+      // Bail if the user switched views while we were paging.
+      const view = useStore.getState().currentView;
+      if (view.type !== "playlist" || view.playlist.id !== selectedPlaylist.id) return;
+
+      setVideos([...videos, ...fetched]);
+      setNextPageToken(pageToken);
       setLoading(false);
       const url = new URL(window.location.href);
       url.pathname = `/playlist/${selectedPlaylist.id}`;
@@ -359,7 +372,7 @@ export default function Videos() {
                 disabled={loading}
               >
                 {loading && <span className="loading loading-spinner"></span>}
-                Load More Videos...
+                Show More Videos
               </button>
             )}
           </div>
