@@ -7,6 +7,7 @@ export default function Sidebar() {
   const currentView = useStore((state) => state.currentView);
   const setCurrentView = useStore((state) => state.setCurrentView);
   const setSidebarOpen = useStore((state) => state.setSidebarOpen);
+  const sidebarCollapsed = useStore((state) => state.sidebarCollapsed);
   const viewingVideo = useStore((state) => state.viewingVideo);
   const setVideoViewerPip = useStore((state) => state.setVideoViewerPip);
 
@@ -59,7 +60,7 @@ export default function Sidebar() {
 
   return (
     <aside
-      className={`bg-base-200 flex-col overflow-y-auto md:flex md:static md:inset-auto md:z-auto md:w-80 md:min-w-80 md:h-auto ${sidebarOpen ? "fixed inset-0 z-50 flex w-full h-full" : "hidden"
+      className={`bg-base-200 flex-col overflow-y-auto ${sidebarCollapsed ? "md:hidden" : "md:flex"} md:static md:inset-auto md:z-auto md:w-80 md:min-w-80 md:h-auto ${sidebarOpen ? "fixed inset-0 z-50 flex w-full h-full" : "hidden"
         }`}
     >
       <div className="flex md:hidden justify-end px-2 pt-2">

@@ -40,7 +40,21 @@ interface State {
 
   sidebarOpen: boolean;
   setSidebarOpen: (sidebarOpen: boolean) => void;
+
+  // Desktop (md+) only: hides the sidebar entirely. Persisted per device.
+  sidebarCollapsed: boolean;
+  setSidebarCollapsed: (sidebarCollapsed: boolean) => void;
 }
+
+const SIDEBAR_COLLAPSED_KEY = "yt-sidebar-collapsed";
+
+const readSidebarCollapsed = () => {
+  try {
+    return localStorage.getItem(SIDEBAR_COLLAPSED_KEY) === "1";
+  } catch {
+    return false;
+  }
+};
 
 const useStore = create<State>(
   // @ts-expect-error-next-line
@@ -83,6 +97,16 @@ const useStore = create<State>(
 
     sidebarOpen: false,
     setSidebarOpen: (sidebarOpen) => set({ sidebarOpen }),
+
+    sidebarCollapsed: readSidebarCollapsed(),
+    setSidebarCollapsed: (sidebarCollapsed) => {
+      try {
+        localStorage.setItem(SIDEBAR_COLLAPSED_KEY, sidebarCollapsed ? "1" : "0");
+      } catch {
+        // storage unavailable; keep in-memory state only
+      }
+      set({ sidebarCollapsed });
+    },
   }))
 );
 

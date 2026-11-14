@@ -6,6 +6,8 @@ export default function Nav() {
   const user = useStore((state) => state.user);
   const sidebarOpen = useStore((state) => state.sidebarOpen);
   const setSidebarOpen = useStore((state) => state.setSidebarOpen);
+  const sidebarCollapsed = useStore((state) => state.sidebarCollapsed);
+  const setSidebarCollapsed = useStore((state) => state.setSidebarCollapsed);
   const playlists = useStore((state) => state.playlists);
   const subscriptions = useStore((state) => state.subscriptions);
   const accessToken = useStore((state) => state.accessToken);
@@ -26,13 +28,22 @@ export default function Nav() {
     }
   };
 
+  const handleSidebarToggle = () => {
+    if (window.matchMedia("(min-width: 768px)").matches) {
+      setSidebarCollapsed(!sidebarCollapsed);
+    } else {
+      setSidebarOpen(!sidebarOpen);
+    }
+  };
+
   return (
     <nav className="navbar bg-base-200">
       <div className="flex-1 flex items-center">
         <button
-          className="btn btn-ghost btn-square md:hidden"
-          onClick={() => setSidebarOpen(!sidebarOpen)}
+          className="btn btn-ghost btn-square"
+          onClick={handleSidebarToggle}
           aria-label="Toggle sidebar"
+          title="Toggle sidebar"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
