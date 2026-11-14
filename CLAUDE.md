@@ -29,6 +29,10 @@ Single-page React 18 + TypeScript + Vite app that talks directly to the YouTube 
 
 The site is only usable while NextDNS Parental Control would let YouTube through. `functions/api/downtime.ts` calls `GET api.nextdns.io/profiles/:id/parentalControl` (env vars `NEXTDNS_API_KEY`, `NEXTDNS_PROFILE_ID`; the key stays server-side) and returns the YouTube service's schedule: `{ blocked: false }` if the YouTube entry is missing or toggled off, otherwise `{ blocked: true, timezone, windows }` with per-weekday Recreation Time windows (empty if the clock toggle is off → blocked all day). `src/hooks/useDowntime.ts` refetches every 5 minutes and re-evaluates every minute; `App.tsx` renders null until the first response, then `DowntimeNotice` with a countdown. If the endpoint fails it keeps the last schedule, or falls back to 14:00–22:00 Europe/London (`FALLBACK_SCHEDULE` in `src/helpers/downtime.ts`) — including under `npm run dev:vite`, where `/api/*` 404s.
 
+### Resume positions (cross-device)
+
+`src/helpers/resumePosition.ts` keeps per-video positions in localStorage (`yt-resume`) and mirrors them to `functions/api/progress.ts`, which stores them in a D1 database bound as `DB` (table auto-created on first request). The function only accepts a Google access token whose `tokeninfo` email matches `ALLOWED_EMAIL` and was issued to our client ID. `VideoViewer.tsx` saves locally every 5s while playing and pushes to the cloud on pause/end, video switch, tab hide/close, and at most every 30s while playing. Before starting a video it fetches the cloud copy (1.5s timeout) and uses whichever of local/cloud has the newer `savedAt`. Finished videos are stored as position 0 rather than deleted so that "finished" also syncs. Locally, `npm run dev` passes `--d1 DB` so wrangler uses a local SQLite D1.
+
 ### State (Zustand)
 
 `src/helpers/store.ts` is the single store. Key fields:

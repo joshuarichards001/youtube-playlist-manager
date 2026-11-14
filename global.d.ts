@@ -118,6 +118,7 @@ declare namespace YT {
     getDuration(): number;
     getVideoData(): { video_id: string };
     loadVideoById(args: { videoId: string; startSeconds?: number }): void;
+    pauseVideo(): void;
     destroy(): void;
   }
   interface PlayerOptions {

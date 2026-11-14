@@ -1,12 +1,15 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { convertReleaseDateToTimeSinceRelease } from "../helpers/functions";
 import {
-  getResumePosition,
+  pushResumeEntry,
+  resolveResumePosition,
   saveResumePosition,
 } from "../helpers/resumePosition";
 import useStore from "../helpers/store";
 import { loadYouTubeIframeApi } from "../helpers/youtubeIframeApi";
 import { fetchVideoCommentsAPI, fetchVideoDescriptionAPI } from "../helpers/youtubeAPI/videoAPI";
+
+const REMOTE_PUSH_INTERVAL_MS = 30_000;
 
 
 interface VideoViewerProps {
@@ -37,19 +40,37 @@ export default function VideoViewer({ video, onClose, expanded, onExpandToggle, 
   const lastPositionRef = useRef(0);
   const lastDurationRef = useRef(0);
   const intervalIdRef = useRef<number | null>(null);
-  const saveCurrentRef = useRef<() => void>(() => {});
+  const saveCurrentRef = useRef<(remote: boolean) => void>(() => {});
+  const lastRemotePushRef = useRef({ videoId: "", position: -1, at: 0 });
   const pendingSwitchRef = useRef<{
     videoId: string;
     startSeconds: number;
   } | null>(null);
 
-  const [initialSrc] = useState(() => {
-    const start = Math.floor(getResumePosition(video.resourceId) ?? 0);
-    lastPositionRef.current = start;
-    const params = new URLSearchParams({ autoplay: "1", enablejsapi: "1" });
-    if (start > 0) params.set("start", String(start));
-    return `https://www.youtube.com/embed/${video.resourceId}?${params.toString()}`;
-  });
+  // The iframe isn't rendered until we know where to start, so a position
+  // saved on another device is used from the first frame rather than seeked to.
+  const [initialSrc, setInitialSrc] = useState<string | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    const videoId = videoIdRef.current;
+    resolveResumePosition(useStore.getState().accessToken, videoId).then(
+      (start) => {
+        if (cancelled) return;
+        if (videoIdRef.current === videoId) lastPositionRef.current = start;
+        const params = new URLSearchParams({ autoplay: "1", enablejsapi: "1" });
+        if (start > 0) params.set("start", String(start));
+        setInitialSrc(
+          `https://www.youtube.com/embed/${videoId}?${params.toString()}`
+        );
+      }
+    );
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const iframeMounted = initialSrc !== null;
 
   useEffect(() => {
     const fetchComments = async () => {
@@ -92,6 +113,7 @@ export default function VideoViewer({ video, onClose, expanded, onExpandToggle, 
   }, [description]);
 
   useEffect(() => {
+    if (!iframeMounted) return;
     let cancelled = false;
 
     const capture = () => {
@@ -108,15 +130,34 @@ export default function VideoViewer({ video, onClose, expanded, onExpandToggle, 
       }
     };
 
-    const saveCurrent = () => {
+    // Local save every call; cloud save only when `remote` is set (pause,
+    // switch, tab hidden/closed) or every REMOTE_PUSH_INTERVAL_MS while playing.
+    const saveCurrent = (remote: boolean) => {
       capture();
-      saveResumePosition(
-        videoIdRef.current,
+      const videoId = videoIdRef.current;
+      const entry = saveResumePosition(
+        videoId,
         lastPositionRef.current,
         lastDurationRef.current
       );
+      if (!entry) return;
+
+      const last = lastRemotePushRef.current;
+      const due = Date.now() - last.at >= REMOTE_PUSH_INTERVAL_MS;
+      const unchanged =
+        last.videoId === videoId && last.position === entry.position;
+      if ((!remote && !due) || unchanged) return;
+
+      lastRemotePushRef.current = {
+        videoId,
+        position: entry.position,
+        at: Date.now(),
+      };
+      pushResumeEntry(useStore.getState().accessToken, videoId, entry);
     };
     saveCurrentRef.current = saveCurrent;
+    const saveLocal = () => saveCurrent(false);
+    const saveEverywhere = () => saveCurrent(true);
 
     const stopInterval = () => {
       if (intervalIdRef.current !== null) {
@@ -127,7 +168,7 @@ export default function VideoViewer({ video, onClose, expanded, onExpandToggle, 
 
     const startInterval = () => {
       stopInterval();
-      intervalIdRef.current = window.setInterval(saveCurrent, 5000);
+      intervalIdRef.current = window.setInterval(saveLocal, 5000);
     };
 
     loadYouTubeIframeApi().then((YT) => {
@@ -160,7 +201,7 @@ export default function VideoViewer({ video, onClose, expanded, onExpandToggle, 
               startInterval();
             } else if (e.data === PAUSED || e.data === ENDED) {
               stopInterval();
-              saveCurrent();
+              saveEverywhere();
             }
           },
         },
@@ -168,17 +209,17 @@ export default function VideoViewer({ video, onClose, expanded, onExpandToggle, 
     });
 
     const handleVisibility = () => {
-      if (document.visibilityState === "hidden") saveCurrent();
+      if (document.visibilityState === "hidden") saveEverywhere();
     };
     document.addEventListener("visibilitychange", handleVisibility);
-    window.addEventListener("pagehide", saveCurrent);
+    window.addEventListener("pagehide", saveEverywhere);
 
     return () => {
       cancelled = true;
       stopInterval();
-      saveCurrent();
+      saveEverywhere();
       document.removeEventListener("visibilitychange", handleVisibility);
-      window.removeEventListener("pagehide", saveCurrent);
+      window.removeEventListener("pagehide", saveEverywhere);
       try {
         playerRef.current?.destroy();
       } catch {
@@ -187,28 +228,45 @@ export default function VideoViewer({ video, onClose, expanded, onExpandToggle, 
       playerRef.current = null;
       playerReadyRef.current = false;
     };
-  }, []);
+  }, [iframeMounted]);
 
   useEffect(() => {
     if (videoIdRef.current === video.resourceId) return;
 
-    saveCurrentRef.current();
+    saveCurrentRef.current(true);
 
-    videoIdRef.current = video.resourceId;
-    const start = Math.floor(getResumePosition(video.resourceId) ?? 0);
-    lastPositionRef.current = start;
+    const videoId = video.resourceId;
+    videoIdRef.current = videoId;
+    lastPositionRef.current = 0;
     lastDurationRef.current = 0;
 
-    const switchTo = { videoId: video.resourceId, startSeconds: start };
-    if (playerReadyRef.current && playerRef.current) {
-      try {
-        playerRef.current.loadVideoById(switchTo);
-      } catch {
-        pendingSwitchRef.current = switchTo;
-      }
-    } else {
-      pendingSwitchRef.current = switchTo;
+    // Stop the previous video while we look up where to start the next one.
+    try {
+      if (playerReadyRef.current) playerRef.current?.pauseVideo();
+    } catch {
+      // ignore
     }
+
+    let cancelled = false;
+    resolveResumePosition(useStore.getState().accessToken, videoId).then(
+      (start) => {
+        if (cancelled || videoIdRef.current !== videoId) return;
+        lastPositionRef.current = start;
+        const switchTo = { videoId, startSeconds: start };
+        if (playerReadyRef.current && playerRef.current) {
+          try {
+            playerRef.current.loadVideoById(switchTo);
+          } catch {
+            pendingSwitchRef.current = switchTo;
+          }
+        } else {
+          pendingSwitchRef.current = switchTo;
+        }
+      }
+    );
+    return () => {
+      cancelled = true;
+    };
   }, [video.resourceId]);
 
   return (
@@ -292,14 +350,18 @@ export default function VideoViewer({ video, onClose, expanded, onExpandToggle, 
       <div className={pip ? "" : "flex-1 overflow-y-auto p-4"}>
         <div className="w-full flex justify-center">
           <div className={pip ? "w-full aspect-video relative" : "w-full min-w-0 aspect-video max-h-[calc(100dvh-180px)] max-w-[calc((100dvh-180px)*16/9)] relative"}>
-            <iframe
-              ref={iframeRef}
-              className="absolute inset-0 w-full h-full"
-              src={initialSrc}
-              title={video.title}
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            />
+            {initialSrc ? (
+              <iframe
+                ref={iframeRef}
+                className="absolute inset-0 w-full h-full"
+                src={initialSrc}
+                title={video.title}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+            ) : (
+              <div className="absolute inset-0 w-full h-full bg-black" />
+            )}
           </div>
         </div>
         {!pip && description && (
