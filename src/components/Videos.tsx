@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { formatTotalDuration } from "../helpers/functions";
 import useStore from "../helpers/store";
 import { subscribeAPI, unsubscribeAPI } from "../helpers/youtubeAPI/subscriptionAPI";
 import { fetchChannelVideosAPI, fetchVideosAPI } from "../helpers/youtubeAPI/videoAPI";
@@ -208,6 +209,11 @@ export default function Videos() {
     isChannelView &&
     subscriptions.some((s) => s.channelId === selectedSubscription?.channelId);
 
+  const totalDurationSeconds = videos.reduce(
+    (sum, video) => sum + (video.durationSeconds || 0),
+    0
+  );
+
   const selectedVideos = videos.filter((video) => video.selected);
   const selectedVideoResourceIds = selectedVideos.map((v) => v.resourceId);
   const selectedVideoItemIds = selectedVideos.map((v) => v.id);
@@ -284,6 +290,19 @@ export default function Videos() {
                   currentTitle
                 )}
               </h2>
+              {isPlaylistView && videos.length > 0 && (
+                <span
+                  className="badge badge-neutral badge-sm flex-shrink-0 whitespace-nowrap"
+                  title={
+                    nextPageToken
+                      ? `Total watch time of the ${videos.length} loaded videos (more not yet loaded)`
+                      : `Total watch time of ${videos.length} videos`
+                  }
+                >
+                  {formatTotalDuration(totalDurationSeconds)}
+                  {nextPageToken ? "+" : ""}
+                </span>
+              )}
               {isPlaylistView && (
                 <button
                   className="btn btn-error btn-xs flex-shrink-0"
