@@ -59,3 +59,29 @@ export const formatTotalDuration = (totalSeconds: number): string => {
   if (minutes > 0) return `${minutes}m`;
   return `${totalSeconds}s`;
 };
+
+// Returns a new array; never mutates. Missing/NaN fields sort last instead of
+// poisoning the comparator (a NaN result makes Array.sort order undefined).
+export const sortVideos = <T extends Partial<Video>>(
+  videos: T[],
+  sort: SortValues
+): T[] => {
+  const num = (n: number | undefined) => (Number.isFinite(n) ? (n as number) : -1);
+  const str = (s: string | undefined) => s ?? "";
+  return [...videos].sort((a, b) => {
+    switch (sort) {
+      case "title":
+        return str(a.title).localeCompare(str(b.title));
+      case "viewCount":
+        return num(b.viewCount) - num(a.viewCount);
+      case "releaseDate":
+        return str(b.releaseDate).localeCompare(str(a.releaseDate));
+      case "dateAdded":
+        return str(b.dateAdded).localeCompare(str(a.dateAdded));
+      case "duration":
+        return num(b.durationSeconds) - num(a.durationSeconds);
+      default:
+        return 0;
+    }
+  });
+};

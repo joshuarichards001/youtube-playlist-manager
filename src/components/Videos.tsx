@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { formatTotalDuration } from "../helpers/functions";
+import { formatTotalDuration, sortVideos } from "../helpers/functions";
 import useStore from "../helpers/store";
 import { subscribeAPI, unsubscribeAPI } from "../helpers/youtubeAPI/subscriptionAPI";
 import { fetchChannelVideosAPI, fetchVideosAPI } from "../helpers/youtubeAPI/videoAPI";
@@ -19,7 +19,6 @@ export default function Videos() {
   const setCurrentView = useStore((state) => state.setCurrentView);
   const subscriptions = useStore((state) => state.subscriptions);
   const setSubscriptions = useStore((state) => state.setSubscriptions);
-  const sort = useStore((state) => state.sort);
   const nextPageToken = useStore((state) => state.nextPageToken);
   const setNextPageToken = useStore((state) => state.setNextPageToken);
   const [loading, setLoading] = useState(false);
@@ -31,26 +30,15 @@ export default function Videos() {
   const selectedPlaylist = currentView.type === 'playlist' ? currentView.playlist : null;
   const selectedSubscription = currentView.type === 'channel' ? currentView.subscription : null;
 
-  useEffect(() => {
-    const sortedVideos = [...videos].sort((a, b) => {
-      switch (sort) {
-        case "title":
-          return a.title.localeCompare(b.title);
-        case "viewCount":
-          return b.viewCount - a.viewCount;
-        case "releaseDate":
-          return b.releaseDate.localeCompare(a.releaseDate);
-        case "dateAdded":
-          return b.dateAdded.localeCompare(a.dateAdded);
-        case "duration":
-          return b.durationSeconds - a.durationSeconds;
-        default:
-          return 0;
-      }
-    });
-
-    setVideos(sortedVideos);
-  }, [sort]);
+  // Merge a freshly fetched page into the list and keep it sorted. Reads the
+  // latest videos/sort from the store so an in-flight fetch can't clobber a
+  // sort change or optimistic edit made while it was loading.
+  const appendSorted = (fetched: Video[]) => {
+    const { videos: current, sort } = useStore.getState();
+    const seen = new Set(current.map((v) => v.id));
+    const merged = [...current, ...fetched.filter((v) => !seen.has(v.id))];
+    setVideos(sortVideos(merged, sort));
+  };
 
   const fetchNextPlaylistVideos = async () => {
     try {
@@ -81,7 +69,7 @@ export default function Videos() {
       const view = useStore.getState().currentView;
       if (view.type !== "playlist" || view.playlist.id !== selectedPlaylist.id) return;
 
-      setVideos([...videos, ...fetched]);
+      appendSorted(fetched);
       setNextPageToken(pageToken);
       setLoading(false);
       const url = new URL(window.location.href);
@@ -110,7 +98,11 @@ export default function Videos() {
         nextPageToken
       );
 
-      setVideos([...videos, ...videoResponse.videos]);
+      // Bail if the user switched views while we were loading.
+      const view = useStore.getState().currentView;
+      if (view.type !== "channel" || view.subscription.channelId !== selectedSubscription.channelId) return;
+
+      appendSorted(videoResponse.videos);
       setNextPageToken(videoResponse.nextPageToken);
       setLoading(false);
       const url = new URL(window.location.href);

@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { devtools } from "zustand/middleware";
+import { sortVideos } from "./functions";
 
 interface State {
   playlists: Playlist[];
@@ -56,9 +57,31 @@ const readSidebarCollapsed = () => {
   }
 };
 
+// Last-used sort per playlist id, persisted per device.
+const PLAYLIST_SORT_KEY = "yt-playlist-sort";
+const DEFAULT_PLAYLIST_SORT: SortValues = "dateAdded";
+
+const readPlaylistSorts = (): Record<string, SortValues> => {
+  try {
+    return JSON.parse(localStorage.getItem(PLAYLIST_SORT_KEY) ?? "{}") ?? {};
+  } catch {
+    return {};
+  }
+};
+
+const savePlaylistSort = (playlistId: string, sort: SortValues) => {
+  try {
+    const sorts = readPlaylistSorts();
+    sorts[playlistId] = sort;
+    localStorage.setItem(PLAYLIST_SORT_KEY, JSON.stringify(sorts));
+  } catch {
+    // storage unavailable; keep in-memory state only
+  }
+};
+
 const useStore = create<State>(
   // @ts-expect-error-next-line
-  devtools((set) => ({
+  devtools((set, get) => ({
     playlists: [],
     setPlaylists: (playlists) => set({ playlists }),
 
@@ -66,7 +89,15 @@ const useStore = create<State>(
     setSubscriptions: (subscriptions) => set({ subscriptions }),
 
     currentView: { type: 'feed' },
-    setCurrentView: (currentView) => set({ currentView, videos: [], nextPageToken: null }),
+    setCurrentView: (currentView) =>
+      set({
+        currentView,
+        videos: [],
+        nextPageToken: null,
+        ...(currentView.type === "playlist" && {
+          sort: readPlaylistSorts()[currentView.playlist.id] ?? DEFAULT_PLAYLIST_SORT,
+        }),
+      }),
 
     videos: [],
     setVideos: (videos) => set({ videos }),
@@ -81,7 +112,11 @@ const useStore = create<State>(
     setNextPageToken: (nextPageToken) => set({ nextPageToken }),
 
     sort: "dateAdded",
-    setSort: (sort) => set({ sort }),
+    setSort: (sort) => {
+      const { currentView, videos } = get();
+      if (currentView.type === "playlist") savePlaylistSort(currentView.playlist.id, sort);
+      set({ sort, videos: sortVideos(videos, sort) });
+    },
 
     user: null,
     setUser: (user) => set({ user }),

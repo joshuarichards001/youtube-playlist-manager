@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { sortVideos } from "../helpers/functions";
 import useStore from "../helpers/store";
 import MoveDropdown from "./MoveDropdown";
 import VideoActions from "./VideoActions";
@@ -56,18 +57,7 @@ export default function StaticFeed({ title, src, sortable = false }: Props) {
   const sortedVideos = useMemo(() => {
     if (!feed) return [];
     if (!sortable) return feed.videos;
-    return [...feed.videos].sort((a, b) => {
-      switch (sort) {
-        case "title":
-          return a.title.localeCompare(b.title);
-        case "viewCount":
-          return b.viewCount - a.viewCount;
-        case "releaseDate":
-          return b.releaseDate.localeCompare(a.releaseDate);
-        default:
-          return 0;
-      }
-    });
+    return sortVideos(feed.videos, sort);
   }, [feed, sort, sortable]);
 
   const handleDragStart = (e: React.DragEvent, video: FeedVideo) => {
