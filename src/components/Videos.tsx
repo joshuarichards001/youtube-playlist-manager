@@ -315,16 +315,26 @@ export default function Videos() {
               onDeselectAll={() => setAllSelected(false)}
               onDelete={isPlaylistView ? openDeleteModal : undefined}
               moveDropdown={
-                <MoveDropdown
-                  selectedVideoResourceIds={selectedVideoResourceIds}
-                  selectedVideoItemIds={
-                    isPlaylistView ? selectedVideoItemIds : undefined
-                  }
-                  sourcePlaylistId={selectedPlaylist?.id}
-                  onComplete={() =>
-                    setVideos(videos.filter((v) => !v.selected))
-                  }
-                />
+                <>
+                  <MoveDropdown
+                    selectedVideoResourceIds={selectedVideoResourceIds}
+                    selectedVideoItemIds={
+                      isPlaylistView ? selectedVideoItemIds : undefined
+                    }
+                    sourcePlaylistId={selectedPlaylist?.id}
+                    onComplete={() =>
+                      setVideos(videos.filter((v) => !v.selected))
+                    }
+                  />
+                  {isPlaylistView && (
+                    <MoveDropdown
+                      mode="copy"
+                      selectedVideoResourceIds={selectedVideoResourceIds}
+                      sourcePlaylistId={selectedPlaylist?.id}
+                      onComplete={() => setAllSelected(false)}
+                    />
+                  )}
+                </>
               }
             />
           </div>

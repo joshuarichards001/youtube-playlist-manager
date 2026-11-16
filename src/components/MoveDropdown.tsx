@@ -10,6 +10,8 @@ type Props = {
   selectedVideoItemIds?: string[];
   sourcePlaylistId?: string;
   onComplete: () => void;
+  // "copy" adds to the target playlist but leaves the source untouched.
+  mode?: "move" | "copy";
 };
 
 export default function MoveDropdown({
@@ -17,6 +19,7 @@ export default function MoveDropdown({
   selectedVideoItemIds,
   sourcePlaylistId,
   onComplete,
+  mode = "move",
 }: Props) {
   const [loading, setLoading] = useState(false);
   const playlists = useStore((state) => state.playlists);
@@ -31,7 +34,7 @@ export default function MoveDropdown({
     if (!accessToken) return;
 
     setLoading(true);
-    const toRemove = selectedVideoItemIds ?? [];
+    const toRemove = mode === "move" ? selectedVideoItemIds ?? [] : [];
 
     await Promise.all([
       addVideosToPlaylistAPI(accessToken, selectedVideoResourceIds, playlistId),
@@ -70,7 +73,7 @@ export default function MoveDropdown({
       )}
       <div className="dropdown dropdown-end">
         <div tabIndex={0} role="button" className="btn btn-sm md:btn-md btn-neutral">
-          Move To
+          {mode === "copy" ? "Copy To" : "Move To"}
         </div>
         <ul
           tabIndex={0}
