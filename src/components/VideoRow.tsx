@@ -2,9 +2,26 @@ import {
   convertDurationToTimeString,
   convertReleaseDateToTimeSinceRelease,
 } from "../helpers/functions";
+import { useWatched } from "../helpers/watched";
+
+function WatchedBadge() {
+  return (
+    <div
+      className="absolute top-1 left-1 flex items-center gap-0.5 bg-black/75 text-white text-[10px] leading-none px-1 py-0.5 rounded"
+      title="Watched"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" className="w-2.5 h-2.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+        <polyline points="20 6 9 17 4 12" />
+      </svg>
+      Watched
+    </div>
+  );
+}
 
 export type VideoRowData = {
   id: string;
+  // YouTube video ID when `id` is something else (e.g. a playlist item ID).
+  resourceId?: string;
   title: string;
   channel: string;
   channelId?: string;
@@ -37,6 +54,7 @@ export default function VideoRow({
   onChannelClick,
   hideChannel,
 }: Props) {
+  const watched = useWatched(video.resourceId ?? video.id);
   const hasDuration =
     video.durationSeconds !== undefined && video.durationSeconds > 0;
 
@@ -65,6 +83,7 @@ export default function VideoRow({
               src={video.thumbnail}
               alt={video.title}
             />
+            {watched && <WatchedBadge />}
             {hasDuration && (
               <div className="absolute bottom-1 right-1 bg-black text-white text-xs px-1 rounded">
                 {convertDurationToTimeString(video.durationSeconds!)}
@@ -128,6 +147,7 @@ export default function VideoRow({
                   src={video.thumbnail}
                   alt={video.title}
                 />
+                {watched && <WatchedBadge />}
                 {hasDuration && (
                   <div className="absolute bottom-0 right-0 bg-black text-white text-xs px-1 rounded">
                     {convertDurationToTimeString(video.durationSeconds!)}

@@ -6,6 +6,8 @@
 // A finished video is stored as position 0 (not deleted) so that finishing a
 // video on one device also resets it everywhere else.
 
+import { markWatched, WATCHED_FRACTION } from "./watched";
+
 const STORAGE_KEY = "yt-resume";
 const MAX_ENTRIES = 500;
 const MIN_SAVE_SECONDS = 5;
@@ -71,6 +73,10 @@ export function saveResumePosition(
 ): ResumeEntry | null {
   if (!videoId) return null;
   if (!Number.isFinite(position) || !Number.isFinite(duration)) return null;
+
+  if (duration > 0 && position >= duration * WATCHED_FRACTION) {
+    markWatched(videoId);
+  }
 
   const finished =
     duration > 0 && position >= duration - COMPLETION_THRESHOLD_SECONDS;
