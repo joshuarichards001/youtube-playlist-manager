@@ -6,6 +6,7 @@
 // A finished video is stored as position 0 (not deleted) so that finishing a
 // video on one device also resets it everywhere else.
 
+import { useSyncExternalStore } from "react";
 import { markWatched, WATCHED_FRACTION } from "./watched";
 
 const STORAGE_KEY = "yt-resume";
@@ -22,29 +23,35 @@ export type ResumeEntry = {
 
 type ResumeStore = Record<string, ResumeEntry>;
 
+// In-memory copy so thumbnails can read progress on every render without
+// re-parsing localStorage; listeners re-render them when an entry changes.
+let cache: ResumeStore | null = null;
+const listeners = new Set<() => void>();
+
 function readStore(): ResumeStore {
+  if (cache) return cache;
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return {};
-    const parsed = JSON.parse(raw);
-    if (parsed && typeof parsed === "object") return parsed as ResumeStore;
-    return {};
+    const parsed = raw ? JSON.parse(raw) : null;
+    cache = parsed && typeof parsed === "object" ? (parsed as ResumeStore) : {};
   } catch {
-    return {};
+    cache = {};
   }
+  return cache;
 }
 
 function writeStore(store: ResumeStore) {
+  cache = store;
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(store));
   } catch {
-    // quota exceeded or storage unavailable — drop silently
+    // quota exceeded or storage unavailable — keep the in-memory copy
   }
+  listeners.forEach((l) => l());
 }
 
 function writeEntry(videoId: string, entry: ResumeEntry) {
-  const store = readStore();
-  store[videoId] = entry;
+  const store = { ...readStore(), [videoId]: entry };
 
   const keys = Object.keys(store);
   if (keys.length > MAX_ENTRIES) {
@@ -157,5 +164,20 @@ export function pushResumeEntry(
     body: JSON.stringify({ videoId, ...entry }),
   }).catch(() => {
     // offline — the local copy still has it and the next push will catch up
+  });
+}
+
+function subscribe(listener: () => void) {
+  listeners.add(listener);
+  return () => listeners.delete(listener);
+}
+
+// Fraction (0–1) of a partially watched video, or null if there is no saved
+// position (never started, or finished and reset to 0).
+export function useResumeProgress(videoId: string): number | null {
+  return useSyncExternalStore(subscribe, () => {
+    const entry = readStore()[videoId];
+    if (!entry || entry.position <= 0 || !(entry.duration > 0)) return null;
+    return Math.min(1, entry.position / entry.duration);
   });
 }

@@ -2,6 +2,7 @@ import {
   convertDurationToTimeString,
   convertReleaseDateToTimeSinceRelease,
 } from "../helpers/functions";
+import { useResumeProgress } from "../helpers/resumePosition";
 import { useWatched } from "../helpers/watched";
 
 function WatchedBadge() {
@@ -14,6 +15,18 @@ function WatchedBadge() {
         <polyline points="20 6 9 17 4 12" />
       </svg>
       Watched
+    </div>
+  );
+}
+
+// Red bar along the bottom of the thumbnail, like YouTube's.
+function ProgressBar({ fraction }: { fraction: number }) {
+  return (
+    <div className="absolute inset-x-0 bottom-0 h-1 bg-white/40 rounded-b-md overflow-hidden">
+      <div
+        className="h-full bg-red-600"
+        style={{ width: `${Math.max(fraction, 0.02) * 100}%` }}
+      />
     </div>
   );
 }
@@ -54,7 +67,11 @@ export default function VideoRow({
   onChannelClick,
   hideChannel,
 }: Props) {
-  const watched = useWatched(video.resourceId ?? video.id);
+  const videoId = video.resourceId ?? video.id;
+  const watched = useWatched(videoId);
+  const resumeProgress = useResumeProgress(videoId);
+  // Finished videos are stored at position 0, so fall back to a full bar.
+  const progress = resumeProgress ?? (watched ? 1 : null);
   const hasDuration =
     video.durationSeconds !== undefined && video.durationSeconds > 0;
 
@@ -84,8 +101,9 @@ export default function VideoRow({
               alt={video.title}
             />
             {watched && <WatchedBadge />}
+            {progress !== null && <ProgressBar fraction={progress} />}
             {hasDuration && (
-              <div className="absolute bottom-1 right-1 bg-black text-white text-xs px-1 rounded">
+              <div className={`absolute right-1 bg-black ${progress !== null ? "bottom-2" : "bottom-1"} text-white text-xs px-1 rounded`}>
                 {convertDurationToTimeString(video.durationSeconds!)}
               </div>
             )}
@@ -148,8 +166,9 @@ export default function VideoRow({
                   alt={video.title}
                 />
                 {watched && <WatchedBadge />}
+                {progress !== null && <ProgressBar fraction={progress} />}
                 {hasDuration && (
-                  <div className="absolute bottom-0 right-0 bg-black text-white text-xs px-1 rounded">
+                  <div className={`absolute right-0 bg-black ${progress !== null ? "bottom-1.5" : "bottom-0"} text-white text-xs px-1 rounded`}>
                     {convertDurationToTimeString(video.durationSeconds!)}
                   </div>
                 )}
