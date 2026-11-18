@@ -2,7 +2,7 @@ import { useCallback, useState } from "react";
 import useStore from "../helpers/store";
 import { searchVideosAPI } from "../helpers/youtubeAPI/videoAPI";
 import MoveDropdown from "./MoveDropdown";
-import VideoActions from "./VideoActions";
+import ListHeader from "./ListHeader";
 import VideoRow from "./VideoRow";
 
 export default function Search() {
@@ -76,8 +76,20 @@ export default function Search() {
         viewingVideo && !videoViewerPip ? "hidden xl:flex xl:w-1/2" : "flex w-full"
       }`}
     >
-      <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-3 mb-4">
-        <form onSubmit={handleSearch} className="flex flex-row gap-2 flex-1 min-w-0">
+      <ListHeader
+        showActions={results.length > 0}
+        selectedCount={selectedIds.size}
+        totalCount={results.length}
+        onSelectAll={() => setSelectedIds(new Set(results.map((v) => v.id)))}
+        onDeselectAll={() => setSelectedIds(new Set())}
+        selectionActions={
+          <MoveDropdown
+            selectedVideoResourceIds={Array.from(selectedIds)}
+            onComplete={() => setSelectedIds(new Set())}
+          />
+        }
+      >
+        <form onSubmit={handleSearch} className="flex flex-row gap-2 w-full min-w-0">
           <input
             type="text"
             className="input input-bordered flex-1 min-w-0"
@@ -94,21 +106,7 @@ export default function Search() {
             Search
           </button>
         </form>
-        {results.length > 0 && (
-          <VideoActions
-            selectedCount={selectedIds.size}
-            totalCount={results.length}
-            onSelectAll={() => setSelectedIds(new Set(results.map((v) => v.id)))}
-            onDeselectAll={() => setSelectedIds(new Set())}
-            moveDropdown={
-              <MoveDropdown
-                selectedVideoResourceIds={Array.from(selectedIds)}
-                onComplete={() => setSelectedIds(new Set())}
-              />
-            }
-          />
-        )}
-      </div>
+      </ListHeader>
       <div className="overflow-y-auto">
         {loading && (
           <div className="flex items-center justify-center py-10">

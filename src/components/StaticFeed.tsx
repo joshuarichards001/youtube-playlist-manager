@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { sortVideos } from "../helpers/functions";
 import useStore from "../helpers/store";
 import MoveDropdown from "./MoveDropdown";
-import VideoActions from "./VideoActions";
+import ListHeader from "./ListHeader";
 import VideoRow from "./VideoRow";
 
 const toViewerVideo = (v: FeedVideo): Video => ({
@@ -116,35 +116,31 @@ export default function StaticFeed({ title, src, sortable = false }: Props) {
           viewingVideo && !videoViewerPip ? "hidden xl:flex xl:w-1/2" : "flex w-full"
         }`}
       >
-        <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-3 mb-4">
-          <div className="flex items-center gap-3 min-w-0">
-            <h2 className="font-bold text-lg md:text-xl truncate">
-              {title}
-            </h2>
-            {generatedLabel && (
-              <p className="text-xs text-base-content/60">
-                Updated {generatedLabel}
-              </p>
-            )}
-          </div>
-          {feed && feed.videos.length > 0 && (
-            <VideoActions
-              selectedCount={selectedIds.size}
-              totalCount={feed.videos.length}
-              onSelectAll={() =>
-                setSelectedIds(new Set(feed.videos.map((v) => v.id)))
-              }
-              onDeselectAll={() => setSelectedIds(new Set())}
-              hideSort={!sortable}
-              moveDropdown={
-                <MoveDropdown
-                  selectedVideoResourceIds={Array.from(selectedIds)}
-                  onComplete={() => setSelectedIds(new Set())}
-                />
-              }
+        <ListHeader
+          showActions={!!feed && feed.videos.length > 0}
+          selectedCount={selectedIds.size}
+          totalCount={feed?.videos.length ?? 0}
+          onSelectAll={() =>
+            setSelectedIds(new Set(feed?.videos.map((v) => v.id) ?? []))
+          }
+          onDeselectAll={() => setSelectedIds(new Set())}
+          hideSort={!sortable}
+          selectionActions={
+            <MoveDropdown
+              selectedVideoResourceIds={Array.from(selectedIds)}
+              onComplete={() => setSelectedIds(new Set())}
             />
+          }
+        >
+          <h2 className="font-bold text-lg md:text-xl truncate">
+            {title}
+          </h2>
+          {generatedLabel && (
+            <p className="text-xs text-base-content/60 truncate">
+              Updated {generatedLabel}
+            </p>
           )}
-        </div>
+        </ListHeader>
         <div className="overflow-y-auto">
           {error && (
             <p className="text-sm text-error">Couldn't load feed: {error}</p>

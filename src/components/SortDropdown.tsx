@@ -27,8 +27,8 @@ export default function SortDropdown() {
 
   return (
     <div className="dropdown dropdown-end">
-      <div tabIndex={0} role="button" className="btn btn-sm md:btn-md btn-neutral">
-        Sort Videos
+      <div tabIndex={0} role="button" className="btn btn-sm btn-neutral">
+        Sort
       </div>
       <ul
         tabIndex={0}

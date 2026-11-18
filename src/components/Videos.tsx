@@ -6,7 +6,7 @@ import { fetchChannelVideosAPI, fetchVideosAPI } from "../helpers/youtubeAPI/vid
 import { deletePlaylistAPI } from "../helpers/youtubeAPI/playlistAPI";
 import DeleteConfirmationModal from "./DeleteConfirmationModal";
 import MoveDropdown from "./MoveDropdown";
-import VideoActions from "./VideoActions";
+import ListHeader from "./ListHeader";
 import VideoRow from "./VideoRow";
 
 const PLAYLIST_BATCH_SIZE = 500;
@@ -257,98 +257,95 @@ export default function Videos() {
     <>
       {(selectedPlaylist || selectedSubscription) && (
         <div className={`pt-4 px-4 md:pt-10 md:px-10 overflow-y-auto flex-col ${viewingVideo && !videoViewerPip ? 'hidden xl:flex xl:w-1/2' : 'flex w-full'}`}>
-          <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-3 mb-4">
-            <div className="flex items-center gap-3 min-w-0">
-              <h2 className="font-bold text-lg md:text-xl truncate">
-                {isPlaylistView && selectedPlaylist ? (
-                  <a
-                    href={`https://www.youtube.com/playlist?list=${selectedPlaylist.id}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="link link-hover"
-                  >
-                    {currentTitle}
-                  </a>
-                ) : isChannelView && selectedSubscription ? (
-                  <a
-                    href={`https://www.youtube.com/channel/${selectedSubscription.channelId}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="link link-hover"
-                  >
-                    {currentTitle}
-                  </a>
-                ) : (
-                  currentTitle
-                )}
-              </h2>
-              {isPlaylistView && videos.length > 0 && (
-                <span
-                  className="badge badge-neutral badge-sm flex-shrink-0 whitespace-nowrap"
-                  title={
-                    nextPageToken
-                      ? `Total watch time of the ${videos.length} loaded videos (more not yet loaded)`
-                      : `Total watch time of ${videos.length} videos`
+          <ListHeader
+            selectedCount={selectedVideos.length}
+            totalCount={videos.length}
+            onSelectAll={() => setAllSelected(true)}
+            onDeselectAll={() => setAllSelected(false)}
+            onDelete={isPlaylistView ? openDeleteModal : undefined}
+            selectionActions={
+              <>
+                <MoveDropdown
+                  selectedVideoResourceIds={selectedVideoResourceIds}
+                  selectedVideoItemIds={
+                    isPlaylistView ? selectedVideoItemIds : undefined
                   }
-                >
-                  {formatTotalDuration(totalDurationSeconds)}
-                  {nextPageToken ? "+" : ""}
-                </span>
-              )}
-              {isPlaylistView && (
-                <button
-                  className="btn btn-error btn-xs flex-shrink-0"
-                  onClick={() => deletePlaylist(selectedPlaylist?.id)}
-                >
-                  Delete
-                </button>
-              )}
-              {isChannelView && (isSubscribed ? (
-                <button
-                  className="btn btn-error btn-xs flex-shrink-0"
-                  onClick={handleUnsubscribe}
-                >
-                  Unsubscribe
-                </button>
-              ) : (
-                <button
-                  className="btn btn-primary btn-xs flex-shrink-0"
-                  onClick={handleSubscribe}
-                >
-                  Subscribe
-                </button>
-              ))}
-            </div>
-            <VideoActions
-              selectedCount={selectedVideos.length}
-              totalCount={videos.length}
-              onSelectAll={() => setAllSelected(true)}
-              onDeselectAll={() => setAllSelected(false)}
-              onDelete={isPlaylistView ? openDeleteModal : undefined}
-              moveDropdown={
-                <>
+                  sourcePlaylistId={selectedPlaylist?.id}
+                  onComplete={() =>
+                    setVideos(videos.filter((v) => !v.selected))
+                  }
+                />
+                {isPlaylistView && (
                   <MoveDropdown
+                    mode="copy"
                     selectedVideoResourceIds={selectedVideoResourceIds}
-                    selectedVideoItemIds={
-                      isPlaylistView ? selectedVideoItemIds : undefined
-                    }
                     sourcePlaylistId={selectedPlaylist?.id}
-                    onComplete={() =>
-                      setVideos(videos.filter((v) => !v.selected))
-                    }
+                    onComplete={() => setAllSelected(false)}
                   />
-                  {isPlaylistView && (
-                    <MoveDropdown
-                      mode="copy"
-                      selectedVideoResourceIds={selectedVideoResourceIds}
-                      sourcePlaylistId={selectedPlaylist?.id}
-                      onComplete={() => setAllSelected(false)}
-                    />
-                  )}
-                </>
-              }
-            />
-          </div>
+                )}
+              </>
+            }
+          >
+            <h2 className="font-bold text-lg md:text-xl truncate">
+              {isPlaylistView && selectedPlaylist ? (
+                <a
+                  href={`https://www.youtube.com/playlist?list=${selectedPlaylist.id}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="link link-hover"
+                >
+                  {currentTitle}
+                </a>
+              ) : isChannelView && selectedSubscription ? (
+                <a
+                  href={`https://www.youtube.com/channel/${selectedSubscription.channelId}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="link link-hover"
+                >
+                  {currentTitle}
+                </a>
+              ) : (
+                currentTitle
+              )}
+            </h2>
+            {isPlaylistView && videos.length > 0 && (
+              <span
+                className="badge badge-neutral badge-sm flex-shrink-0 whitespace-nowrap"
+                title={
+                  nextPageToken
+                    ? `Total watch time of the ${videos.length} loaded videos (more not yet loaded)`
+                    : `Total watch time of ${videos.length} videos`
+                }
+              >
+                {formatTotalDuration(totalDurationSeconds)}
+                {nextPageToken ? "+" : ""}
+              </span>
+            )}
+            {isPlaylistView && (
+              <button
+                className="btn btn-error btn-xs flex-shrink-0"
+                onClick={() => deletePlaylist(selectedPlaylist?.id)}
+              >
+                Delete
+              </button>
+            )}
+            {isChannelView && (isSubscribed ? (
+              <button
+                className="btn btn-error btn-xs flex-shrink-0"
+                onClick={handleUnsubscribe}
+              >
+                Unsubscribe
+              </button>
+            ) : (
+              <button
+                className="btn btn-primary btn-xs flex-shrink-0"
+                onClick={handleSubscribe}
+              >
+                Subscribe
+              </button>
+            ))}
+          </ListHeader>
           <div className="overflow-y-auto">
             <ul
               className={

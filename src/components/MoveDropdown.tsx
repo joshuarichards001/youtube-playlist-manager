@@ -72,7 +72,7 @@ export default function MoveDropdown({
         </div>
       )}
       <div className="dropdown dropdown-end">
-        <div tabIndex={0} role="button" className="btn btn-sm md:btn-md btn-neutral">
+        <div tabIndex={0} role="button" className="btn btn-sm btn-neutral">
           {mode === "copy" ? "Copy To" : "Move To"}
         </div>
         <ul
