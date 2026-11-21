@@ -50,7 +50,7 @@ The Zustand middleware `devtools` is used; there is a `@ts-expect-error` above t
 
 ### Routing
 
-There is no router. URLs are synthesized manually with `window.history.pushState` from the click handlers (`/playlist/:id`, `/channel/:channelId`). On load, `Playlists.tsx` parses `window.location.pathname` after fetching playlists and restores `currentView` if the path matches. `public/_redirects` rewrites all routes to `/index.html` so client-side deep links resolve on Cloudflare Pages.
+There is no router. `src/helpers/routes.ts` maps `CurrentView` ↔ path (`/feed`, `/recommended`, `/subscriptions`, `/search`, `/history`, `/playlist/:id`, `/channel/:channelId`); the open video lives in `?v=`. `HomePage.tsx` owns all URL handling: one effect pushes a single history entry whenever `currentView`/`viewingVideo` change (no-op if the URL already matches), a `popstate` listener restores view + video on back/forward (incl. the PWA/iOS swipe-back), and on load it applies the URL's route (playlist routes wait until `playlists` load). Components just call `setCurrentView` / `setViewingVideo` — don't `pushState` from them. The main pane is keyed by route so each view remounts scrolled to the top. `public/_redirects` rewrites all routes to `/index.html` so client-side deep links resolve on Cloudflare Pages.
 
 ### YouTube API layer
 

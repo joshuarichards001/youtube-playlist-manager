@@ -93,9 +93,6 @@ export default function Sidebar() {
             setCurrentView({ type: "feed" });
             setSidebarOpen(false);
             if (window.innerWidth < 768 && viewingVideo) setVideoViewerPip(true);
-            const url = new URL(window.location.href);
-            url.pathname = "/feed";
-            window.history.pushState({}, "", url.toString());
           }}
         >
           Recent Feed
@@ -106,9 +103,6 @@ export default function Sidebar() {
             setCurrentView({ type: "recommended" });
             setSidebarOpen(false);
             if (window.innerWidth < 768 && viewingVideo) setVideoViewerPip(true);
-            const url = new URL(window.location.href);
-            url.pathname = "/recommended";
-            window.history.pushState({}, "", url.toString());
           }}
         >
           Recommended
@@ -119,9 +113,6 @@ export default function Sidebar() {
             setCurrentView({ type: "subscriptions" });
             setSidebarOpen(false);
             if (window.innerWidth < 768 && viewingVideo) setVideoViewerPip(true);
-            const url = new URL(window.location.href);
-            url.pathname = "/subscriptions";
-            window.history.pushState({}, "", url.toString());
           }}
         >
           Subscriptions
@@ -132,9 +123,6 @@ export default function Sidebar() {
             setCurrentView({ type: "search" });
             setSidebarOpen(false);
             if (window.innerWidth < 768 && viewingVideo) setVideoViewerPip(true);
-            const url = new URL(window.location.href);
-            url.pathname = "/search";
-            window.history.pushState({}, "", url.toString());
           }}
         >
           Search
@@ -145,9 +133,6 @@ export default function Sidebar() {
             setCurrentView({ type: "history" });
             setSidebarOpen(false);
             if (window.innerWidth < 768 && viewingVideo) setVideoViewerPip(true);
-            const url = new URL(window.location.href);
-            url.pathname = "/history";
-            window.history.pushState({}, "", url.toString());
           }}
         >
           History

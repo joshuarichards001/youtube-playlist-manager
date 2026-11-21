@@ -21,25 +21,12 @@ export default function Playlists() {
   useEffect(() => {
     if (accessToken) {
       try {
-        fetchPlaylistsAPI(accessToken).then((playlists) => {
-          setPlaylists(playlists);
-
-          const pathParts = window.location.pathname.split("/").filter(Boolean);
-          const routeType = pathParts[0];
-          const routeId = pathParts[1];
-
-          if (routeType === 'playlist' && routeId) {
-            const selected = playlists.find((p) => p.id === routeId);
-            if (selected) {
-              setCurrentView({ type: 'playlist', playlist: selected });
-            }
-          }
-        });
+        fetchPlaylistsAPI(accessToken).then(setPlaylists);
       } catch (error) {
         console.error("Error fetching playlists:", error);
       }
     }
-  }, [accessToken, setPlaylists, setCurrentView]);
+  }, [accessToken, setPlaylists]);
 
   const handleDrop = async (e: React.DragEvent, targetPlaylistId: string) => {
     e.preventDefault();
@@ -143,9 +130,6 @@ export default function Playlists() {
                   setCurrentView({ type: 'playlist', playlist });
                   setSidebarOpen(false);
                   if (window.innerWidth < 768 && viewingVideo) setVideoViewerPip(true);
-                  const url = new URL(window.location.href);
-                  url.pathname = `/playlist/${playlist.id}`;
-                  window.history.pushState({}, "", url.toString());
                 }}
               >
                 <p>{truncateTitle(playlist.title, 20)}</p>

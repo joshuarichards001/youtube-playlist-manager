@@ -51,9 +51,6 @@ export default function Subscriptions() {
     setCurrentView({ type: "channel", subscription });
     setSidebarOpen(false);
     if (window.innerWidth < 768) setViewingVideo(null);
-    const url = new URL(window.location.href);
-    url.pathname = `/channel/${subscription.channelId}`;
-    window.history.pushState({}, "", url.toString());
   };
 
   const sorted = [...subscriptions].sort((a, b) =>

@@ -72,9 +72,6 @@ export default function Videos() {
       appendSorted(fetched);
       setNextPageToken(pageToken);
       setLoading(false);
-      const url = new URL(window.location.href);
-      url.pathname = `/playlist/${selectedPlaylist.id}`;
-      window.history.pushState({}, "", url.toString());
     } catch (error) {
       console.error("Error fetching videos:", error);
     }
@@ -105,9 +102,6 @@ export default function Videos() {
       appendSorted(videoResponse.videos);
       setNextPageToken(videoResponse.nextPageToken);
       setLoading(false);
-      const url = new URL(window.location.href);
-      url.pathname = `/channel/${selectedSubscription.channelId}`;
-      window.history.pushState({}, "", url.toString());
     } catch (error) {
       console.error("Error fetching channel videos:", error);
     }
