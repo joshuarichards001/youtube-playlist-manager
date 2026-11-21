@@ -1,6 +1,33 @@
 {
-  "generatedAt": "2026-11-21T13:38:32.330Z",
+  "generatedAt": "2026-11-21T17:39:01.360Z",
   "videos": [
+    {
+      "id": "YaK6MMnhn2M",
+      "title": "I got Donald Glover drunk in Japan",
+      "channel": "Eric Andre",
+      "channelId": "UCLkMfHagXmy6GNHiHtsoDrg",
+      "thumbnail": "https://i2.ytimg.com/vi/YaK6MMnhn2M/hqdefault.jpg",
+      "releaseDate": "2026-11-21T17:00:19+00:00",
+      "viewCount": 927
+    },
+    {
+      "id": "q0CuV2PKAzE",
+      "title": "Fred again..  - One Day in Tokyo with Chihei Hatakeyama (Japan, 30th July 2025)",
+      "channel": "Fred again . .",
+      "channelId": "UCXF6DMVLIVRr2OQAqyfEGeg",
+      "thumbnail": "https://i2.ytimg.com/vi/q0CuV2PKAzE/hqdefault.jpg",
+      "releaseDate": "2026-11-21T17:00:08+00:00",
+      "viewCount": 7999
+    },
+    {
+      "id": "2MxHnwgZn60",
+      "title": "PLEASANTVILLE: how sitcoms created the myth of the American post-war era",
+      "channel": "filmberg",
+      "channelId": "UCyWUglXJflHunpXNGDCC9jQ",
+      "thumbnail": "https://i3.ytimg.com/vi/2MxHnwgZn60/hqdefault.jpg",
+      "releaseDate": "2026-11-21T16:46:42+00:00",
+      "viewCount": 12
+    },
     {
       "id": "yDlrDM96iKY",
       "title": "I'm not addicted to video games; they're just better than reality.",
@@ -8,16 +35,7 @@
       "channelId": "UCKGCof63C6pLCFT4R6YPEtQ",
       "thumbnail": "https://i2.ytimg.com/vi/yDlrDM96iKY/hqdefault.jpg",
       "releaseDate": "2026-11-21T11:29:15+00:00",
-      "viewCount": 911
-    },
-    {
-      "id": "YaK6MMnhn2M",
-      "title": "I got Donald Glover drunk in Japan",
-      "channel": "Eric Andre",
-      "channelId": "UCLkMfHagXmy6GNHiHtsoDrg",
-      "thumbnail": "https://i2.ytimg.com/vi/YaK6MMnhn2M/hqdefault.jpg",
-      "releaseDate": "2026-11-21T09:42:46+00:00",
-      "viewCount": 0
+      "viewCount": 5725
     },
     {
       "id": "FKEIDhoHRvo",
@@ -26,7 +44,7 @@
       "channelId": "UCEKJKJ3FO-9SFv5x5BzyxhQ",
       "thumbnail": "https://i3.ytimg.com/vi/FKEIDhoHRvo/hqdefault.jpg",
       "releaseDate": "2026-11-20T23:18:25+00:00",
-      "viewCount": 70976
+      "viewCount": 90172
     },
     {
       "id": "GBJiQyfXysw",
@@ -35,7 +53,7 @@
       "channelId": "UC8aGE10t6QrcdRMpgorwkAA",
       "thumbnail": "https://i4.ytimg.com/vi/GBJiQyfXysw/hqdefault.jpg",
       "releaseDate": "2026-11-20T21:00:24+00:00",
-      "viewCount": 58723
+      "viewCount": 75884
     },
     {
       "id": "eOBvy1pLYNc",
@@ -44,7 +62,7 @@
       "channelId": "UCGaVdbSav8xWuFWTadK6loA",
       "thumbnail": "https://i2.ytimg.com/vi/eOBvy1pLYNc/hqdefault.jpg",
       "releaseDate": "2026-11-20T20:32:01+00:00",
-      "viewCount": 203341
+      "viewCount": 226856
     },
     {
       "id": "NhCpisjcYuY",
@@ -53,7 +71,7 @@
       "channelId": "UCUyvQV2JsICeLZP4c_h40kA",
       "thumbnail": "https://i3.ytimg.com/vi/NhCpisjcYuY/hqdefault.jpg",
       "releaseDate": "2026-11-20T15:18:43+00:00",
-      "viewCount": 36372
+      "viewCount": 41234
     },
     {
       "id": "vx4PATD81cQ",
@@ -62,7 +80,7 @@
       "channelId": "UC_p_9arduPuxM8DHTGIuSOg",
       "thumbnail": "https://i3.ytimg.com/vi/vx4PATD81cQ/hqdefault.jpg",
       "releaseDate": "2026-11-20T14:39:23+00:00",
-      "viewCount": 19516
+      "viewCount": 21478
     },
     {
       "id": "oTOUCmBVA0w",
@@ -71,7 +89,7 @@
       "channelId": "UCbUwR0r6R7hXCx205DCg2Ww",
       "thumbnail": "https://i4.ytimg.com/vi/oTOUCmBVA0w/hqdefault.jpg",
       "releaseDate": "2026-11-20T12:15:36+00:00",
-      "viewCount": 1056199
+      "viewCount": 1116213
     },
     {
       "id": "L-mnxV3fPAA",
@@ -80,7 +98,7 @@
       "channelId": "UCXF6DMVLIVRr2OQAqyfEGeg",
       "thumbnail": "https://i1.ytimg.com/vi/L-mnxV3fPAA/hqdefault.jpg",
       "releaseDate": "2026-11-20T00:00:33+00:00",
-      "viewCount": 16596
+      "viewCount": 18141
     },
     {
       "id": "7AvL9FIp020",
@@ -89,7 +107,7 @@
       "channelId": "UCXF6DMVLIVRr2OQAqyfEGeg",
       "thumbnail": "https://i4.ytimg.com/vi/7AvL9FIp020/hqdefault.jpg",
       "releaseDate": "2026-11-20T00:00:29+00:00",
-      "viewCount": 4071
+      "viewCount": 4452
     },
     {
       "id": "Ov4vLRZumzE",
@@ -98,7 +116,7 @@
       "channelId": "UCXF6DMVLIVRr2OQAqyfEGeg",
       "thumbnail": "https://i4.ytimg.com/vi/Ov4vLRZumzE/hqdefault.jpg",
       "releaseDate": "2026-11-20T00:00:16+00:00",
-      "viewCount": 1555
+      "viewCount": 1648
     },
     {
       "id": "yWp0keR3l9Q",
@@ -107,7 +125,7 @@
       "channelId": "UCXF6DMVLIVRr2OQAqyfEGeg",
       "thumbnail": "https://i2.ytimg.com/vi/yWp0keR3l9Q/hqdefault.jpg",
       "releaseDate": "2026-11-20T00:00:14+00:00",
-      "viewCount": 7449
+      "viewCount": 7856
     },
     {
       "id": "EGQfqGFvHxo",
@@ -116,7 +134,7 @@
       "channelId": "UCXF6DMVLIVRr2OQAqyfEGeg",
       "thumbnail": "https://i2.ytimg.com/vi/EGQfqGFvHxo/hqdefault.jpg",
       "releaseDate": "2026-11-20T00:00:04+00:00",
-      "viewCount": 2635
+      "viewCount": 3057
     },
     {
       "id": "KGA7B_c_S4s",
@@ -125,7 +143,7 @@
       "channelId": "UCNJ1Ymd5yFuUPtn21xtRbbw",
       "thumbnail": "https://i4.ytimg.com/vi/KGA7B_c_S4s/hqdefault.jpg",
       "releaseDate": "2026-11-19T20:03:10+00:00",
-      "viewCount": 118075
+      "viewCount": 120083
     },
     {
       "id": "jfYN0zOupME",
@@ -134,7 +152,7 @@
       "channelId": "UCCgK6peZI5-FKDCWzMIFk2A",
       "thumbnail": "https://i3.ytimg.com/vi/jfYN0zOupME/hqdefault.jpg",
       "releaseDate": "2026-11-19T20:00:15+00:00",
-      "viewCount": 356740
+      "viewCount": 366332
     },
     {
       "id": "EIIkpWVFNrg",
@@ -143,7 +161,7 @@
       "channelId": "UCYaKhX6ci3WpLMuC05xsPog",
       "thumbnail": "https://i2.ytimg.com/vi/EIIkpWVFNrg/hqdefault.jpg",
       "releaseDate": "2026-11-19T19:00:03+00:00",
-      "viewCount": 3685
+      "viewCount": 3788
     },
     {
       "id": "wWidJf6XNlc",
@@ -152,7 +170,7 @@
       "channelId": "UC-AQKm7HUNMmxjdS371MSwg",
       "thumbnail": "https://i4.ytimg.com/vi/wWidJf6XNlc/hqdefault.jpg",
       "releaseDate": "2026-11-19T16:59:23+00:00",
-      "viewCount": 647204
+      "viewCount": 659836
     },
     {
       "id": "DWx6HmFr0O0",
@@ -161,7 +179,7 @@
       "channelId": "UCAoKEayL5zrWYMF_Dyrg9Bw",
       "thumbnail": "https://i1.ytimg.com/vi/DWx6HmFr0O0/hqdefault.jpg",
       "releaseDate": "2026-11-19T15:48:03+00:00",
-      "viewCount": 10640
+      "viewCount": 10831
     },
     {
       "id": "WTUB5HXJs94",
@@ -170,7 +188,7 @@
       "channelId": "UCUkRj4qoT1bsWpE_C8lZYoQ",
       "thumbnail": "https://i4.ytimg.com/vi/WTUB5HXJs94/hqdefault.jpg",
       "releaseDate": "2026-11-19T14:49:17+00:00",
-      "viewCount": 73498
+      "viewCount": 77331
     },
     {
       "id": "OoTisyM3cYE",
@@ -179,7 +197,7 @@
       "channelId": "UCbUwR0r6R7hXCx205DCg2Ww",
       "thumbnail": "https://i4.ytimg.com/vi/OoTisyM3cYE/hqdefault.jpg",
       "releaseDate": "2026-11-19T12:15:16+00:00",
-      "viewCount": 480402
+      "viewCount": 483981
     },
     {
       "id": "ts1bORHqIoY",
@@ -188,7 +206,7 @@
       "channelId": "UCVD6TkVV_NbngV4p4CQtnSw",
       "thumbnail": "https://i1.ytimg.com/vi/ts1bORHqIoY/hqdefault.jpg",
       "releaseDate": "2026-11-19T12:00:31+00:00",
-      "viewCount": 2744
+      "viewCount": 2773
     },
     {
       "id": "G-kf6neSVzA",
@@ -197,7 +215,7 @@
       "channelId": "UCPdaxSov0mgwh77JvjQO2jQ",
       "thumbnail": "https://i4.ytimg.com/vi/G-kf6neSVzA/hqdefault.jpg",
       "releaseDate": "2026-11-19T02:23:56+00:00",
-      "viewCount": 975710
+      "viewCount": 980432
     },
     {
       "id": "ooG1K0fCObM",
@@ -206,7 +224,7 @@
       "channelId": "UCwiZrLzaRZVRJOVbb2KKFkg",
       "thumbnail": "https://i4.ytimg.com/vi/ooG1K0fCObM/hqdefault.jpg",
       "releaseDate": "2026-11-18T23:30:21+00:00",
-      "viewCount": 12180
+      "viewCount": 12373
     },
     {
       "id": "UbKF8Rw3AVM",
@@ -215,7 +233,7 @@
       "channelId": "UCYh4SJwo9vWkfZwc0w4b4ng",
       "thumbnail": "https://i2.ytimg.com/vi/UbKF8Rw3AVM/hqdefault.jpg",
       "releaseDate": "2026-11-18T23:00:55+00:00",
-      "viewCount": 935976
+      "viewCount": 957392
     },
     {
       "id": "8B8Gy4kgJg4",
@@ -224,7 +242,7 @@
       "channelId": "UC7c-OOdWcTse66xbRFbOIBQ",
       "thumbnail": "https://i1.ytimg.com/vi/8B8Gy4kgJg4/hqdefault.jpg",
       "releaseDate": "2026-11-18T17:24:13+00:00",
-      "viewCount": 28368
+      "viewCount": 28932
     },
     {
       "id": "dv0XY48b4Kc",
@@ -233,7 +251,7 @@
       "channelId": "UCJ6o36XL0CpYb6U5dNBiXHQ",
       "thumbnail": "https://i1.ytimg.com/vi/dv0XY48b4Kc/hqdefault.jpg",
       "releaseDate": "2026-11-18T15:11:27+00:00",
-      "viewCount": 596357
+      "viewCount": 603068
     },
     {
       "id": "dv8cIzEYLPA",
@@ -242,7 +260,7 @@
       "channelId": "UCcUQgjlYTq0T01mYq4n9USQ",
       "thumbnail": "https://i1.ytimg.com/vi/dv8cIzEYLPA/hqdefault.jpg",
       "releaseDate": "2026-11-18T14:40:57+00:00",
-      "viewCount": 88258
+      "viewCount": 89574
     },
     {
       "id": "uHZmf8ijWCE",
@@ -251,7 +269,7 @@
       "channelId": "UC-k1VD5K6kwizjhg-HKj1rw",
       "thumbnail": "https://i2.ytimg.com/vi/uHZmf8ijWCE/hqdefault.jpg",
       "releaseDate": "2026-11-18T14:00:39+00:00",
-      "viewCount": 76522
+      "viewCount": 80576
     },
     {
       "id": "EATufVNHQlA",
@@ -260,7 +278,7 @@
       "channelId": "UCbUwR0r6R7hXCx205DCg2Ww",
       "thumbnail": "https://i2.ytimg.com/vi/EATufVNHQlA/hqdefault.jpg",
       "releaseDate": "2026-11-18T12:15:12+00:00",
-      "viewCount": 201072
+      "viewCount": 201500
     },
     {
       "id": "S7TjSxMc4xo",
@@ -269,7 +287,7 @@
       "channelId": "UCAoKEayL5zrWYMF_Dyrg9Bw",
       "thumbnail": "https://i4.ytimg.com/vi/S7TjSxMc4xo/hqdefault.jpg",
       "releaseDate": "2026-11-18T04:55:46+00:00",
-      "viewCount": 31907
+      "viewCount": 32123
     },
     {
       "id": "0B6c3NDVyOA",
@@ -278,7 +296,7 @@
       "channelId": "UCMPGiQ8gwDXFYpwQhX6kK9A",
       "thumbnail": "https://i1.ytimg.com/vi/0B6c3NDVyOA/hqdefault.jpg",
       "releaseDate": "2026-11-18T04:16:10+00:00",
-      "viewCount": 1535631
+      "viewCount": 1549745
     },
     {
       "id": "aw-i50BAroE",
@@ -287,7 +305,7 @@
       "channelId": "UCKGCof63C6pLCFT4R6YPEtQ",
       "thumbnail": "https://i2.ytimg.com/vi/aw-i50BAroE/hqdefault.jpg",
       "releaseDate": "2026-11-17T19:45:10+00:00",
-      "viewCount": 32174
+      "viewCount": 32439
     },
     {
       "id": "CAj15H7mT5Q",
@@ -296,7 +314,7 @@
       "channelId": "UCJAh9Zc2fWF-N1b1CmpjQXA",
       "thumbnail": "https://i4.ytimg.com/vi/CAj15H7mT5Q/hqdefault.jpg",
       "releaseDate": "2026-11-17T19:11:24+00:00",
-      "viewCount": 59195
+      "viewCount": 63918
     },
     {
       "id": "ErhwzAtpPPk",
@@ -305,7 +323,7 @@
       "channelId": "UCF1fG3gT44nGTPU2sVLoFWg",
       "thumbnail": "https://i2.ytimg.com/vi/ErhwzAtpPPk/hqdefault.jpg",
       "releaseDate": "2026-11-17T17:47:07+00:00",
-      "viewCount": 43264
+      "viewCount": 43400
     },
     {
       "id": "kN7oHNvwjbI",
@@ -314,7 +332,7 @@
       "channelId": "UCWKkkAROUguUhCn_nWu82jw",
       "thumbnail": "https://i4.ytimg.com/vi/kN7oHNvwjbI/hqdefault.jpg",
       "releaseDate": "2026-11-17T17:37:34+00:00",
-      "viewCount": 7983
+      "viewCount": 7997
     },
     {
       "id": "IaEEf_X2frA",
@@ -323,7 +341,7 @@
       "channelId": "UCSuT9FSddzI6W5Bij9XwtmA",
       "thumbnail": "https://i2.ytimg.com/vi/IaEEf_X2frA/hqdefault.jpg",
       "releaseDate": "2026-11-17T16:22:00+00:00",
-      "viewCount": 89920
+      "viewCount": 90286
     },
     {
       "id": "N7l8Ai2Yz6s",
@@ -332,7 +350,7 @@
       "channelId": "UC_ugkuJa4ooE9SvHg6yIkKQ",
       "thumbnail": "https://i3.ytimg.com/vi/N7l8Ai2Yz6s/hqdefault.jpg",
       "releaseDate": "2026-11-17T15:00:03+00:00",
-      "viewCount": 26465
+      "viewCount": 33002
     },
     {
       "id": "45rvv2VxSDA",
@@ -341,7 +359,7 @@
       "channelId": "UCbUwR0r6R7hXCx205DCg2Ww",
       "thumbnail": "https://i1.ytimg.com/vi/45rvv2VxSDA/hqdefault.jpg",
       "releaseDate": "2026-11-17T12:15:35+00:00",
-      "viewCount": 236047
+      "viewCount": 236259
     },
     {
       "id": "KGWRhmU8YDY",
@@ -350,7 +368,7 @@
       "channelId": "UCPdaxSov0mgwh77JvjQO2jQ",
       "thumbnail": "https://i4.ytimg.com/vi/KGWRhmU8YDY/hqdefault.jpg",
       "releaseDate": "2026-11-16T23:37:40+00:00",
-      "viewCount": 586188
+      "viewCount": 586652
     },
     {
       "id": "iMzuD8GQom0",
@@ -359,7 +377,7 @@
       "channelId": "UCttZsBftM6ZYiGn17VEWD7A",
       "thumbnail": "https://i2.ytimg.com/vi/iMzuD8GQom0/hqdefault.jpg",
       "releaseDate": "2026-11-16T22:00:34+00:00",
-      "viewCount": 7306
+      "viewCount": 7345
     },
     {
       "id": "WvyN1KY5_aI",
@@ -368,7 +386,7 @@
       "channelId": "UC_JEXo4_nIWMv2G6eerDEMg",
       "thumbnail": "https://i4.ytimg.com/vi/WvyN1KY5_aI/hqdefault.jpg",
       "releaseDate": "2026-11-16T19:41:29+00:00",
-      "viewCount": 2406
+      "viewCount": 2411
     },
     {
       "id": "7Zb4Ef9nmyM",
@@ -377,7 +395,7 @@
       "channelId": "UCYaKhX6ci3WpLMuC05xsPog",
       "thumbnail": "https://i4.ytimg.com/vi/7Zb4Ef9nmyM/hqdefault.jpg",
       "releaseDate": "2026-11-16T19:15:36+00:00",
-      "viewCount": 3844
+      "viewCount": 3855
     },
     {
       "id": "5ZBH_sVLHZk",
@@ -386,7 +404,7 @@
       "channelId": "UChmZ6QbxgHlmX3ISIHxIpQQ",
       "thumbnail": "https://i2.ytimg.com/vi/5ZBH_sVLHZk/hqdefault.jpg",
       "releaseDate": "2026-11-16T18:07:24+00:00",
-      "viewCount": 31990
+      "viewCount": 32127
     },
     {
       "id": "pcNIG1DdWVY",
@@ -395,7 +413,7 @@
       "channelId": "UC6AACB9qSud6hL9lm8VSlsw",
       "thumbnail": "https://i1.ytimg.com/vi/pcNIG1DdWVY/hqdefault.jpg",
       "releaseDate": "2026-11-16T17:00:33+00:00",
-      "viewCount": 104607
+      "viewCount": 105955
     },
     {
       "id": "lMccdLcrAw8",
@@ -404,7 +422,7 @@
       "channelId": "UCfsbn7NkF2n4KQp2XBluz_g",
       "thumbnail": "https://i1.ytimg.com/vi/lMccdLcrAw8/hqdefault.jpg",
       "releaseDate": "2026-11-16T17:00:08+00:00",
-      "viewCount": 839106
+      "viewCount": 846215
     },
     {
       "id": "gxkQIaa41tM",
@@ -413,7 +431,7 @@
       "channelId": "UCzsd4-oyHhNbAXfceOQ5HTw",
       "thumbnail": "https://i4.ytimg.com/vi/gxkQIaa41tM/hqdefault.jpg",
       "releaseDate": "2026-11-16T16:05:46+00:00",
-      "viewCount": 288508
+      "viewCount": 289933
     },
     {
       "id": "bprCqEmY4-U",
@@ -422,7 +440,7 @@
       "channelId": "UCbUwR0r6R7hXCx205DCg2Ww",
       "thumbnail": "https://i3.ytimg.com/vi/bprCqEmY4-U/hqdefault.jpg",
       "releaseDate": "2026-11-16T12:15:32+00:00",
-      "viewCount": 310631
+      "viewCount": 310831
     },
     {
       "id": "TuMnJl9i1Gc",
@@ -431,16 +449,7 @@
       "channelId": "UCr3cBLTYmIK9kY0F_OdFWFQ",
       "thumbnail": "https://i1.ytimg.com/vi/TuMnJl9i1Gc/hqdefault.jpg",
       "releaseDate": "2026-11-16T11:13:00+00:00",
-      "viewCount": 1784257
-    },
-    {
-      "id": "q0CuV2PKAzE",
-      "title": "Fred again..  - One Day in Tokyo with Chihei Hatakeyama (Japan, 30th July 2025)",
-      "channel": "Fred again . .",
-      "channelId": "UCXF6DMVLIVRr2OQAqyfEGeg",
-      "thumbnail": "https://i2.ytimg.com/vi/q0CuV2PKAzE/hqdefault.jpg",
-      "releaseDate": "2026-11-15T19:53:29+00:00",
-      "viewCount": 10
+      "viewCount": 1793356
     },
     {
       "id": "pn1wFVucJ0Y",
@@ -449,7 +458,7 @@
       "channelId": "UCLCAuSzEZOcDtgSkcnIzuBQ",
       "thumbnail": "https://i1.ytimg.com/vi/pn1wFVucJ0Y/hqdefault.jpg",
       "releaseDate": "2026-11-15T18:06:40+00:00",
-      "viewCount": 34430
+      "viewCount": 34507
     },
     {
       "id": "dKsHwMJRIsg",
@@ -458,7 +467,7 @@
       "channelId": "UCekQr9znsk2vWxBo3YiLq2w",
       "thumbnail": "https://i1.ytimg.com/vi/dKsHwMJRIsg/hqdefault.jpg",
       "releaseDate": "2026-11-15T15:25:03+00:00",
-      "viewCount": 772815
+      "viewCount": 775966
     },
     {
       "id": "ZbxJJ3KV-rc",
@@ -467,7 +476,7 @@
       "channelId": "UChEM9xLcoqpABMWweM5XZQA",
       "thumbnail": "https://i3.ytimg.com/vi/ZbxJJ3KV-rc/hqdefault.jpg",
       "releaseDate": "2026-11-15T14:00:36+00:00",
-      "viewCount": 979
+      "viewCount": 980
     },
     {
       "id": "4_m7W1fI4wY",
@@ -476,7 +485,7 @@
       "channelId": "UCbUwR0r6R7hXCx205DCg2Ww",
       "thumbnail": "https://i1.ytimg.com/vi/4_m7W1fI4wY/hqdefault.jpg",
       "releaseDate": "2026-11-15T12:15:05+00:00",
-      "viewCount": 349463
+      "viewCount": 349807
     },
     {
       "id": "rZ6QJDqciac",
@@ -485,7 +494,7 @@
       "channelId": "UCsVZeladiSTL94kgcKTwOJg",
       "thumbnail": "https://i3.ytimg.com/vi/rZ6QJDqciac/hqdefault.jpg",
       "releaseDate": "2026-11-15T08:45:54+00:00",
-      "viewCount": 76010
+      "viewCount": 76414
     },
     {
       "id": "_4iuMoJVChg",
@@ -494,7 +503,7 @@
       "channelId": "UCtUbO6rBht0daVIOGML3c8w",
       "thumbnail": "https://i4.ytimg.com/vi/_4iuMoJVChg/hqdefault.jpg",
       "releaseDate": "2026-11-15T02:16:50+00:00",
-      "viewCount": 2960428
+      "viewCount": 2973955
     },
     {
       "id": "6xm7Tc_eNxQ",
@@ -503,7 +512,7 @@
       "channelId": "UCPdaxSov0mgwh77JvjQO2jQ",
       "thumbnail": "https://i3.ytimg.com/vi/6xm7Tc_eNxQ/hqdefault.jpg",
       "releaseDate": "2026-11-14T23:12:37+00:00",
-      "viewCount": 469462
+      "viewCount": 469666
     },
     {
       "id": "hHEcvi22JZ8",
@@ -512,7 +521,7 @@
       "channelId": "UCEKJKJ3FO-9SFv5x5BzyxhQ",
       "thumbnail": "https://i1.ytimg.com/vi/hHEcvi22JZ8/hqdefault.jpg",
       "releaseDate": "2026-11-14T22:52:43+00:00",
-      "viewCount": 614368
+      "viewCount": 622554
     },
     {
       "id": "2HAGbDIvb84",
@@ -521,7 +530,7 @@
       "channelId": "UCsgxiBCyLP_nVAuKyn8rUhw",
       "thumbnail": "https://i3.ytimg.com/vi/2HAGbDIvb84/hqdefault.jpg",
       "releaseDate": "2026-11-14T20:23:45+00:00",
-      "viewCount": 46170
+      "viewCount": 46212
     },
     {
       "id": "Z1iM1_OHFy8",
@@ -530,7 +539,7 @@
       "channelId": "UC-AQKm7HUNMmxjdS371MSwg",
       "thumbnail": "https://i3.ytimg.com/vi/Z1iM1_OHFy8/hqdefault.jpg",
       "releaseDate": "2026-11-14T17:37:20+00:00",
-      "viewCount": 119437
+      "viewCount": 119579
     },
     {
       "id": "AlDd1ZGOtLA",
@@ -539,7 +548,7 @@
       "channelId": "UCbUwR0r6R7hXCx205DCg2Ww",
       "thumbnail": "https://i2.ytimg.com/vi/AlDd1ZGOtLA/hqdefault.jpg",
       "releaseDate": "2026-11-14T12:15:00+00:00",
-      "viewCount": 154637
+      "viewCount": 154684
     },
     {
       "id": "4rRshxixsCY",
@@ -548,7 +557,7 @@
       "channelId": "UCGaVdbSav8xWuFWTadK6loA",
       "thumbnail": "https://i1.ytimg.com/vi/4rRshxixsCY/hqdefault.jpg",
       "releaseDate": "2026-11-13T21:17:13+00:00",
-      "viewCount": 346354
+      "viewCount": 346821
     },
     {
       "id": "cf2Agn9RHuQ",
@@ -557,7 +566,7 @@
       "channelId": "UC_-hYjoNe4PJNFa9iZ4lraA",
       "thumbnail": "https://i4.ytimg.com/vi/cf2Agn9RHuQ/hqdefault.jpg",
       "releaseDate": "2026-11-13T14:00:32+00:00",
-      "viewCount": 2448042
+      "viewCount": 2457702
     },
     {
       "id": "fCPlZGbsHLM",
@@ -566,7 +575,7 @@
       "channelId": "UCbUwR0r6R7hXCx205DCg2Ww",
       "thumbnail": "https://i3.ytimg.com/vi/fCPlZGbsHLM/hqdefault.jpg",
       "releaseDate": "2026-11-13T12:15:33+00:00",
-      "viewCount": 661289
+      "viewCount": 661318
     },
     {
       "id": "FlbXEItD_Pw",
@@ -575,7 +584,7 @@
       "channelId": "UCPdaxSov0mgwh77JvjQO2jQ",
       "thumbnail": "https://i3.ytimg.com/vi/FlbXEItD_Pw/hqdefault.jpg",
       "releaseDate": "2026-11-13T02:56:59+00:00",
-      "viewCount": 980543
+      "viewCount": 980798
     },
     {
       "id": "RjdhLRNFZX4",
@@ -584,7 +593,7 @@
       "channelId": "UCCgK6peZI5-FKDCWzMIFk2A",
       "thumbnail": "https://i3.ytimg.com/vi/RjdhLRNFZX4/hqdefault.jpg",
       "releaseDate": "2026-11-12T23:15:46+00:00",
-      "viewCount": 189674
+      "viewCount": 190227
     },
     {
       "id": "w4Ax7MBSnbs",
@@ -593,7 +602,7 @@
       "channelId": "UCgSHGbs2oGoLItc-8y5hJ9g",
       "thumbnail": "https://i4.ytimg.com/vi/w4Ax7MBSnbs/hqdefault.jpg",
       "releaseDate": "2026-11-12T21:06:31+00:00",
-      "viewCount": 53371
+      "viewCount": 53425
     },
     {
       "id": "VGi1VUIc3i0",
@@ -602,7 +611,7 @@
       "channelId": "UCJAh9Zc2fWF-N1b1CmpjQXA",
       "thumbnail": "https://i3.ytimg.com/vi/VGi1VUIc3i0/hqdefault.jpg",
       "releaseDate": "2026-11-12T19:03:02+00:00",
-      "viewCount": 9728
+      "viewCount": 9759
     },
     {
       "id": "kz37Cjjy6fI",
@@ -611,7 +620,7 @@
       "channelId": "UCYaKhX6ci3WpLMuC05xsPog",
       "thumbnail": "https://i4.ytimg.com/vi/kz37Cjjy6fI/hqdefault.jpg",
       "releaseDate": "2026-11-12T19:00:10+00:00",
-      "viewCount": 13774
+      "viewCount": 13809
     },
     {
       "id": "grIs6lXzp7Y",
@@ -620,7 +629,7 @@
       "channelId": "UCuo9VyowIT-ljA5G2ZuC6Yw",
       "thumbnail": "https://i4.ytimg.com/vi/grIs6lXzp7Y/hqdefault.jpg",
       "releaseDate": "2026-11-12T18:13:01+00:00",
-      "viewCount": 2664331
+      "viewCount": 2669602
     },
     {
       "id": "FDwTeNeGMC4",
@@ -629,7 +638,7 @@
       "channelId": "UCfsbn7NkF2n4KQp2XBluz_g",
       "thumbnail": "https://i3.ytimg.com/vi/FDwTeNeGMC4/hqdefault.jpg",
       "releaseDate": "2026-11-12T17:16:58+00:00",
-      "viewCount": 896946
+      "viewCount": 899758
     },
     {
       "id": "bte5ms5ub-I",
@@ -638,7 +647,7 @@
       "channelId": "UCbUwR0r6R7hXCx205DCg2Ww",
       "thumbnail": "https://i3.ytimg.com/vi/bte5ms5ub-I/hqdefault.jpg",
       "releaseDate": "2026-11-12T12:50:27+00:00",
-      "viewCount": 559471
+      "viewCount": 559521
     },
     {
       "id": "6hAkLjoWHXg",
@@ -647,7 +656,7 @@
       "channelId": "UCVD6TkVV_NbngV4p4CQtnSw",
       "thumbnail": "https://i3.ytimg.com/vi/6hAkLjoWHXg/hqdefault.jpg",
       "releaseDate": "2026-11-12T12:01:26+00:00",
-      "viewCount": 6719
+      "viewCount": 6732
     },
     {
       "id": "dergenrhf_E",
@@ -656,7 +665,7 @@
       "channelId": "UC4pEm3-yshBWa7nH3sQIKHQ",
       "thumbnail": "https://i1.ytimg.com/vi/dergenrhf_E/hqdefault.jpg",
       "releaseDate": "2026-11-11T21:38:16+00:00",
-      "viewCount": 177192
+      "viewCount": 178202
     },
     {
       "id": "CjwUzZ0TOhg",
@@ -665,7 +674,7 @@
       "channelId": "UC-AQKm7HUNMmxjdS371MSwg",
       "thumbnail": "https://i4.ytimg.com/vi/CjwUzZ0TOhg/hqdefault.jpg",
       "releaseDate": "2026-11-11T16:07:42+00:00",
-      "viewCount": 2327778
+      "viewCount": 2332648
     },
     {
       "id": "0pJBjgwDmy0",
@@ -674,7 +683,7 @@
       "channelId": "UCJT1CurTnTjWIGyPQGjOh7w",
       "thumbnail": "https://i1.ytimg.com/vi/0pJBjgwDmy0/hqdefault.jpg",
       "releaseDate": "2026-11-11T13:00:13+00:00",
-      "viewCount": 550
+      "viewCount": 551
     },
     {
       "id": "e4WbWDUgFtk",
@@ -683,7 +692,7 @@
       "channelId": "UCbUwR0r6R7hXCx205DCg2Ww",
       "thumbnail": "https://i2.ytimg.com/vi/e4WbWDUgFtk/hqdefault.jpg",
       "releaseDate": "2026-11-11T12:15:24+00:00",
-      "viewCount": 233990
+      "viewCount": 234103
     },
     {
       "id": "-k-Dnw0F3kc",
@@ -692,7 +701,7 @@
       "channelId": "UCiNLr9wX35KksK77mrQgxiw",
       "thumbnail": "https://i2.ytimg.com/vi/-k-Dnw0F3kc/hqdefault.jpg",
       "releaseDate": "2026-11-10T23:46:06+00:00",
-      "viewCount": 351148
+      "viewCount": 352198
     },
     {
       "id": "583ThJIqQ7k",
@@ -701,7 +710,7 @@
       "channelId": "UCNJ1Ymd5yFuUPtn21xtRbbw",
       "thumbnail": "https://i2.ytimg.com/vi/583ThJIqQ7k/hqdefault.jpg",
       "releaseDate": "2026-11-10T23:11:36+00:00",
-      "viewCount": 246454
+      "viewCount": 246650
     },
     {
       "id": "cM_l-T1N5rE",
@@ -710,7 +719,7 @@
       "channelId": "UC-ufRLYrXxrIEApGn9VG5pQ",
       "thumbnail": "https://i4.ytimg.com/vi/cM_l-T1N5rE/hqdefault.jpg",
       "releaseDate": "2026-11-10T19:45:06+00:00",
-      "viewCount": 1062589
+      "viewCount": 1067710
     },
     {
       "id": "TnQKA8zcmT8",
@@ -719,7 +728,7 @@
       "channelId": "UCYaKhX6ci3WpLMuC05xsPog",
       "thumbnail": "https://i1.ytimg.com/vi/TnQKA8zcmT8/hqdefault.jpg",
       "releaseDate": "2026-11-10T19:00:02+00:00",
-      "viewCount": 2781
+      "viewCount": 2783
     },
     {
       "id": "AXrQA43IEaQ",
@@ -728,7 +737,7 @@
       "channelId": "UCGaVdbSav8xWuFWTadK6loA",
       "thumbnail": "https://i2.ytimg.com/vi/AXrQA43IEaQ/hqdefault.jpg",
       "releaseDate": "2026-11-10T15:10:23+00:00",
-      "viewCount": 433760
+      "viewCount": 433948
     },
     {
       "id": "ePFqg0VpuW8",
@@ -737,7 +746,7 @@
       "channelId": "UCPdaxSov0mgwh77JvjQO2jQ",
       "thumbnail": "https://i2.ytimg.com/vi/ePFqg0VpuW8/hqdefault.jpg",
       "releaseDate": "2026-11-10T02:21:37+00:00",
-      "viewCount": 1328875
+      "viewCount": 1329546
     },
     {
       "id": "8Usl2ngBeaA",
@@ -746,7 +755,7 @@
       "channelId": "UC8aGE10t6QrcdRMpgorwkAA",
       "thumbnail": "https://i1.ytimg.com/vi/8Usl2ngBeaA/hqdefault.jpg",
       "releaseDate": "2026-11-09T23:06:28+00:00",
-      "viewCount": 54687
+      "viewCount": 54741
     },
     {
       "id": "F0hlv3HQ7ZE",
@@ -755,7 +764,7 @@
       "channelId": "UCttZsBftM6ZYiGn17VEWD7A",
       "thumbnail": "https://i3.ytimg.com/vi/F0hlv3HQ7ZE/hqdefault.jpg",
       "releaseDate": "2026-11-09T22:00:33+00:00",
-      "viewCount": 4297
+      "viewCount": 4309
     },
     {
       "id": "8YXRcR5jJqY",
@@ -764,7 +773,7 @@
       "channelId": "UCl_dlV_7ofr4qeP1drJQ-qg",
       "thumbnail": "https://i1.ytimg.com/vi/8YXRcR5jJqY/hqdefault.jpg",
       "releaseDate": "2026-11-09T18:16:54+00:00",
-      "viewCount": 387661
+      "viewCount": 388363
     },
     {
       "id": "7_5yDxd21ik",
@@ -773,7 +782,7 @@
       "channelId": "UCSuT9FSddzI6W5Bij9XwtmA",
       "thumbnail": "https://i4.ytimg.com/vi/7_5yDxd21ik/hqdefault.jpg",
       "releaseDate": "2026-11-09T16:07:24+00:00",
-      "viewCount": 157710
+      "viewCount": 157777
     },
     {
       "id": "mKUle2yBYq0",
@@ -782,7 +791,7 @@
       "channelId": "UCMQzIsi7kwz1_xZjqNhz9kw",
       "thumbnail": "https://i2.ytimg.com/vi/mKUle2yBYq0/hqdefault.jpg",
       "releaseDate": "2026-11-09T16:00:17+00:00",
-      "viewCount": 114792
+      "viewCount": 115088
     },
     {
       "id": "OnaTxK9GuRY",
@@ -791,7 +800,7 @@
       "channelId": "UCzsd4-oyHhNbAXfceOQ5HTw",
       "thumbnail": "https://i4.ytimg.com/vi/OnaTxK9GuRY/hqdefault.jpg",
       "releaseDate": "2026-11-09T15:30:05+00:00",
-      "viewCount": 67300
+      "viewCount": 67332
     },
     {
       "id": "weSTagpcdFs",
@@ -800,7 +809,7 @@
       "channelId": "UCbUwR0r6R7hXCx205DCg2Ww",
       "thumbnail": "https://i4.ytimg.com/vi/weSTagpcdFs/hqdefault.jpg",
       "releaseDate": "2026-11-09T12:15:22+00:00",
-      "viewCount": 378653
+      "viewCount": 378676
     },
     {
       "id": "C55ml1LU1JU",
@@ -809,7 +818,7 @@
       "channelId": "UCYkEkdsIRPfaKZMlfVLvI9g",
       "thumbnail": "https://i4.ytimg.com/vi/C55ml1LU1JU/hqdefault.jpg",
       "releaseDate": "2026-11-09T00:19:59+00:00",
-      "viewCount": 91313
+      "viewCount": 91335
     },
     {
       "id": "_cHtmOxFk68",
@@ -818,7 +827,7 @@
       "channelId": "UCB4VcdQutzBBrYq5bDDq4YA",
       "thumbnail": "https://i4.ytimg.com/vi/_cHtmOxFk68/hqdefault.jpg",
       "releaseDate": "2026-11-08T16:20:05+00:00",
-      "viewCount": 89845
+      "viewCount": 89993
     },
     {
       "id": "QVnk79iA1IQ",
@@ -827,7 +836,7 @@
       "channelId": "UCIUVjpgIx2vKOhDw53mqn6w",
       "thumbnail": "https://i2.ytimg.com/vi/QVnk79iA1IQ/hqdefault.jpg",
       "releaseDate": "2026-11-08T15:00:10+00:00",
-      "viewCount": 32870
+      "viewCount": 32953
     },
     {
       "id": "US__9SxdLYA",
@@ -836,7 +845,7 @@
       "channelId": "UCbUwR0r6R7hXCx205DCg2Ww",
       "thumbnail": "https://i2.ytimg.com/vi/US__9SxdLYA/hqdefault.jpg",
       "releaseDate": "2026-11-08T12:15:02+00:00",
-      "viewCount": 713861
+      "viewCount": 713893
     },
     {
       "id": "vkE6fJ1gqlM",
@@ -845,7 +854,7 @@
       "channelId": "UCPdaxSov0mgwh77JvjQO2jQ",
       "thumbnail": "https://i3.ytimg.com/vi/vkE6fJ1gqlM/hqdefault.jpg",
       "releaseDate": "2026-11-08T01:03:57+00:00",
-      "viewCount": 684978
+      "viewCount": 685245
     },
     {
       "id": "S2nAtOmhIfg",
@@ -854,7 +863,7 @@
       "channelId": "UCJAh9Zc2fWF-N1b1CmpjQXA",
       "thumbnail": "https://i4.ytimg.com/vi/S2nAtOmhIfg/hqdefault.jpg",
       "releaseDate": "2026-11-07T19:27:34+00:00",
-      "viewCount": 9681
+      "viewCount": 9701
     },
     {
       "id": "elv3pzJ5fnQ",
@@ -863,7 +872,7 @@
       "channelId": "UCLkMfHagXmy6GNHiHtsoDrg",
       "thumbnail": "https://i2.ytimg.com/vi/elv3pzJ5fnQ/hqdefault.jpg",
       "releaseDate": "2026-11-07T17:00:38+00:00",
-      "viewCount": 1089774
+      "viewCount": 1093256
     },
     {
       "id": "E6-1u_savRs",
@@ -872,7 +881,7 @@
       "channelId": "UCUMwY9iS8oMyWDYIe6_RmoA",
       "thumbnail": "https://i2.ytimg.com/vi/E6-1u_savRs/hqdefault.jpg",
       "releaseDate": "2026-11-07T15:17:42+00:00",
-      "viewCount": 126204
+      "viewCount": 126324
     },
     {
       "id": "8ySMdUIF3cY",
@@ -881,7 +890,7 @@
       "channelId": "UCtI0Hodo5o5dUb67FeUjDeA",
       "thumbnail": "https://i1.ytimg.com/vi/8ySMdUIF3cY/hqdefault.jpg",
       "releaseDate": "2026-11-07T15:00:36+00:00",
-      "viewCount": 3563460
+      "viewCount": 3568094
     },
     {
       "id": "N0TKGFK7MBo",
@@ -890,16 +899,7 @@
       "channelId": "UC59uZjZ8opO4oc9pcN8b5VA",
       "thumbnail": "https://i3.ytimg.com/vi/N0TKGFK7MBo/hqdefault.jpg",
       "releaseDate": "2026-11-07T13:37:57+00:00",
-      "viewCount": 63190
-    },
-    {
-      "id": "P5vxexIgH9o",
-      "title": "Can The AI Apocalypse Just Happen Already",
-      "channel": "JREG",
-      "channelId": "UCGSGPehp0RWfca-kENgBJ9Q",
-      "thumbnail": "https://i1.ytimg.com/vi/P5vxexIgH9o/hqdefault.jpg",
-      "releaseDate": "2026-11-07T13:00:34+00:00",
-      "viewCount": 180896
+      "viewCount": 63243
     }
   ]
 }
