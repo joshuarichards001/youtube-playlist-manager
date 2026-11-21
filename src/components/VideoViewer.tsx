@@ -1,5 +1,6 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { convertReleaseDateToTimeSinceRelease } from "../helpers/functions";
+import { recordHistory } from "../helpers/history";
 import {
   pushResumeEntry,
   resolveResumePosition,
@@ -37,6 +38,10 @@ export default function VideoViewer({ video, onClose, expanded, onExpandToggle, 
   const playerRef = useRef<YT.Player | null>(null);
   const playerReadyRef = useRef(false);
   const videoIdRef = useRef(video.resourceId);
+  const videoRef = useRef(video);
+  videoRef.current = video;
+  // Last video added to history, so pause/play doesn't re-record it.
+  const historyRecordedRef = useRef<string | null>(null);
   const lastPositionRef = useRef(0);
   const lastDurationRef = useRef(0);
   const intervalIdRef = useRef<number | null>(null);
@@ -199,6 +204,14 @@ export default function VideoViewer({ video, onClose, expanded, onExpandToggle, 
             const ENDED = 0;
             if (e.data === PLAYING) {
               startInterval();
+              const current = videoRef.current;
+              if (
+                current.resourceId === videoIdRef.current &&
+                historyRecordedRef.current !== current.resourceId
+              ) {
+                historyRecordedRef.current = current.resourceId;
+                recordHistory(useStore.getState().accessToken, current);
+              }
             } else if (e.data === PAUSED || e.data === ENDED) {
               stopInterval();
               saveEverywhere();

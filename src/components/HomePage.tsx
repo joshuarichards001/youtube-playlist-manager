@@ -3,6 +3,7 @@ import useStore from "../helpers/store";
 import { fetchVideoByIdAPI } from "../helpers/youtubeAPI/videoAPI";
 import Nav from "./Nav";
 import Sidebar from "./Sidebar";
+import History from "./History";
 import Search from "./Search";
 import Subscriptions from "./Subscriptions";
 import StaticFeed from "./StaticFeed";
@@ -39,6 +40,8 @@ export default function HomePage() {
       setCurrentView({ type: "recommended" });
     } else if (routeType === "search") {
       setCurrentView({ type: "search" });
+    } else if (routeType === "history") {
+      setCurrentView({ type: "history" });
     } else if (routeType === "channel" && routeId) {
       setCurrentView({
         type: "channel",
@@ -116,6 +119,7 @@ export default function HomePage() {
       return <StaticFeed title="Recommended" src="/recommended-feed.json" />;
     if (currentView.type === "subscriptions") return <Subscriptions />;
     if (currentView.type === "search") return <Search />;
+    if (currentView.type === "history") return <History />;
     return <Videos />;
   };
 

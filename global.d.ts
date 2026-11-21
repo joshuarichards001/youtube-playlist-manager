@@ -73,6 +73,7 @@ type CurrentView =
   | { type: 'feed' }
   | { type: 'recommended' }
   | { type: 'search' }
+  | { type: 'history' }
   | { type: 'none' };
 
 type FeedVideo = {

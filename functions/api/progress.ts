@@ -8,22 +8,12 @@
 // A finished video is stored as position 0 (a tombstone) rather than deleted,
 // so "newest savedAt wins" also works for "I finished this on another device".
 
-const CLIENT_ID =
-  "246964970891-05k3i3p0q2a97u70mla8gu854q5r624u.apps.googleusercontent.com";
-const VIDEO_ID = /^[A-Za-z0-9_-]{11}$/;
+import { isOwner, json, OwnerEnv, VIDEO_ID } from "../_lib/owner";
+
 const MAX_CLOCK_SKEW_MS = 60_000;
 
-interface Env {
+interface Env extends OwnerEnv {
   DB: D1Database;
-  ALLOWED_EMAIL: string;
-}
-
-interface TokenInfo {
-  aud?: string;
-  azp?: string;
-  email?: string;
-  email_verified?: string | boolean;
-  exp?: string;
 }
 
 interface ProgressRow {
@@ -32,47 +22,7 @@ interface ProgressRow {
   saved_at: number;
 }
 
-// Verified access tokens -> expiry (ms). Lives as long as the isolate, so most
-// saves skip the round trip to Google.
-const verifiedTokens = new Map<string, number>();
 let schemaReady = false;
-
-function json(body: unknown, status = 200): Response {
-  return new Response(JSON.stringify(body), {
-    status,
-    headers: { "Content-Type": "application/json", "Cache-Control": "no-store" },
-  });
-}
-
-async function isOwner(request: Request, env: Env): Promise<boolean> {
-  const allowed = env.ALLOWED_EMAIL?.trim().toLowerCase();
-  if (!allowed) return false;
-
-  const header = request.headers.get("Authorization") ?? "";
-  const token = header.startsWith("Bearer ") ? header.slice(7) : "";
-  if (!token) return false;
-
-  const now = Date.now();
-  const cachedExpiry = verifiedTokens.get(token);
-  if (cachedExpiry && cachedExpiry > now) return true;
-
-  const res = await fetch(
-    `https://oauth2.googleapis.com/tokeninfo?access_token=${encodeURIComponent(token)}`
-  );
-  if (!res.ok) return false;
-  const info = await res.json<TokenInfo>();
-
-  const verified = info.email_verified === true || info.email_verified === "true";
-  const issuedToUs = info.aud === CLIENT_ID || info.azp === CLIENT_ID;
-  if (!verified || !issuedToUs || info.email?.toLowerCase() !== allowed) {
-    return false;
-  }
-
-  if (verifiedTokens.size > 50) verifiedTokens.clear();
-  const exp = Number(info.exp) * 1000;
-  verifiedTokens.set(token, Number.isFinite(exp) ? exp : now + 5 * 60_000);
-  return true;
-}
 
 async function ensureSchema(db: D1Database) {
   if (schemaReady) return;

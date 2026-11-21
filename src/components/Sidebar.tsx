@@ -15,6 +15,7 @@ export default function Sidebar() {
   const isRecommended = currentView.type === "recommended";
   const isSubscriptions = currentView.type === "subscriptions";
   const isSearch = currentView.type === "search";
+  const isHistory = currentView.type === "history";
 
   useEffect(() => {
     let startX: number | null = null;
@@ -137,6 +138,19 @@ export default function Sidebar() {
           }}
         >
           Search
+        </button>
+        <button
+          className={`w-full p-2 rounded-md hover:bg-neutral/10 text-base text-left font-semibold ${isHistory ? "bg-neutral/10" : ""}`}
+          onClick={() => {
+            setCurrentView({ type: "history" });
+            setSidebarOpen(false);
+            if (window.innerWidth < 768 && viewingVideo) setVideoViewerPip(true);
+            const url = new URL(window.location.href);
+            url.pathname = "/history";
+            window.history.pushState({}, "", url.toString());
+          }}
+        >
+          History
         </button>
       </div>
       <div className="divider my-0 mx-4"></div>
