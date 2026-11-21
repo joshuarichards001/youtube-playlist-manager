@@ -309,7 +309,9 @@ export const deleteVideosFromPlaylistAPI = async (
         }
       );
     }
+    return true;
   } catch (error) {
     console.error("Error deleting videos from playlist:", error);
+    return false;
   }
 };

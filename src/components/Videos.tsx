@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { formatTotalDuration, sortVideos } from "../helpers/functions";
 import useStore from "../helpers/store";
 import { subscribeAPI, unsubscribeAPI } from "../helpers/youtubeAPI/subscriptionAPI";
-import { fetchChannelVideosAPI, fetchVideosAPI } from "../helpers/youtubeAPI/videoAPI";
+import { deleteVideosFromPlaylistAPI, fetchChannelVideosAPI, fetchVideosAPI } from "../helpers/youtubeAPI/videoAPI";
 import { deletePlaylistAPI } from "../helpers/youtubeAPI/playlistAPI";
 import DeleteConfirmationModal from "./DeleteConfirmationModal";
 import MoveDropdown from "./MoveDropdown";
@@ -26,6 +26,7 @@ export default function Videos() {
   const setViewingVideo = useStore((state) => state.setViewingVideo);
   const videoViewerPip = useStore((state) => state.videoViewerPip);
   const gridView = useStore((state) => state.gridView);
+  const setPlaylists = useStore((state) => state.setPlaylists);
 
   const selectedPlaylist = currentView.type === 'playlist' ? currentView.playlist : null;
   const selectedSubscription = currentView.type === 'channel' ? currentView.subscription : null;
@@ -133,6 +134,31 @@ export default function Videos() {
     dragImage.style.left = "-9999px";
     dragImage.src = video.thumbnail;
     e.dataTransfer.setDragImage(dragImage, 20, 20);
+  };
+
+  // Optimistically remove a single video from the current playlist; restore on failure.
+  const deleteVideo = async (video: Video) => {
+    if (!accessToken || !selectedPlaylist) return;
+
+    const adjustCount = (delta: number) =>
+      setPlaylists(
+        useStore.getState().playlists.map((p) =>
+          p.id === selectedPlaylist.id ? { ...p, videoCount: p.videoCount + delta } : p
+        )
+      );
+
+    const index = videos.findIndex((v) => v.id === video.id);
+    setVideos(videos.filter((v) => v.id !== video.id));
+    adjustCount(-1);
+
+    const success = await deleteVideosFromPlaylistAPI(accessToken, [video.id]);
+    if (!success) {
+      adjustCount(1);
+      // Re-insert just this video so other edits made meanwhile survive.
+      const { videos: current, currentView: view } = useStore.getState();
+      if (view.type !== "playlist" || view.playlist.id !== selectedPlaylist.id) return;
+      setVideos([...current.slice(0, index), video, ...current.slice(index)]);
+    }
   };
 
   const deletePlaylist = async (id: string | undefined) => {
@@ -368,6 +394,7 @@ export default function Videos() {
                   onDragStart={(e) => handleDragStart(e, video)}
                   onChannelClick={isChannelView ? undefined : handleChannelClick}
                   hideChannel={isChannelView}
+                  onDelete={isPlaylistView ? () => deleteVideo(video) : undefined}
                 />
               ))}
             </ul>

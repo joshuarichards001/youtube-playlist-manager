@@ -54,7 +54,30 @@ type Props = {
   onDragStart: (e: React.DragEvent) => void;
   onChannelClick?: (channelId: string, channelTitle: string) => void;
   hideChannel?: boolean;
+  onDelete?: () => void;
 };
+
+// Trash button revealed on row hover (always visible on touch-sized screens).
+function DeleteButton({ onDelete, className }: { onDelete: () => void; className: string }) {
+  return (
+    <button
+      className={`btn btn-ghost btn-xs btn-square text-error md:opacity-0 md:group-hover:opacity-100 focus-visible:opacity-100 ${className}`}
+      title="Remove from playlist"
+      aria-label="Remove from playlist"
+      onClick={(e) => {
+        e.stopPropagation();
+        onDelete();
+      }}
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <polyline points="3 6 5 6 21 6" />
+        <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" />
+        <path d="M10 11v6M14 11v6" />
+        <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2" />
+      </svg>
+    </button>
+  );
+}
 
 export default function VideoRow({
   video,
@@ -66,6 +89,7 @@ export default function VideoRow({
   onDragStart,
   onChannelClick,
   hideChannel,
+  onDelete,
 }: Props) {
   const videoId = video.resourceId ?? video.id;
   const watched = useWatched(videoId);
@@ -79,8 +103,8 @@ export default function VideoRow({
     <li
       className={
         gridView
-          ? `flex flex-col cursor-move hover:bg-base-200 py-2 rounded-lg ${selected ? "bg-primary/10 hover:bg-primary/20" : ""}`
-          : `flex flex-row cursor-move hover:bg-base-200 py-2 rounded-lg justify-between items-center w-full ${selected ? "bg-primary/10 hover:bg-primary/20" : ""}`
+          ? `group flex flex-col cursor-move hover:bg-base-200 py-2 rounded-lg ${selected ? "bg-primary/10 hover:bg-primary/20" : ""}`
+          : `group flex flex-row cursor-move hover:bg-base-200 py-2 rounded-lg justify-between items-center w-full ${selected ? "bg-primary/10 hover:bg-primary/20" : ""}`
       }
       draggable
       onDragStart={onDragStart}
@@ -114,6 +138,12 @@ export default function VideoRow({
               onClick={(e) => e.stopPropagation()}
               onChange={onToggleSelect}
             />
+            {onDelete && (
+              <DeleteButton
+                onDelete={onDelete}
+                className="absolute top-1 right-8 bg-base-100/80 hover:bg-base-100"
+              />
+            )}
           </div>
           <div className="flex flex-col pt-2 gap-1 peer-hover:[&>button:first-child]:text-primary">
             <button
@@ -208,6 +238,7 @@ export default function VideoRow({
               </div>
             </div>
           </div>
+          {onDelete && <DeleteButton onDelete={onDelete} className="ml-2 flex-shrink-0" />}
           <input
             type="checkbox"
             className="checkbox checkbox-sm md:checkbox-lg ml-2 md:mr-6 flex-shrink-0"
