@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { formatTotalDuration, sortVideos } from "../helpers/functions";
 import useStore from "../helpers/store";
 import { subscribeAPI, unsubscribeAPI } from "../helpers/youtubeAPI/subscriptionAPI";
@@ -10,6 +10,35 @@ import ListHeader from "./ListHeader";
 import VideoRow from "./VideoRow";
 
 const PLAYLIST_BATCH_SIZE = 500;
+const UNDO_WINDOW_MS = 5000;
+
+type PendingDelete = {
+  video: Video;
+  index: number;
+  playlistId: string;
+  timer: ReturnType<typeof setTimeout>;
+};
+
+const adjustPlaylistCount = (playlistId: string, delta: number) => {
+  const { playlists, setPlaylists } = useStore.getState();
+  setPlaylists(
+    playlists.map((p) =>
+      p.id === playlistId ? { ...p, videoCount: p.videoCount + delta } : p
+    )
+  );
+};
+
+// Put a video back at its old position, if we're still looking at its playlist.
+const restoreVideo = (pending: Omit<PendingDelete, "timer">) => {
+  const { videos, currentView, setVideos } = useStore.getState();
+  if (currentView.type !== "playlist" || currentView.playlist.id !== pending.playlistId) return;
+  if (videos.some((v) => v.id === pending.video.id)) return;
+  setVideos([
+    ...videos.slice(0, pending.index),
+    pending.video,
+    ...videos.slice(pending.index),
+  ]);
+};
 
 export default function Videos() {
   const accessToken = useStore((state) => state.accessToken);
@@ -26,7 +55,6 @@ export default function Videos() {
   const setViewingVideo = useStore((state) => state.setViewingVideo);
   const videoViewerPip = useStore((state) => state.videoViewerPip);
   const gridView = useStore((state) => state.gridView);
-  const setPlaylists = useStore((state) => state.setPlaylists);
 
   const selectedPlaylist = currentView.type === 'playlist' ? currentView.playlist : null;
   const selectedSubscription = currentView.type === 'channel' ? currentView.subscription : null;
@@ -136,29 +164,67 @@ export default function Videos() {
     e.dataTransfer.setDragImage(dragImage, 20, 20);
   };
 
-  // Optimistically remove a single video from the current playlist; restore on failure.
-  const deleteVideo = async (video: Video) => {
+  // Single-video delete is deferred for UNDO_WINDOW_MS so it can be undone
+  // without re-adding (which would mint a new playlist item ID).
+  const pendingDeleteRef = useRef<PendingDelete | null>(null);
+  const [pendingDeleteTitle, setPendingDeleteTitle] = useState<string | null>(null);
+
+  const commitPendingDelete = () => {
+    const pending = pendingDeleteRef.current;
+    if (!pending) return;
+    clearTimeout(pending.timer);
+    pendingDeleteRef.current = null;
+    setPendingDeleteTitle(null);
+
+    const token = useStore.getState().accessToken;
+    if (!token) {
+      adjustPlaylistCount(pending.playlistId, 1);
+      restoreVideo(pending);
+      return;
+    }
+    deleteVideosFromPlaylistAPI(token, [pending.video.id]).then((success) => {
+      if (success) return;
+      adjustPlaylistCount(pending.playlistId, 1);
+      restoreVideo(pending);
+    });
+  };
+
+  const undoPendingDelete = () => {
+    const pending = pendingDeleteRef.current;
+    if (!pending) return;
+    clearTimeout(pending.timer);
+    pendingDeleteRef.current = null;
+    setPendingDeleteTitle(null);
+    adjustPlaylistCount(pending.playlistId, 1);
+    restoreVideo(pending);
+  };
+
+  // Don't lose a pending delete when leaving the view or closing the tab.
+  useEffect(() => {
+    window.addEventListener("pagehide", commitPendingDelete);
+    return () => {
+      window.removeEventListener("pagehide", commitPendingDelete);
+      commitPendingDelete();
+    };
+  }, []);
+
+  const deleteVideo = (video: Video) => {
     if (!accessToken || !selectedPlaylist) return;
 
-    const adjustCount = (delta: number) =>
-      setPlaylists(
-        useStore.getState().playlists.map((p) =>
-          p.id === selectedPlaylist.id ? { ...p, videoCount: p.videoCount + delta } : p
-        )
-      );
+    // Only one undo at a time: a new delete commits the previous one.
+    commitPendingDelete();
 
     const index = videos.findIndex((v) => v.id === video.id);
     setVideos(videos.filter((v) => v.id !== video.id));
-    adjustCount(-1);
+    adjustPlaylistCount(selectedPlaylist.id, -1);
 
-    const success = await deleteVideosFromPlaylistAPI(accessToken, [video.id]);
-    if (!success) {
-      adjustCount(1);
-      // Re-insert just this video so other edits made meanwhile survive.
-      const { videos: current, currentView: view } = useStore.getState();
-      if (view.type !== "playlist" || view.playlist.id !== selectedPlaylist.id) return;
-      setVideos([...current.slice(0, index), video, ...current.slice(index)]);
-    }
+    pendingDeleteRef.current = {
+      video,
+      index,
+      playlistId: selectedPlaylist.id,
+      timer: setTimeout(commitPendingDelete, UNDO_WINDOW_MS),
+    };
+    setPendingDeleteTitle(video.title);
   };
 
   const deletePlaylist = async (id: string | undefined) => {
@@ -418,6 +484,18 @@ export default function Videos() {
         </div>
       )}
       <DeleteConfirmationModal />
+      {pendingDeleteTitle !== null && (
+        <div className="toast toast-center z-50">
+          <div className="alert shadow-lg flex items-center gap-3 py-2">
+            <span className="text-sm max-w-[60vw] md:max-w-sm truncate">
+              Removed "{pendingDeleteTitle}"
+            </span>
+            <button className="btn btn-sm btn-primary" onClick={undoPendingDelete}>
+              Undo
+            </button>
+          </div>
+        </div>
+      )}
     </>
   );
 }
