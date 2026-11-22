@@ -5,11 +5,16 @@
 //
 // A finished video is stored as position 0 (not deleted) so that finishing a
 // video on one device also resets it everywhere else.
+//
+// syncResumePositions pulls everything changed in the cloud since the last
+// sync, so list thumbnails (progress bar, watched badge) reflect other devices
+// without opening each video.
 
 import { useSyncExternalStore } from "react";
-import { markWatched, WATCHED_FRACTION } from "./watched";
+import { markWatched, markWatchedMany, WATCHED_FRACTION } from "./watched";
 
 const STORAGE_KEY = "yt-resume";
+const CURSOR_KEY = "yt-resume-cursor";
 const MAX_ENTRIES = 500;
 const MIN_SAVE_SECONDS = 5;
 const COMPLETION_THRESHOLD_SECONDS = 10;
@@ -52,7 +57,12 @@ function writeStore(store: ResumeStore) {
 
 function writeEntry(videoId: string, entry: ResumeEntry) {
   const store = { ...readStore(), [videoId]: entry };
+  prune(store);
+  writeStore(store);
+}
 
+// Drops the oldest entries beyond MAX_ENTRIES, in place.
+function prune(store: ResumeStore) {
   const keys = Object.keys(store);
   if (keys.length > MAX_ENTRIES) {
     const sorted = keys
@@ -62,8 +72,6 @@ function writeEntry(videoId: string, entry: ResumeEntry) {
       delete store[k];
     }
   }
-
-  writeStore(store);
 }
 
 function toStartSeconds(entry: ResumeEntry | null | undefined): number {
@@ -165,6 +173,91 @@ export function pushResumeEntry(
   }).catch(() => {
     // offline — the local copy still has it and the next push will catch up
   });
+}
+
+// A synced entry counts as watched if it is past WATCHED_FRACTION, or is a
+// finished tombstone (position 0 — only ever written on completion).
+function entryIsWatched(entry: ResumeEntry): boolean {
+  if (!(entry.duration > 0)) return false;
+  return entry.position === 0 || entry.position >= entry.duration * WATCHED_FRACTION;
+}
+
+function isValidEntry(e: unknown): e is ResumeEntry & { videoId: string } {
+  if (!e || typeof e !== "object") return false;
+  const r = e as Record<string, unknown>;
+  return (
+    typeof r.videoId === "string" &&
+    Number.isFinite(r.position) &&
+    Number.isFinite(r.duration) &&
+    Number.isFinite(r.savedAt)
+  );
+}
+
+let syncInFlight: Promise<void> | null = null;
+
+// Pulls every cloud position written since the last sync and merges it into
+// the local store (newer savedAt wins), so thumbnails show progress and the
+// watched badge for videos watched on other devices. The cursor is the
+// server's updated_at clock, kept in localStorage.
+export function syncResumePositions(accessToken: string | null): Promise<void> {
+  if (!accessToken) return Promise.resolve();
+  if (syncInFlight) return syncInFlight;
+
+  syncInFlight = (async () => {
+    let since = 0;
+    try {
+      since = Number(localStorage.getItem(CURSOR_KEY)) || 0;
+    } catch {
+      // storage unavailable — do a full sync
+    }
+
+    let data: { entries?: unknown; cursor?: unknown };
+    try {
+      const res = await fetch(`/api/progress?since=${since}`, {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      });
+      if (!res.ok) return;
+      data = await res.json();
+    } catch {
+      return; // offline or /api unavailable (npm run dev:vite)
+    }
+    if (!Array.isArray(data.entries)) return;
+
+    const local = readStore();
+    const next: ResumeStore = { ...local };
+    const watchedIds: string[] = [];
+    let changed = false;
+
+    for (const e of data.entries) {
+      if (!isValidEntry(e)) continue;
+      const { videoId, position, duration, savedAt } = e;
+      const entry = { position, duration, savedAt };
+      if (entryIsWatched(entry)) watchedIds.push(videoId);
+      const existing = local[videoId];
+      if (!existing || savedAt > existing.savedAt) {
+        next[videoId] = entry;
+        changed = true;
+      }
+    }
+
+    if (changed) {
+      prune(next);
+      writeStore(next);
+    }
+    markWatchedMany(watchedIds);
+
+    if (Number.isFinite(data.cursor)) {
+      try {
+        localStorage.setItem(CURSOR_KEY, String(data.cursor));
+      } catch {
+        // next sync will just re-fetch from the old cursor
+      }
+    }
+  })().finally(() => {
+    syncInFlight = null;
+  });
+
+  return syncInFlight;
 }
 
 function subscribe(listener: () => void) {

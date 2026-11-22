@@ -1,6 +1,7 @@
 // Videos count as watched once playback reaches WATCHED_FRACTION of their
 // duration. Stored per device in localStorage (`yt-watched`, videoId ->
-// watchedAt) and exposed to components through useWatched so thumbnails update
+// watchedAt); other devices pick it up because syncResumePositions marks any
+// synced position past the threshold (or finished) as watched. Exposed to components through useWatched so thumbnails update
 // as soon as the threshold is crossed.
 
 import { useSyncExternalStore } from "react";
@@ -27,11 +28,20 @@ function readStore(): WatchedStore {
 }
 
 export function markWatched(videoId: string) {
-  if (!videoId) return;
-  const store = readStore();
-  if (store[videoId]) return;
+  markWatchedMany([videoId]);
+}
 
-  const next: WatchedStore = { ...store, [videoId]: Date.now() };
+// Marks several videos at once with a single localStorage write. Already
+// watched videos keep their original timestamp.
+export function markWatchedMany(videoIds: string[]) {
+  const store = readStore();
+  const fresh = videoIds.filter((id) => id && !store[id]);
+  if (fresh.length === 0) return;
+
+  const now = Date.now();
+  const next: WatchedStore = { ...store };
+  for (const id of fresh) next[id] = now;
+
   const keys = Object.keys(next);
   if (keys.length > MAX_ENTRIES) {
     keys

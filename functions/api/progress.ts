@@ -3,7 +3,12 @@
 // same env var the OAuth callback uses) can read or write.
 //
 //   GET    /api/progress?id=<videoId>  -> { position, duration, savedAt } | null
+//   GET    /api/progress?since=<ms>    -> { entries: [{ videoId, position, duration, savedAt }], cursor }
 //   PUT    /api/progress               body { videoId, position, duration, savedAt }
+//
+// `since`/`cursor` use updated_at, stamped with the server clock on every
+// accepted write, so a device whose clock is behind can't slip writes in under
+// another device's cursor. Pass the returned cursor back as the next `since`.
 //
 // A finished video is stored as position 0 (a tombstone) rather than deleted,
 // so "newest savedAt wins" also works for "I finished this on another device".
@@ -22,6 +27,11 @@ interface ProgressRow {
   saved_at: number;
 }
 
+interface ProgressListRow extends ProgressRow {
+  video_id: string;
+  updated_at: number;
+}
+
 let schemaReady = false;
 
 async function ensureSchema(db: D1Database) {
@@ -32,9 +42,22 @@ async function ensureSchema(db: D1Database) {
         video_id TEXT PRIMARY KEY,
         position REAL NOT NULL,
         duration REAL NOT NULL,
-        saved_at INTEGER NOT NULL
+        saved_at INTEGER NOT NULL,
+        updated_at INTEGER NOT NULL DEFAULT 0
       )`
     )
+    .run();
+  // Tables created before bulk sync existed lack updated_at; their rows get 0
+  // and so come back on every device's first full sync.
+  try {
+    await db
+      .prepare("ALTER TABLE progress ADD COLUMN updated_at INTEGER NOT NULL DEFAULT 0")
+      .run();
+  } catch {
+    // duplicate column — already migrated
+  }
+  await db
+    .prepare("CREATE INDEX IF NOT EXISTS progress_updated_at ON progress (updated_at)")
     .run();
   schemaReady = true;
 }
@@ -49,7 +72,35 @@ export const onRequest: PagesFunction<Env> = async ({ request, env }) => {
   await ensureSchema(env.DB);
 
   if (request.method === "GET") {
-    const videoId = new URL(request.url).searchParams.get("id") ?? "";
+    const params = new URL(request.url).searchParams;
+
+    if (params.has("since")) {
+      const since = Number(params.get("since"));
+      if (!Number.isFinite(since) || since < 0) return json({ error: "Bad since" }, 400);
+
+      // >= so a write landing in the same millisecond as the cursor isn't
+      // skipped; re-sending a row is harmless (the client keeps the newer one).
+      const { results } = await env.DB.prepare(
+        `SELECT video_id, position, duration, saved_at, updated_at
+         FROM progress WHERE updated_at >= ?1`
+      )
+        .bind(since)
+        .all<ProgressListRow>();
+
+      let cursor = since;
+      const entries = results.map((r) => {
+        if (r.updated_at > cursor) cursor = r.updated_at;
+        return {
+          videoId: r.video_id,
+          position: r.position,
+          duration: r.duration,
+          savedAt: r.saved_at,
+        };
+      });
+      return json({ entries, cursor });
+    }
+
+    const videoId = params.get("id") ?? "";
     if (!VIDEO_ID.test(videoId)) return json({ error: "Bad video id" }, 400);
 
     const row = await env.DB.prepare(
@@ -93,15 +144,16 @@ export const onRequest: PagesFunction<Env> = async ({ request, env }) => {
   // Only overwrite when this write is newer — a late keepalive request from a
   // closed tab must not clobber progress made since on another device.
   await env.DB.prepare(
-    `INSERT INTO progress (video_id, position, duration, saved_at)
-     VALUES (?1, ?2, ?3, ?4)
+    `INSERT INTO progress (video_id, position, duration, saved_at, updated_at)
+     VALUES (?1, ?2, ?3, ?4, ?5)
      ON CONFLICT(video_id) DO UPDATE SET
        position = excluded.position,
        duration = excluded.duration,
-       saved_at = excluded.saved_at
+       saved_at = excluded.saved_at,
+       updated_at = excluded.updated_at
      WHERE excluded.saved_at > progress.saved_at`
   )
-    .bind(videoId, position, duration, clampedSavedAt)
+    .bind(videoId, position, duration, clampedSavedAt, Date.now())
     .run();
 
   return json({ ok: true });

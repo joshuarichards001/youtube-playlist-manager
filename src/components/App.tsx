@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import useStore from "../helpers/store";
 import useAuth from "../hooks/useAuth";
 import useDowntime from "../hooks/useDowntime";
+import useProgressSync from "../hooks/useProgressSync";
 import { fetchSubscriptionsAPI } from "../helpers/youtubeAPI/subscriptionAPI";
 import { fetchUserAPI } from "../helpers/youtubeAPI/userAPI";
 import DowntimeNotice from "./DowntimeNotice";
@@ -15,6 +16,7 @@ const App = () => {
   const setSubscriptions = useStore((state) => state.setSubscriptions);
   const login = useAuth();
   const minutesLeft = useDowntime();
+  useProgressSync();
 
   useEffect(() => {
     if (!accessToken) return;
