@@ -87,7 +87,7 @@ type FeedVideo = {
 };
 
 type StaticFeedData = {
-  generatedAt: string;
+  generatedAt: string | null;
   videos: FeedVideo[];
 };
 

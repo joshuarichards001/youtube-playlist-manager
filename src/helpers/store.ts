@@ -45,7 +45,18 @@ interface State {
   // Desktop (md+) only: hides the sidebar entirely. Persisted per device.
   sidebarCollapsed: boolean;
   setSidebarCollapsed: (sidebarCollapsed: boolean) => void;
+
+  // Recent Feed, loaded from /api/feed (see helpers/feed.ts).
+  feed: StaticFeedData | null;
+  setFeed: (feed: StaticFeedData) => void;
+  feedError: string | null;
+  setFeedError: (feedError: string | null) => void;
+  // Non-null while a feed refresh is running.
+  feedRefresh: FeedRefreshProgress | null;
+  setFeedRefresh: (feedRefresh: FeedRefreshProgress | null) => void;
 }
+
+export type FeedRefreshProgress = { done: number; total: number; failed: number };
 
 const SIDEBAR_COLLAPSED_KEY = "yt-sidebar-collapsed";
 
@@ -142,6 +153,13 @@ const useStore = create<State>(
       }
       set({ sidebarCollapsed });
     },
+
+    feed: null,
+    setFeed: (feed) => set({ feed, feedError: null }),
+    feedError: null,
+    setFeedError: (feedError) => set({ feedError }),
+    feedRefresh: null,
+    setFeedRefresh: (feedRefresh) => set({ feedRefresh }),
   }))
 );
 
