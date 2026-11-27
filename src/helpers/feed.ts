@@ -1,5 +1,6 @@
-// Client for /api/feed/* (D1). The Recent Feed is refreshed from the browser:
-// claim the refresh (server says no if the last one is < 1h old or another
+// Client for /api/feed/* (D1). New uploads arrive by WebSub push server-side;
+// this runs the backstop sweep from the browser:
+// claim the sweep (server says no if the last one is < 6h old or another
 // client is mid-run), then refresh each subscribed channel with a few requests
 // in flight, reporting progress to the store, then finish.
 
@@ -15,7 +16,8 @@ const authed = (accessToken: string, init: RequestInit = {}): RequestInit => ({
   },
 });
 
-export async function loadFeed(): Promise<void> {
+// quiet: a background re-read; failures keep the current feed without an error.
+export async function loadFeed(quiet = false): Promise<void> {
   const { accessToken, setFeed, setFeedError } = useStore.getState();
   if (!accessToken) return;
   try {
@@ -23,7 +25,7 @@ export async function loadFeed(): Promise<void> {
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     setFeed((await res.json()) as StaticFeedData);
   } catch (err) {
-    setFeedError(err instanceof Error ? err.message : String(err));
+    if (!quiet) setFeedError(err instanceof Error ? err.message : String(err));
   }
 }
 

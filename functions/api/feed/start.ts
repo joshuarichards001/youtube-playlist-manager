@@ -1,5 +1,5 @@
 // POST /api/feed/start  body { force?: boolean } -> { claimed: boolean }
-// Claims the feed refresh if the last one finished over an hour ago (or always,
+// Claims the feed sweep if the last one finished over 6 hours ago (or always,
 // with force) and no other client is mid-refresh. Only the claimant runs it.
 
 import { claimRefresh, ensureFeedSchema, FeedEnv } from "../../_lib/feed";

@@ -1,9 +1,11 @@
 // POST /api/feed/finish  body { channelIds: string[] } -> { generatedAt, videos }
 // Ends a refresh: drops videos from channels not in channelIds (unsubscribed),
-// stamps refreshed_at, and returns the updated feed.
+// unsubscribes them from WebSub push, stamps refreshed_at, and returns the
+// updated feed.
 
 import { CHANNEL_ID, ensureFeedSchema, FeedEnv, finishRefresh, readFeed } from "../../_lib/feed";
 import { isOwner, json } from "../../_lib/owner";
+import { pruneSubscriptions, pushCallbackUrl, pushSecret } from "../../_lib/websub";
 
 export const onRequestPost: PagesFunction<FeedEnv> = async ({ request, env }) => {
   if (!env.DB) return json({ error: "DB binding not configured" }, 500);
@@ -17,5 +19,8 @@ export const onRequestPost: PagesFunction<FeedEnv> = async ({ request, env }) =>
   if (valid.length === 0 || valid.length > 5000) return json({ error: "Bad body" }, 400);
 
   await finishRefresh(env.DB, valid);
+  await pruneSubscriptions(env.DB, valid, pushCallbackUrl(request), await pushSecret(env)).catch(
+    () => {}
+  );
   return json(await readFeed(env.DB));
 };

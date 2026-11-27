@@ -1,10 +1,14 @@
 // Subscription feed storage + fetching, shared by /api/feed/*. Exports no
 // onRequest* handler, so Pages doesn't route it.
 //
-// The browser drives a refresh one channel per request (so each invocation
-// stays well under the Workers subrequest limit and the UI gets real progress):
-//   POST /api/feed/start    -> claim the refresh if the last one is > 1h old
-//   POST /api/feed/channel  -> fetch one channel's RSS, upsert its videos
+// New uploads arrive in near real time via WebSub push (see websub.ts and
+// /api/feed/push). The browser also runs a periodic sweep, which fills in
+// anything a push missed and renews the WebSub leases. It goes one channel per
+// request, so each invocation stays well under the Workers subrequest limit and
+// the UI gets real progress:
+//   POST /api/feed/start    -> claim the sweep if the last one is > 6h old
+//   POST /api/feed/channel  -> fetch one channel's RSS, upsert its videos,
+//                              (re)subscribe it to push if its lease is ending
 //   POST /api/feed/finish   -> prune unsubscribed channels, stamp refreshed_at
 
 import { XMLParser } from "fast-xml-parser";
@@ -12,10 +16,15 @@ import { OwnerEnv } from "./owner";
 
 export interface FeedEnv extends OwnerEnv {
   DB: D1Database;
+  // The WebSub HMAC secret defaults to one derived from this...
+  GOOGLE_CLIENT_SECRET?: string;
+  // ...unless this is set explicitly.
+  WEBSUB_SECRET?: string;
 }
 
 export const MAX_FEED_VIDEOS = 100;
-export const REFRESH_INTERVAL_MS = 60 * 60_000;
+// Push delivers new uploads, so the sweep is only a backstop.
+export const REFRESH_INTERVAL_MS = 6 * 60 * 60_000;
 // A claimed refresh that never finishes (tab closed mid-run) stops blocking
 // others after this long.
 export const REFRESH_LOCK_MS = 10 * 60_000;
@@ -73,6 +82,15 @@ export async function ensureFeedSchema(db: D1Database) {
       )`
     ),
     db.prepare("INSERT OR IGNORE INTO feed_state (id, refreshed_at, started_at) VALUES (1, 0, 0)"),
+    // One row per channel we want WebSub pushes for. lease_expires_at is set
+    // when the hub verifies the subscription; requested_at rate-limits retries.
+    db.prepare(
+      `CREATE TABLE IF NOT EXISTS feed_subscriptions (
+        channel_id TEXT PRIMARY KEY,
+        lease_expires_at INTEGER NOT NULL,
+        requested_at INTEGER NOT NULL
+      )`
+    ),
   ]);
   schemaReady = true;
 }
@@ -142,7 +160,7 @@ export async function finishRefresh(db: D1Database, channelIds: string[]) {
 
 // --- Fetching -------------------------------------------------------------
 
-const parser = new XMLParser({ ignoreAttributes: false, attributeNamePrefix: "@_" });
+export const parser = new XMLParser({ ignoreAttributes: false, attributeNamePrefix: "@_" });
 
 const BROWSER_HEADERS = {
   "User-Agent":
@@ -157,16 +175,16 @@ const BROWSER_HEADERS = {
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
 // RSS dates are "+00:00", Data API dates are "Z"; normalise so string sort works.
-const isoDate = (s: unknown) => {
+export const isoDate = (s: unknown) => {
   const d = new Date(typeof s === "string" ? s : "");
   return Number.isNaN(d.getTime()) ? null : d.toISOString();
 };
 
 // Parsed XML / API JSON is untyped; fields are checked as they're read.
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-type Loose = Record<string, any>;
+export type Loose = Record<string, any>;
 
-type Fetched = Omit<FeedVideo, "releaseDate"> & { releaseDate: string | null };
+export type Fetched = Omit<FeedVideo, "releaseDate"> & { releaseDate: string | null };
 
 async function fetchViaRss(channelId: string, title: string): Promise<FeedVideo[] | null> {
   const url = `https://www.youtube.com/feeds/videos.xml?channel_id=${channelId}`;
@@ -234,7 +252,7 @@ async function fetchViaApi(
 }
 
 // 200 => genuine Shorts page; 3xx => regular video redirected to /watch.
-async function isShort(videoId: string): Promise<boolean> {
+export async function isShort(videoId: string): Promise<boolean> {
   try {
     const res = await fetch(`https://www.youtube.com/shorts/${videoId}`, {
       redirect: "manual",
@@ -249,9 +267,8 @@ async function isShort(videoId: string): Promise<boolean> {
   }
 }
 
-// Fetches one channel and upserts its videos. Shorts status is probed only for
-// videos we haven't seen before, then cached in the row. Returns null if both
-// RSS and the Data API failed.
+// Fetches one channel and upserts its videos. Returns null if both RSS and the
+// Data API failed.
 export async function refreshChannel(
   db: D1Database,
   channelId: string,
@@ -262,7 +279,14 @@ export async function refreshChannel(
     (await fetchViaRss(channelId, title).catch(() => null)) ??
     (await fetchViaApi(channelId, title, accessToken).catch(() => null));
   if (videos === null) return null;
-  if (videos.length === 0) return 0;
+  await upsertVideos(db, videos);
+  return videos.length;
+}
+
+// Inserts or updates videos. Shorts status is probed only for videos we
+// haven't seen before, then cached in the row.
+export async function upsertVideos(db: D1Database, videos: FeedVideo[]): Promise<void> {
+  if (videos.length === 0) return;
 
   const { results: known } = await db
     .prepare("SELECT video_id FROM feed_videos WHERE video_id IN (SELECT value FROM json_each(?1))")
@@ -299,5 +323,4 @@ export async function refreshChannel(
         )
     )
   );
-  return videos.length;
 }
