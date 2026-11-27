@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { ReactNode, useCallback, useEffect, useMemo, useState } from "react";
 import { sortVideos } from "../helpers/functions";
 import useStore from "../helpers/store";
 import MoveDropdown from "./MoveDropdown";
@@ -21,13 +21,27 @@ const toViewerVideo = (v: FeedVideo): Video => ({
 
 type Props = {
   title: string;
-  src: string;
+  // Either a static JSON file to fetch, or feed data the caller already has.
+  src?: string;
+  data?: StaticFeedData | null;
+  dataError?: string | null;
+  // Extra content under the title (e.g. refresh progress).
+  headerExtra?: ReactNode;
+  emptyMessage?: string;
   // When false the JSON array order is meaningful (recommendation ranking),
   // so the sort dropdown is hidden and no sorting is applied.
   sortable?: boolean;
 };
 
-export default function StaticFeed({ title, src, sortable = false }: Props) {
+export default function StaticFeed({
+  title,
+  src,
+  data = null,
+  dataError = null,
+  headerExtra,
+  emptyMessage = "The feed is empty.",
+  sortable = false,
+}: Props) {
   const gridView = useStore((state) => state.gridView);
   const viewingVideo = useStore((state) => state.viewingVideo);
   const setViewingVideo = useStore((state) => state.setViewingVideo);
@@ -41,8 +55,10 @@ export default function StaticFeed({ title, src, sortable = false }: Props) {
     if (sortable) setSort("releaseDate");
   }, [sortable, setSort]);
 
-  const [feed, setFeed] = useState<StaticFeedData | null>(null);
-  const [error, setError] = useState<string | null>(null);
+  const [fetched, setFetched] = useState<StaticFeedData | null>(null);
+  const [fetchError, setFetchError] = useState<string | null>(null);
+  const feed = src ? fetched : data;
+  const error = src ? fetchError : dataError;
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
 
   const toggleSelected = (id: string) => {
@@ -79,20 +95,21 @@ export default function StaticFeed({ title, src, sortable = false }: Props) {
   };
 
   useEffect(() => {
-    let cancelled = false;
-    setFeed(null);
-    setError(null);
     setSelectedIds(new Set());
+    if (!src) return;
+    let cancelled = false;
+    setFetched(null);
+    setFetchError(null);
     fetch(src, { cache: "no-cache" })
       .then((res) => {
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         return res.json();
       })
-      .then((data: StaticFeedData) => {
-        if (!cancelled) setFeed(data);
+      .then((json: StaticFeedData) => {
+        if (!cancelled) setFetched(json);
       })
       .catch((err) => {
-        if (!cancelled) setError(err.message);
+        if (!cancelled) setFetchError(err.message);
       });
     return () => {
       cancelled = true;
@@ -140,9 +157,10 @@ export default function StaticFeed({ title, src, sortable = false }: Props) {
               Updated {generatedLabel}
             </p>
           )}
+          {headerExtra}
         </ListHeader>
         <div className="overflow-y-auto">
-          {error && (
+          {error && !feed && (
             <p className="text-sm text-error">Couldn't load feed: {error}</p>
           )}
           {!feed && !error && (
@@ -151,9 +169,7 @@ export default function StaticFeed({ title, src, sortable = false }: Props) {
             </div>
           )}
           {feed && feed.videos.length === 0 && (
-            <p className="text-sm text-base-content/60">
-              The feed is empty. Run the daily refresh job to populate it.
-            </p>
+            <p className="text-sm text-base-content/60">{emptyMessage}</p>
           )}
           {feed && feed.videos.length > 0 && (
             <ul

@@ -7,6 +7,7 @@ import Sidebar from "./Sidebar";
 import History from "./History";
 import Search from "./Search";
 import Subscriptions from "./Subscriptions";
+import RecentFeed, { FeedRefreshBar } from "./RecentFeed";
 import StaticFeed from "./StaticFeed";
 import VideoViewer from "./VideoViewer";
 import Videos from "./Videos";
@@ -175,7 +176,7 @@ export default function HomePage() {
 
   const renderMain = () => {
     if (currentView.type === "feed")
-      return <StaticFeed title="Recent Feed" src="/subscription-feed.json" sortable />;
+      return <RecentFeed />;
     if (currentView.type === "recommended")
       return <StaticFeed title="Recommended" src="/recommended-feed.json" />;
     if (currentView.type === "subscriptions") return <Subscriptions />;
@@ -187,6 +188,7 @@ export default function HomePage() {
   return (
     <main className="h-screen flex flex-col">
       <Nav />
+      <FeedRefreshBar />
       <div className="flex flex-1 overflow-hidden">
         <Sidebar />
         {(!viewingVideo || !videoViewerExpanded || videoViewerPip) && (
