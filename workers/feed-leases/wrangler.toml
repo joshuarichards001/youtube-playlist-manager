@@ -1,0 +1,27 @@
+# Cron Worker that renews the Recent Feed's WebSub leases, so push keeps
+# working even when the app isn't opened for days. Deploy from the repo root:
+#   npx wrangler deploy --config workers/feed-leases/wrangler.toml
+# It needs the same secret the Pages project uses to sign subscriptions:
+#   npx wrangler secret put GOOGLE_CLIENT_SECRET --config workers/feed-leases/wrangler.toml
+# (or WEBSUB_SECRET, if that's set on the Pages project instead).
+name = "youtube-feed-leases"
+main = "src/index.ts"
+compatibility_date = "2026-04-22"
+workers_dev = false
+
+[triggers]
+crons = ["17 * * * *"]
+
+# Same D1 database as the Pages project's DB binding.
+[[d1_databases]]
+binding = "DB"
+database_name = "yt-progress"
+database_id = "c046b9ab-7e64-48e7-8625-f55466dc5307"
+
+[vars]
+# Must match the callback the subscriptions were made with (the Pages
+# production origin); a different URL would create duplicate subscriptions.
+PUSH_CALLBACK_URL = "https://youtube-playlist-manager-2ka.pages.dev/api/feed/push"
+
+[observability]
+enabled = true

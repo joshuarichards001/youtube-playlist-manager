@@ -4,11 +4,12 @@
 // Each subscribed channel's topic is subscribed at Google's hub with
 // /api/feed/push as the callback. The hub confirms with a GET (intent
 // verification) and then POSTs an Atom entry, signed with our secret, whenever
-// the channel uploads or edits a video. Leases last a few days, so the browser
-// sweep (/api/feed/channel) renews any that are close to expiring, and
+// the channel uploads or edits a video. Leases last a few days and are renewed
+// when close to expiring: hourly by the feed-leases cron Worker
+// (workers/feed-leases), and also by the browser sweep (/api/feed/channel).
 // /api/feed/finish unsubscribes channels that are no longer followed.
 
-import { FeedEnv } from "./feed";
+import type { FeedEnv } from "./feed";
 
 const HUB = "https://pubsubhubbub.appspot.com/subscribe";
 const LEASE_SECONDS = 10 * 24 * 60 * 60; // the hub may grant less
@@ -17,8 +18,9 @@ const LEASE_SECONDS = 10 * 24 * 60 * 60; // the hub may grant less
 const RENEW_BEFORE_MS = 2 * 24 * 60 * 60_000;
 // Don't re-send a subscribe request that's still awaiting verification.
 const RETRY_AFTER_MS = 60 * 60_000;
-// Stay under the Workers subrequest limit when unsubscribing in bulk.
-const MAX_UNSUBSCRIBES_PER_CALL = 40;
+// Stay under the Workers subrequest limit (50 on the free plan) when
+// (un)subscribing in bulk.
+const MAX_HUB_CALLS_PER_INVOCATION = 40;
 
 export const topicFor = (channelId: string) =>
   `https://www.youtube.com/xml/feeds/videos.xml?channel_id=${channelId}`;
@@ -56,7 +58,9 @@ async function hmacHex(alg: "SHA-1" | "SHA-256", key: string, data: string) {
 
 // WEBSUB_SECRET if set, otherwise derived from GOOGLE_CLIENT_SECRET so no
 // extra configuration is needed. Null disables push entirely.
-export async function pushSecret(env: FeedEnv): Promise<string | null> {
+export async function pushSecret(
+  env: Pick<FeedEnv, "WEBSUB_SECRET" | "GOOGLE_CLIENT_SECRET">
+): Promise<string | null> {
   if (env.WEBSUB_SECRET) return env.WEBSUB_SECRET;
   if (!env.GOOGLE_CLIENT_SECRET) return null;
   return hmacHex("SHA-256", env.GOOGLE_CLIENT_SECRET, "youtube-feed-websub");
@@ -169,7 +173,38 @@ export async function pruneSubscriptions(
   if (!callback || !secret) return;
   await Promise.all(
     results
-      .slice(0, MAX_UNSUBSCRIBES_PER_CALL)
+      .slice(0, MAX_HUB_CALLS_PER_INVOCATION)
       .map((r) => sendToHub("unsubscribe", r.channel_id, callback, secret))
   );
+}
+
+// Renews the leases closest to expiring (or never verified), up to the
+// per-invocation hub-call budget. Used by the cron Worker; returns how many
+// subscribe requests were sent and how many the hub accepted.
+export async function renewDueLeases(
+  db: D1Database,
+  callback: string,
+  secret: string
+): Promise<{ sent: number; accepted: number }> {
+  const now = Date.now();
+  // Claim the batch by stamping requested_at in the same statement, so the
+  // hub's verification (which needs the row) and the browser sweep (which
+  // skips recently requested rows) both see it before the hub is called.
+  const { results } = await db
+    .prepare(
+      `UPDATE feed_subscriptions SET requested_at = ?1
+       WHERE channel_id IN (
+         SELECT channel_id FROM feed_subscriptions
+         WHERE lease_expires_at < ?2 AND requested_at < ?3
+         ORDER BY lease_expires_at
+         LIMIT ?4
+       )
+       RETURNING channel_id`
+    )
+    .bind(now, now + RENEW_BEFORE_MS, now - RETRY_AFTER_MS, MAX_HUB_CALLS_PER_INVOCATION)
+    .all<{ channel_id: string }>();
+  const ok = await Promise.all(
+    results.map((r) => sendToHub("subscribe", r.channel_id, callback, secret))
+  );
+  return { sent: ok.length, accepted: ok.filter(Boolean).length };
 }
